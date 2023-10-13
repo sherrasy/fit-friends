@@ -48,8 +48,7 @@ export class CreateWorkoutDto  {
   })
   @MinLength(DescriptionLength.Min)
   @MaxLength(DescriptionLength.Max)
-  @IsOptional()
-  public description?: string;
+  public description: string;
 
   @ApiProperty({
     description: 'User gender',

@@ -12,7 +12,7 @@ export interface Workout {
   workoutTime: WorkoutTime;
   price: number;
   calories: number;
-  description?: string;
+  description: string;
   sex: UserSex;
   video?: string;
   rating: number;

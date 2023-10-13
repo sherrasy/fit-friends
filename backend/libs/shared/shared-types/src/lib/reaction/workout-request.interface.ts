@@ -1,4 +1,4 @@
-import { StatusRequest } from "./status-request.enum";
+import { StatusRequest } from "../common/status-request.enum";
 
 export interface WorkoutRequest {
   _id?: string;

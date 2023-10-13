@@ -1,6 +1,6 @@
+import { Location } from "../common/location.enum";
 import { UserRole } from "../common/user-role.enum";
 import { UserSex } from "../common/user-sex.enum";
-import { Location } from "./location.enum";
 
 export interface User {
   _id?: string;

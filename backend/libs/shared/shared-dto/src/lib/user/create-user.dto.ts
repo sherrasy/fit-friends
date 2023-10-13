@@ -3,9 +3,6 @@ import { IsEmail, IsOptional, IsString, MaxLength, MinLength } from 'class-valid
 import { DescriptionLength, EMAIL_ERROR, NameLength, PasswordLength } from '../constant';
 import { Location, UserRole, UserSex } from '@backend/shared/shared-types';
 
-
-
-
 export class CreateUserDto {
   @ApiProperty({
     description: 'User name',
@@ -62,7 +59,7 @@ export class CreateUserDto {
   @ApiProperty({
     description: 'User birthdate'
   })
-@IsString()
+  @IsString()
   @IsOptional()
   public birthDate?: string;
 
