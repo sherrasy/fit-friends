@@ -5,18 +5,18 @@ import { WorkoutType } from "../common/workout-type.enum";
 
 export interface Workout {
   _id?: string;
-  name?: string;
+  name: string;
   photo?: string;
-  fitnessLevel?: FitnessLevel;
-  workoutType?: WorkoutType;
-  workoutTime?: WorkoutTime;
-  price?: number;
-  calories?: number;
+  fitnessLevel: FitnessLevel;
+  workoutType: WorkoutType;
+  workoutTime: WorkoutTime;
+  price: number;
+  calories: number;
   description?: string;
-  sex?: UserSex;
+  sex: UserSex;
   video?: string;
-  rating?: number;
-  coachId?: string;
-  isSpecialOffer?: boolean;
-  createddate: string;
+  rating: number;
+  coachId: string;
+  isSpecialOffer: boolean;
+  createdDate: string;
 }
