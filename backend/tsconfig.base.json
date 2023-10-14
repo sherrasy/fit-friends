@@ -17,7 +17,10 @@
     "paths": {
       "@backend/config-users": ["libs/config/config-users/src/index.ts"],
       "@backend/config-workouts": ["libs/config/config-workouts/src/index.ts"],
-      "@backend/shared/shared-types": ["libs/shared/shared-types/src/index.ts"]
+      "@backend/shared-dto": ["libs/shared/shared-dto/src/index.ts"],
+      "@backend/shared/shared-types": ["libs/shared/shared-types/src/index.ts"],
+      "@backend/util-core": ["libs/util/util-core/src/index.ts"],
+      "@backend/util-types": ["libs/util/util-types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
