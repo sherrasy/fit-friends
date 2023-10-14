@@ -1,5 +1,41 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+enum UserSex {
+  male
+  female
+  any
+}
+
+enum FitnessLevel {
+  beginer
+  amateur
+  pro
+}
+
+enum WorkoutType {
+  yoga
+  running
+  boxing
+  stretching
+  crossfit
+  aerobics
+  pilates
+}
+
+enum WorkoutTime {
+  basic
+  intermediate
+  advanced
+  superior
+}
+
+enum Location {
+  pionerskaya
+  petrogradskaya
+  udelnaya
+  zvyozdnaya
+  sportivnaya
+}
 
 generator client {
   provider = "prisma-client-js"
@@ -36,41 +72,4 @@ model User {
   isReady        Boolean?      @default(false) @map("is_ready")
 
   @@map("users")
-}
-
-enum UserSex {
-  male
-  female
-  any
-}
-
-enum FitnessLevel {
-  beginer
-  amateur
-  pro
-}
-
-enum WorkoutType {
-  yoga
-  running
-  boxing
-  stretching
-  crossfit
-  aerobics
-  pilates
-}
-
-enum WorkoutTime {
-  basic
-  intermediate
-  advanced
-  superior
-}
-
-enum Location {
-  pionerskaya
-  petrogradskaya
-  udelnaya
-  zvyozdnaya
-  sportivnaya
 }
