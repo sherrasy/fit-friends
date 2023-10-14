@@ -5,7 +5,7 @@ import { User } from "./user.interface";
 export interface DetailsCoach extends User{
   fitnessLevel: FitnessLevel;
   workoutType: WorkoutType[];
-  certificate?: string[];
-  successInfo: string;
+  certificate?: string;
+  successInfo?: string;
   isPersonal: boolean;
 }

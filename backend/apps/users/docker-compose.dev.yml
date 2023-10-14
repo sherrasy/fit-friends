@@ -1,0 +1,42 @@
+version: '3.5'
+services:
+  fit-friends.users.postgres:
+    image: postgres:14-alpine
+    container_name: fit-friends.users.postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: fit-friends-users
+    ports:
+      - 5432:5432
+    volumes:
+      - fit-friends.postgres.users:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d test']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    networks:
+      - fit-friends.users
+
+  fit-friends.users.pgadmin:
+    image: dpage/pgadmin4
+    container_name: fit-friends.users.pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'keks@htmlacademy.local'
+      PGADMIN_DEFAULT_PASSWORD: 'test'
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - 8082:80
+    networks:
+      - fit-friends.users
+
+volumes:
+  fit-friends.postgres.users:
+
+networks:
+  fit-friends.users:
+    driver: bridge

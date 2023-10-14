@@ -2,7 +2,7 @@ import { FitnessLevel, WorkoutType } from "@backend/shared/shared-types";
 import {WORKOUT_TYPE_AMOUNT } from "@backend/util-core";
 import { CreateUserDto } from "./create-user.dto";
 import { ApiProperty } from "@nestjs/swagger";
-import { ArrayMaxSize, IsBoolean, IsEnum, MaxLength, MinLength } from "class-validator";
+import { ArrayMaxSize, IsBoolean, IsEnum, IsOptional, MaxLength, MinLength } from "class-validator";
 import { DescriptionLength } from "../../constant";
 
 export class CreateCoachDto extends CreateUserDto {
@@ -25,7 +25,8 @@ export class CreateCoachDto extends CreateUserDto {
   })
   @MinLength(DescriptionLength.Min)
   @MaxLength(DescriptionLength.Max)
-  successInfo: string;
+  @IsOptional()
+  successInfo?: string;
 
   @ApiProperty({
     description: 'Open for personal training flag',
