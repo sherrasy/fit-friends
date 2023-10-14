@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
-import { DescriptionLength, EMAIL_ERROR, NameLength, PasswordLength } from '../constant';
+import { DescriptionLength, EMAIL_ERROR, NameLength, PasswordLength } from '../../constant';
 import { Location, UserRole, UserSex } from '@backend/shared/shared-types';
 
 export class CreateUserDto {
