@@ -21,8 +21,8 @@ model User {
   location       Location
   fitnessLevel   FitnessLevel  @map("fitness_level")
   workoutType    WorkoutType[] @map("workout_type")
-  workoutTime    WorkoutTime   @map("workout_time")
-  successInfo    String?
+  workoutTime    WorkoutTime?  @map("workout_time")
+  successInfo    String?       @map("success_info")
   caloriesTotal  Int?          @map("calories_total")
   caloriesPerDay Int?          @map("calories_per_day")
   description    String?
