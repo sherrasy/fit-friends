@@ -1,12 +1,12 @@
 // import { Body, Req, Controller, Get, HttpStatus,HttpCode, Param, Post, UseGuards } from '@nestjs/common';
 // import { AuthenticationService } from './authentication.service';
-// import { JwtAuthGuard, fillObject } from '@backend/util-core';
+// import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 // import { API_TAG_NAME, AuthError, AuthMessages, AuthPath } from './authentication.constant';
 // import { UserRdo } from './rdo/user.rdo';
 // import { LoggedUserRdo } from './rdo/logged-user.rdo';
 // import { LocalAuthGuard } from './guards/local-auth.guard';
 // import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
-// import { CreateFullUserDto } from '@backend/shared-dto';
+// import { CreateFullUserDto } from '@backend/shared/shared-dto';
 // import { ApiResponse, ApiTags } from '@nestjs/swagger';
 // import { RequestWithUser, RequestWithUserPayload } from '@backend/shared/shared-types';
 

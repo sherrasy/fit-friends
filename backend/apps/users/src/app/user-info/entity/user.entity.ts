@@ -3,7 +3,7 @@ import { genSalt, hash, compare } from 'bcrypt';
 import { SALT_ROUNDS } from '../user-info.constant';
 
 export abstract class UserEntity implements User {
-  public _id: string;
+  public id: number;
   public name: string;
   public email: string;
   public avatar: string;
@@ -25,7 +25,7 @@ export abstract class UserEntity implements User {
   }
 
   public fillEntity(user: User) {
-    this._id = user._id;
+    this.id = user.id;
     this.name = user.name;
     this.email = user.email;
     this.avatar = user.avatar;

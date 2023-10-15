@@ -1,7 +1,7 @@
 // import { Module } from '@nestjs/common';
 // import { AuthenticationController } from './authentication.controller';
 // // import { AuthenticationService } from './authentication.service';
-// import { JwtAccessStrategy, getJwtOptions } from '@backend/util-core';
+// import { JwtAccessStrategy, getJwtOptions } from '@backend/util/util-core';
 // import { LocalStrategy } from './strategies/local.strategy';
 // import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 // import { JwtModule } from '@nestjs/jwt';

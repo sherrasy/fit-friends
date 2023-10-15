@@ -1,5 +1,10 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+enum UserRole {
+  coach
+  sportsman
+}
+
 enum UserSex {
   male
   female
@@ -53,7 +58,7 @@ model User {
   email          String
   password       String
   sex            UserSex
-  role           String
+  role           UserRole
   location       Location
   fitnessLevel   FitnessLevel  @map("fitness_level")
   workoutType    WorkoutType[] @map("workout_type")

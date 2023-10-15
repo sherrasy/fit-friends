@@ -1,62 +1,45 @@
-import {
-  FitnessLevel,
-  WorkoutTime,
-  WorkoutType,
-} from '@backend/shared/shared-types';
-import { WORKOUT_TYPE_AMOUNT } from '@backend/util/util-core';
-import { CreateUserDto } from './create-user.dto';
+import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  ArrayMaxSize,
-  IsBoolean,
-  IsEnum,
-  IsInt,
-  Max,
-  Min,
-} from 'class-validator';
-import { CaloriesAmount } from '../../constant';
+import { FitnessLevel, WorkoutTime, WorkoutType } from '@backend/shared/shared-types';
+import { UserRdo } from './user.rdo';
 
-export class CreateSportsmanDto extends CreateUserDto {
+export class SportsmanRdo extends UserRdo {
   @ApiProperty({
     description: 'The level of fitness of the user',
     enum: FitnessLevel,
   })
-  @IsEnum(WorkoutType)
+  @Expose()
   public fitnessLevel: FitnessLevel;
 
   @ApiProperty({
     description: 'Type of workout',
     enum: WorkoutType,
   })
-  @ArrayMaxSize(WORKOUT_TYPE_AMOUNT)
+  @Expose()
   public workoutType: WorkoutType[];
 
   @ApiProperty({
     description: 'Time for workout',
     enum: WorkoutTime,
   })
-  @IsEnum(WorkoutTime)
+  @Expose()
   public workoutTime: WorkoutTime;
 
   @ApiProperty({
     description: 'Number of calories to reset',
   })
-  @IsInt()
-  @Min(CaloriesAmount.Min)
-  @Max(CaloriesAmount.Max)
+  @Expose()
   public caloriesTotal: number;
 
   @ApiProperty({
     description: 'Number of calories to reset per day',
   })
-  @IsInt()
-  @Min(CaloriesAmount.Min)
-  @Max(CaloriesAmount.Max)
+  @Expose()
   public caloriesPerDay: number;
 
   @ApiProperty({
     description: 'Ready for training flag',
   })
-  @IsBoolean()
+  @Expose()
   isReady: boolean;
 }
