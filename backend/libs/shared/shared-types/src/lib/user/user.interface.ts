@@ -14,4 +14,5 @@ export interface User {
   description?: string;
   location: Location;
   photo?: string;
+  createdDate:string;
 }
