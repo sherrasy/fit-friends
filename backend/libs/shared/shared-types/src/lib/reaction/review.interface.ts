@@ -1,5 +1,5 @@
 export interface Review {
-  _id?: string;
+  id?: string;
   userId: string;
   workoutId: string;
   rating: number;

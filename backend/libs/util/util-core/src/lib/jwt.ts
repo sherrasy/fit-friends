@@ -14,7 +14,7 @@ export async function getJwtOptions(configService: ConfigService): Promise<JwtMo
 
 export function createJWTPayload(user: User): TokenPayload {
   return {
-    sub: user._id,
+    sub: user.id,
     email: user.email,
     name: user.name,
   };

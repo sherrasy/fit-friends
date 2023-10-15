@@ -8,7 +8,7 @@ import { ENV_USERS_FILE_PATH } from './config-users.constant';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [ jwtConfig],
+      load: [jwtConfig],
       envFilePath: ENV_USERS_FILE_PATH
     }),
   ]

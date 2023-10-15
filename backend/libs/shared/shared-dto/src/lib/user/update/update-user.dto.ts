@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { DescriptionLength, NameLength} from '../../constant';
-import { Location, UserSex } from '@backend/shared/shared-types';
+import { Location, UserRole, UserSex } from '@backend/shared/shared-types';
 
 export class UpdateUserDto {
   @ApiProperty({
@@ -43,4 +43,9 @@ export class UpdateUserDto {
   @IsOptional()
   public birthDate?: string;
 
+  @ApiProperty({
+    description: 'User role',
+    enum: UserRole
+  })
+  public role: UserRole;
 }
