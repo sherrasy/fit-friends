@@ -27,13 +27,6 @@ enum WorkoutType {
   pilates
 }
 
-enum WorkoutTime {
-  basic
-  intermediate
-  advanced
-  superior
-}
-
 enum Location {
   pionerskaya
   petrogradskaya
@@ -76,13 +69,13 @@ model User {
 }
 
 model Sportsman {
-  sportsmanId    Int         @id @default(autoincrement()) @map("sportsman_id")
-  userId         Int         @unique @map("user_id")
-  workoutTime    WorkoutTime @map("workout_time")
-  caloriesTotal  Int         @map("calories_total")
-  caloriesPerDay Int         @map("calories_per_day")
-  isReady        Boolean     @default(false) @map("is_ready")
-  user           User        @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+  sportsmanId    Int     @id @default(autoincrement()) @map("sportsman_id")
+  userId         Int     @unique @map("user_id")
+  workoutTime    String  @map("workout_time")
+  caloriesTotal  Int     @map("calories_total")
+  caloriesPerDay Int     @map("calories_per_day")
+  isReady        Boolean @default(false) @map("is_ready")
+  user           User    @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("sportsman_info")
 }

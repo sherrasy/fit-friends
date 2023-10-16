@@ -1,7 +1,6 @@
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Location, UserRole, UserSex } from '@backend/shared/shared-types';
-
+import { Location, UserRole, UserSex, FitnessLevel, WorkoutType, Sportsman, Coach } from '@backend/shared/shared-types';
 export class UserRdo {
   @ApiProperty({
     description: 'The unique user ID',
@@ -70,4 +69,32 @@ export class UserRdo {
   })
   @Expose()
   public photo: string;
+
+  @ApiProperty({
+    description: 'The level of fitness of the user',
+    enum: FitnessLevel,
+  })
+  @Expose()
+  public fitnessLevel: FitnessLevel;
+
+  @ApiProperty({
+    description: 'Type of workout',
+    enum: WorkoutType,
+  })
+  @Expose()
+  public workoutType: WorkoutType[];
+
+  @ApiProperty({
+    description: 'Sportsman info if role sportsman',
+  })
+  @Expose()
+  public sportsmanInfo?: Sportsman;
+
+  @ApiProperty({
+    description: 'Coach info if role coach',
+  })
+  @Expose()
+  public coachInfo: Coach;
+
+
 }

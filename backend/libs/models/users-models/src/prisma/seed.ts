@@ -22,7 +22,7 @@ async function fillDb() {
       photo: 'photo1.png',
       sportsmanInfo: {
         create: {
-          workoutTime: 'basic',
+          workoutTime: '10-30 мин',
           caloriesTotal: 1000,
           caloriesPerDay: 1000,
           isReady: true,
@@ -71,7 +71,7 @@ async function fillDb() {
       photo: 'photo3.png',
       sportsmanInfo: {
         create: {
-          workoutTime: 'intermediate',
+          workoutTime: '30-50 мин',
           caloriesTotal: 5000,
           caloriesPerDay: 3000,
           isReady: false,
@@ -121,7 +121,7 @@ async function fillDb() {
       workoutType: ['aerobics'],
       sportsmanInfo: {
         create: {
-          workoutTime: 'superior',
+          workoutTime: '80-100 мин',
           caloriesTotal: 4000,
           caloriesPerDay: 2000,
           isReady: true,

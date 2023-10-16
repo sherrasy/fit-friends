@@ -17,7 +17,6 @@ export * from './lib/user/request-with-user.interface';
 export * from './lib/user/token-payload.interface';
 export * from './lib/common/location.enum';
 export * from './lib/user/user.interface';
-export * from './lib/user/user-info.type';
 export * from './lib/workout/workout.interface';
 export * from './lib/jwt-config.interface';
 export * from './lib/prisma-types/prisma-user.interface';
