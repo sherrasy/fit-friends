@@ -1,7 +1,7 @@
 import { PaymentOption } from "../common/payment-option.enum";
 
 export interface Order {
-  _id?: string;
+  id?: string;
   orderType: string;
   workoutId: string;
   price: number;

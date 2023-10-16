@@ -1,2 +1,5 @@
-export * from './lib/helpers.js';
-export * from './lib/constant.js';
+export * from './lib/helpers';
+export * from './lib/constant';
+export * from './lib/jwt';
+export * from './lib/guards/jwt-auth.guard';
+export * from './lib/strategies/jwt-access.strategy';

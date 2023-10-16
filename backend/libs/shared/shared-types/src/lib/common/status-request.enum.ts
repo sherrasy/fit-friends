@@ -1,5 +1,5 @@
 export enum StatusRequest {
-  Pending = 'на рассмотрении',
-  Rejected = 'отклонён',
-  Accepted = 'принят',
+  Pending = 'pending',
+  Rejected = 'rejected',
+  Accepted = 'accepted',
 }

@@ -4,7 +4,7 @@ import { WorkoutTime } from "../common/workout-time.enum";
 import { WorkoutType } from "../common/workout-type.enum";
 
 export interface Workout {
-  _id?: string;
+  id?: string;
   name: string;
   photo?: string;
   fitnessLevel: FitnessLevel;

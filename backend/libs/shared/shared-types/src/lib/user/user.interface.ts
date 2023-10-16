@@ -3,7 +3,7 @@ import { UserRole } from "../common/user-role.enum";
 import { UserSex } from "../common/user-sex.enum";
 
 export interface User {
-  _id?: string;
+  _id?: number;
   name: string;
   email: string;
   avatar?: string;
@@ -14,4 +14,5 @@ export interface User {
   description?: string;
   location: Location;
   photo?: string;
+  createdDate:string;
 }

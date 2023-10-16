@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+enum UserRole {
+  coach
+  sportsman
+}
+
+enum UserSex {
+  male
+  female
+  any
+}
+
+enum FitnessLevel {
+  beginer
+  amateur
+  pro
+}
+
+enum WorkoutType {
+  yoga
+  running
+  boxing
+  stretching
+  crossfit
+  aerobics
+  pilates
+}
+
+enum WorkoutTime {
+  basic
+  intermediate
+  advanced
+  superior
+}
+
+enum Location {
+  pionerskaya
+  petrogradskaya
+  udelnaya
+  zvyozdnaya
+  sportivnaya
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../../../../../node_modules/.prisma/client"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int           @id @default(autoincrement()) @map("user_id")
+  name           String
+  email          String
+  password       String
+  sex            UserSex
+  role           UserRole
+  location       Location
+  fitnessLevel   FitnessLevel  @map("fitness_level")
+  workoutType    WorkoutType[] @map("workout_type")
+  workoutTime    WorkoutTime?  @map("workout_time")
+  successInfo    String?       @map("success_info")
+  caloriesTotal  Int?          @map("calories_total")
+  caloriesPerDay Int?          @map("calories_per_day")
+  description    String?
+  birthDate      String?       @map("birth_date")
+  createdDate    DateTime      @default(now())
+  updatedDate    DateTime      @updatedAt
+  avatar         String?
+  photo          String?
+  certificate    String?
+  isPersonal     Boolean?      @default(false) @map("is_personal")
+  isReady        Boolean?      @default(false) @map("is_ready")
+
+  @@map("users")
+}

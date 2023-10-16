@@ -1,5 +1,5 @@
 import { FitnessLevel, WorkoutType } from "@backend/shared/shared-types";
-import {WORKOUT_TYPE_AMOUNT } from "@backend/util-core";
+import {WORKOUT_TYPE_AMOUNT } from "@backend/util/util-core";
 import { ApiProperty } from "@nestjs/swagger";
 import { ArrayMaxSize, IsBoolean, IsEnum, IsOptional, MaxLength, MinLength } from "class-validator";
 import { DescriptionLength } from "../../constant";

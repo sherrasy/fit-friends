@@ -3,7 +3,7 @@ import {
   WorkoutTime,
   WorkoutType,
 } from '@backend/shared/shared-types';
-import { WORKOUT_TYPE_AMOUNT } from '@backend/util-core';
+import { WORKOUT_TYPE_AMOUNT } from '@backend/util/util-core';
 import { CreateUserDto } from './create-user.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import {

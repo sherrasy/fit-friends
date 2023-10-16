@@ -20,7 +20,6 @@ export class CreateUserDto {
   @IsEmail({}, { message: EMAIL_ERROR})
   public email: string;
 
-
   @ApiProperty({
     description: 'User password',
     example: '123456'
