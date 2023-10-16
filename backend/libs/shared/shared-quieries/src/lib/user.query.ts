@@ -1,13 +1,13 @@
-import { IsNumber,IsEnum, IsOptional } from 'class-validator';
+import { IsNumber,IsEnum, IsOptional, IsIn } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { LIMIT } from './query.constant';
+import { DefaultQueryParam,  } from './query.constant';
 import {FitnessLevel, Location, UserRole, WorkoutType} from '@backend/shared/shared-types'
 
 export class UserQuery {
-  @Transform(({ value } ) => +value || LIMIT)
+  @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
   @IsNumber()
   @IsOptional()
-  public limit = LIMIT;
+  public limit = DefaultQueryParam.Limit;
 
   @Transform(({ value }) => +value)
   @IsOptional()
@@ -30,5 +30,9 @@ export class UserQuery {
   @IsEnum(Location, {each:true})
   @IsOptional()
   public location?: string;
+
+  @IsIn(['asc', 'desc'])
+  @IsOptional()
+  public sortDirection?: 'desc' | 'asc' = DefaultQueryParam.Direction;
 
 }

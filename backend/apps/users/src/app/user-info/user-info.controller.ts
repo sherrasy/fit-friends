@@ -11,19 +11,18 @@ import { UserQuery } from '@backend/shared-quieries';
       private readonly userInfoService: UserInfoService,
     ) {}
 
-    // @ApiResponse({
-    //   status: HttpStatus.OK,
-    //   description: UserInfoMessages.UserFound
-    // })
-    // @ApiResponse({
-    //   status: HttpStatus.NOT_FOUND,
-    //   description: UserInfoError.EmptyList
-    // })
-    // @Get(UserInfoPath.Show)
-    // public async showList(@Query() query:UserQuery) {
-    //   const userList = await this.userInfoService.getUserList(query)
-    //   return userList.map((user)=>adaptRdoUserInfo(user));
-    // }
+    @ApiResponse({
+      status: HttpStatus.OK,
+      description: UserInfoMessages.UserFound
+    })
+    @ApiResponse({
+      status: HttpStatus.NOT_FOUND,
+      description: UserInfoError.EmptyList
+    })
+    @Get(UserInfoPath.Show)
+    public async showList(@Query() query:UserQuery) {
+     return await this.userInfoService.getUserList(query);
+    }
 
     @ApiResponse({
       status: HttpStatus.OK,
@@ -35,10 +34,8 @@ import { UserQuery } from '@backend/shared-quieries';
     })
     @Get(UserInfoPath.Id)
     public async showSingle(@Param('id') id: number) {
-      const user = await this.userInfoService.findById(id)
-      return user;
+      return await this.userInfoService.findById(id);
     }
-
 
   }
 
