@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CRUDRepository } from '@backend/util/util-types';
-import { UserInfoEntity } from './entity/user-info-entity.type';
+import { UserEntity } from './entity/user.entity';
 import { UserInfo } from '@backend/shared/shared-types';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 
 @Injectable()
 export class UserInfoRepository
-  implements CRUDRepository<UserInfoEntity, number, UserInfo>
+  implements CRUDRepository<UserEntity, number, UserInfo>
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  // public async create(item: UserInfoEntity): Promise<UserInfo> {
+  // public async create(item: UserEntity): Promise<UserInfo> {
   // const data ={
   //   ...item.toObject(),
   //   password:item.passwordHash
   // }
   // delete data._id;
   // delete data.passwordHash;
-  // const newUser = await this.prisma.user.create({ data } );
+  // // const newUser = await this.prisma.user.create({ data } );
   // return adaptPrismaUser(newUser);
   // }
 

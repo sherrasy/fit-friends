@@ -16,15 +16,7 @@ export abstract class UserEntity implements User {
   public photo: string;
   public createdDate: string;
 
-  constructor(blogUser: User) {
-    this.fillEntity(blogUser);
-  }
-
-  public toObject() {
-    return {...this };
-  }
-
-  public fillEntity(user: User) {
+  constructor(user: User) {
     this._id = user._id;
     this.name = user.name;
     this.email = user.email;
@@ -36,7 +28,10 @@ export abstract class UserEntity implements User {
     this.description = user.description;
     this.location = user.location;
     this.photo = user.photo;
-    this.createdDate = user.createdDate;
+    this.createdDate = user.createdDate; }
+
+  public toObject() {
+    return {...this };
   }
 
   public async setPassword(password: string): Promise<UserEntity> {
