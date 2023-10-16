@@ -7,7 +7,7 @@ export class UserRdo {
     description: 'The unique user ID',
     example: '1'
   })
-  @Expose()
+  @Expose({ name: '_id' })
   public id: number;
 
   @ApiProperty({

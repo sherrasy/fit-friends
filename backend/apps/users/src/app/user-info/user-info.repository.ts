@@ -16,8 +16,9 @@ export class UserInfoRepository
   //   ...item.toObject(),
   //   password:item.passwordHash
   // }
+  // delete data._id;
   // delete data.passwordHash;
-  //   const newUser = await this.prisma.user.create({data});
+  // const newUser = await this.prisma.user.create({ data } );
   // return adaptPrismaUser(newUser);
   // }
 
