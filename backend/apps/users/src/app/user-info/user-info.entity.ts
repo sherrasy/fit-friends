@@ -1,8 +1,8 @@
-import { Location, User, UserRole, UserSex } from '@backend/shared/shared-types';
+import { Location, User, UserRole, UserSex, FitnessLevel, WorkoutType, Sportsman, Coach } from '@backend/shared/shared-types';
 import { genSalt, hash, compare } from 'bcrypt';
-import { SALT_ROUNDS } from '../user-info.constant';
+import { SALT_ROUNDS } from './user-info.constant';
 
-export abstract class UserEntity implements User {
+export abstract class UserInfoEntity implements User {
   public _id?: number;
   public name: string;
   public email: string;
@@ -12,11 +12,23 @@ export abstract class UserEntity implements User {
   public birthDate?: string;
   public role: UserRole;
   public description?: string;
+  public sportsmanInfo?: Sportsman | null;
+  public coachInfo?: Coach | null;
   public location: Location;
   public photo: string;
   public createdDate: string;
+  public fitnessLevel: FitnessLevel;
+  public workoutType: WorkoutType[];
 
   constructor(user: User) {
+    this.fillEntity(user);
+   }
+
+  public toObject() {
+    return {...this };
+  }
+
+  public fillEntity(user:User) {
     this._id = user._id;
     this.name = user.name;
     this.email = user.email;
@@ -26,15 +38,16 @@ export abstract class UserEntity implements User {
     this.birthDate = user.birthDate;
     this.role = user.role;
     this.description = user.description;
+    this.sportsmanInfo = user.sportsmanInfo;
+    this.coachInfo = user.coachInfo;
     this.location = user.location;
     this.photo = user.photo;
-    this.createdDate = user.createdDate; }
+    this.createdDate = user.createdDate;
+    this.fitnessLevel = user.fitnessLevel;
+    this.workoutType = user.workoutType;
+    }
 
-  public toObject() {
-    return {...this };
-  }
-
-  public async setPassword(password: string): Promise<UserEntity> {
+  public async setPassword(password: string): Promise<UserInfoEntity> {
     const salt = await genSalt(SALT_ROUNDS);
     this.passwordHash = await hash(password, salt);
     return this;

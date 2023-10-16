@@ -25,8 +25,8 @@ export class AuthenticationService {
       throw new ConflictException(AuthError.UserExists);
     }
 
-    // const userEntity = await new RoleEntityAdapter[dto.role](user)
-    //   .setPassword(dto.password)
+    const userEntity = await new RoleEntityAdapter[dto.role](user)
+      .setPassword(dto.password)
 
     // return this.userInfoRepository.create(userEntity);
   }

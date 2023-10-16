@@ -1,28 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CRUDRepository } from '@backend/util/util-types';
-import { UserEntity } from './entity/user.entity';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 import { UserQuery } from '@backend/shared-quieries';
-import { FitnessLevel, Location, UserRole, WorkoutType } from '@prisma/client';
+import { FitnessLevel, UserRole } from '@prisma/client';
 import { UserInfo } from '@backend/shared/shared-types';
+import { UserInfoEntity } from './entity/user-info-entity.type';
 
 @Injectable()
 export class UserInfoRepository
-  implements CRUDRepository<UserEntity, number, UserInfo>
+  implements CRUDRepository<UserInfoEntity, number, UserInfo>
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  // public async create(item: UserEntity): Promise<UserInfo> {
-  // const data ={
-  //   ...item.toObject(),
-  //   password:item.passwordHash
-  // }
-  // delete data._id;
-  // delete data.passwordHash;
-  // // const newUser = await this.prisma.user.create({ data } );
-  // return adaptPrismaUser(newUser);
-  // }
+  public async create(item: UserInfoEntity): Promise<UserInfo> {
+  const data ={
+    ...item.toObject(),
+    password:item.passwordHash
+  }
+  delete data._id;
+  delete data.passwordHash;
+  const newUser = await this.prisma.user.create({ data } );
+  return adaptPrismaUser(newUser);
+  }
 
   public async findById(id: number): Promise<UserInfo | null> {
     const user = await this.prisma.user.findFirst({
