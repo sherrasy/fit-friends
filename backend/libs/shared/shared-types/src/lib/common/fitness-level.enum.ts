@@ -1,5 +1,5 @@
 export enum FitnessLevel {
-  Beginner = 'новичок',
-  Amateur = 'любитель',
-  Pro = 'профессионал',
+  Beginner = 'beginner',
+  Amateur = 'amateur',
+  Pro = 'pro',
 }

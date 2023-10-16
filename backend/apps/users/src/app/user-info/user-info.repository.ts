@@ -2,8 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CRUDRepository } from '@backend/util/util-types';
 import { UserEntity } from './entity/user.entity';
-import { UserInfo } from '@backend/shared/shared-types';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
+import { UserQuery } from '@backend/shared-quieries';
+import { FitnessLevel, Location, UserRole, WorkoutType } from '@prisma/client';
+import { UserInfo } from '@backend/shared/shared-types';
 
 @Injectable()
 export class UserInfoRepository
@@ -40,8 +42,26 @@ export class UserInfoRepository
     return adaptPrismaUser(user);
   }
 
-  public async show(): Promise<UserInfo[]> {
-    const users = await this.prisma.user.findMany();
+  public async show({limit, page, role, location, fitnessLevel, workoutType}:UserQuery): Promise<UserInfo[]> {
+    const queryParams = {
+      where: {
+        AND: {
+          role: role as UserRole,
+          fitnessLevel: fitnessLevel as FitnessLevel,
+          workoutType: undefined,
+          location: undefined,
+        }
+      },
+      take: limit,
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    }
+    if (workoutType) {
+      queryParams.where.AND.workoutType = { hasSome: workoutType };
+    }
+    if (location) {
+      queryParams.where.AND.location = { in: location };
+    }
+    const users = await this.prisma.user.findMany(queryParams);
     return users.map((user)=> adaptPrismaUser(user));
   }
 

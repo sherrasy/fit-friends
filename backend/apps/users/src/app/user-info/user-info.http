@@ -5,6 +5,10 @@ GET http://localhost:3001/api/user-info/22 HTTP/1.1
 
 
 # Get userList
-GET http://localhost:3001/api/user-info/show HTTP/1.1
-
+GET http://localhost:3001/api/user-info/show?workoutType=yoga&location=pionerskaya HTTP/1.1
+# Query params
+## role=coach
+## workoutType=yoga || workoutType=yoga,stretching
+## fitnessLevel=pro
+## location=pionerskaya || location=pionerskaya,zvyozdnaya
 ###
