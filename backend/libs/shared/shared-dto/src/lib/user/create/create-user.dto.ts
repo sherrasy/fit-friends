@@ -37,18 +37,21 @@ export class CreateUserDto {
     description: 'User gender',
     enum: UserSex
   })
+  @IsEnum(UserSex)
   public sex: UserSex;
 
   @ApiProperty({
     description: 'User role',
     enum: UserRole
   })
+  @IsEnum(UserRole)
   public role: UserRole;
 
   @ApiProperty({
     description: 'User location',
     enum: Location
   })
+  @IsEnum(Location)
   public location: Location;
 
   @ApiProperty({

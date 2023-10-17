@@ -24,6 +24,7 @@ export class UpdateUserDto {
     enum: UserSex
   })
   @IsOptional()
+  @IsEnum(UserSex)
   public sex?: UserSex;
 
   @ApiProperty({
@@ -31,6 +32,7 @@ export class UpdateUserDto {
     enum: Location
   })
   @IsOptional()
+  @IsEnum(Location)
   public location?: Location;
 
   @ApiProperty({
@@ -47,12 +49,6 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   public birthDate?: string;
-
-  @ApiProperty({
-    description: 'User role',
-    enum: UserRole
-  })
-  public role: UserRole;
 
   @ApiProperty({
     description: 'The level of fitness of the user',
