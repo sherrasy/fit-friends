@@ -57,6 +57,12 @@ export class UserRdo {
   public birthDate?: string;
 
   @ApiProperty({
+    description: 'User profile created date'
+  })
+  @Expose()
+  public createdDate: string;
+
+  @ApiProperty({
     description: 'User avatar path',
     example: '/images/user.png'
   })
