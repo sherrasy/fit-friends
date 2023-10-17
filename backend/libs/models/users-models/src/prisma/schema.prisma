@@ -12,7 +12,7 @@ enum UserSex {
 }
 
 enum FitnessLevel {
-  beginer
+  beginner
   amateur
   pro
 }

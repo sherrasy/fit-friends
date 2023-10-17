@@ -6,7 +6,7 @@ type Location =
   | 'udelnaya'
   | 'zvyozdnaya'
   | 'sportivnaya';
-type FitnessLevel = 'beginer' | 'amateur' | 'pro';
+type FitnessLevel = 'beginner' | 'amateur' | 'pro';
 type WorkoutType =
   | 'yoga'
   | 'running'

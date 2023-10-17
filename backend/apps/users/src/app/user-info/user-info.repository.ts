@@ -4,25 +4,41 @@ import { CRUDRepository } from '@backend/util/util-types';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 import { UserQuery } from '@backend/shared-quieries';
 import { FitnessLevel, UserRole } from '@prisma/client';
-import { User } from '@backend/shared/shared-types';
+import { PrismaCoach, PrismaSportsman, User } from '@backend/shared/shared-types';
 import { UserInfoEntity } from './user-info.entity';
+import { adaptUserToPrisma } from '../utils/adapt-user-to-prisma';
 
 @Injectable()
 export class UserInfoRepository
   implements CRUDRepository<UserInfoEntity, number, User>
 {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  // public async create(item: UserInfoEntity): Promise<UserInfo> {
-  // const data ={
-  //   ...item.toObject(),
-  //   password:item.passwordHash
-  // }
-  // delete data._id;
-  // delete data.passwordHash;
-  // const newUser = await this.prisma.user.create({ data } );
-  // return adaptPrismaUser(newUser);
-  // }
+  public async create(item: UserInfoEntity): Promise<User> {
+    const userData = adaptUserToPrisma(item)
+    const newUser = await this.prisma.user.create({
+      data:
+      {
+        ...userData,
+        sportsmanInfo:
+        item.sportsmanInfo
+        ?{
+          create: item.sportsmanInfo as PrismaSportsman
+        }
+        :undefined,
+        coachInfo: item.coachInfo
+        ?        {
+          create: item.coachInfo as PrismaCoach
+        }
+        :undefined
+      },
+      include: {
+        sportsmanInfo: true,
+        coachInfo: true,
+      }
+    });
+    return adaptPrismaUser(newUser);
+  }
 
   public async findById(id: number): Promise<User | null> {
     const user = await this.prisma.user.findFirst({
@@ -46,7 +62,7 @@ export class UserInfoRepository
     return adaptPrismaUser(user);
   }
 
-  public async show({limit, page, role, location, fitnessLevel, workoutType, sortDirection}:UserQuery): Promise<User[]> {
+  public async show({ limit, page, role, location, fitnessLevel, workoutType, sortDirection }: UserQuery): Promise<User[]> {
     const queryParams = {
       where: {
         AND: {
@@ -71,7 +87,7 @@ export class UserInfoRepository
       queryParams.where.AND.location = { in: location };
     }
     const users = await this.prisma.user.findMany(queryParams);
-    return users.map((user)=> adaptPrismaUser(user));
+    return users.map((user) => adaptPrismaUser(user));
   }
 
   // public async update(id: number, item: UserInfoEntity): Promise<UserInfo> {

@@ -2,7 +2,7 @@ import { Location, User, UserRole, UserSex, FitnessLevel, WorkoutType, Sportsman
 import { genSalt, hash, compare } from 'bcrypt';
 import { SALT_ROUNDS } from './user-info.constant';
 
-export abstract class UserInfoEntity implements User {
+export class UserInfoEntity implements User {
   public _id?: number;
   public name: string;
   public email: string;

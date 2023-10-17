@@ -7,18 +7,20 @@ Content-Type: application/json
   "name": "John Doe",
   "password": "123456",
   "avatar": "avatar1.png",
-    "sex": "male",
-    "birthDate": "14.10.2023",
-    "role": "sportsman",
-    "description": "John sportsman description",
-    "location": "pionerskaya",
-    "photo": "photo1.png",
-    "fitnessLevel": "beginer",
-    "workoutType": ["yoga"],
-    "workoutTime": "basic",
+  "sex": "male",
+  "birthDate": "14.10.2023",
+  "role": "sportsman",
+  "description": "John sportsman description",
+  "location": "pionerskaya",
+  "photo": "photo1.png",
+  "fitnessLevel": "beginner",
+  "workoutType": ["yoga"],
+  "sportsmanInfo":{
+    "workoutTime": "10-30 мин",
     "caloriesTotal": 1000,
     "caloriesPerDay": 1000,
-    "isReady": true,
+    "isReady": true
+    }
 }
 
 ###

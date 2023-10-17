@@ -17,7 +17,7 @@ async function fillDb() {
       role: 'sportsman',
       description: 'First sportsman description',
       location: 'pionerskaya',
-      fitnessLevel: 'beginer',
+      fitnessLevel: 'beginner',
       workoutType: ['yoga'],
       photo: 'photo1.png',
       sportsmanInfo: {

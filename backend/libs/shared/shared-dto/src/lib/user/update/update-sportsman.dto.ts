@@ -3,9 +3,8 @@ import { WORKOUT_TYPE_AMOUNT } from '@backend/util/util-core';
 import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMaxSize, IsBoolean, IsEnum, IsInt, IsOptional, Max, Min, } from 'class-validator';
 import { CaloriesAmount } from '../../constant';
-import { UpdateUserDto } from './update-user.dto';
 
-export class UpdateSportsmanDto extends UpdateUserDto {
+export class UpdateSportsmanDto{
   @ApiProperty({
     description: 'The level of fitness of the user',
     enum: FitnessLevel,

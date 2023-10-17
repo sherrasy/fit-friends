@@ -3,6 +3,8 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { API_TAG_NAME, UserInfoError, UserInfoMessages, UserInfoPath } from './user-info.constant';
 import { UserInfoService } from './user-info.service';
 import { UserQuery } from '@backend/shared-quieries';
+import { fillObject } from '@backend/util/util-core';
+import { UserRdo } from './rdo/user.rdo';
 
 @ApiTags(API_TAG_NAME)
 @Controller(UserInfoPath.Main)
@@ -21,7 +23,8 @@ import { UserQuery } from '@backend/shared-quieries';
     })
     @Get(UserInfoPath.Show)
     public async showList(@Query() query:UserQuery) {
-     return await this.userInfoService.getUserList(query);
+     const users = await this.userInfoService.getUserList(query);
+     return users.map((user)=>fillObject(UserRdo, user))
     }
 
     @ApiResponse({
@@ -34,7 +37,8 @@ import { UserQuery } from '@backend/shared-quieries';
     })
     @Get(UserInfoPath.Id)
     public async showSingle(@Param('id') id: number) {
-      return await this.userInfoService.findById(id);
+      const user =  await this.userInfoService.findById(id);
+      return fillObject(UserRdo, user)
     }
 
   }
