@@ -8,16 +8,18 @@ import { User } from '@backend/shared/shared-types';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import { jwtConfig } from '@backend/config/config-users';
+import { RefreshTokenService } from '../refresh-token/refresh-token.service';
+import * as crypto from 'node:crypto';
 
 @Injectable()
 export class AuthenticationService {
   constructor(
     private readonly userInfoRepository: UserInfoRepository,
     private readonly jwtService: JwtService,
-    @Inject (jwtConfig.KEY)
+    @Inject(jwtConfig.KEY)
     private readonly jwtOptions: ConfigType<typeof jwtConfig>,
-
-  ) {}
+    private readonly refreshTokenService: RefreshTokenService,
+  ) { }
 
   public async register(dto: CreateUserDto) {
     const user = {
@@ -40,7 +42,7 @@ export class AuthenticationService {
   }
 
   public async verifyUser(dto: LoginUserDto) {
-    const {email, password} = dto;
+    const { email, password } = dto;
     const existUser = await this.userInfoRepository.findByEmail(email);
 
     if (!existUser) {
@@ -57,14 +59,14 @@ export class AuthenticationService {
 
   public async createUserToken(user: User) {
     const accessTokenPayload = createJWTPayload(user);
-    // const refreshTokenPayload = { ...accessTokenPayload, tokenId: crypto.randomUUID() };
-    // await this.refreshTokenService.createRefreshSession(refreshTokenPayload)
+    const refreshTokenPayload = { ...accessTokenPayload, tokenId: crypto.randomUUID() };
+    await this.refreshTokenService.createRefreshSession(refreshTokenPayload)
     return {
       accessToken: await this.jwtService.signAsync(accessTokenPayload),
-      // refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {
-      //   secret: this.jwtOptions.refreshTokenSecret,
-      //   expiresIn: this.jwtOptions.refreshTokenExpiresIn
-      // })
+      refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {
+        secret: this.jwtOptions.refreshTokenSecret,
+        expiresIn: this.jwtOptions.refreshTokenExpiresIn
+      })
     }
   }
 

@@ -1,4 +1,5 @@
-# Create a new user
+@AToken={{login.response.body.accessToken}}
+@RToken={{login.response.body.refreshToken}}
 
 # Create a new user
 POST http://localhost:3001/api/auth/register HTTP/1.1
@@ -36,5 +37,18 @@ Content-Type: application/json
   "email": "user@test.local",
   "password": "123456"
 }
+
+###
+
+# Get new JWT pair
+# @name refresh
+POST http://localhost:3001/api/auth/refresh HTTP/1.1
+Authorization: Bearer {{RToken}}
+
+###
+# Check token
+# @name check
+POST http://localhost:3001/api/auth/check HTTP/1.1
+Authorization: Bearer {{AToken}}
 
 ###
