@@ -1,5 +1,7 @@
-import { TokenPayload } from './token-payload.interface';
-
-export interface RefreshTokenPayload extends TokenPayload {
+export interface RefreshToken {
+  refreshTokenId?: number;
   tokenId: string;
+  createdAt: Date;
+  userId: number;
+  expiresIn: Date;
 }

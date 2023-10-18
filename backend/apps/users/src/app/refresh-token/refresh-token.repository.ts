@@ -25,11 +25,13 @@ export class RefreshTokenRepository {
   }
 
   public async findByTokenId(
-    refreshTokenId: number,
+    refreshTokenId: string,
   ): Promise<Token | null> {
     return this.prisma.refreshToken.findFirst({
       where: {
-        refreshTokenId,
+        AND:{
+          tokenId:refreshTokenId
+        }
       },
     });
   }
