@@ -22,7 +22,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh'
   }
 
   public async validate(payload: RefreshTokenPayload) {
-    const token = await this.refreshTokenService.isExists(payload.tokenId)
+    const token = await this.refreshTokenService.findToken(payload.tokenId)
     if (!token) {
       throw new TokenNotExistsException(payload.tokenId);
     }

@@ -1,4 +1,4 @@
-import { IsNumber,IsEnum, IsOptional, IsIn } from 'class-validator';
+import { IsNumber,IsEnum, IsOptional, IsIn, Max } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { DefaultQueryParam,  } from './query.constant';
 import {FitnessLevel, Location, UserRole, WorkoutType} from '@backend/shared/shared-types'
@@ -6,6 +6,7 @@ import {FitnessLevel, Location, UserRole, WorkoutType} from '@backend/shared/sha
 export class UserQuery {
   @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
   @IsNumber()
+  @Max(DefaultQueryParam.Limit)
   @IsOptional()
   public limit = DefaultQueryParam.Limit;
 
