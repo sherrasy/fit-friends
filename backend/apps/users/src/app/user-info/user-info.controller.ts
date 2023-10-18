@@ -1,10 +1,11 @@
-import { Controller, Get, HttpStatus, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { API_TAG_NAME, UserInfoError, UserInfoMessages, UserInfoPath } from './user-info.constant';
 import { UserInfoService } from './user-info.service';
 import { UserQuery } from '@backend/shared-quieries';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { UserRdo } from './rdo/user.rdo';
+import { UserRoleInterceptor } from './interceptors/user-role.interceptor';
 
 @ApiTags(API_TAG_NAME)
 @Controller(UserInfoPath.Main)
@@ -21,6 +22,7 @@ import { UserRdo } from './rdo/user.rdo';
       status: HttpStatus.NOT_FOUND,
       description: UserInfoError.EmptyList
     })
+    @UseInterceptors(UserRoleInterceptor)
     @UseGuards(JwtAuthGuard)
     @Get(UserInfoPath.Show)
     public async showList(@Query() query:UserQuery) {
