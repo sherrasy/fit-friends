@@ -12,7 +12,6 @@ export const AuthMessages = {
   Login: "Login successfull",
   UserFound: "User data found",
   Refresh: 'Get a new access/refresh tokens',
-  AvatarAdded: "Avatar added successfully"
 } as const;
 
 export const AuthPath = {
@@ -22,5 +21,4 @@ export const AuthPath = {
   Id:':id',
   Refresh:'refresh',
   Check:'check',
-  UpdateAvatar: 'upload-avatar',
 }as const;

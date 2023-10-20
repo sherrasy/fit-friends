@@ -26,6 +26,7 @@ export function adaptPrismaUser (prismaUser:PrismaUser){
     };
 
   delete user.userId;
+  delete user.password;
     return user;
 
   }

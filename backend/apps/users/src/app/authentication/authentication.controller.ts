@@ -58,15 +58,5 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
     public async checkToken(@Req() { user: payload }: RequestWithUserPayload) {
       return payload;
     }
-
-    // @ApiResponse({
-    //   status: HttpStatus.OK,
-    //   description:AuthMessages.AvatarAdded
-    // })
-    // @UseGuards(JwtAuthGuard)
-    // @Post(AuthPath.UpdateAvatar)
-    // public async updateAvatar(@Req() { user }: RequestWithUserPayload, @Body('avatarId') avatarId:string) {
-    //   return this.authService.updateAvatar(user.sub, avatarId);
-    // }
   }
 

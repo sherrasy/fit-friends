@@ -90,19 +90,34 @@ export class UserInfoRepository
     return users.map((user) => adaptPrismaUser(user));
   }
 
-  // public async update(id: number, item: UserInfoEntity): Promise<UserInfo> {
-  //   const data ={
-  //         ...item.toObject(),
-  //         password:item.passwordHash
-  //       }
-  //       delete data.passwordHash;
+  public async update(id: number, item: UserInfoEntity) {
+    const userData = adaptUserToPrisma(item)
+    const user = await this.prisma.user.update({
+          where: { userId:id },
 
-  //       const user = await this.prisma.user.update({
-  //         where: { userId:id },
-  //         data
-  //       });
-  // return adaptPrismaUser(user);
-  // }
+            data:
+            {
+              ...userData,
+              sportsmanInfo:
+              item.sportsmanInfo
+              ?{
+                update: item.sportsmanInfo as PrismaSportsman
+              }
+              :undefined,
+              coachInfo: item.coachInfo
+              ?        {
+                update: item.coachInfo as PrismaCoach
+              }
+              :undefined
+            },
+            include: {
+              sportsmanInfo: true,
+              coachInfo: true,
+            }
+
+        });
+  return adaptPrismaUser(user);
+  }
 
   public async destroy(id: number): Promise<void> {
     await this.prisma.user.delete({ where: { userId: id } });

@@ -49,12 +49,12 @@ export class AuthenticationService {
       throw new NotFoundException(AuthError.NotFound);
     }
 
-    const blogUserEntity = new UserInfoEntity(existUser);
-    if (!await blogUserEntity.comparePassword(password)) {
+    const userEntity = new UserInfoEntity(existUser);
+    if (!await userEntity.comparePassword(password)) {
       throw new UnauthorizedException(AuthError.PasswordWrong);
     }
 
-    return blogUserEntity.toObject();
+    return userEntity.toObject();
   }
 
   public async createUserToken(user: User) {
@@ -69,11 +69,5 @@ export class AuthenticationService {
       })
     }
   }
-
-  // public async updateAvatar (id:number, avatarId:string){
-  //   const blogUser = await this.userInfoRepository.findById(id);
-  //   const blogUserEntity = new UserInfoEntity({...blogUser, avatar:avatarId});
-  //   return this.userInfoRepository.update(id, blogUserEntity);
-  // }
 
 }

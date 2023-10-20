@@ -3,6 +3,9 @@ import { UserInfoRepository } from './user-info.repository';
 import { UserQuery } from '@backend/shared-quieries';
 import { UserInfoError } from './user-info.constant';
 import { User } from '@backend/shared/shared-types';
+import { UserInfoEntity } from './user-info.entity';
+import { UpdateUserDto } from '@backend/shared/shared-dto';
+import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 
 @Injectable()
 export class UserInfoService {
@@ -25,5 +28,17 @@ export class UserInfoService {
     }
     return userList;
   }
+
+    public async updateUser (id:number, dto:UpdateUserDto){
+    const user = await this.findById(id);
+    const userEntity = new UserInfoEntity({...user, ...dto});
+    return this.userInfoRepository.update(id, userEntity);
+  }
+
+    // public async updateAvatar (id:number, avatarId:string){
+  //   const blogUser = await this.userInfoRepository.findById(id);
+  //   const blogUserEntity = new UserInfoEntity({...blogUser, avatar:avatarId});
+  //   return this.userInfoRepository.update(id, blogUserEntity);
+  // }
 
 }

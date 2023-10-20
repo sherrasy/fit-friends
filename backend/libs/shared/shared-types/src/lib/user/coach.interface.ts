@@ -3,5 +3,5 @@ export interface Coach {
   userId?: number;
   certificate?: string;
   successInfo?: string;
-  isPersonal: boolean;
+  isPersonal?: boolean;
 }

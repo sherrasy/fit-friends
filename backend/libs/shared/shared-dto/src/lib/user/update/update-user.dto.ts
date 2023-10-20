@@ -1,11 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMaxSize, IsEnum, IsOptional, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
 import { DescriptionLength, NameLength} from '../../constant';
-import { FitnessLevel, Location, UserRole, UserSex } from '@backend/shared/shared-types';
+import { FitnessLevel, Location, WorkoutType, UserSex } from '@backend/shared/shared-types';
 import { Type } from 'class-transformer';
 import { UpdateSportsmanDto } from './update-sportsman.dto';
 import { UpdateCoachDto } from './update-coach.dto';
-import { WorkoutType } from '@prisma/client';
 import { WORKOUT_TYPE_AMOUNT } from '@backend/util/util-core';
 
 export class UpdateUserDto {
