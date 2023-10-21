@@ -12,7 +12,7 @@ enum UserSex {
 }
 
 enum FitnessLevel {
-  beginer
+  beginner
   amateur
   pro
 }
@@ -25,13 +25,6 @@ enum WorkoutType {
   crossfit
   aerobics
   pilates
-}
-
-enum WorkoutTime {
-  basic
-  intermediate
-  advanced
-  superior
 }
 
 enum Location {
@@ -54,28 +47,56 @@ datasource db {
 }
 
 model User {
-  id             Int           @id @default(autoincrement()) @map("user_id")
-  name           String
-  email          String
-  password       String
-  sex            UserSex
-  role           UserRole
-  location       Location
-  fitnessLevel   FitnessLevel  @map("fitness_level")
-  workoutType    WorkoutType[] @map("workout_type")
-  workoutTime    WorkoutTime?  @map("workout_time")
-  successInfo    String?       @map("success_info")
-  caloriesTotal  Int?          @map("calories_total")
-  caloriesPerDay Int?          @map("calories_per_day")
-  description    String?
-  birthDate      String?       @map("birth_date")
-  createdDate    DateTime      @default(now())
-  updatedDate    DateTime      @updatedAt
-  avatar         String?
-  photo          String?
-  certificate    String?
-  isPersonal     Boolean?      @default(false) @map("is_personal")
-  isReady        Boolean?      @default(false) @map("is_ready")
+  userId        Int           @id @default(autoincrement()) @map("user_id")
+  name          String
+  email         String
+  password      String
+  sex           UserSex
+  role          UserRole
+  location      Location
+  description   String?
+  birthDate     String?       @map("birth_date")
+  createdDate   DateTime      @default(now())
+  updatedDate   DateTime      @updatedAt
+  avatar        String?
+  photo         String?
+  sportsmanInfo Sportsman?
+  coachInfo     Coach?
+  workoutType   WorkoutType[] @map("workout_type")
+  fitnessLevel  FitnessLevel  @map("fitness_level")
 
   @@map("users")
+}
+
+model Sportsman {
+  sportsmanId    Int     @id @default(autoincrement()) @map("sportsman_id")
+  userId         Int     @unique @map("user_id")
+  workoutTime    String  @map("workout_time")
+  caloriesTotal  Int     @map("calories_total")
+  caloriesPerDay Int     @map("calories_per_day")
+  isReady        Boolean @default(false) @map("is_ready")
+  user           User    @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("sportsman_info")
+}
+
+model Coach {
+  coachId     Int      @id @default(autoincrement()) @map("coach_id")
+  userId      Int      @unique @map("user_id")
+  successInfo String?  @map("success_info")
+  certificate String?
+  isPersonal  Boolean? @default(false) @map("is_personal")
+  user        User     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("coach_info")
+}
+
+model RefreshToken {
+  refreshTokenId Int      @id @default(autoincrement()) @map("refresh_token_id")
+  tokenId        String   @map("token_id")
+  userId         Int      @map("user_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  expiresIn      DateTime @default(now()) @map("expires_in")
+
+  @@map("refresh_token")
 }

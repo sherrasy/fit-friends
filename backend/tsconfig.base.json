@@ -15,11 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@backend/config-uploader": ["libs/config/config-uploader/src/index.ts"],
       "@backend/config/config-users": ["libs/config/config-users/src/index.ts"],
       "@backend/config/config-workouts": [
         "libs/config/config-workouts/src/index.ts"
       ],
       "@backend/models/users-models": ["libs/models/users-models/src/index.ts"],
+      "@backend/shared-pipes": ["libs/shared/shared-pipes/src/index.ts"],
       "@backend/shared-quieries": ["libs/shared/shared-quieries/src/index.ts"],
       "@backend/shared/shared-dto": ["libs/shared/shared-dto/src/index.ts"],
       "@backend/shared/shared-types": ["libs/shared/shared-types/src/index.ts"],

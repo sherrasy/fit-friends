@@ -1,3 +1,6 @@
+@AToken={{login.response.body.accessToken}}
+@RToken={{login.response.body.refreshToken}}
+
 # Create a new user
 POST http://localhost:3001/api/auth/register HTTP/1.1
 Content-Type: application/json
@@ -7,23 +10,26 @@ Content-Type: application/json
   "name": "John Doe",
   "password": "123456",
   "avatar": "avatar1.png",
-    "sex": "male",
-    "birthDate": "14.10.2023",
-    "role": "sportsman",
-    "description": "John sportsman description",
-    "location": "pionerskaya",
-    "photo": "photo1.png",
-    "fitnessLevel": "beginer",
-    "workoutType": ["yoga"],
-    "workoutTime": "basic",
+  "sex": "male",
+  "birthDate": "14.10.2023",
+  "role": "sportsman",
+  "description": "John sportsman description",
+  "location": "pionerskaya",
+  "photo": "photo1.png",
+  "fitnessLevel": "beginner",
+  "workoutType": ["yoga"],
+  "sportsmanInfo":{
+    "workoutTime" :"10-30 мин",
     "caloriesTotal": 1000,
     "caloriesPerDay": 1000,
-    "isReady": true,
+    "isReady": true
+    }
 }
 
 ###
 
 # Login user by email and password
+# @name login
 POST http://localhost:3001/api/auth/login HTTP/1.1
 Content-Type: application/json
 
@@ -31,5 +37,18 @@ Content-Type: application/json
   "email": "user@test.local",
   "password": "123456"
 }
+
+###
+
+# Get new JWT pair
+# @name refresh
+POST http://localhost:3001/api/auth/refresh HTTP/1.1
+Authorization: Bearer {{RToken}}
+
+###
+# Check token
+# @name check
+POST http://localhost:3001/api/auth/check HTTP/1.1
+Authorization: Bearer {{AToken}}
 
 ###

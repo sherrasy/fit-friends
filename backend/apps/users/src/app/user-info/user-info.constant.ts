@@ -10,10 +10,14 @@ export const UserInfoError = {
 export const UserInfoMessages = {
   UserFound: "User data found",
   UserList: "User list is showing",
+  UserUpdated: "User updated successfully",
+  AvatarAdded: "Avatar added successfully"
 } as const;
 
 export const UserInfoPath = {
   Main:'user-info',
   Id:':id',
   Show:'show',
+  UpdateAvatar: 'upload-avatar',
+  Update: 'update',
 }as const;
