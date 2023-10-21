@@ -1,6 +1,6 @@
 import {plainToInstance, ClassConstructor} from 'class-transformer';
 import dayjs from 'dayjs';
-import { ParseTimeError } from './constant';
+import { HostName, ParseTimeError } from './constant';
 
 export const getDate = ()=>{
   return dayjs().toISOString()
@@ -30,4 +30,12 @@ export function parseTime(time: string): TimeAndUnit {
   }
 
   return { value, unit }
+}
+
+export function getMongoConnectionString({username, password, host, port, databaseName, authDatabase}): string {
+  return `${HostName.Mongo}://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
+}
+
+export function getRabbitMQConnectionString({user, password, host, port}): string {
+  return `${HostName.Rabbit}://${user}:${password}@${host}:${port}`;
 }

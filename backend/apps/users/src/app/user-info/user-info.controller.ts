@@ -52,7 +52,7 @@ import { UpdateUserDto } from '@backend/shared/shared-dto';
       description:UserInfoMessages.UserUpdated
     })
     @UseGuards(JwtAuthGuard)
-    @Patch(UserInfoPath.Id)
+    @Patch(UserInfoPath.Update)
     public async updateAvatar(@Req() { user }: RequestWithUserPayload, @Body() dto:UpdateUserDto) {
       return this.userInfoService.updateUser(user.sub, dto);
     }

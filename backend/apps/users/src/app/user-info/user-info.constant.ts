@@ -19,4 +19,5 @@ export const UserInfoPath = {
   Id:':id',
   Show:'show',
   UpdateAvatar: 'upload-avatar',
+  Update: 'update',
 }as const;
