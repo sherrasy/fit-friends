@@ -1,4 +1,9 @@
-export const EMAIL_ERROR = 'Email is invalid';
+export const ErrorMessage = {
+  Name:'Only ru/en letters',
+  Email:'Email is invalid'
+} as const;
+
+export const USERNAME_PATTERN = /^[a-zA-Zа-яА-Я]+$/g;
 
 export const NameLength = {
   Min: 1,

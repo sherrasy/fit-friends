@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CRUDRepository } from '@backend/util/util-types';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 import { UserQuery } from '@backend/shared-quieries';
-import { FitnessLevel, UserRole } from '@prisma/client';
+import { FitnessLevel, UserRole } from '@prisma/users/client';
 import { PrismaCoach, PrismaSportsman, User } from '@backend/shared/shared-types';
 import { UserInfoEntity } from './user-info.entity';
 import { adaptUserToPrisma } from '../utils/adapt-user-to-prisma';
