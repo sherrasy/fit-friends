@@ -9,7 +9,7 @@ export class UpdateWorkoutDto  {
     description: 'Workout name'
   })
   @MinLength(NameLength.Min)
-  @MaxLength(NameLength.Min)
+  @MaxLength(NameLength.Max)
   @IsOptional()
   public name?: string;
 

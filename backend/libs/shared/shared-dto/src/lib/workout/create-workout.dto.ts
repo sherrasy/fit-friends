@@ -9,7 +9,7 @@ export class CreateWorkoutDto  {
     description: 'Workout name'
   })
   @MinLength(NameLength.Min)
-  @MaxLength(NameLength.Min)
+  @MaxLength(NameLength.Max)
   public name: string;
 
   @ApiProperty({

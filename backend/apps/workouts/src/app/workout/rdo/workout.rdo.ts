@@ -20,50 +20,59 @@ export class WorkoutRdo  {
   @ApiProperty({
     description: 'Workout name'
   })
+  @Expose()
   public name: string;
 
   @ApiProperty({
     description: 'The level of fitness of the user',
     enum: FitnessLevel,
   })
+  @Expose()
   public fitnessLevel: FitnessLevel;
 
   @ApiProperty({
     description: 'Type of workout',
     enum: WorkoutType
   })
+  @Expose()
   public workoutType: WorkoutType;
 
   @ApiProperty({
     description: 'Time for workout',
     enum: WorkoutTime
   })
+  @Expose()
   public workoutTime: WorkoutTime;
 
   @ApiProperty({
     description: 'The cost of workout'
   })
+  @Expose()
   public price: number;
 
   @ApiProperty({
     description: 'Number of calories to reset'
   })
-  public caloriesTotal: number;
+  @Expose()
+  public calories: number;
 
   @ApiProperty({
     description: 'Workout description'
   })
+  @Expose()
   public description: string;
 
   @ApiProperty({
     description: 'User gender',
     enum: UserSex
   })
+  @Expose()
   public sex: UserSex;
 
   @ApiProperty({
     description: 'Special offer flag'
   })
+  @Expose()
   public isSpecialOffer: boolean;
 }
 
