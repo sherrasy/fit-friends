@@ -1,20 +1,4 @@
-type UserRole = 'coach' | 'sportsman';
-type UserSex = 'male' | 'female' | 'any';
-type Location =
-  | 'pionerskaya'
-  | 'petrogradskaya'
-  | 'udelnaya'
-  | 'zvyozdnaya'
-  | 'sportivnaya';
-type FitnessLevel = 'beginner' | 'amateur' | 'pro';
-type WorkoutType =
-  | 'yoga'
-  | 'running'
-  | 'boxing'
-  | 'stretching'
-  | 'crossfit'
-  | 'aerobics'
-  | 'pilates';
+import { PrismaFitnessLevel, PrismaLocation, PrismaUserRole, PrismaUserSex, PrismaWorkoutType } from "./prisma-types";
 
 export type PrismaSportsman = {
   sportsmanId: number;
@@ -38,11 +22,11 @@ export interface PrismaUser {
   name: string;
   email: string;
   password: string;
-  sex: UserSex;
-  role: UserRole;
-  location: Location;
-  fitnessLevel: FitnessLevel;
-  workoutType: WorkoutType[];
+  sex: PrismaUserSex;
+  role: PrismaUserRole;
+  location: PrismaLocation;
+  fitnessLevel: PrismaFitnessLevel;
+  workoutType: PrismaWorkoutType[];
   description: string;
   birthDate: string;
   createdDate: Date;

@@ -4,11 +4,11 @@ import { WorkoutTime } from "../common/workout-time.enum";
 import { WorkoutType } from "../common/workout-type.enum";
 
 export interface Workout {
-  id?: string;
+  id?: number;
   name: string;
   photo?: string;
   fitnessLevel: FitnessLevel;
-  workoutType: WorkoutType;
+  workoutType: WorkoutType[];
   workoutTime: WorkoutTime;
   price: number;
   calories: number;
@@ -16,7 +16,7 @@ export interface Workout {
   sex: UserSex;
   video?: string;
   rating: number;
-  coachId: string;
+  coachId: number;
   isSpecialOffer: boolean;
   createdDate: string;
 }

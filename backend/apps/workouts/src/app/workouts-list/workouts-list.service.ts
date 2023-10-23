@@ -1,4 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Workout } from '@backend/shared/shared-types';
+import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { WorkoutRepository } from '../workout/workout.repository';
+import { WorkoutsListError } from './workouts-list.constant';
 
 @Injectable()
-export class WorkoutsListService {}
+export class WorkoutsListService {
+  constructor(
+    private readonly workoutRepository: WorkoutRepository
+  ) {}
+
+  public async findByWorkoutId(id: number) {
+    const workout  = await this.workoutRepository.findById(id);
+    if (!workout) {
+      throw new NotFoundException(WorkoutsListError.WorkoutNotFound);
+    }
+    return workout;
+  }
+
+  // public async showAll(query:WorkoutListQuery): Promise<Workout[]> {
+  //   return this.workoutRepository.findAll(query);
+  // }
+
+  // public async showByCoach(query:WorkoutByCoachQuery): Promise<Workout[]> {
+  //   return this.workoutRepository.findByCoach(query);
+  // }
+}

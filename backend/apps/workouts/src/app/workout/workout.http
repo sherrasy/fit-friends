@@ -1,0 +1,60 @@
+@AToken={{login.response.body.accessToken}}
+# Login user by email and password
+# @name login
+POST http://localhost:3001/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+# Sportsman
+# {
+#   "email": "user@test.local",
+#   "password": "123456"
+# }
+
+# Coach
+{
+  "email": "first-coach@test.ru",
+  "password": "test123"
+}
+
+###
+
+
+@workoutId={{createWorkout.response.body.id}}
+# Create a new workout
+# @name createWorkout
+POST http://localhost:3001/api/workout/add HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{AToken}}
+
+{
+      "name": "Name of workout",
+      "sex": "any",
+      "photo": "workout-photo.png",
+      "video": "workout-video-1.mov",
+      "price": 1200,
+      "calories": 1000,
+      "description":" First workout description",
+      "workoutTime": "10-30 мин",
+      "workoutType": ["crossfit"],
+      "fitnessLevel": "beginner"
+    }
+
+###
+
+# Update workout
+PATCH http://localhost:3001/api/workout/{{workoutId}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{AToken}}
+
+{
+      "name": "Long name of workout",
+      "sex": "male",
+}
+
+###
+
+# Delete workout  by ID
+DELETE http://localhost:3001/api/workout/{{workoutId}} HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###

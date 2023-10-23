@@ -1,4 +1,57 @@
-import { Controller } from '@nestjs/common';
+import { Body, Req, Controller, HttpStatus, Param, Post, Delete, Patch, UseGuards } from '@nestjs/common';
+import { API_TAG_NAME, WorkoutError, WorkoutMessage, WorkoutPath } from './workout.constant';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { WorkoutService } from './workout.service';
+import { WorkoutRdo } from './rdo/workout.rdo';
+import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
+import { RequestWithUserPayload } from '@backend/shared/shared-types';
+import { CreateWorkoutDto, UpdateWorkoutDto } from '@backend/shared/shared-dto';
 
-@Controller('workout')
-export class WorkoutController {}
+@ApiTags(API_TAG_NAME)
+@Controller(WorkoutPath.Main)
+export class WorkoutController {
+  constructor(
+    private readonly workoutService: WorkoutService
+  ) { }
+
+  @ApiResponse({
+    type: WorkoutRdo,
+    status: HttpStatus.CREATED,
+    description: WorkoutMessage.Add,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post(WorkoutPath.Add)
+  public async create(@Req() { user }: RequestWithUserPayload, @Body() dto: CreateWorkoutDto) {
+    const userId = user.sub;
+    const workout = await this.workoutService.create(dto, userId);
+    return fillObject(WorkoutRdo, workout);
+  }
+
+  @ApiResponse({
+    type: WorkoutRdo,
+    status: HttpStatus.OK,
+    description: WorkoutMessage.Update,
+  })
+  @UseGuards(JwtAuthGuard)
+  @Patch(WorkoutPath.Id)
+  public async update(@Req() { user }: RequestWithUserPayload, @Param('id') id: number, @Body() dto: UpdateWorkoutDto) {
+    const userId = user.sub;
+    const workout = await this.workoutService.update(id, dto, userId);
+    return fillObject(WorkoutRdo, workout);
+  }
+
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: WorkoutMessage.Remove,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: WorkoutError.Delete
+  })
+  @UseGuards(JwtAuthGuard)
+  @Delete(WorkoutPath.Id)
+  public async delete(@Param('id') id: number, @Req() { user }: RequestWithUserPayload) {
+    return await this.workoutService.remove(id, user.sub);
+  }
+}
