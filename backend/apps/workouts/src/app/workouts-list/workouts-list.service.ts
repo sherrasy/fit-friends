@@ -10,6 +10,15 @@ export class WorkoutsListService {
     private readonly workoutRepository: WorkoutRepository
   ) {}
 
+
+  public async showAll(query:WorkoutListQuery): Promise<Workout[]> {
+    return this.workoutRepository.findAll(query);
+  }
+
+  public async findByCoachId(coachId:number, query:WorkoutByCoachQuery): Promise<Workout[]> {
+    return this.workoutRepository.findByCoach(coachId, query);
+  }
+
   public async findByWorkoutId(id: number) {
     const workout  = await this.workoutRepository.findById(id);
     if (!workout) {
@@ -17,12 +26,4 @@ export class WorkoutsListService {
     }
     return workout;
   }
-
-  // public async showAll(query:WorkoutListQuery): Promise<Workout[]> {
-  //   return this.workoutRepository.findAll(query);
-  // }
-
-  // public async showByCoach(query:WorkoutByCoachQuery): Promise<Workout[]> {
-  //   return this.workoutRepository.findByCoach(query);
-  // }
 }

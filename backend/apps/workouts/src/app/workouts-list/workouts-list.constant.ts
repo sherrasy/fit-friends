@@ -13,5 +13,6 @@ export const WorkoutsListMessages = {
 
 export const WorkoutsListPath = {
   Main: 'workouts-list',
+  CoachList: 'coach-list',
   Id: ':id',
 } as const;

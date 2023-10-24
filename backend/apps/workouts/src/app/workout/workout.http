@@ -53,9 +53,3 @@ Authorization: Bearer {{AToken}}
 }
 
 ###
-
-# Delete workout  by ID
-DELETE http://localhost:3001/api/workout/{{workoutId}} HTTP/1.1
-Authorization: Bearer {{AToken}}
-
-###

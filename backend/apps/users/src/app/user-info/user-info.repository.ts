@@ -4,7 +4,7 @@ import { CRUDRepository } from '@backend/util/util-types';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 import { UserQuery } from '@backend/shared-quieries';
 import { FitnessLevel, UserRole } from '@prisma/users/client';
-import { PrismaCoach, PrismaSportsman, User } from '@backend/shared/shared-types';
+import { PrismaCoach, PrismaSportsman, User, WorkoutType } from '@backend/shared/shared-types';
 import { UserInfoEntity } from './user-info.entity';
 import { adaptUserToPrisma } from '../utils/adapt-user-to-prisma';
 
@@ -62,7 +62,7 @@ export class UserInfoRepository
     return adaptPrismaUser(user);
   }
 
-  public async show({ limit, page, role, location, fitnessLevel, workoutType, sortDirection }: UserQuery): Promise<User[]> {
+  public async show({ limit, page, role, location, fitnessLevel, workoutType, sortDirection, sortBy }: UserQuery): Promise<User[]> {
     const queryParams = {
       where: {
         AND: {
@@ -74,14 +74,14 @@ export class UserInfoRepository
       },
       take: limit,
       skip: page > 0 ? limit * (page - 1) : undefined,
-      orderBy: [{ createdDate: sortDirection }],
+      orderBy: [{ [sortBy]: sortDirection }],
       include: {
         sportsmanInfo: true,
         coachInfo: true,
       },
     }
     if (workoutType) {
-      queryParams.where.AND.workoutType = { hasSome: workoutType };
+      queryParams.where.AND.workoutType = { hasEvery: workoutType};
     }
     if (location) {
       queryParams.where.AND.location = { in: location };

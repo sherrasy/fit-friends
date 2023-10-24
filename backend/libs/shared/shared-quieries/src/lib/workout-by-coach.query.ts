@@ -1,7 +1,6 @@
-import { IsNumber,IsEnum, IsOptional, IsIn, Max } from 'class-validator';
+import { IsNumber, IsOptional, IsIn, Max, IsInt } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { DefaultQueryParam,  } from './query.constant';
-import { WorkoutTime} from '@backend/shared/shared-types'
 
 export class WorkoutByCoachQuery {
   @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
@@ -14,22 +13,39 @@ export class WorkoutByCoachQuery {
   @IsOptional()
   public page: number;
 
-  @Transform(({ value } )=> value.indexOf(',') > -1 ? value.split(','):[value])
-  @IsEnum(WorkoutTime, {each:true})
+  @Transform(({ value }) => value.split(",").join('|').split(" ").join(" & ") )
   @IsOptional()
   public workoutTime?: string;
 
+  @Transform(({ value }) => +value)
   @IsOptional()
+  @IsInt()
   public rating?: number;
 
+  @Transform(({ value }) => +value)
   @IsOptional()
-  public price?: string;
+  @IsInt()
+  public priceMin?: number;
 
+  @Transform(({ value }) => +value)
   @IsOptional()
-  public calories?: string;
+  @IsInt()
+  public priceMax?: number;
+
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  @IsInt()
+  public caloriesMin?: number;
+
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  @IsInt()
+  public caloriesMax?: number;
 
   @IsIn(['asc', 'desc'])
   @IsOptional()
   public sortDirection?: 'desc' | 'asc' = DefaultQueryParam.Direction;
 
+  @IsOptional()
+  public sortBy?: string = DefaultQueryParam.SortBy;
 }

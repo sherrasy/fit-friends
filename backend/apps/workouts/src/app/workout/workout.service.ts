@@ -41,12 +41,4 @@ export class WorkoutService {
     return workout;
   }
 
-
-  public async remove(workoutId: number, coachId: number) {
-    const workout = await this.findByWorkoutId(workoutId);
-    if (coachId !== workout.coachId) {
-      throw new BadRequestException(WorkoutError.NotCoachAuthor)
-    }
-    return this.workoutRepository.destroy(workoutId);
-  }
 }

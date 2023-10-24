@@ -5,6 +5,7 @@ import { WorkoutEntity } from './workout.entity';
 import { Workout } from '@backend/shared/shared-types';
 import { adaptPrismaWorkout } from './utils/adapt-prisma-workout';
 import { adaptWorkoutToPrisma } from './utils/adapt-workout-to-prisma';
+import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
 
 
 @Injectable()
@@ -17,6 +18,52 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
     return adaptPrismaWorkout(workout)
   }
 
+
+  public async findByCoach(coachId: number, { limit, page, sortDirection, workoutTime,caloriesMin, caloriesMax, priceMin, priceMax,rating, sortBy }:WorkoutByCoachQuery): Promise<Workout[] | null> {
+    const queryParams = {
+      where: {
+        AND: {
+          coachId,
+          calories:{gte:caloriesMin, lte:caloriesMax},
+          price:{gte:priceMin, lte:priceMax},
+          rating:{gte:rating},
+          workoutTime:undefined
+        }
+      },
+      take: limit,
+      orderBy: [{ [sortBy]: sortDirection } ],
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    }
+    if (workoutTime) {
+      queryParams.where.AND.workoutTime = { search: workoutTime };
+    }
+    const workouts = await this.prisma.workout.findMany(queryParams);
+    return workouts.map((workout) => adaptPrismaWorkout(workout))
+}
+
+
+  public async findAll({ limit, page, sortDirection,  workoutType,caloriesMin, caloriesMax, priceMin, priceMax,rating, sortBy }: WorkoutListQuery): Promise<Workout[]> {
+    const queryParams = {
+      where: {
+        AND: {
+          calories:{gte:caloriesMin, lte:caloriesMax},
+          price:{gte:priceMin, lte:priceMax},
+          rating:{gte:rating},
+          workoutType:undefined
+        }
+      },
+      take: limit,
+      orderBy: [{ [sortBy]: sortDirection } ],
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    }
+    if (workoutType) {
+      queryParams.where.AND.workoutType = { hasSome: workoutType };
+    }
+    const workouts = await this.prisma.workout.findMany(queryParams);
+
+    return workouts.map((workout) => adaptPrismaWorkout(workout))
+  }
+
   public async findById(workoutId: number): Promise<Workout | null> {
     const workout = await this.prisma.workout.findFirst({
       where: {
@@ -25,35 +72,6 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
     });
     return adaptPrismaWorkout(workout)
   }
-
-  public async findByCoach(coachId: number): Promise<Workout[] | null> {
-    const workouts = await this.prisma.workout.findMany({
-      where: {
-        coachId
-      }
-    });
-    return workouts.map((workout) => adaptPrismaWorkout(workout))
-}
-
-
-  // public async findAll({ limit, page, sortBy, type, sortDirection }: Query): Promise<Workout[]> {
-  //   const queryParams = {
-  //     where: {
-  //       AND: {
-  //         status: WorkoutStatus,
-  //         type: type as WorkoutType,
-  //       }
-  //     },
-  //     take: limit,
-  //     orderBy: [
-  //       { ['price']: sortDirection }
-  //     ],
-  //     skip: page > 0 ? limit * (page - 1) : undefined,
-  //   }
-
-  //   const workouts = await this.prisma.workout.findMany(queryParams);
-  //   return workouts.map((workout) => adaptPrismaWorkout(workout))
-  // }
 
   public async update(workoutId: number, item: WorkoutEntity): Promise<Workout> {
     const data = adaptWorkoutToPrisma(item)
