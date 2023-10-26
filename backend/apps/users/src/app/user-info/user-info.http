@@ -28,7 +28,7 @@ Authorization: Bearer {{AToken}}
 
 
 # Get userList
-GET http://localhost:3001/api/user-info/show?workoutType=yoga&location=pionerskaya,zvyozdnaya HTTP/1.1
+GET http://localhost:3001/api/user-info/show?workoutType=yoga,stretching HTTP/1.1
 Authorization: Bearer {{AToken}}
 # Query params
 ## role=coach

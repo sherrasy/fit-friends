@@ -1,4 +1,4 @@
-import { FitnessLevel, WorkoutType } from '@prisma/client';
+import { FitnessLevel, WorkoutType } from '@prisma/users/client';
 import { UserInfoEntity } from '../user-info/user-info.entity';
 
 export function adaptUserToPrisma(user: UserInfoEntity) {

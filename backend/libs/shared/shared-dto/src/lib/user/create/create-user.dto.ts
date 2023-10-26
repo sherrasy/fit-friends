@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, IsEmail, IsEnum, IsOptional, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
-import { DescriptionLength, EMAIL_ERROR, NameLength, PasswordLength } from '../../constant';
+import { ArrayMaxSize, IsEmail, IsEnum, IsOptional, IsString, Matches, MaxLength, MinLength, ValidateNested } from 'class-validator';
+import { DescriptionLength, ErrorMessage, NameLength, PasswordLength, USERNAME_PATTERN } from '../../constant';
 import { FitnessLevel, Location, UserRole, UserSex, WorkoutType } from '@backend/shared/shared-types';
 import { CreateCoachDto } from './create-coach.dto';
 import { Type } from 'class-transformer';
@@ -15,13 +15,14 @@ export class CreateUserDto {
   @IsString()
   @MinLength(NameLength.Min)
   @MaxLength(NameLength.Max)
+  @Matches(USERNAME_PATTERN, {message:ErrorMessage.Name})
   public name: string;
 
   @ApiProperty({
     description: 'Unique user email address',
     example: 'test@test.ru'
   })
-  @IsEmail({}, { message: EMAIL_ERROR})
+  @IsEmail({}, { message: ErrorMessage.Email})
   public email: string;
 
   @ApiProperty({

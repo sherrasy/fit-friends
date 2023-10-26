@@ -36,4 +36,7 @@ export class UserQuery {
   @IsOptional()
   public sortDirection?: 'desc' | 'asc' = DefaultQueryParam.Direction;
 
+  @IsOptional()
+  public sortBy?: string = DefaultQueryParam.SortBy;
+
 }

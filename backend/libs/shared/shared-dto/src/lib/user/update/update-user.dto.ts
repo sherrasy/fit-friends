@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, IsEnum, IsOptional, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
-import { DescriptionLength, NameLength} from '../../constant';
+import { ArrayMaxSize, IsEnum, IsOptional, IsString, Matches, MaxLength, MinLength, ValidateNested } from 'class-validator';
+import { DescriptionLength, ErrorMessage, NameLength, USERNAME_PATTERN} from '../../constant';
 import { FitnessLevel, Location, WorkoutType, UserSex } from '@backend/shared/shared-types';
 import { Type } from 'class-transformer';
 import { UpdateSportsmanDto } from './update-sportsman.dto';
@@ -15,6 +15,7 @@ export class UpdateUserDto {
   @IsString()
   @MinLength(NameLength.Min)
   @MaxLength(NameLength.Max)
+  @Matches(USERNAME_PATTERN, {message:ErrorMessage.Name})
   @IsOptional()
   public name?: string;
 

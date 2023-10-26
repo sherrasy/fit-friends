@@ -1,14 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsEnum, IsInt, Max, MaxLength, Min, MinLength } from 'class-validator';
+import { ArrayMaxSize, IsBoolean, IsEnum, IsInt, Max, MaxLength, Min, MinLength } from 'class-validator';
 import { CaloriesAmount, DescriptionLength, NameLength } from "../constant";
 import {FitnessLevel, UserSex, WorkoutTime, WorkoutType} from '@backend/shared/shared-types'
+import { WORKOUT_TYPE_AMOUNT } from "@backend/util/util-core";
 
 export class CreateWorkoutDto  {
   @ApiProperty({
     description: 'Workout name'
   })
   @MinLength(NameLength.Min)
-  @MaxLength(NameLength.Min)
+  @MaxLength(NameLength.Max)
   public name: string;
 
   @ApiProperty({
@@ -20,10 +21,10 @@ export class CreateWorkoutDto  {
 
   @ApiProperty({
     description: 'Type of workout',
-    enum: WorkoutType
+    enum: WorkoutType,
   })
-  @IsEnum(WorkoutType)
-  public workoutType: WorkoutType;
+  @ArrayMaxSize(WORKOUT_TYPE_AMOUNT)
+  public workoutType: WorkoutType[];
 
   @ApiProperty({
     description: 'Time for workout',
@@ -44,7 +45,7 @@ export class CreateWorkoutDto  {
   @IsInt()
   @Min(CaloriesAmount.Min)
   @Max(CaloriesAmount.Max)
-  public caloriesTotal: number;
+  public calories: number;
 
   @ApiProperty({
     description: 'Workout description'
