@@ -4,6 +4,7 @@ import { UserInfoModule } from './user-info/user-info.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigUsersModule } from '@backend/config/config-users';
 import { RefreshTokenModule } from './refresh-token/refresh-token.module';
+import { FriendsModule } from './friends/friends.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { RefreshTokenModule } from './refresh-token/refresh-token.module';
     PrismaModule,
     ConfigUsersModule,
     RefreshTokenModule,
+    FriendsModule,
   ],
   controllers: [],
   providers: [],

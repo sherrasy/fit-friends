@@ -20,6 +20,7 @@ export * from './lib/user/token.interface';
 export * from './lib/user/refresh-token.interface';
 export * from './lib/user/refresh-token-payload.interface';
 export * from './lib/user/user.interface';
+export * from './lib/user/friend.interface';
 export * from './lib/workout/workout.interface';
 export * from './lib/jwt-config.interface';
 export * from './lib/prisma-types/prisma-user.interface';

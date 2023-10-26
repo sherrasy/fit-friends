@@ -64,6 +64,7 @@ model User {
   coachInfo     Coach?
   workoutType   WorkoutType[] @map("workout_type")
   fitnessLevel  FitnessLevel  @map("fitness_level")
+  friends       Friend[]
 
   @@map("users")
 }
@@ -99,4 +100,14 @@ model RefreshToken {
   expiresIn      DateTime @default(now()) @map("expires_in")
 
   @@map("refresh_token")
+}
+
+model Friend {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  friendId    Int      @map("friend_id")
+  createdDate DateTime @default(now()) @map("created_date")
+  user        User     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("friends")
 }
