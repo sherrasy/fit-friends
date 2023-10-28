@@ -6,9 +6,10 @@ import { CreateUserDto } from '@backend/shared/shared-dto';
 import { UserRdo } from '../user-info/rdo/user.rdo';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
-import { RequestWithUser, RequestWithUserPayload } from '@backend/shared/shared-types';
+import { RequestWithUser, RequestWithUserPayload, TokenAuth } from '@backend/shared/shared-types';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { CheckJwtAuthGuard } from './guards/check-jwt.guard';
 
 @ApiTags(API_TAG_NAME)
 @Controller(AuthPath.Main)
@@ -36,10 +37,10 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
       status: HttpStatus.UNAUTHORIZED,
       description: AuthError.InvalidData,
     })
-    @UseGuards(LocalAuthGuard)
+    @UseGuards(CheckJwtAuthGuard, LocalAuthGuard)
     @Post(AuthPath.Login)
-    public async login(@Req() {user}: RequestWithUser) {
-    return await this.authService.createUserToken(user);
+    public async login(@Req() {user}: RequestWithUser, @Body() tokenAuth?: TokenAuth) {
+    return await this.authService.createUserToken(user, tokenAuth);
     }
 
     @HttpCode(HttpStatus.OK)
@@ -57,6 +58,13 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
     @Post(AuthPath.Check)
     public async checkToken(@Req() { user: payload }: RequestWithUserPayload) {
       return payload;
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post(AuthPath.Revoke)
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async revokeToken(@Req() { user }: RequestWithUserPayload) {
+      return this.authService.revokeToken(user.sub);
     }
   }
 

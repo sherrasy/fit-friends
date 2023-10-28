@@ -1,5 +1,5 @@
 import { RefreshTokenRepository } from './refresh-token.repository';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { jwtConfig } from '@backend/config/config-users';
 import { RefreshToken, RefreshTokenPayload } from '@backend/shared/shared-types';
@@ -34,6 +34,14 @@ export class RefreshTokenService {
   public async findToken(tokenId: string): Promise<RefreshToken|null> {
     const refreshToken = await this.refreshTokenRepository.findByTokenId(tokenId);
     return refreshToken;
+  }
+
+  public async deleteTokenByUserId(userId: number) {
+    const refreshToken = await this.refreshTokenRepository.findByUserId(userId);
+    if(!refreshToken){
+      throw new NotFoundException()
+    }
+    return await this.deleteRefreshSession(refreshToken.refreshTokenId);
   }
 
   public async deleteExpiredRefreshTokens() {

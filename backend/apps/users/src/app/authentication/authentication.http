@@ -31,24 +31,36 @@ Content-Type: application/json
 # Login user by email and password
 # @name login
 POST http://localhost:3001/api/auth/login HTTP/1.1
+Authorization: Bearer {{AToken}} {{RToken}}
 Content-Type: application/json
 
+# # # Sportsman
 {
   "email": "user@test.local",
   "password": "123456"
 }
 
+##Coach
+# {
+#   "email": "first-coach@test.ru",
+#   "password": "test123"
+# }
+
+
 ###
 
 # Get new JWT pair
-# @name refresh
 POST http://localhost:3001/api/auth/refresh HTTP/1.1
 Authorization: Bearer {{RToken}}
 
 ###
 # Check token
-# @name check
 POST http://localhost:3001/api/auth/check HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+# Revoke token
+POST http://localhost:3001/api/auth/revoke HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###

@@ -1,5 +1,5 @@
 export interface Token {
-  id?: string;
+  refreshTokenId?: number;
   tokenId: string;
   createdAt: Date;
   userId: number;

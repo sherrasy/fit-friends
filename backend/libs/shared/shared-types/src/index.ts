@@ -16,6 +16,7 @@ export * from './lib/user/sportsman.interface';
 export * from './lib/user/request-with-user-payload.interface';
 export * from './lib/user/request-with-user.interface';
 export * from './lib/user/token-payload.interface';
+export * from './lib/user/token-auth.interface';
 export * from './lib/user/token.interface';
 export * from './lib/user/refresh-token.interface';
 export * from './lib/user/refresh-token-payload.interface';

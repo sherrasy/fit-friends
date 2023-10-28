@@ -6,7 +6,9 @@ import { UserRole } from '@backend/shared/shared-types';
 
 @Injectable()
 export class FriendsService {
-  constructor(private readonly friendsRepository: FriendsRepository) {}
+  constructor(
+    private readonly friendsRepository: FriendsRepository,
+    ) {}
 
   public async addFriend(friendId: number, userId: number) {
     const friendData = await this.friendsRepository.findSingleById(
