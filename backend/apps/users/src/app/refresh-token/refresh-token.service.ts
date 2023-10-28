@@ -6,6 +6,7 @@ import { RefreshToken, RefreshTokenPayload } from '@backend/shared/shared-types'
 import dayjs from 'dayjs';
 import { RefreshTokenEntity } from './refresh-token.entity';
 import { parseTime } from '@backend/util/util-core';
+import { AuthError } from '../authentication/authentication.constant';
 
 @Injectable()
 export class RefreshTokenService {
@@ -39,7 +40,7 @@ export class RefreshTokenService {
   public async deleteTokenByUserId(userId: number) {
     const refreshToken = await this.refreshTokenRepository.findByUserId(userId);
     if(!refreshToken){
-      throw new NotFoundException()
+      throw new NotFoundException(AuthError.TokenNotFound)
     }
     return await this.deleteRefreshSession(refreshToken.refreshTokenId);
   }

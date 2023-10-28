@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { FriendsEntity } from './friends.entity';
-import { Friend } from '@backend/shared/shared-types';
+import { Friend, User } from '@backend/shared/shared-types';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class FriendsRepository  {
     });
   }
 
-  public async findAllByUserId(userId: number): Promise<Friend[] | null> {
+  public async findAllByUserId(userId: number): Promise<User[] | null> {
     const data = await this.prisma.friend.findMany({
       where: {
         userId
@@ -31,11 +31,11 @@ export class FriendsRepository  {
         friend:true
       }
     });
-    return data.map((item)=>{return {...item, info: adaptPrismaUser(item.friend) }})
+    return data.map((item)=>{return adaptPrismaUser(item.friend)})
   }
 
-  public async findAllByCoachId(friendId: number): Promise<Friend[] | null> {
-    return await this.prisma.friend.findMany({
+  public async findAllByCoachId(friendId: number): Promise<User[] | null> {
+    const data =  await this.prisma.friend.findMany({
       where: {
         friendId
       },
@@ -43,6 +43,8 @@ export class FriendsRepository  {
         user:true,
       }
     });
+    return data.map((item)=>{return adaptPrismaUser(item.user)})
+
   }
 
 

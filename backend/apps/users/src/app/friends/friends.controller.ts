@@ -1,10 +1,12 @@
 import { Controller, Delete, Get, HttpStatus, Param, Post, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { API_TAG_NAME, FriendsMessages, FriendsPath } from './friends.constant';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '@backend/util/util-core';
-import { RequestWithUserPayload } from '@backend/shared/shared-types';
+import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
+import { RequestWithUserPayload, User } from '@backend/shared/shared-types';
 import { UserRoleInterceptor } from '../user-info/interceptors/user-role.interceptor';
 import { FriendsService } from './friends.service';
+import { FriendRdo } from './rdo/friend.rdo';
+import { UserRdo } from '../user-info/rdo/user.rdo';
 
 @ApiTags(API_TAG_NAME)
 @Controller(FriendsPath.Main)
@@ -23,7 +25,7 @@ export class FriendsController {
   public async addFriend( @Param('id') id:number, @Req() {user}: RequestWithUserPayload) {
     const userId = user.sub;
     const newFriend = await this.friendsService.addFriend(id,userId);
-    return newFriend;
+    return fillObject( FriendRdo,newFriend);
   }
 
   @ApiResponse({
@@ -35,7 +37,7 @@ export class FriendsController {
   public async showFriends(@Req() {user}: RequestWithUserPayload) {
     const{sub, role} = user;
     const friendsInfo = await this.friendsService.showFriends(sub,role);
-    return friendsInfo;
+    return friendsInfo.map((item:User)=>fillObject(UserRdo, item));
   }
 
   @ApiResponse({

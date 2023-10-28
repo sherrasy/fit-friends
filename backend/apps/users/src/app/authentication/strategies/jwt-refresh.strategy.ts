@@ -9,11 +9,15 @@ import { TokenNotExistsException } from '../exceptions/token-not-exists';
 import { UserInfoRepository } from '../../user-info/user-info.repository';
 
 @Injectable()
-export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
+export class JwtRefreshStrategy extends PassportStrategy(
+  Strategy,
+  'jwt-refresh'
+) {
   constructor(
-    @Inject(jwtConfig.KEY) private readonly jwtOptions: ConfigType<typeof jwtConfig>,
+    @Inject(jwtConfig.KEY)
+    private readonly jwtOptions: ConfigType<typeof jwtConfig>,
     private readonly userInfoRepository: UserInfoRepository,
-    private readonly refreshTokenService: RefreshTokenService,
+    private readonly refreshTokenService: RefreshTokenService
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -22,12 +26,12 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh'
   }
 
   public async validate(payload: RefreshTokenPayload) {
-    const token = await this.refreshTokenService.findToken(payload.tokenId)
+    const token = await this.refreshTokenService.findToken(payload.tokenId);
     if (!token) {
       throw new TokenNotExistsException(payload.tokenId);
     }
-   await this.refreshTokenService.deleteRefreshSession(token.refreshTokenId);
-   await this.refreshTokenService.deleteExpiredRefreshTokens();
-   return this.userInfoRepository.findById(payload.sub);
+    await this.refreshTokenService.deleteRefreshSession(token.refreshTokenId);
+    await this.refreshTokenService.deleteExpiredRefreshTokens();
+    return this.userInfoRepository.findById(payload.sub);
   }
 }
