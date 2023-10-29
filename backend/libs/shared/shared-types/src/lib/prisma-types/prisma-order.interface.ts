@@ -1,3 +1,5 @@
+import { PrismaWorkout } from "./prisma-workout.interface";
+
 export interface PrismaOrder  {
   id: number;
   userId: number;
@@ -7,4 +9,5 @@ export interface PrismaOrder  {
   amount: number;
   paymentOption: string;
   createdDate: Date;
+  workout?:PrismaWorkout;
 }

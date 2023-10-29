@@ -1,5 +1,6 @@
 export * from './lib/constant'
 export * from './lib/reaction/create-order.dto'
+export * from './lib/reaction/update-order-amount.dto'
 export * from './lib/reaction/create-review.dto'
 export * from './lib/reaction/create-workout-request.dto'
 export * from './lib/user/login-user.dto'

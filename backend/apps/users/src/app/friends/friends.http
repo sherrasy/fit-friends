@@ -22,19 +22,19 @@ Authorization: Bearer {{AToken}} {{RToken}}
 
 
 
-# Get friends by ID
+# Список друзей
 GET http://localhost:3001/api/friends HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
 
-# Add friend
+# Добавить в друзья (только пользователь)
 POST http://localhost:3001/api/friends/2 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
 
-# Remove friend
+# Удвлить из друзей (только пользователь)
 DELETE  http://localhost:3001/api/friends/2 HTTP/1.1
 Authorization: Bearer {{AToken}}
 

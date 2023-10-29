@@ -32,19 +32,19 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowSingle
+    description: WorkoutsListMessages.ShowAll
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: WorkoutsListError.WorkoutNotFound
+    description: WorkoutsListError.EmptyList
   })
   @UseGuards(JwtAuthGuard)
   @Get(WorkoutsListPath.CoachList)
   @UseInterceptors(CoachRoleInterceptor)
     public async showByCoach(@Req() { user }: RequestWithUserPayload, @Query() query:WorkoutByCoachQuery) {
     const coachId = user.sub;
-    const workout = await this.workoutsListService.findByCoachId(coachId, query);
-    return fillObject(WorkoutRdo, workout);
+    const workouts = await this.workoutsListService.findByCoachId(coachId, query);
+    return workouts.map((workout) => fillObject(WorkoutRdo, workout) );
   }
 
   @ApiResponse({

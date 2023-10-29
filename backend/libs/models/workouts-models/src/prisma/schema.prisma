@@ -51,6 +51,8 @@ model Workout {
   workoutType    WorkoutType[]  @map("workout_type")
   fitnessLevel   FitnessLevel   @map("fitness_level")
   WorkoutOrder   WorkoutOrder[]
+  priceOrdered   Int            @default(0) @map("price_ordered")
+  amountOrdered  Int            @default(0) @map("amount_ordered")
 
   @@map("workouts")
 }

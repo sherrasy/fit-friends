@@ -1,8 +1,8 @@
-import { PaymentOption } from "@backend/shared/shared-types";
+import { PaymentOption, Workout } from "@backend/shared/shared-types";
 import { ApiProperty } from "@nestjs/swagger";
 import { Expose } from "class-transformer";
 
-export class WorkoutsOrderRdo {
+export class OrderRdo {
   @ApiProperty({
     description: 'Workout Id'
   })
@@ -38,4 +38,12 @@ export class WorkoutsOrderRdo {
 })
 @Expose()
   public orderType: string;
+
+  @ApiProperty({
+    description: 'Workout info',
+})
+@Expose()
+  public workout: Workout;
+
+
 }

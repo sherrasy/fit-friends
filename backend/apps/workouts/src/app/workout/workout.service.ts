@@ -1,9 +1,9 @@
-import { getDate } from '@backend/util/util-core';
+import { DefaultParam, getDate } from '@backend/util/util-core';
 import { CreateWorkoutDto, UpdateWorkoutDto } from '@backend/shared/shared-dto';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { WorkoutRepository } from './workout.repository';
 import { WorkoutEntity } from './workout.entity';
-import { DEFAULT_AMOUNT, WorkoutError } from './workout.constant';
+import {  WorkoutError } from './workout.constant';
 
 @Injectable()
 export class WorkoutService {
@@ -16,7 +16,9 @@ export class WorkoutService {
       ...dto,
       coachId,
       createdDate: getDate(),
-      rating:DEFAULT_AMOUNT
+      rating:DefaultParam.Amount,
+      amountOrdered:DefaultParam.Amount,
+      priceOrdered:DefaultParam.Amount,
     };
     const workoutEntity = new WorkoutEntity(workout);
 

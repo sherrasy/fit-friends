@@ -19,13 +19,13 @@ Content-Type: application/json
 ###
 
 
-# Get workout  by ID
+# Детальная информация о тренировке
 GET http://localhost:3000/api/workouts-list/2 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
 
-# Get workouts  by coach ID
+# Список тренировок (кабинет тренера)
 GET http://localhost:3000/api/workouts-list/coach-list?workoutTime=10-30%20мин HTTP/1.1
 Authorization: Bearer {{AToken}}
 # Query params
@@ -39,7 +39,7 @@ Authorization: Bearer {{AToken}}
 ###
 
 
-# Get workouts list
+# Каталог тренировок
 GET http://localhost:3000/api/workouts-list?priceMin=1300&priceMax=3000 HTTP/1.1
 Authorization: Bearer {{AToken}}
 # Query params

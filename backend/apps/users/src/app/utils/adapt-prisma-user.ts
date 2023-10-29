@@ -10,6 +10,7 @@ function adaptPrismaSportsman (sportsman:PrismaSportsman){
   }
   return null;
 }
+
 export function adaptPrismaUser (prismaUser:PrismaUser){
   if (prismaUser) {
     const user = {

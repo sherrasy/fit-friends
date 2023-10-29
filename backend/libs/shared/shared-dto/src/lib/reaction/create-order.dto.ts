@@ -1,17 +1,17 @@
-import { PaymentOption } from "@backend/shared/shared-types";
-import { ApiProperty } from "@nestjs/swagger";
-import { IsIn, IsInt, Max, Min } from "class-validator";
-import { DEFAULT_MIN_PRICE, WorkoutsAmount } from "../constant";
+import { PaymentOption } from '@backend/shared/shared-types';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, Matches, Max, Min } from 'class-validator';
+import { DEFAULT_ORDER_TYPE, WorkoutsAmount } from '../constant';
 
 export class CreateOrderDto {
   @ApiProperty({
-    description: 'Workout Id'
+    description: 'Workout Id',
   })
   @IsInt()
   public workoutId: number;
 
   @ApiProperty({
-    description: 'Workout count'
+    description: 'Workout count',
   })
   @IsInt()
   @Min(WorkoutsAmount.Min)
@@ -19,20 +19,14 @@ export class CreateOrderDto {
   public amount: number;
 
   @ApiProperty({
-    description: 'Workout price'
-  })
-  @IsInt()
-  @Min(DEFAULT_MIN_PRICE)
-  public price: number;
-
-  @ApiProperty({
     description: 'Payment method',
-    enum: PaymentOption})
+    enum: PaymentOption,
+  })
   public paymentOption: PaymentOption;
 
   @ApiProperty({
     description: 'Order type',
-})
-@IsIn(['абонемент'])
+  })
+  @Matches(DEFAULT_ORDER_TYPE)
   public orderType: string;
 }

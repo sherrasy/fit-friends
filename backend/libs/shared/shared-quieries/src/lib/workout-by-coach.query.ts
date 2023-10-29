@@ -1,6 +1,6 @@
 import { IsNumber, IsOptional, IsIn, Max, IsInt } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DefaultQueryParam,  } from './query.constant';
+import { DefaultQueryParam, sortDirections,  } from './query.constant';
 
 export class WorkoutByCoachQuery {
   @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
@@ -42,9 +42,9 @@ export class WorkoutByCoachQuery {
   @IsInt()
   public caloriesMax?: number;
 
-  @IsIn(['asc', 'desc'])
+  @IsIn(sortDirections)
   @IsOptional()
-  public sortDirection?: 'desc' | 'asc' = DefaultQueryParam.Direction;
+  public sortDirection?: string = sortDirections[0];
 
   @IsOptional()
   public sortBy?: string = DefaultQueryParam.SortBy;

@@ -7,6 +7,7 @@ import { FitnessLevel, UserRole } from '@prisma/users/client';
 import { PrismaCoach, PrismaSportsman, User, WorkoutType } from '@backend/shared/shared-types';
 import { UserInfoEntity } from './user-info.entity';
 import { adaptUserToPrisma } from '../utils/adapt-user-to-prisma';
+import { DefaultParam } from '@backend/util/util-core';
 
 @Injectable()
 export class UserInfoRepository
@@ -73,7 +74,7 @@ export class UserInfoRepository
         }
       },
       take: limit,
-      skip: page > 0 ? limit * (page - 1) : undefined,
+      skip: page > DefaultParam.Amount ? limit * (page - DefaultParam.Step) : undefined,
       orderBy: [{ [sortBy]: sortDirection }],
       include: {
         sportsmanInfo: true,

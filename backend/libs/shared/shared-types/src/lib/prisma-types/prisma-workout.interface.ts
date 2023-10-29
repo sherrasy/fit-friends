@@ -17,4 +17,7 @@ export interface PrismaWorkout{
   workoutTime: string;
   workoutType: PrismaWorkoutType[];
   fitnessLevel: PrismaFitnessLevel;
+  priceOrdered: number;
+  amountOrdered: number;
+
 }

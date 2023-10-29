@@ -16,6 +16,8 @@ export class WorkoutEntity implements Workout {
   public coachId: number;
   public isSpecialOffer: boolean;
   public createdDate: string;
+  public amountOrdered:number;
+  public priceOrdered:number;
 
   constructor(workout:Workout ) {
     this.fillEntity(workout);
@@ -41,6 +43,8 @@ export class WorkoutEntity implements Workout {
     this.coachId = workout.coachId;
     this.isSpecialOffer = workout.isSpecialOffer;
     this.createdDate = workout.createdDate;
+    this.priceOrdered = workout.priceOrdered;
+    this.amountOrdered = workout.amountOrdered;
   }
 
 }

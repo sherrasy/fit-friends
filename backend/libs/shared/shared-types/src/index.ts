@@ -1,3 +1,4 @@
+export * from './lib/common/amount-update-type.enum';
 export * from './lib/common/fitness-level.enum';
 export * from './lib/common/user-role.enum';
 export * from './lib/common/user-sex.enum';

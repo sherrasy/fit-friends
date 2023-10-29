@@ -6,6 +6,7 @@ import { Workout } from '@backend/shared/shared-types';
 import { adaptPrismaWorkout } from '../utils/adapt-prisma-workout';
 import { adaptWorkoutToPrisma } from '../utils/adapt-workout-to-prisma';
 import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
+import { DefaultParam } from '@backend/util/util-core';
 
 
 @Injectable()
@@ -32,7 +33,7 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
       },
       take: limit,
       orderBy: [{ [sortBy]: sortDirection } ],
-      skip: page > 0 ? limit * (page - 1) : undefined,
+      skip: page > DefaultParam.Amount ? limit * (page - DefaultParam.Step) : undefined,
     }
     if (workoutTime) {
       queryParams.where.AND.workoutTime = { search: workoutTime };
@@ -54,7 +55,7 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
       },
       take: limit,
       orderBy: [{ [sortBy]: sortDirection } ],
-      skip: page > 0 ? limit * (page - 1) : undefined,
+      skip: page > DefaultParam.Amount ? limit * (page - DefaultParam.Step) : undefined,
     }
     if (workoutType) {
       queryParams.where.AND.workoutType = { hasSome: workoutType };
