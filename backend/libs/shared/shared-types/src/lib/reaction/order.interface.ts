@@ -8,6 +8,7 @@ export interface Order {
   price: number;
   totalPrice?: number;
   amount: number;
+  amountDone: number;
   paymentOption: PaymentOption;
   userId?: number;
 }

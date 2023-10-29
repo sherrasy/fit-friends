@@ -97,6 +97,7 @@ export class OrdersRepository {
       where: { id },
       data:{
         amount:{decrement:DefaultParam.Step},
+        amountDone:{increment:DefaultParam.Step},
       },
       include:{
         workout:true

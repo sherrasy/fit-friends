@@ -7,6 +7,7 @@ export interface PrismaOrder  {
   workoutId: number;
   price: number;
   amount: number;
+  amountDone: number;
   paymentOption: string;
   createdDate: Date;
   workout?:PrismaWorkout;

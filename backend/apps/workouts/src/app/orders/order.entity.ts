@@ -9,6 +9,7 @@ export class OrderEntity implements Order, Entity<OrderEntity> {
   public workoutId: number;
   public price: number;
   public amount: number;
+  public amountDone: number;
   public paymentOption: PaymentOption;
 
   constructor(order: Order) {
@@ -27,6 +28,7 @@ export class OrderEntity implements Order, Entity<OrderEntity> {
     this.workoutId = order.workoutId;
     this.price = order.price;
     this.amount = order.amount;
+    this.amountDone = order.amount;
     this.paymentOption = order.paymentOption;
   }
 

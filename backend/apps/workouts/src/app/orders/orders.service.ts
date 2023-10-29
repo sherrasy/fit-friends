@@ -1,4 +1,4 @@
-import { getDate } from '@backend/util/util-core';
+import { DefaultParam, getDate } from '@backend/util/util-core';
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { OrdersRepository } from './orders.repository';
 import { OrderEntity } from './order.entity';
@@ -25,6 +25,7 @@ export class OrdersService {
       userId,
       createdDate: getDate(),
       price:workout.price,
+      amountDone:DefaultParam.Amount
     };
     const orderEntity = new OrderEntity(order);
 

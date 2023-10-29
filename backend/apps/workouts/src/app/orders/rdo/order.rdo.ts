@@ -22,6 +22,12 @@ export class OrderRdo {
   public amount: number;
 
   @ApiProperty({
+    description: 'Workout done count'
+  })
+  @Expose()
+  public amountDone: number;
+
+  @ApiProperty({
     description: 'Workout price'
   })
   @Expose()

@@ -1,13 +1,14 @@
 import { PaymentOption, PrismaOrder } from '@backend/shared/shared-types';
 import { adaptPrismaWorkout } from './adapt-prisma-workout';
 
+
 export function adaptPrismaOrder(prismaOrder: PrismaOrder) {
   if (prismaOrder) {
     const order = {
       ...prismaOrder,
       paymentOption: prismaOrder.paymentOption as PaymentOption,
       createdDate: prismaOrder.createdDate.toISOString(),
-      totalPrice: prismaOrder.amount * prismaOrder.price,
+      totalPrice: (prismaOrder.amount + prismaOrder.amountDone) * prismaOrder.price,
       workout: adaptPrismaWorkout(prismaOrder.workout),
     };
     if(order.workout){
