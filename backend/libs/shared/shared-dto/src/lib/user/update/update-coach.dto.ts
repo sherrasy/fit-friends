@@ -12,7 +12,7 @@ export class UpdateCoachDto {
   successInfo?: string;
 
   @ApiProperty({
-    description: 'Open for personal training flag',
+    description: 'Open for personal workout flag',
   })
   @IsBoolean()
   @IsOptional()

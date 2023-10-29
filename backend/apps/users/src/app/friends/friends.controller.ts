@@ -3,7 +3,7 @@ import { API_TAG_NAME, FriendsMessages, FriendsPath } from './friends.constant';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { RequestWithUserPayload, User } from '@backend/shared/shared-types';
-import { UserRoleInterceptor } from '../user-info/interceptors/user-role.interceptor';
+import { UserRoleInterceptor } from '@backend/shared-interceptors';
 import { FriendsService } from './friends.service';
 import { FriendRdo } from './rdo/friend.rdo';
 import { UserRdo } from '../user-info/rdo/user.rdo';

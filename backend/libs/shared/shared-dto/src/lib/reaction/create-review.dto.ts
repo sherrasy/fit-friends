@@ -11,7 +11,7 @@ export class CreateReviewDto {
   public text: string;
 
   @ApiProperty({
-    description: 'Rating training'
+    description: 'Rating workout'
   })
   @Min(RaitingCount.Min)
   @Max(RaitingCount.Max)

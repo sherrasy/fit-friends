@@ -5,7 +5,7 @@ import { UserInfoService } from './user-info.service';
 import { UserQuery } from '@backend/shared-quieries';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { UserRdo } from './rdo/user.rdo';
-import { UserRoleInterceptor } from './interceptors/user-role.interceptor';
+import { UserRoleInterceptor } from '@backend/shared-interceptors';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
 import { UpdateUserDto } from '@backend/shared/shared-dto';
 

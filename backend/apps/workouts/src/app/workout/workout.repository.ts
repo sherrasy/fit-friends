@@ -3,8 +3,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CRUDRepository } from '@backend/util/util-types';
 import { WorkoutEntity } from './workout.entity';
 import { Workout } from '@backend/shared/shared-types';
-import { adaptPrismaWorkout } from './utils/adapt-prisma-workout';
-import { adaptWorkoutToPrisma } from './utils/adapt-workout-to-prisma';
+import { adaptPrismaWorkout } from '../utils/adapt-prisma-workout';
+import { adaptWorkoutToPrisma } from '../utils/adapt-workout-to-prisma';
 import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
 
 

@@ -6,7 +6,7 @@ import { WorkoutRdo } from './rdo/workout.rdo';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
 import { CreateWorkoutDto, UpdateWorkoutDto } from '@backend/shared/shared-dto';
-import { CoachRoleInterceptor } from './interceptors/coach-role.interceptor';
+import { CoachRoleInterceptor } from '@backend/shared-interceptors';
 
 @ApiTags(API_TAG_NAME)
 @Controller(WorkoutPath.Main)

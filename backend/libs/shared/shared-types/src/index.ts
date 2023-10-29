@@ -26,5 +26,6 @@ export * from './lib/workout/workout.interface';
 export * from './lib/jwt-config.interface';
 export * from './lib/prisma-types/prisma-user.interface';
 export * from './lib/prisma-types/prisma-workout.interface';
+export * from './lib/prisma-types/prisma-order.interface';
 export * from './lib/uploader/file.interface'
 export * from './lib/uploader/writed-file.type'

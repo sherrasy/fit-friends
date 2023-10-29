@@ -1,38 +1,41 @@
 import { PaymentOption } from "@backend/shared/shared-types";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsIn, IsInt, Max, Min } from "class-validator";
-import { DEFAULT_MIN_PRICE, WorkoutsAmount } from "../constant";
+import { Expose } from "class-transformer";
 
-export class CreateOrderDto {
+export class WorkoutsOrderRdo {
   @ApiProperty({
     description: 'Workout Id'
   })
-  @IsInt()
+  @Expose()
   public workoutId: number;
 
   @ApiProperty({
     description: 'Workout count'
   })
-  @IsInt()
-  @Min(WorkoutsAmount.Min)
-  @Max(WorkoutsAmount.Max)
+  @Expose()
   public amount: number;
 
   @ApiProperty({
     description: 'Workout price'
   })
-  @IsInt()
-  @Min(DEFAULT_MIN_PRICE)
+  @Expose()
   public price: number;
+
+  @ApiProperty({
+    description: 'Workout total price'
+  })
+  @Expose()
+  public totalPrice: number;
 
   @ApiProperty({
     description: 'Payment method',
     enum: PaymentOption})
+    @Expose()
   public paymentOption: PaymentOption;
 
   @ApiProperty({
     description: 'Order type',
 })
-@IsIn(['абонемент'])
+@Expose()
   public orderType: string;
 }

@@ -5,7 +5,7 @@ import { WorkoutsListService } from './workouts-list.service';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { WorkoutRdo } from '../workout/rdo/workout.rdo';
 import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
-import { CoachRoleInterceptor } from '../workout/interceptors/coach-role.interceptor';
+import { CoachRoleInterceptor } from '@backend/shared-interceptors';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
 
 @ApiTags(API_TAG_NAME)

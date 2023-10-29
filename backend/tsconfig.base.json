@@ -21,6 +21,9 @@
         "libs/config/config-workouts/src/index.ts"
       ],
       "@backend/models/users-models": ["libs/models/users-models/src/index.ts"],
+      "@backend/shared-interceptors": [
+        "libs/shared/shared-interceptors/src/index.ts"
+      ],
       "@backend/shared-pipes": ["libs/shared/shared-pipes/src/index.ts"],
       "@backend/shared-quieries": ["libs/shared/shared-quieries/src/index.ts"],
       "@backend/shared/shared-dto": ["libs/shared/shared-dto/src/index.ts"],

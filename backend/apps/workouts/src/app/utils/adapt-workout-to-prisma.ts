@@ -1,5 +1,5 @@
 import { FitnessLevel, WorkoutType } from '@prisma/workouts/client';
-import { WorkoutEntity } from '../workout.entity';
+import { WorkoutEntity } from '../workout/workout.entity';
 
 export function adaptWorkoutToPrisma(workout: WorkoutEntity) {
   if (workout) {

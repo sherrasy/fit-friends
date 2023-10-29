@@ -28,7 +28,7 @@ export class CreateSportsmanDto {
   public caloriesPerDay: number;
 
   @ApiProperty({
-    description: 'Ready for training flag',
+    description: 'Ready for workout flag',
   })
   @IsBoolean()
   isReady: boolean;
