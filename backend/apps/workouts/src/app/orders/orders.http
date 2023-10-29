@@ -5,24 +5,25 @@ POST http://localhost:3001/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 # Sportsman
-# {
-#   "email": "user@test.local",
-#   "password": "123456"
-# }
+{
+  "email": "user@test.local",
+  "password": "123456"
+}
 
 # Coach
-{
-  "email": "first-coach@test.ru",
-  "password": "test123"
-}
+# {
+#   "email": "first-coach@test.ru",
+#   "password": "test123"
+# }
 
 ###
 
 # Мои заказы (кабинет тренера)
-GET http://localhost:3000/api/orders/coach-list HTTP/1.1
+GET http://localhost:3000/api/orders/coach-list?sortBy=amountOrdered&sortDirection=desc HTTP/1.1
 Authorization: Bearer {{AToken}}
 # Query params
 ## sortBy=priceOrdered || amountOrdered
+## sortDirection=asc || desc
 
 ###
 
@@ -51,7 +52,7 @@ Authorization: Bearer {{AToken}}
 Content-Type: application/json
 
 {
-  "orderId": 2,
+  "orderId": 7,
   "updateType": "decrement"
 }
 ###

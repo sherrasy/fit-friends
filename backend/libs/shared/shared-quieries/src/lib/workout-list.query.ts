@@ -46,7 +46,7 @@ export class WorkoutListQuery {
 
   @IsIn(sortDirections)
   @IsOptional()
-  public sortDirection?: string = sortDirections[0];
+  public sortDirection?: string = sortDirections[1];
 
   @IsOptional()
   public sortBy?: string = DefaultQueryParam.SortWorkouts;

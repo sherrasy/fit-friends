@@ -28,7 +28,7 @@ export class OrdersRepository {
       where: { workoutId:item.workoutId },
       data:{
         amountOrdered:{increment:item.amount},
-        priceOrdered:{increment:item.price}
+        priceOrdered:{increment:item.price*item.amount}
       },
     })
 

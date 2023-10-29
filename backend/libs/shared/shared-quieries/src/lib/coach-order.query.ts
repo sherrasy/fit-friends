@@ -15,7 +15,7 @@ export class CoachOrderQuery {
 
   @IsIn(sortDirections)
   @IsOptional()
-  public sortDirection?: string = sortDirections[0];
+  public sortDirection?: string = sortDirections[1];
 
   @IsIn(orderSortings)
   @IsOptional()

@@ -4,6 +4,12 @@ import { Expose } from "class-transformer";
 
 export class OrderRdo {
   @ApiProperty({
+    description: 'Order Id'
+  })
+  @Expose({name:'id'})
+  public orderId: number;
+
+  @ApiProperty({
     description: 'Workout Id'
   })
   @Expose()

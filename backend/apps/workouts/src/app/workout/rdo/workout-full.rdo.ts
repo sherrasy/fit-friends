@@ -63,6 +63,22 @@ export class WorkoutFullRdo  {
   public description: string;
 
   @ApiProperty({
+    description: 'Workout photo',
+  })
+  @Expose()
+  public photo: string;
+  @ApiProperty({
+    description: 'Workout video',
+  })
+  @Expose()
+  public video: string;
+  @ApiProperty({
+    description: 'Workout rating',
+  })
+  @Expose()
+  public rating: number;
+
+  @ApiProperty({
     description: 'User gender',
     enum: UserSex
   })

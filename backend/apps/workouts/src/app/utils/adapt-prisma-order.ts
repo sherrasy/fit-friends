@@ -10,8 +10,12 @@ export function adaptPrismaOrder(prismaOrder: PrismaOrder) {
       totalPrice: prismaOrder.amount * prismaOrder.price,
       workout: adaptPrismaWorkout(prismaOrder.workout),
     };
-    delete order.workout?.amountOrdered;
-    delete order.workout?.priceOrdered;
+    if(order.workout){
+    delete order.workout.amountOrdered;
+    delete order.workout.priceOrdered;
+    delete order.workout.createdDate;
+    delete order.workout.updatedDate;
+  }
     return order;
   }
   return null;

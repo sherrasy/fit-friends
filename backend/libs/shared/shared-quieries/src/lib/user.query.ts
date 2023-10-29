@@ -1,6 +1,6 @@
 import { IsNumber,IsEnum, IsOptional, IsIn, Max } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DefaultQueryParam,  } from './query.constant';
+import { DefaultQueryParam, sortDirections,  } from './query.constant';
 import {FitnessLevel, Location, UserRole, WorkoutType} from '@backend/shared/shared-types'
 
 export class UserQuery {
@@ -32,9 +32,9 @@ export class UserQuery {
   @IsOptional()
   public location?: string;
 
-  @IsIn(['asc', 'desc'])
+  @IsIn(sortDirections)
   @IsOptional()
-  public sortDirection?: 'desc' | 'asc' = DefaultQueryParam.Direction;
+  public sortDirection?: string = sortDirections[1];
 
   @IsOptional()
   public sortBy?: string = DefaultQueryParam.SortBy;
