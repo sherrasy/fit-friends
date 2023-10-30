@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty } from 'class-validator';
 import { EmailError} from '../email-subscriber.constant';
 
 export class CreateSubscriberDto {
@@ -8,4 +8,6 @@ export class CreateSubscriberDto {
   @IsNotEmpty({ message: EmailError.EmptyName })
   public name: string;
 
+  @IsArray()
+  subscriptions:number[]
 }

@@ -26,4 +26,8 @@ export class WorkoutsListService {
     }
     return workout;
   }
+
+  public async getWorkouts (): Promise<Workout[]> {
+    return this.workoutRepository.getFullList();
+  }
 }

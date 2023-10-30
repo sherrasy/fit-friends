@@ -1,4 +1,4 @@
-import { Subscriber } from '@backend/shared/shared-types';
+import { Subscriber, Workout } from '@backend/shared/shared-types';
 import { Injectable, Inject } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { notifyConfig } from '@backend/config-notify';
@@ -24,4 +24,17 @@ export class MailService {
         email: `${subscriber.email}`,
       }
     })
-  }}
+  }
+
+  public async sendWorkouts(email: string, workoutsInfo:Workout[]) {
+    await this.mailerService.sendMail({
+      from: this.serviceConfig.mail.from,
+      to: email,
+      subject: EmailSubject.Newsletter,
+      template: './newsletter-workouts',
+      context: {
+      workouts:workoutsInfo
+      }
+    })
+}
+}

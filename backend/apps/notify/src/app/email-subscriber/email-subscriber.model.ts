@@ -17,6 +17,9 @@ export class EmailSubscriberModel extends Document implements  Subscriber {
 
   @Prop()
   public dateNotify: string;
+
+  @Prop()
+  public subscriptions: number[];
 }
 
 export const EmailSubscriberSchema = SchemaFactory.createForClass(EmailSubscriberModel);

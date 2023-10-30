@@ -34,22 +34,12 @@ export class UserInfoService {
     return this.userInfoRepository.update(id, userEntity);
   }
 
-    public async updateSubscriptions(coachId:number, userId:number){
-    const coachInfo = await this.findById(coachId);
-    if(coachInfo.role !== UserRole.Coach){
-      throw new BadRequestException ('Not coach');
+    public async checkCoach(coachId:number){
+    const userInfo = await this.findById(coachId);
+    if(userInfo.role !== UserRole.Coach){
+      throw new BadRequestException (UserInfoError.NotCoach);
     }
-    const user = await this.findById(userId);
-    const subscriptionsData = user.subscriptions;
-
-    let updatedList: number[];
-    if (!subscriptionsData.includes(coachId)) {
-      updatedList = subscriptionsData.concat(coachId);
-    } else {
-      updatedList = subscriptionsData.filter((item) => item !== coachId);
-    }
-    const userEntity = new UserInfoEntity({...user, subscriptions:updatedList});
-    return this.userInfoRepository.update(userId, userEntity);
+    return;
   }
 
 }

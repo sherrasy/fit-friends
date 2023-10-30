@@ -7,15 +7,14 @@ import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { UserRdo } from './rdo/user.rdo';
 import { UserRoleInterceptor } from '@backend/shared-interceptors';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
-import { UpdateUserDto } from '@backend/shared/shared-dto';
 import { NotifyService } from '../notify/notify.service';
-import { UserSubscriptionsRdo } from './rdo/user-subscriptions.rdo';
 
 @ApiTags(API_TAG_NAME)
 @Controller(UserInfoPath.Main)
 export class UserInfoController {
   constructor(
     private readonly userInfoService: UserInfoService,
+    private readonly notifyService: NotifyService,
   ) { }
 
   @ApiResponse({
@@ -57,10 +56,9 @@ export class UserInfoController {
   @UseInterceptors(UserRoleInterceptor)
   @Post(`${UserInfoPath.Subscribe}/${UserInfoPath.Id}`)
   public async subscribeOnCoach( @Param('id') id:number, @Req() {user}: RequestWithUserPayload) {
-    const userId = user.sub;
-    const userData = await this.userInfoService.updateSubscriptions(id,userId);
-    return fillObject(UserSubscriptionsRdo, userData)
+    const {email} = user;
+    await this.userInfoService.checkCoach(id);
+    await this.notifyService.updateSubscriber({email,coach:id});
   }
-
 }
 

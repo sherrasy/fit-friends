@@ -7,12 +7,14 @@ import { WorkoutRdo } from '../workout/rdo/workout.rdo';
 import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
 import { CoachRoleInterceptor } from '@backend/shared-interceptors';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
+import { NotifyService } from '../notify/notify.service';
 
 @ApiTags(API_TAG_NAME)
 @Controller(WorkoutsListPath.Main)
 export class WorkoutsListController {
   constructor(
     private readonly workoutsListService: WorkoutsListService,
+    private readonly notifyService: NotifyService
   ) {}
 
   @ApiResponse({
@@ -62,4 +64,15 @@ export class WorkoutsListController {
     return fillObject(WorkoutRdo, workout);
   }
 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:WorkoutsListMessages.NewsSent
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get(WorkoutsListPath.SendNewsletter)
+  public async sendNews(@Req() {user}: RequestWithUserPayload) {
+    const {email} = user;
+    const workouts = await this.workoutsListService.getWorkouts()
+    this.notifyService.sendNewsletter({email, workouts});
+  }
 }

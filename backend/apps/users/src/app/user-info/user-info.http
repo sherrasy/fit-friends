@@ -6,7 +6,7 @@ Content-Type: application/json
 
 # Sportsman
 {
-  "email": "user@test.local",
+  "email": "use@test.local",
   "password": "123456"
 }
 

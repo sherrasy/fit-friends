@@ -1,11 +1,11 @@
-import {  IsEmail, IsString } from 'class-validator';
+import {  IsArray, IsEmail, IsString } from 'class-validator';
 import { EmailError} from '../email-subscriber.constant';
+import { Workout } from '@backend/shared/shared-types';
 
 export class NewsletterDto {
   @IsEmail({}, { message: EmailError.InvalidEmail })
   public email: string;
 
-  @IsString()
-  public id: string;
-
+  @IsArray()
+  public workouts: Workout[];
 }

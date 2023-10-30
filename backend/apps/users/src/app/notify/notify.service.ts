@@ -4,6 +4,7 @@ import { rabbitConfig } from '@backend/config/config-users';
 import { ConfigType } from '@nestjs/config';
 import { CreateSubscriberDto } from './dto/create-subscriber.dto';
 import { RabbitRouting } from '@backend/shared/shared-types';
+import { UpdateSubscriberDto } from './dto/update-subscriber.dto';
 
 @Injectable()
 export class NotifyService {
@@ -18,6 +19,15 @@ export class NotifyService {
       this.rabbitOptions.exchange,
       RabbitRouting.AddSubscriber,
       { ...dto }
+    );
+  }
+
+  public async updateSubscriber(dto: UpdateSubscriberDto) {
+    return this.rabbitClient.request<UpdateSubscriberDto>(
+    { exchange: this.rabbitOptions.exchange,
+      routingKey:RabbitRouting.UpdateSubscriber,
+      payload:{ ...dto }
+    }
     );
   }
 }

@@ -35,5 +35,4 @@ export interface PrismaUser {
   photo: string;
   sportsmanInfo?: PrismaSportsman | null;
   coachInfo?: PrismaCoach | null;
-  subscriptions:number[]
 }

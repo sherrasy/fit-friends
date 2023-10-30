@@ -7,7 +7,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
-const DEFAULT_PORT = 3000;
+const DEFAULT_PORT = 6000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

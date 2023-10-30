@@ -74,6 +74,12 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
     return adaptPrismaWorkout(workout)
   }
 
+  public async getFullList(): Promise<Workout[]> {
+    const workouts = await this.prisma.workout.findMany();
+    return workouts.map((workout) => adaptPrismaWorkout(workout))
+  }
+
+
   public async update(workoutId: number, item: WorkoutEntity): Promise<Workout> {
     const data = adaptWorkoutToPrisma(item)
     const workout = await this.prisma.workout.update({
