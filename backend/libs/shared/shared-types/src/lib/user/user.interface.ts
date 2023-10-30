@@ -23,4 +23,5 @@ export interface User {
   workoutType: WorkoutType[];
   sportsmanInfo?: Sportsman|null;
   coachInfo?: Coach|null;
+  subscriptions?: number[];
 }

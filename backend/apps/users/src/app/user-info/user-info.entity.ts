@@ -19,6 +19,7 @@ export class UserInfoEntity implements User {
   public createdDate: string;
   public fitnessLevel: FitnessLevel;
   public workoutType: WorkoutType[];
+  public subscriptions: number[];
 
   constructor(user: User) {
     this.fillEntity(user);
@@ -45,6 +46,7 @@ export class UserInfoEntity implements User {
     this.createdDate = user.createdDate;
     this.fitnessLevel = user.fitnessLevel;
     this.workoutType = user.workoutType;
+    this.subscriptions = user.subscriptions;
     }
 
   public async setPassword(password: string): Promise<UserInfoEntity> {

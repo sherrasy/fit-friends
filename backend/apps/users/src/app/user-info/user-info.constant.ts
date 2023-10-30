@@ -18,6 +18,6 @@ export const UserInfoPath = {
   Main:'user-info',
   Id:':id',
   Show:'show',
-  UpdateAvatar: 'upload-avatar',
+  Subscribe: 'subscribe',
   Update: 'update',
 }as const;

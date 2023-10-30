@@ -66,6 +66,7 @@ model User {
   fitnessLevel    FitnessLevel  @map("fitness_level")
   friendsReciever Friend[]      @relation(name: "friends_reciever")
   friendsSender   Friend[]      @relation(name: "friends_sender")
+  subscriptions   Int[]
 
   @@map("users")
 }

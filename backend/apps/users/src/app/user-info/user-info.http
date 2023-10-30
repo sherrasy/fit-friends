@@ -49,3 +49,9 @@ Authorization: Bearer {{AToken}}
 }
 
 ###
+
+# Подписаться / отписаться на рассылку тренера
+POST http://localhost:3001/api/user-info/subscribe/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###

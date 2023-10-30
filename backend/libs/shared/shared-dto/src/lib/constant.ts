@@ -7,7 +7,7 @@ export const DEFAULT_MIN_PRICE = 0;
 
 export const DEFAULT_ORDER_TYPE = 'абонемент';
 
-export const USERNAME_PATTERN = /^[a-zA-Zа-яА-Я]+$/g;
+export const USERNAME_PATTERN = /^[a-zA-Zа-яА-Я\s]+$/g;
 
 export const NameLength = {
   Min: 1,

@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 
 import { EmailSubscriberModule } from './email-subscriber/email-subscriber.module';
-import { MailModule } from './mail/mail.module';
 import { ConfigNotifyModule } from '@backend/config-notify';
 import { MongooseModule } from '@nestjs/mongoose';
 import { getMongooseOptions } from '@backend/util/util-core';

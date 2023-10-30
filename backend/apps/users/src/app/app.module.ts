@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigUsersModule } from '@backend/config/config-users';
 import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 import { FriendsModule } from './friends/friends.module';
+import { NotifyModule } from './notify/notify.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { FriendsModule } from './friends/friends.module';
     ConfigUsersModule,
     RefreshTokenModule,
     FriendsModule,
+    NotifyModule,
   ],
   controllers: [],
   providers: [],
