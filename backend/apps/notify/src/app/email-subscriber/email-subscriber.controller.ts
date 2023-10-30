@@ -43,9 +43,9 @@ export class EmailSubscriberController {
     const { email, workouts } = dto;
     const recipient = await this.subscriberService.getSubscriber(email);
     if (recipient && workouts.length > 0) {
-      const newPosts = getNewWorkouts(dto, recipient);
-      if (newPosts.length > 0) {
-        await this.mailService.sendWorkouts(recipient.email, newPosts);
+      const newWorkouts = getNewWorkouts(dto, recipient);
+      if (newWorkouts.length > 0) {
+        await this.mailService.sendWorkouts(recipient.email, newWorkouts);
         this.subscriberService.updateDateSent(recipient);
       }
     }

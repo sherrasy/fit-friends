@@ -10,7 +10,6 @@ export class WorkoutsListService {
     private readonly workoutRepository: WorkoutRepository
   ) {}
 
-
   public async showAll(query:WorkoutListQuery): Promise<Workout[]> {
     return this.workoutRepository.findAll(query);
   }

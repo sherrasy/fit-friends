@@ -26,7 +26,6 @@ Authorization: Bearer {{AToken}}
 
 ###
 
-
 # Список (каталог пользователей)
 GET http://localhost:3001/api/user-info/show?workoutType=yoga,stretching HTTP/1.1
 Authorization: Bearer {{AToken}}

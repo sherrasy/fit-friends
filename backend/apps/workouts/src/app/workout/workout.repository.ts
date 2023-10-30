@@ -42,6 +42,10 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
     return workouts.map((workout) => adaptPrismaWorkout(workout))
 }
 
+  public async getFullList(): Promise<Workout[]> {
+    const workouts = await this.prisma.workout.findMany();
+    return workouts.map((workout) => adaptPrismaWorkout(workout))
+  }
 
   public async findAll({ limit, page, sortDirection,  workoutType,caloriesMin, caloriesMax, priceMin, priceMax,rating, sortBy }: WorkoutListQuery): Promise<Workout[]> {
     const queryParams = {
@@ -72,11 +76,6 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
       }
     });
     return adaptPrismaWorkout(workout)
-  }
-
-  public async getFullList(): Promise<Workout[]> {
-    const workouts = await this.prisma.workout.findMany();
-    return workouts.map((workout) => adaptPrismaWorkout(workout))
   }
 
 
