@@ -47,7 +47,7 @@ datasource db {
 }
 
 model User {
-  userId          Int           @id @default(autoincrement()) @map("user_id")
+  userId          Int            @id @default(autoincrement()) @map("user_id")
   name            String
   email           String
   password        String
@@ -55,17 +55,18 @@ model User {
   role            UserRole
   location        Location
   description     String?
-  birthDate       String?       @map("birth_date")
-  createdDate     DateTime      @default(now())
-  updatedDate     DateTime      @updatedAt
+  birthDate       String?        @map("birth_date")
+  createdDate     DateTime       @default(now())
+  updatedDate     DateTime       @updatedAt
   avatar          String?
   photo           String?
   sportsmanInfo   Sportsman?
   coachInfo       Coach?
-  workoutType     WorkoutType[] @map("workout_type")
-  fitnessLevel    FitnessLevel  @map("fitness_level")
-  friendsReciever Friend[]      @relation(name: "friends_reciever")
-  friendsSender   Friend[]      @relation(name: "friends_sender")
+  workoutType     WorkoutType[]  @map("workout_type")
+  fitnessLevel    FitnessLevel   @map("fitness_level")
+  friendsReciever Friend[]       @relation(name: "friends_reciever")
+  friendsSender   Friend[]       @relation(name: "friends_sender")
+  notifications   Notification[]
 
   @@map("users")
 }
@@ -112,4 +113,14 @@ model Friend {
   friend      User     @relation(fields: [friendId], references: [userId], onDelete: Cascade, onUpdate: Cascade, name: "friends_reciever")
 
   @@map("friends")
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  text        String
+  userId      Int      @map("user_id")
+  createdDate DateTime @default(now()) @map("created_date")
+  user        User     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("notifications")
 }

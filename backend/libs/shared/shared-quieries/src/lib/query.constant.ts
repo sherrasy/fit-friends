@@ -7,3 +7,5 @@ export const DefaultQueryParam = {
 export const sortDirections = ['asc', 'desc'];
 
 export const orderSortings = ['amountOrdered', 'priceOrdered']
+
+export const NOTIFICATIONS_LIMIT = 5;

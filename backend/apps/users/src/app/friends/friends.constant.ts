@@ -7,7 +7,7 @@ export const FriendsError = {
 
 export const FriendsMessages = {
   Add : "Friend added successfully",
-  Show: "Friend showing",
+  Show: "Friend list is showing",
   Remove: "Friend removed"
 } as const;
 

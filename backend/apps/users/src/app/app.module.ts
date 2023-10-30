@@ -6,6 +6,8 @@ import { ConfigUsersModule } from '@backend/config/config-users';
 import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 import { FriendsModule } from './friends/friends.module';
 import { NotifyModule } from './notify/notify.module';
+import { WorkoutRequestModule } from './workout-request/workout-request.module';
+import { UserNotificationsModule } from './user-notifications/user-notifications.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { NotifyModule } from './notify/notify.module';
     RefreshTokenModule,
     FriendsModule,
     NotifyModule,
+    WorkoutRequestModule,
+    UserNotificationsModule,
   ],
   controllers: [],
   providers: [],

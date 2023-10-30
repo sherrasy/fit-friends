@@ -5,7 +5,6 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigWorkoutsModule } from '@backend/config/config-workouts';
 import { OrdersModule } from './orders/orders.module';
 import { NotifyModule } from './notify/notify.module';
-import { WorkoutRequestModule } from './workout-request/workout-request.module';
 import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
@@ -16,7 +15,6 @@ import { ReviewsModule } from './reviews/reviews.module';
     ConfigWorkoutsModule,
     OrdersModule,
     NotifyModule,
-    WorkoutRequestModule,
     ReviewsModule,
   ],
   controllers: [],

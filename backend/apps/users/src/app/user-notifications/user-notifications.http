@@ -22,20 +22,14 @@ Authorization: Bearer {{AToken}} {{RToken}}
 
 
 
-# Список друзей
-GET http://localhost:3001/api/friends HTTP/1.1
+# Список оповещений
+GET http://localhost:3001/api/user-notifications HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
 
-# Добавить в друзья (только пользователь)
-POST http://localhost:3001/api/friends/2 HTTP/1.1
-Authorization: Bearer {{AToken}}
-
-###
-
-# Удалить из друзей (только пользователь)
-DELETE  http://localhost:3001/api/friends/2 HTTP/1.1
+# Удалить оповещение
+DELETE  http://localhost:3001/api/user-notifications/1 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
