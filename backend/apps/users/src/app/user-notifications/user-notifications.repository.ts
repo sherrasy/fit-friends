@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { DefaultParam } from '@backend/util/util-core';
-import { UserNotificationEntity } from './user-notification.entity';
 import { UserNotification } from '@backend/shared/shared-types';
 import { NotificationsQuery } from '@backend/shared-quieries';
+import { CreateNotificationDto } from '@backend/shared/shared-dto';
 
 @Injectable()
 export class UserNotificationsRepository{
   constructor(private readonly prisma: PrismaService) { }
 
-  public async create(item:UserNotificationEntity ): Promise<UserNotification> {
-    const data = {...item.toObject()};
+  public async create(data:CreateNotificationDto ): Promise<UserNotification> {
     return await this.prisma.notification.create({ data });
   }
 

@@ -1,8 +1,10 @@
 import { StatusRequest } from "../common/status-request.enum";
 
 export interface WorkoutRequest {
-  id?: string;
-  initiatorId: string;
-  userId: string;
+  id?: number;
+  initiatorId: number;
+  userId: number;
   statusRequest: StatusRequest;
+  createdDate?: Date;
+  updatedDate?: Date;
 }

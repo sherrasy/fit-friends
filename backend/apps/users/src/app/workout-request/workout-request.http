@@ -17,25 +17,27 @@ Authorization: Bearer {{AToken}} {{RToken}}
 #   "email": "first-coach@test.ru",
 #   "password": "test123"
 # }
+###
+
+# Создать (только пользователь)
+POST http://localhost:3001/api/workout-request HTTP/1.1
+Authorization: Bearer {{AToken}}
+Content-Type: application/json
+
+{
+"userId":3
+}
 
 ###
 
 
-
-# Список друзей
-GET http://localhost:3001/api/friends HTTP/1.1
+# Изменить статус
+Patch  http://localhost:3001/api/workout-request/1 HTTP/1.1
 Authorization: Bearer {{AToken}}
+Content-Type: application/json
 
-###
-
-# Добавить в друзья (только пользователь)
-POST http://localhost:3001/api/friends/2 HTTP/1.1
-Authorization: Bearer {{AToken}}
-
-###
-
-# Удалить из друзей (только пользователь)
-DELETE  http://localhost:3001/api/friends/2 HTTP/1.1
-Authorization: Bearer {{AToken}}
+{
+"statusRequest":"accepted"
+}
 
 ###

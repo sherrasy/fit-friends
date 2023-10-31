@@ -1,7 +1,7 @@
 import { PaymentOption } from '@backend/shared/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, Matches, Max, Min } from 'class-validator';
-import { DEFAULT_ORDER_TYPE, WorkoutsAmount } from '../constant';
+import { DEFAULT_ORDER_TYPE, WorkoutsAmount } from '../../constant';
 
 export class CreateOrderDto {
   @ApiProperty({

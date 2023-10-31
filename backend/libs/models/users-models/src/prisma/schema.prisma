@@ -124,3 +124,14 @@ model Notification {
 
   @@map("notifications")
 }
+
+model WorkoutRequest {
+  id            Int      @id @default(autoincrement())
+  initiatorId   Int      @map("initiator_id")
+  userId        Int      @map("user_id")
+  createdDate   DateTime @default(now()) @map("created_date")
+  updatedDate   DateTime @updatedAt @map("updated_date")
+  statusRequest String
+
+  @@map("workout_requests")
+}

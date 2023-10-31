@@ -2,12 +2,15 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { FriendsRepository } from './friends.repository';
 import { FriendsEntity } from './friends.entity';
 import { FriendsError } from './friends.constant';
-import { UserRole } from '@backend/shared/shared-types';
+import { NotificationText, UserRole } from '@backend/shared/shared-types';
+import { UserNotificationsRepository } from '../user-notifications/user-notifications.repository';
 
 @Injectable()
 export class FriendsService {
   constructor(
     private readonly friendsRepository: FriendsRepository,
+    private readonly notificationRepository: UserNotificationsRepository,
+
     ) {}
 
   public async addFriend(friendId: number, userId: number) {
@@ -20,7 +23,10 @@ export class FriendsService {
     }
     const friend = { userId, friendId };
     const friendEntity = new FriendsEntity(friend);
-    return this.friendsRepository.create(friendEntity);
+    const friendInfo = await this.friendsRepository.create(friendEntity);
+    const notification = {userId:friendId, text:NotificationText.Friend}
+    await this.notificationRepository.create(notification)
+    return friendInfo;
   }
 
   public async removeFriend(friendId: number, userId: number) {

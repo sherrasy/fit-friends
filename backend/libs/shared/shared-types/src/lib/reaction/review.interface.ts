@@ -1,7 +1,8 @@
 export interface Review {
-  id?: string;
-  userId: string;
-  workoutId: string;
+  id?: number;
+  userId: number;
+  workoutId: number;
   rating: number;
   message: string;
+  createdDate?:Date;
 }
