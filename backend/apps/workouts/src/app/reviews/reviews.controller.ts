@@ -1,4 +1,4 @@
-import { Controller, HttpStatus,UseGuards, UseInterceptors, Post, Param,Req, Body, Get } from '@nestjs/common';
+import { Controller, HttpStatus,UseGuards, UseInterceptors, Post, Param,Req, Body, Get, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { API_TAG_NAME, ReviewsMessages, ReviewsPath } from './reviews.constant';
 import { ReviewsService } from './reviews.service';
@@ -7,6 +7,7 @@ import { ReviewsRdo } from './rdo/reviews.rdo';
 import { UserRoleInterceptor } from '@backend/shared-interceptors';
 import { RequestWithUserPayload, Review } from '@backend/shared/shared-types';
 import { CreateReviewDto } from '@backend/shared/shared-dto';
+import { ReviewsQuery } from '@backend/shared-quieries';
 
 @ApiTags(API_TAG_NAME)
 @Controller(ReviewsPath.Main)
@@ -34,8 +35,8 @@ export class ReviewsController {
   })
   @UseGuards(JwtAuthGuard)
   @Get(ReviewsPath.Id)
-  public async showReviews( @Param('id') workoutId:number) {
-    const reviewsInfo = await this.reviewsService.showReviews(workoutId);
+  public async showReviews( @Param('id') workoutId:number, @Query() query:ReviewsQuery) {
+    const reviewsInfo = await this.reviewsService.showReviews(workoutId, query);
     return reviewsInfo.map((item:Review)=>fillObject(ReviewsRdo, item));
   }
 

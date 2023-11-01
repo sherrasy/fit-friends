@@ -1,5 +1,5 @@
 import { IsArray, IsEmail, IsNotEmpty } from 'class-validator';
-import { EmailError} from '../email-subscriber.constant';
+import { EmailError } from '../email-subscriber.constant';
 
 export class CreateSubscriberDto {
   @IsEmail({}, { message: EmailError.InvalidEmail })

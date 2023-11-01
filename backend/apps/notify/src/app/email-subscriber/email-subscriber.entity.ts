@@ -1,8 +1,9 @@
-import { Entity } from '@backend/util/util-types';
 import { Subscriber } from '@backend/shared/shared-types';
+import { Entity } from '@backend/util/util-types';
 
-
-export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity>, Subscriber {
+export class EmailSubscriberEntity
+  implements Entity<EmailSubscriberEntity>, Subscriber
+{
   public id: string;
   public email: string;
   public name: string;
@@ -13,7 +14,7 @@ export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity>, Sub
     this.fillEntity(emailSubscriber);
   }
 
-  public fillEntity(entity:Subscriber) {
+  public fillEntity(entity: Subscriber) {
     this.email = entity.email;
     this.name = entity.name;
     this.id = entity.id;

@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsIn, Max, IsInt } from 'class-validator';
+import { IsNumber, IsOptional, IsIn, Max } from 'class-validator';
 import { Transform } from 'class-transformer';
 import { DefaultQueryParam, orderSortings, sortDirections,  } from './query.constant';
 

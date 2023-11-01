@@ -1,13 +1,13 @@
 import { IsNumber, IsOptional, IsIn, Max } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DefaultQueryParam, NOTIFICATIONS_LIMIT, sortDirections,  } from './query.constant';
+import { DefaultQueryParam, sortDirections } from './query.constant';
 
-export class NotificationsQuery {
-  @Transform(({ value } ) => +value ||  NOTIFICATIONS_LIMIT)
+export class ReviewsQuery {
+  @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
   @IsNumber()
-  @Max(NOTIFICATIONS_LIMIT)
+  @Max(DefaultQueryParam.Limit)
   @IsOptional()
-  public limit = NOTIFICATIONS_LIMIT;
+  public limit = DefaultQueryParam.Limit;
 
   @Transform(({ value }) => +value)
   @IsOptional()

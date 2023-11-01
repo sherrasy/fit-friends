@@ -4,6 +4,7 @@ import { ReviewsEntity } from './reviews.entity';
 import { CreateReviewDto } from '@backend/shared/shared-dto';
 import { WorkoutRepository } from '../workout/workout.repository';
 import { REVIEWS_ERROR } from './reviews.constant';
+import { ReviewsQuery } from '@backend/shared-quieries';
 
 @Injectable()
 export class ReviewsService {
@@ -32,12 +33,12 @@ export class ReviewsService {
     return reviewInfo;
   }
 
-  public async showReviews(workoutId: number) {
+  public async showReviews(workoutId: number, query: ReviewsQuery) {
     const workout = await this.workoutRepository.findById(workoutId)
     if(!workout){
       throw new NotFoundException(REVIEWS_ERROR)
     }
-    return await this.reviewsRepository.findAllByWorkoutId(workoutId);
+    return await this.reviewsRepository.findAllByWorkoutId(workoutId, query);
   }
 
 }
