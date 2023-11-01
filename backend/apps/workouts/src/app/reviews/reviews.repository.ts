@@ -19,4 +19,28 @@ export class ReviewsRepository {
       },
     });
   }
+
+  public async getAverageRating(workoutId: number): Promise<number | null> {
+    const aggregations = await this.prisma.review.aggregate({
+      where: {
+        workoutId,
+      },
+      _avg: {
+        rating: true,
+      },
+    });
+    return aggregations._avg.rating;
+  }
+
+  public async updateRating(workoutId: number) {
+    const rating = await this.getAverageRating(workoutId);
+    await this.prisma.workout.update({
+      where: {
+        workoutId,
+      },
+      data: {
+        rating,
+      },
+    });
+  }
 }
