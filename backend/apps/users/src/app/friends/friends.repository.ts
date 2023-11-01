@@ -1,8 +1,8 @@
+import { Friend, User } from '@backend/shared/shared-types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { FriendsEntity } from './friends.entity';
-import { Friend, User } from '@backend/shared/shared-types';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
+import { FriendsEntity } from './friends.entity';
 
 @Injectable()
 export class FriendsRepository {

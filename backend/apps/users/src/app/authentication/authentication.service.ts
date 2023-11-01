@@ -1,15 +1,21 @@
-import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException, BadRequestException } from '@nestjs/common';
-import { UserInfoRepository } from '../user-info/user-info.repository';
-import { CreateUserDto, LoginUserDto } from '@backend/shared/shared-dto';
-import { AuthError } from './authentication.constant';
-import { createJWTPayload, getDate } from '@backend/util/util-core';
-import { UserInfoEntity } from '../user-info/user-info.entity';
-import { TokenAuth, User } from '@backend/shared/shared-types';
-import { JwtService } from '@nestjs/jwt';
-import { ConfigType } from '@nestjs/config';
 import { jwtConfig } from '@backend/config/config-users';
-import { RefreshTokenService } from '../refresh-token/refresh-token.service';
+import { CreateUserDto, LoginUserDto } from '@backend/shared/shared-dto';
+import { TokenAuth, User } from '@backend/shared/shared-types';
+import { createJWTPayload, getDate } from '@backend/util/util-core';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import * as crypto from 'node:crypto';
+import { RefreshTokenService } from '../refresh-token/refresh-token.service';
+import { UserInfoEntity } from '../user-info/user-info.entity';
+import { UserInfoRepository } from '../user-info/user-info.repository';
+import { AuthError } from './authentication.constant';
 
 @Injectable()
 export class AuthenticationService {
@@ -18,8 +24,8 @@ export class AuthenticationService {
     private readonly jwtService: JwtService,
     @Inject(jwtConfig.KEY)
     private readonly jwtOptions: ConfigType<typeof jwtConfig>,
-    private readonly refreshTokenService: RefreshTokenService,
-  ) { }
+    private readonly refreshTokenService: RefreshTokenService
+  ) {}
 
   public async register(dto: CreateUserDto) {
     const user = {
@@ -36,7 +42,7 @@ export class AuthenticationService {
       throw new ConflictException(AuthError.UserExists);
     }
 
-    const userEntity = await new UserInfoEntity(user).setPassword(dto.password)
+    const userEntity = await new UserInfoEntity(user).setPassword(dto.password);
 
     return this.userInfoRepository.create(userEntity);
   }
@@ -50,30 +56,41 @@ export class AuthenticationService {
     }
 
     const userEntity = new UserInfoEntity(existUser);
-    if (!await userEntity.comparePassword(password)) {
+    if (!(await userEntity.comparePassword(password))) {
       throw new UnauthorizedException(AuthError.PasswordWrong);
     }
 
     return userEntity.toObject();
   }
 
-  public async createUserToken(user: User, tokenAuth?:TokenAuth) {
-    if (tokenAuth && tokenAuth.accessToken && tokenAuth.refreshToken && tokenAuth.userId === user._id) {
-      return {accessToken: tokenAuth.accessToken, refreshToken:tokenAuth.refreshToken }
+  public async createUserToken(user: User, tokenAuth?: TokenAuth) {
+    if (
+      tokenAuth &&
+      tokenAuth.accessToken &&
+      tokenAuth.refreshToken &&
+      tokenAuth.userId === user._id
+    ) {
+      return {
+        accessToken: tokenAuth.accessToken,
+        refreshToken: tokenAuth.refreshToken,
+      };
     }
     const accessTokenPayload = createJWTPayload(user);
-    const refreshTokenPayload = { ...accessTokenPayload, tokenId: crypto.randomUUID() };
-    await this.refreshTokenService.createRefreshSession(refreshTokenPayload)
+    const refreshTokenPayload = {
+      ...accessTokenPayload,
+      tokenId: crypto.randomUUID(),
+    };
+    await this.refreshTokenService.createRefreshSession(refreshTokenPayload);
     return {
       accessToken: await this.jwtService.signAsync(accessTokenPayload),
       refreshToken: await this.jwtService.signAsync(refreshTokenPayload, {
         secret: this.jwtOptions.refreshTokenSecret,
-        expiresIn: this.jwtOptions.refreshTokenExpiresIn
-      })
-    }
+        expiresIn: this.jwtOptions.refreshTokenExpiresIn,
+      }),
+    };
   }
 
-  public async revokeToken(userId:number){
-   return await this.refreshTokenService.deleteTokenByUserId(userId)
+  public async revokeToken(userId: number) {
+    return await this.refreshTokenService.deleteTokenByUserId(userId);
   }
 }

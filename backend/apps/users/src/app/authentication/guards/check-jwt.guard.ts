@@ -4,9 +4,9 @@ import { AuthGuard } from '@nestjs/passport';
 @Injectable()
 export class CheckJwtAuthGuard extends AuthGuard('jwt') {
   handleRequest(
-    err: any,
+    _err: any,
     userToken: any,
-    info: any,
+    _info: any,
     context: ExecutionContext
   ) {
     const request = context.switchToHttp().getRequest();

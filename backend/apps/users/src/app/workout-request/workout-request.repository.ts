@@ -1,11 +1,11 @@
+import { StatusRequest, WorkoutRequest } from '@backend/shared/shared-types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { WorkoutRequestEntity } from './workout-request.entity';
-import { StatusRequest, WorkoutRequest } from '@backend/shared/shared-types';
 
 @Injectable()
 export class WorkoutRequestRepository {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: WorkoutRequestEntity): Promise<WorkoutRequest> {
     const data = { ...item.toObject() };
@@ -30,7 +30,7 @@ export class WorkoutRequestRepository {
     const data = { ...item.toObject() };
     const request = await this.prisma.workoutRequest.update({
       where: { id },
-      data
+      data,
     });
     return {
       ...request,

@@ -1,42 +1,44 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CRUDRepository } from '@backend/util/util-types';
-import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 import { UserQuery } from '@backend/shared-quieries';
-import { FitnessLevel, UserRole } from '@prisma/users/client';
-import { PrismaCoach, PrismaSportsman, User, WorkoutType } from '@backend/shared/shared-types';
-import { UserInfoEntity } from './user-info.entity';
-import { adaptUserToPrisma } from '../utils/adapt-user-to-prisma';
+import {
+  PrismaCoach,
+  PrismaSportsman,
+  User,
+} from '@backend/shared/shared-types';
 import { DefaultParam } from '@backend/util/util-core';
+import { CRUDRepository } from '@backend/util/util-types';
+import { Injectable } from '@nestjs/common';
+import { FitnessLevel, UserRole } from '@prisma/users/client';
+import { PrismaService } from '../prisma/prisma.service';
+import { adaptPrismaUser } from '../utils/adapt-prisma-user';
+import { adaptUserToPrisma } from '../utils/adapt-user-to-prisma';
+import { UserInfoEntity } from './user-info.entity';
 
 @Injectable()
 export class UserInfoRepository
   implements CRUDRepository<UserInfoEntity, number, User>
 {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   public async create(item: UserInfoEntity): Promise<User> {
-    const userData = adaptUserToPrisma(item)
+    const userData = adaptUserToPrisma(item);
     const newUser = await this.prisma.user.create({
-      data:
-      {
+      data: {
         ...userData,
-        sportsmanInfo:
-        item.sportsmanInfo
-        ?{
-          create: item.sportsmanInfo as PrismaSportsman
-        }
-        :undefined,
+        sportsmanInfo: item.sportsmanInfo
+          ? {
+              create: item.sportsmanInfo as PrismaSportsman,
+            }
+          : undefined,
         coachInfo: item.coachInfo
-        ?        {
-          create: item.coachInfo as PrismaCoach
-        }
-        :undefined
+          ? {
+              create: item.coachInfo as PrismaCoach,
+            }
+          : undefined,
       },
       include: {
         sportsmanInfo: true,
         coachInfo: true,
-      }
+      },
     });
     return adaptPrismaUser(newUser);
   }
@@ -63,7 +65,16 @@ export class UserInfoRepository
     return adaptPrismaUser(user);
   }
 
-  public async show({ limit, page, role, location, fitnessLevel, workoutType, sortDirection, sortBy }: UserQuery): Promise<User[]> {
+  public async show({
+    limit,
+    page,
+    role,
+    location,
+    fitnessLevel,
+    workoutType,
+    sortDirection,
+    sortBy,
+  }: UserQuery): Promise<User[]> {
     const queryParams = {
       where: {
         AND: {
@@ -71,18 +82,21 @@ export class UserInfoRepository
           fitnessLevel: fitnessLevel as FitnessLevel,
           workoutType: undefined,
           location: undefined,
-        }
+        },
       },
       take: limit,
-      skip: page > DefaultParam.Amount ? limit * (page - DefaultParam.Step) : undefined,
+      skip:
+        page > DefaultParam.Amount
+          ? limit * (page - DefaultParam.Step)
+          : undefined,
       orderBy: [{ [sortBy]: sortDirection }],
       include: {
         sportsmanInfo: true,
         coachInfo: true,
       },
-    }
+    };
     if (workoutType) {
-      queryParams.where.AND.workoutType = { hasEvery: workoutType};
+      queryParams.where.AND.workoutType = { hasEvery: workoutType };
     }
     if (location) {
       queryParams.where.AND.location = { in: location };
@@ -92,32 +106,29 @@ export class UserInfoRepository
   }
 
   public async update(id: number, item: UserInfoEntity) {
-    const userData = adaptUserToPrisma(item)
+    const userData = adaptUserToPrisma(item);
     const user = await this.prisma.user.update({
-          where: { userId:id },
+      where: { userId: id },
 
-            data:
-            {
-              ...userData,
-              sportsmanInfo:
-              item.sportsmanInfo
-              ?{
-                update: item.sportsmanInfo as PrismaSportsman
-              }
-              :undefined,
-              coachInfo: item.coachInfo
-              ?        {
-                update: item.coachInfo as PrismaCoach
-              }
-              :undefined
-            },
-            include: {
-              sportsmanInfo: true,
-              coachInfo: true,
+      data: {
+        ...userData,
+        sportsmanInfo: item.sportsmanInfo
+          ? {
+              update: item.sportsmanInfo as PrismaSportsman,
             }
-
-        });
-  return adaptPrismaUser(user);
+          : undefined,
+        coachInfo: item.coachInfo
+          ? {
+              update: item.coachInfo as PrismaCoach,
+            }
+          : undefined,
+      },
+      include: {
+        sportsmanInfo: true,
+        coachInfo: true,
+      },
+    });
+    return adaptPrismaUser(user);
   }
 
   public async destroy(id: number): Promise<void> {

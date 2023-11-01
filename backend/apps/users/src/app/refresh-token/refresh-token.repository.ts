@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { RefreshTokenEntity } from './refresh-token.entity';
-import { PrismaService } from '../prisma/prisma.service';
 import { Token } from '@backend/shared/shared-types';
+import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { RefreshTokenEntity } from './refresh-token.entity';
 
 @Injectable()
 export class RefreshTokenRepository {
@@ -24,26 +24,22 @@ export class RefreshTokenRepository {
     });
   }
 
-  public async findByTokenId(
-    refreshTokenId: string,
-  ): Promise<Token | null> {
+  public async findByTokenId(refreshTokenId: string): Promise<Token | null> {
     return this.prisma.refreshToken.findFirst({
       where: {
-        AND:{
-          tokenId:refreshTokenId
-        }
+        AND: {
+          tokenId: refreshTokenId,
+        },
       },
     });
   }
 
-  public async findByUserId(
-   userId: number,
-  ): Promise<Token | null> {
+  public async findByUserId(userId: number): Promise<Token | null> {
     return this.prisma.refreshToken.findFirst({
       where: {
-        AND:{
-          userId
-        }
+        AND: {
+          userId,
+        },
       },
     });
   }

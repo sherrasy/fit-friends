@@ -1,17 +1,17 @@
-import { Friend } from "@backend/shared/shared-types";
+import { Friend } from '@backend/shared/shared-types';
 
 export class FriendsEntity implements Friend {
-  public id?:number;
+  public id?: number;
   public userId: number;
   public friendId: number;
-  public createdDate:Date;
+  public createdDate: Date;
 
   constructor(friend: Friend) {
     this.fillEntity(friend);
   }
 
   public toObject() {
-    return {...this };
+    return { ...this };
   }
 
   public fillEntity(friend: Friend) {

@@ -1,6 +1,15 @@
-import { FitnessLevel, Location, PrismaUser, UserRole, UserSex, WorkoutTime, WorkoutType, PrismaSportsman } from "@backend/shared/shared-types"
+import {
+  FitnessLevel,
+  Location,
+  PrismaSportsman,
+  PrismaUser,
+  UserRole,
+  UserSex,
+  WorkoutTime,
+  WorkoutType,
+} from '@backend/shared/shared-types';
 
-function adaptPrismaSportsman (sportsman:PrismaSportsman){
+function adaptPrismaSportsman(sportsman: PrismaSportsman) {
   if (sportsman) {
     const sportsmanInfo = {
       ...sportsman,
@@ -11,7 +20,7 @@ function adaptPrismaSportsman (sportsman:PrismaSportsman){
   return null;
 }
 
-export function adaptPrismaUser (prismaUser:PrismaUser){
+export function adaptPrismaUser(prismaUser: PrismaUser) {
   if (prismaUser) {
     const user = {
       ...prismaUser,
@@ -22,14 +31,13 @@ export function adaptPrismaUser (prismaUser:PrismaUser){
       role: prismaUser.role as UserRole,
       location: prismaUser.location as Location,
       fitnessLevel: prismaUser.fitnessLevel as FitnessLevel,
-      workoutType: prismaUser.workoutType.map((item)=> item as WorkoutType),
-      sportsmanInfo:adaptPrismaSportsman(prismaUser.sportsmanInfo)
+      workoutType: prismaUser.workoutType.map((item) => item as WorkoutType),
+      sportsmanInfo: adaptPrismaSportsman(prismaUser.sportsmanInfo),
     };
 
-  delete user.userId;
-  delete user.password;
+    delete user.userId;
+    delete user.password;
     return user;
-
   }
   return null;
 }

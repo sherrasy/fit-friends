@@ -11,13 +11,13 @@ export function adaptUserToPrisma(user: UserInfoEntity) {
     };
 
     delete userInfo._id;
-    if(userInfo.sportsmanInfo){
-     delete userInfo.sportsmanInfo.sportsmanId;
-     delete userInfo.sportsmanInfo.userId;
+    if (userInfo.sportsmanInfo) {
+      delete userInfo.sportsmanInfo.sportsmanId;
+      delete userInfo.sportsmanInfo.userId;
     }
-    if(userInfo.coachInfo){
-     delete userInfo.coachInfo.coachId;
-     delete userInfo.coachInfo.userId;
+    if (userInfo.coachInfo) {
+      delete userInfo.coachInfo.coachId;
+      delete userInfo.coachInfo.userId;
     }
     delete userInfo.passwordHash;
     return userInfo;
