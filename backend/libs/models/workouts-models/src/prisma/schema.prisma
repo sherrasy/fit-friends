@@ -71,3 +71,14 @@ model WorkoutOrder {
 
   @@map("workout_orders")
 }
+
+model Review {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  workoutId   Int      @map("workout_id")
+  rating      Int
+  message     String
+  createdDate DateTime @default(now()) @map("created_date")
+
+  @@map("reviews")
+}
