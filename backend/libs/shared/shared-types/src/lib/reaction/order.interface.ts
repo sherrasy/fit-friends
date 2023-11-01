@@ -1,4 +1,4 @@
-import { PaymentOption } from "../common/payment-option.enum";
+import { PaymentOption } from '../common/payment-option.enum';
 
 export interface Order {
   id?: number;

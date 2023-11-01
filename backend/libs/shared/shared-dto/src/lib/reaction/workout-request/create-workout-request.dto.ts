@@ -1,8 +1,8 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateWorkoutRequestDto {
   @ApiProperty({
-    description: 'User Id'
+    description: 'User Id',
   })
   public userId: number;
 }

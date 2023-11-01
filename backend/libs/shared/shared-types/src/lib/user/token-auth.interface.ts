@@ -1,5 +1,5 @@
 export interface TokenAuth {
   userId: number;
-  accessToken: string
-  refreshToken: string
+  accessToken: string;
+  refreshToken: string;
 }

@@ -10,8 +10,7 @@ async function fillDb() {
       name: 'First Sportsman',
       email: 'first-sportsman@test.ru',
       avatar: 'avatar1.png',
-      password:
-        '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
+      password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'male',
       birthDate: '14.10.2023',
       role: 'sportsman',
@@ -37,8 +36,7 @@ async function fillDb() {
       name: 'First Coach',
       email: 'first-coach@test.ru',
       avatar: 'avatar2.png',
-      password:
-        '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
+      password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'male',
       role: 'coach',
       location: 'petrogradskaya',
@@ -61,8 +59,7 @@ async function fillDb() {
       name: 'Second Sportsman',
       email: 'second-sportsman@test.ru',
       avatar: 'avatar3.png',
-      password:
-        '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
+      password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'any',
       role: 'sportsman',
       location: 'sportivnaya',
@@ -86,8 +83,7 @@ async function fillDb() {
       name: 'Second Coach',
       email: 'second-coach@test.ru',
       avatar: 'avatar4.png',
-      password:
-        '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
+      password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'female',
       birthDate: '12.10.2023',
       role: 'coach',
@@ -111,8 +107,7 @@ async function fillDb() {
       name: 'Third Sportsman',
       email: 'third-sportsman@test.ru',
       avatar: 'avatar5.png',
-      password:
-        '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
+      password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'female',
       role: 'sportsman',
       location: 'zvyozdnaya',

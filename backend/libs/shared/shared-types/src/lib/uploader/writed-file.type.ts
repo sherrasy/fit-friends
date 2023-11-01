@@ -3,4 +3,4 @@ export type WritedFile = {
   fileExtension: string;
   subDirectory: string;
   path: string;
-}
+};

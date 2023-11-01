@@ -1,10 +1,22 @@
-import { FitnessLevel, WorkoutTime, WorkoutType, } from '@backend/shared/shared-types';
+import {
+  FitnessLevel,
+  WorkoutTime,
+  WorkoutType,
+} from '@backend/shared/shared-types';
 import { WORKOUT_TYPE_AMOUNT } from '@backend/util/util-core';
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, IsBoolean, IsEnum, IsInt, IsOptional, Max, Min, } from 'class-validator';
+import {
+  ArrayMaxSize,
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  Max,
+  Min,
+} from 'class-validator';
 import { CaloriesAmount } from '../../constant';
 
-export class UpdateSportsmanDto{
+export class UpdateSportsmanDto {
   @ApiProperty({
     description: 'The level of fitness of the user',
     enum: FitnessLevel,

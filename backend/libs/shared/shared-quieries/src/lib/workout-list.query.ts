@@ -1,10 +1,17 @@
-import { IsNumber,IsEnum, IsOptional, IsIn, Max, IsInt } from 'class-validator';
+import { WorkoutType } from '@backend/shared/shared-types';
 import { Transform } from 'class-transformer';
-import { DefaultQueryParam, sortDirections,  } from './query.constant';
-import { WorkoutType} from '@backend/shared/shared-types'
+import {
+  IsEnum,
+  IsIn,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  Max,
+} from 'class-validator';
+import { DefaultQueryParam, sortDirections } from './query.constant';
 
 export class WorkoutListQuery {
-  @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
+  @Transform(({ value }) => +value || DefaultQueryParam.Limit)
   @IsNumber()
   @Max(DefaultQueryParam.Limit)
   @IsOptional()
@@ -14,8 +21,10 @@ export class WorkoutListQuery {
   @IsOptional()
   public page: number;
 
-  @Transform(({ value } )=> value.indexOf(',') > -1 ? value.split(','):[value])
-  @IsEnum(WorkoutType, {each:true})
+  @Transform(({ value }) =>
+    value.indexOf(',') > -1 ? value.split(',') : [value]
+  )
+  @IsEnum(WorkoutType, { each: true })
   @IsOptional()
   public workoutType?: string;
 

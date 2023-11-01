@@ -3,4 +3,4 @@ export const PipeError = {
   WrongArgumentType: 'This pipe must used only with params!',
 } as const;
 
-export const MONGO_ARGUMENT_TYPE = 'param'
+export const MONGO_ARGUMENT_TYPE = 'param';

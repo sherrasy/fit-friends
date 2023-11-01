@@ -1,9 +1,9 @@
-import { IsNumber, IsOptional, IsIn, Max } from 'class-validator';
 import { Transform } from 'class-transformer';
+import { IsIn, IsNumber, IsOptional, Max } from 'class-validator';
 import { DefaultQueryParam, sortDirections } from './query.constant';
 
 export class ReviewsQuery {
-  @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
+  @Transform(({ value }) => +value || DefaultQueryParam.Limit)
   @IsNumber()
   @Max(DefaultQueryParam.Limit)
   @IsOptional()
@@ -19,5 +19,4 @@ export class ReviewsQuery {
 
   @IsOptional()
   public sortBy?: string = DefaultQueryParam.SortBy;
-
 }

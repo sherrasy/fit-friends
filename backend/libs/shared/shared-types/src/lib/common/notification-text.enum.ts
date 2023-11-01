@@ -3,4 +3,3 @@ export enum NotificationText {
   Request = 'Вас приглашают на тренировку',
   Personal = 'Вам направлен запрос на персональную тренировку ',
 }
-

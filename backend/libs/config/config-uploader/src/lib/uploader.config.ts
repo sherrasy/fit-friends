@@ -1,7 +1,11 @@
 import { registerAs } from '@nestjs/config';
 import * as Joi from 'joi';
+import {
+  CONFIG_NAME,
+  DEFAULT_ERROR_MESSAGE,
+  DefaultPort,
+} from './config-uploader.constant';
 import { UploaderConfig } from './config-uploader.interface';
-import { CONFIG_NAME, DEFAULT_ERROR_MESSAGE, DefaultPort } from './config-uploader.constant';
 
 export default registerAs(CONFIG_NAME, (): UploaderConfig => {
   const config: UploaderConfig = {
@@ -16,7 +20,7 @@ export default registerAs(CONFIG_NAME, (): UploaderConfig => {
       user: process.env.MONGO_USER,
       password: process.env.MONGO_PASSWORD,
       authBase: process.env.MONGO_AUTH_BASE,
-    }
+    },
   };
 
   const validationSchema = Joi.object<UploaderConfig>({
@@ -31,15 +35,13 @@ export default registerAs(CONFIG_NAME, (): UploaderConfig => {
       user: Joi.string().required(),
       password: Joi.string().required(),
       authBase: Joi.string().required(),
-    })
+    }),
   });
 
   const { error } = validationSchema.validate(config, { abortEarly: true });
 
   if (error) {
-    throw new Error(
-      `${DEFAULT_ERROR_MESSAGE} ${error.message}`,
-    );
+    throw new Error(`${DEFAULT_ERROR_MESSAGE} ${error.message}`);
   }
 
   return config;

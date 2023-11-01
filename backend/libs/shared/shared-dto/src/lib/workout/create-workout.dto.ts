@@ -1,12 +1,26 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { ArrayMaxSize, IsBoolean, IsEnum, IsInt, Max, MaxLength, Min, MinLength } from 'class-validator';
-import { CaloriesAmount, DescriptionLength, NameLength } from "../constant";
-import {FitnessLevel, UserSex, WorkoutTime, WorkoutType} from '@backend/shared/shared-types'
-import { WORKOUT_TYPE_AMOUNT } from "@backend/util/util-core";
+import {
+  FitnessLevel,
+  UserSex,
+  WorkoutTime,
+  WorkoutType,
+} from '@backend/shared/shared-types';
+import { WORKOUT_TYPE_AMOUNT } from '@backend/util/util-core';
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  ArrayMaxSize,
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  Max,
+  MaxLength,
+  Min,
+  MinLength,
+} from 'class-validator';
+import { CaloriesAmount, DescriptionLength, NameLength } from '../constant';
 
-export class CreateWorkoutDto  {
+export class CreateWorkoutDto {
   @ApiProperty({
-    description: 'Workout name'
+    description: 'Workout name',
   })
   @MinLength(NameLength.Min)
   @MaxLength(NameLength.Max)
@@ -28,19 +42,19 @@ export class CreateWorkoutDto  {
 
   @ApiProperty({
     description: 'Time for workout',
-    enum: WorkoutTime
+    enum: WorkoutTime,
   })
   @IsEnum(WorkoutTime)
   public workoutTime: WorkoutTime;
 
   @ApiProperty({
-    description: 'The cost of workout'
+    description: 'The cost of workout',
   })
   @IsInt()
   public price: number;
 
   @ApiProperty({
-    description: 'Number of calories to reset'
+    description: 'Number of calories to reset',
   })
   @IsInt()
   @Min(CaloriesAmount.Min)
@@ -48,7 +62,7 @@ export class CreateWorkoutDto  {
   public calories: number;
 
   @ApiProperty({
-    description: 'Workout description'
+    description: 'Workout description',
   })
   @MinLength(DescriptionLength.Min)
   @MaxLength(DescriptionLength.Max)
@@ -56,15 +70,14 @@ export class CreateWorkoutDto  {
 
   @ApiProperty({
     description: 'User gender',
-    enum: UserSex
+    enum: UserSex,
   })
   @IsEnum(UserSex)
   public sex: UserSex;
 
   @ApiProperty({
-    description: 'Special offer flag'
+    description: 'Special offer flag',
   })
   @IsBoolean()
   public isSpecialOffer: boolean;
 }
-

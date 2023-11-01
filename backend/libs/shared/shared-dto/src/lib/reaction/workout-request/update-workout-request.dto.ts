@@ -1,11 +1,10 @@
-
-import { ApiProperty } from "@nestjs/swagger";
-import { StatusRequest } from "@backend/shared/shared-types";
+import { StatusRequest } from '@backend/shared/shared-types';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateWorkoutRequestDto {
   @ApiProperty({
     description: 'Current status of the request',
-    enum: StatusRequest
+    enum: StatusRequest,
   })
   public statusRequest: StatusRequest;
 }

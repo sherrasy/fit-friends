@@ -1,6 +1,6 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsInt, MaxLength, MinLength } from "class-validator";
-import { DescriptionLength } from "../constant";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, MaxLength, MinLength } from 'class-validator';
+import { DescriptionLength } from '../constant';
 
 export class CreateNotificationDto {
   @ApiProperty({

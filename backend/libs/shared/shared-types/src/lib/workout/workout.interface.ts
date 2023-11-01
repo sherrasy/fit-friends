@@ -1,7 +1,7 @@
-import { FitnessLevel } from "../common/fitness-level.enum";
-import { UserSex } from "../common/user-sex.enum";
-import { WorkoutTime } from "../common/workout-time.enum";
-import { WorkoutType } from "../common/workout-type.enum";
+import { FitnessLevel } from '../common/fitness-level.enum';
+import { UserSex } from '../common/user-sex.enum';
+import { WorkoutTime } from '../common/workout-time.enum';
+import { WorkoutType } from '../common/workout-type.enum';
 
 export interface Workout {
   id?: number;
@@ -19,6 +19,6 @@ export interface Workout {
   coachId: number;
   isSpecialOffer: boolean;
   createdDate: string;
-  amountOrdered:number;
-  priceOrdered:number;
+  amountOrdered: number;
+  priceOrdered: number;
 }

@@ -9,26 +9,28 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-const DEFAULT_PORT=3000;
+const DEFAULT_PORT = 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-  .setTitle('The «Workout» service')
-  .setDescription('Workout service API')
-  .setVersion('1.0')
-  .build();
+    .setTitle('The «Workout» service')
+    .setDescription('Workout service API')
+    .setVersion('1.0')
+    .build();
 
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('spec', app, document)
+  SwaggerModule.setup('spec', app, document);
 
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    })
+  );
   const port = process.env.PORT || DEFAULT_PORT;
   await app.listen(port);
   Logger.log(

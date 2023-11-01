@@ -1,6 +1,10 @@
-import { PrismaFitnessLevel, PrismaUserSex, PrismaWorkoutType } from "./prisma-types";
+import {
+  PrismaFitnessLevel,
+  PrismaUserSex,
+  PrismaWorkoutType,
+} from './prisma-types';
 
-export interface PrismaWorkout{
+export interface PrismaWorkout {
   workoutId: number;
   coachId: number;
   name: string;
@@ -19,5 +23,4 @@ export interface PrismaWorkout{
   fitnessLevel: PrismaFitnessLevel;
   priceOrdered: number;
   amountOrdered: number;
-
 }

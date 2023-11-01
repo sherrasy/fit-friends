@@ -1,13 +1,15 @@
-import {plainToInstance, ClassConstructor} from 'class-transformer';
+import { ClassConstructor, plainToInstance } from 'class-transformer';
 import dayjs from 'dayjs';
 import { HostName, ParseTimeError } from './constant';
 
-export const getDate = ()=>{
-  return dayjs().toISOString()
-}
+export const getDate = () => {
+  return dayjs().toISOString();
+};
 
 export function fillObject<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
-  return plainToInstance(someDto, plainObject, {excludeExtraneousValues: true});
+  return plainToInstance(someDto, plainObject, {
+    excludeExtraneousValues: true,
+  });
 }
 
 export type DateTimeUnit = 's' | 'h' | 'd' | 'm' | 'y';
@@ -29,13 +31,25 @@ export function parseTime(time: string): TimeAndUnit {
     throw new Error(ParseTimeError.IsNaN);
   }
 
-  return { value, unit }
+  return { value, unit };
 }
 
-export function getMongoConnectionString({username, password, host, port, databaseName, authDatabase}): string {
+export function getMongoConnectionString({
+  username,
+  password,
+  host,
+  port,
+  databaseName,
+  authDatabase,
+}): string {
   return `${HostName.Mongo}://${username}:${password}@${host}:${port}/${databaseName}?authSource=${authDatabase}`;
 }
 
-export function getRabbitMQConnectionString({user, password, host, port}): string {
+export function getRabbitMQConnectionString({
+  user,
+  password,
+  host,
+  port,
+}): string {
   return `${HostName.Rabbit}://${user}:${password}@${host}:${port}`;
 }

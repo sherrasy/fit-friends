@@ -1,8 +1,10 @@
-import { MongooseModuleAsyncOptions } from '@nestjs/mongoose';
 import { getMongoConnectionString } from '@backend/util/util-core';
 import { ConfigService } from '@nestjs/config';
+import { MongooseModuleAsyncOptions } from '@nestjs/mongoose';
 
-export function getMongooseOptions(optionSpace:string): MongooseModuleAsyncOptions {
+export function getMongooseOptions(
+  optionSpace: string
+): MongooseModuleAsyncOptions {
   return {
     useFactory: async (config: ConfigService) => {
       return {
@@ -13,10 +15,9 @@ export function getMongooseOptions(optionSpace:string): MongooseModuleAsyncOptio
           port: config.get<string>(`${optionSpace}.port`),
           authDatabase: config.get<string>(`${optionSpace}.authBase`),
           databaseName: config.get<string>(`${optionSpace}.name`),
-        })
-      }
+        }),
+      };
     },
-    inject: [ConfigService]
-  }
+    inject: [ConfigService],
+  };
 }
-

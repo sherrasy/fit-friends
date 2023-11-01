@@ -1,10 +1,15 @@
-import { IsNumber,IsEnum, IsOptional, IsIn, Max } from 'class-validator';
+import {
+  FitnessLevel,
+  Location,
+  UserRole,
+  WorkoutType,
+} from '@backend/shared/shared-types';
 import { Transform } from 'class-transformer';
-import { DefaultQueryParam, sortDirections,  } from './query.constant';
-import {FitnessLevel, Location, UserRole, WorkoutType} from '@backend/shared/shared-types'
+import { IsEnum, IsIn, IsNumber, IsOptional, Max } from 'class-validator';
+import { DefaultQueryParam, sortDirections } from './query.constant';
 
 export class UserQuery {
-  @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
+  @Transform(({ value }) => +value || DefaultQueryParam.Limit)
   @IsNumber()
   @Max(DefaultQueryParam.Limit)
   @IsOptional()
@@ -18,8 +23,10 @@ export class UserQuery {
   @IsOptional()
   public role?: string;
 
-  @Transform(({ value } )=> value.indexOf(',') > -1 ? value.split(','):[value])
-  @IsEnum(WorkoutType, {each:true})
+  @Transform(({ value }) =>
+    value.indexOf(',') > -1 ? value.split(',') : [value]
+  )
+  @IsEnum(WorkoutType, { each: true })
   @IsOptional()
   public workoutType?: string;
 
@@ -27,8 +34,10 @@ export class UserQuery {
   @IsOptional()
   public fitnessLevel?: string;
 
-  @Transform(({ value } )=> value.indexOf(',') > -1 ? value.split(','):[value])
-  @IsEnum(Location, {each:true})
+  @Transform(({ value }) =>
+    value.indexOf(',') > -1 ? value.split(',') : [value]
+  )
+  @IsEnum(Location, { each: true })
   @IsOptional()
   public location?: string;
 
@@ -38,5 +47,4 @@ export class UserQuery {
 
   @IsOptional()
   public sortBy?: string = DefaultQueryParam.SortBy;
-
 }
