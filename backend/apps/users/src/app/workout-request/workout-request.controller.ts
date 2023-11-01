@@ -48,7 +48,7 @@ export class WorkoutRequestController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: WorkoutRequestMessages.Add,
+    description: WorkoutRequestMessages.Update,
   })
   @UseGuards(JwtAuthGuard)
   @Patch(WorkoutRequestPath.Id)

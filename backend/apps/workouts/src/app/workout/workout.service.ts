@@ -37,6 +37,7 @@ export class WorkoutService {
       throw new BadRequestException(WorkoutError.NotCoachAuthor);
     }
     const updatedWorkout = { ...workout, ...dto };
+    delete updatedWorkout.id;
     const workoutEntity = new WorkoutEntity(updatedWorkout);
     return this.workoutRepository.update(workoutId, workoutEntity);
   }

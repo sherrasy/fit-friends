@@ -11,7 +11,6 @@ export const AuthError = {
 export const AuthMessages = {
   Register: 'User registered successfully',
   Login: 'Login successfull',
-  UserFound: 'User data found',
   Refresh: 'Get a new access/refresh tokens',
 } as const;
 
@@ -19,7 +18,6 @@ export const AuthPath = {
   Main: 'auth',
   Register: 'register',
   Login: 'login',
-  Id: ':id',
   Refresh: 'refresh',
   Check: 'check',
   Revoke: 'revoke',

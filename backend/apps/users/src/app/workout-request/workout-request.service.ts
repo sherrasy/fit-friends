@@ -61,7 +61,7 @@ export class WorkoutRequestService {
       throw new NotFoundException(WorkoutRequestError.NotFound);
     }
     if (request.statusRequest === statusRequest) {
-      throw new BadRequestException(WorkoutRequestError.NotFound);
+      throw new BadRequestException(WorkoutRequestError.StatusSame);
     }
     const updatedRequest = { ...request, statusRequest };
     const requestEntity = new WorkoutRequestEntity(updatedRequest);

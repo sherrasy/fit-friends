@@ -34,7 +34,7 @@ export class UserInfoController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: UserInfoMessages.UserFound,
+    description: UserInfoMessages.UserList,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,

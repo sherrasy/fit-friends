@@ -88,5 +88,6 @@ export class UpdateWorkoutDto {
     description: 'Special offer flag',
   })
   @IsBoolean()
+  @IsOptional()
   public isSpecialOffer?: boolean;
 }

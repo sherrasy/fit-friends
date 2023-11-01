@@ -86,7 +86,7 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowAll,
+    description: WorkoutsListMessages.ShowSingle,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,

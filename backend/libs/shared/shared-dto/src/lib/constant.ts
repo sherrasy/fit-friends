@@ -3,8 +3,6 @@ export const ErrorMessage = {
   Email: 'Email is invalid',
 } as const;
 
-export const DEFAULT_MIN_PRICE = 0;
-
 export const DEFAULT_ORDER_TYPE = 'абонемент';
 
 export const USERNAME_PATTERN = /^[a-zA-Zа-яА-Я\s]+$/g;
