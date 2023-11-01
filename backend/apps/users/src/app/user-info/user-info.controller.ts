@@ -1,19 +1,20 @@
-import { Controller, Get, HttpStatus, Param, Query, UseGuards, UseInterceptors, Patch, Req, Body } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Query, UseGuards, UseInterceptors, Patch, Req, Body, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { API_TAG_NAME, UserInfoError, UserInfoMessages, UserInfoPath } from './user-info.constant';
 import { UserInfoService } from './user-info.service';
 import { UserQuery } from '@backend/shared-quieries';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { UserRdo } from './rdo/user.rdo';
-import { UserRoleInterceptor } from './interceptors/user-role.interceptor';
+import { UserRoleInterceptor } from '@backend/shared-interceptors';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
-import { UpdateUserDto } from '@backend/shared/shared-dto';
+import { NotifyService } from '../notify/notify.service';
 
 @ApiTags(API_TAG_NAME)
 @Controller(UserInfoPath.Main)
 export class UserInfoController {
   constructor(
     private readonly userInfoService: UserInfoService,
+    private readonly notifyService: NotifyService,
   ) { }
 
   @ApiResponse({
@@ -48,13 +49,16 @@ export class UserInfoController {
   }
 
   @ApiResponse({
-    status: HttpStatus.OK,
-    description: UserInfoMessages.UserUpdated
+    status:HttpStatus.OK,
+    description: UserInfoMessages.UserFound
   })
   @UseGuards(JwtAuthGuard)
-  @Patch(UserInfoPath.Update)
-  public async updateAvatar(@Req() { user }: RequestWithUserPayload, @Body() dto: UpdateUserDto) {
-    return this.userInfoService.updateUser(user.sub, dto);
+  @UseInterceptors(UserRoleInterceptor)
+  @Post(`${UserInfoPath.Subscribe}/${UserInfoPath.Id}`)
+  public async subscribeOnCoach( @Param('id') id:number, @Req() {user}: RequestWithUserPayload) {
+    const {email} = user;
+    await this.userInfoService.checkCoach(id);
+    await this.notifyService.updateSubscriber({email,coach:id});
   }
 }
 

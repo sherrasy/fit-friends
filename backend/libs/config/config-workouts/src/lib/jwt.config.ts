@@ -1,9 +1,9 @@
 import { registerAs } from '@nestjs/config';
 import { JWTConfig } from '@backend/shared/shared-types';
 import * as Joi from 'joi';
-import { CONFIG_NAME, DEFAULT_ERROR_MESSAGE } from './config-workouts.constant';
+import { ConfigName, DEFAULT_ERROR_MESSAGE } from './config-workouts.constant';
 
-export default registerAs(CONFIG_NAME, (): JWTConfig => {
+export default registerAs(ConfigName.Jwt, (): JWTConfig => {
   const config: JWTConfig = {
     accessTokenSecret: process.env.JWT_AT_SECRET,
     accessTokenExpiresIn: process.env.JWT_AT_EXPIRES_IN,

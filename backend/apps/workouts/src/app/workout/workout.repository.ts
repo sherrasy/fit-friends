@@ -3,9 +3,10 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CRUDRepository } from '@backend/util/util-types';
 import { WorkoutEntity } from './workout.entity';
 import { Workout } from '@backend/shared/shared-types';
-import { adaptPrismaWorkout } from './utils/adapt-prisma-workout';
-import { adaptWorkoutToPrisma } from './utils/adapt-workout-to-prisma';
+import { adaptPrismaWorkout } from '../utils/adapt-prisma-workout';
+import { adaptWorkoutToPrisma } from '../utils/adapt-workout-to-prisma';
 import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
+import { DefaultParam } from '@backend/util/util-core';
 
 
 @Injectable()
@@ -32,7 +33,7 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
       },
       take: limit,
       orderBy: [{ [sortBy]: sortDirection } ],
-      skip: page > 0 ? limit * (page - 1) : undefined,
+      skip: page > DefaultParam.Amount ? limit * (page - DefaultParam.Step) : undefined,
     }
     if (workoutTime) {
       queryParams.where.AND.workoutTime = { search: workoutTime };
@@ -41,6 +42,10 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
     return workouts.map((workout) => adaptPrismaWorkout(workout))
 }
 
+  public async getFullList(): Promise<Workout[]> {
+    const workouts = await this.prisma.workout.findMany();
+    return workouts.map((workout) => adaptPrismaWorkout(workout))
+  }
 
   public async findAll({ limit, page, sortDirection,  workoutType,caloriesMin, caloriesMax, priceMin, priceMax,rating, sortBy }: WorkoutListQuery): Promise<Workout[]> {
     const queryParams = {
@@ -54,7 +59,7 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
       },
       take: limit,
       orderBy: [{ [sortBy]: sortDirection } ],
-      skip: page > 0 ? limit * (page - 1) : undefined,
+      skip: page > DefaultParam.Amount ? limit * (page - DefaultParam.Step) : undefined,
     }
     if (workoutType) {
       queryParams.where.AND.workoutType = { hasSome: workoutType };
@@ -72,6 +77,7 @@ export class WorkoutRepository implements CRUDRepository <WorkoutEntity, number,
     });
     return adaptPrismaWorkout(workout)
   }
+
 
   public async update(workoutId: number, item: WorkoutEntity): Promise<Workout> {
     const data = adaptWorkoutToPrisma(item)

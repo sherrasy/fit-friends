@@ -4,7 +4,8 @@ export const AuthError = {
   UserExists: 'User with this email already exists',
   NotFound : 'User is not found',
   PasswordWrong : 'Password is wrong',
-  InvalidData: 'Data is invalid'
+  InvalidData: 'Data is invalid',
+  TokenNotFound:'Token does not exist'
 } as const;
 
 export const AuthMessages = {
@@ -21,4 +22,5 @@ export const AuthPath = {
   Id:':id',
   Refresh:'refresh',
   Check:'check',
+  Revoke:'revoke'
 }as const;

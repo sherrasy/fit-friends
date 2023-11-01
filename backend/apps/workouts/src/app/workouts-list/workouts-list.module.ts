@@ -5,13 +5,16 @@ import { WorkoutModule } from '../workout/workout.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { JwtAccessStrategy, getJwtOptions } from '@backend/util/util-core';
+import { NotifyModule } from '../notify/notify.module';
 
 @Module({
-  imports: [WorkoutModule,
+  imports: [
+    WorkoutModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: getJwtOptions
-    })
+    }),
+    NotifyModule
   ],
   controllers: [WorkoutsListController],
   providers: [WorkoutsListService, JwtAccessStrategy],

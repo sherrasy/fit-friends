@@ -8,10 +8,10 @@ export class CreateReviewDto {
   })
   @MinLength(ReviewTextLength.Min)
   @MaxLength(ReviewTextLength.Max)
-  public text: string;
+  public message: string;
 
   @ApiProperty({
-    description: 'Rating training'
+    description: 'Rating workout'
   })
   @Min(RaitingCount.Min)
   @Max(RaitingCount.Max)

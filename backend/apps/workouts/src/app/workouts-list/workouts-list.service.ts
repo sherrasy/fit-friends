@@ -10,7 +10,6 @@ export class WorkoutsListService {
     private readonly workoutRepository: WorkoutRepository
   ) {}
 
-
   public async showAll(query:WorkoutListQuery): Promise<Workout[]> {
     return this.workoutRepository.findAll(query);
   }
@@ -25,5 +24,9 @@ export class WorkoutsListService {
       throw new NotFoundException(WorkoutsListError.WorkoutNotFound);
     }
     return workout;
+  }
+
+  public async getWorkouts (): Promise<Workout[]> {
+    return this.workoutRepository.getFullList();
   }
 }

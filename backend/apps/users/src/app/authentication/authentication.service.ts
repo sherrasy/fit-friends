@@ -4,7 +4,7 @@ import { CreateUserDto, LoginUserDto } from '@backend/shared/shared-dto';
 import { AuthError } from './authentication.constant';
 import { createJWTPayload, getDate } from '@backend/util/util-core';
 import { UserInfoEntity } from '../user-info/user-info.entity';
-import { User } from '@backend/shared/shared-types';
+import { TokenAuth, User } from '@backend/shared/shared-types';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import { jwtConfig } from '@backend/config/config-users';
@@ -57,7 +57,10 @@ export class AuthenticationService {
     return userEntity.toObject();
   }
 
-  public async createUserToken(user: User) {
+  public async createUserToken(user: User, tokenAuth?:TokenAuth) {
+    if (tokenAuth && tokenAuth.accessToken && tokenAuth.refreshToken && tokenAuth.userId === user._id) {
+      return {accessToken: tokenAuth.accessToken, refreshToken:tokenAuth.refreshToken }
+    }
     const accessTokenPayload = createJWTPayload(user);
     const refreshTokenPayload = { ...accessTokenPayload, tokenId: crypto.randomUUID() };
     await this.refreshTokenService.createRefreshSession(refreshTokenPayload)
@@ -70,4 +73,7 @@ export class AuthenticationService {
     }
   }
 
+  public async revokeToken(userId:number){
+   return await this.refreshTokenService.deleteTokenByUserId(userId)
+  }
 }

@@ -1,5 +1,3 @@
-export const DEFAULT_AMOUNT = 0;
-export const DEFAULT_STATUS = false;
 export const  API_TAG_NAME ='workout'
 
 export const WorkoutError = {

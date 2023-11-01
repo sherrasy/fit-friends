@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 enum UserSex {
   male
   female
@@ -35,22 +34,51 @@ datasource db {
 }
 
 model Workout {
-  workoutId      Int           @id @default(autoincrement()) @map("workout_id")
-  coachId        Int           @map("coach_id")
+  workoutId      Int            @id @default(autoincrement()) @map("workout_id")
+  coachId        Int            @map("coach_id")
   name           String
   sex            UserSex
   photo          String?
   video          String?
   price          Int
   calories       Int
-  rating         Int           @default(0)
-  isSpecialOffer Boolean       @default(false) @map("is_special_offer")
+  rating         Float          @default(0)
+  isSpecialOffer Boolean        @default(false) @map("is_special_offer")
   description    String?
-  createdDate    DateTime      @default(now())
-  updatedDate    DateTime      @updatedAt
-  workoutTime    String        @map("workout_time")
-  workoutType    WorkoutType[] @map("workout_type")
-  fitnessLevel   FitnessLevel  @map("fitness_level")
+  createdDate    DateTime       @default(now())
+  updatedDate    DateTime       @updatedAt
+  workoutTime    String         @map("workout_time")
+  workoutType    WorkoutType[]  @map("workout_type")
+  fitnessLevel   FitnessLevel   @map("fitness_level")
+  WorkoutOrder   WorkoutOrder[]
+  priceOrdered   Int            @default(0) @map("price_ordered")
+  amountOrdered  Int            @default(0) @map("amount_ordered")
 
   @@map("workouts")
+}
+
+model WorkoutOrder {
+  id            Int      @id @default(autoincrement()) @map("order_id")
+  userId        Int      @map("user_id")
+  orderType     String   @default("")
+  workoutId     Int      @map("workout_id")
+  price         Int      @default(0)
+  amount        Int      @default(0)
+  amountDone    Int      @default(0)
+  paymentOption String   @default("")
+  createdDate   DateTime @default(now()) @map("created_at")
+  workout       Workout  @relation(fields: [workoutId], references: [workoutId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("workout_orders")
+}
+
+model Review {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  workoutId   Int      @map("workout_id")
+  rating      Int
+  message     String
+  createdDate DateTime @default(now()) @map("created_date")
+
+  @@map("reviews")
 }

@@ -19,4 +19,6 @@ export interface Workout {
   coachId: number;
   isSpecialOffer: boolean;
   createdDate: string;
+  amountOrdered:number;
+  priceOrdered:number;
 }

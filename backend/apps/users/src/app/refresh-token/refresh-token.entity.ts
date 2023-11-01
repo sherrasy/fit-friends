@@ -4,7 +4,7 @@ import { Token } from '@backend/shared/shared-types';
 export class RefreshTokenEntity implements Entity<RefreshTokenEntity>, Token {
   public createdAt: Date;
   public expiresIn: Date;
-  public id: string;
+  public refreshTokenId: number;
   public tokenId: string;
   public userId: number;
 
@@ -15,7 +15,7 @@ export class RefreshTokenEntity implements Entity<RefreshTokenEntity>, Token {
 
   public fillEntity(entity: Token): void {
     this.userId = entity.userId;
-    this.id = entity.id;
+    this.refreshTokenId = entity.refreshTokenId;
     this.tokenId = entity.tokenId;
     this.createdAt = entity.createdAt;
     this.expiresIn = entity.expiresIn;

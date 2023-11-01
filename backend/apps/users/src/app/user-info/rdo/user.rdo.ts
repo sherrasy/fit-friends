@@ -102,5 +102,4 @@ export class UserRdo {
   @Expose()
   public coachInfo: Coach;
 
-
 }

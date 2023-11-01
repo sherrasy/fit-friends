@@ -47,23 +47,26 @@ datasource db {
 }
 
 model User {
-  userId        Int           @id @default(autoincrement()) @map("user_id")
-  name          String
-  email         String
-  password      String
-  sex           UserSex
-  role          UserRole
-  location      Location
-  description   String?
-  birthDate     String?       @map("birth_date")
-  createdDate   DateTime      @default(now())
-  updatedDate   DateTime      @updatedAt
-  avatar        String?
-  photo         String?
-  sportsmanInfo Sportsman?
-  coachInfo     Coach?
-  workoutType   WorkoutType[] @map("workout_type")
-  fitnessLevel  FitnessLevel  @map("fitness_level")
+  userId          Int            @id @default(autoincrement()) @map("user_id")
+  name            String
+  email           String
+  password        String
+  sex             UserSex
+  role            UserRole
+  location        Location
+  description     String?
+  birthDate       String?        @map("birth_date")
+  createdDate     DateTime       @default(now())
+  updatedDate     DateTime       @updatedAt
+  avatar          String?
+  photo           String?
+  sportsmanInfo   Sportsman?
+  coachInfo       Coach?
+  workoutType     WorkoutType[]  @map("workout_type")
+  fitnessLevel    FitnessLevel   @map("fitness_level")
+  friendsReciever Friend[]       @relation(name: "friends_reciever")
+  friendsSender   Friend[]       @relation(name: "friends_sender")
+  notifications   Notification[]
 
   @@map("users")
 }
@@ -99,4 +102,36 @@ model RefreshToken {
   expiresIn      DateTime @default(now()) @map("expires_in")
 
   @@map("refresh_token")
+}
+
+model Friend {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  friendId    Int      @map("friend_id")
+  createdDate DateTime @default(now()) @map("created_date")
+  user        User     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade, name: "friends_sender")
+  friend      User     @relation(fields: [friendId], references: [userId], onDelete: Cascade, onUpdate: Cascade, name: "friends_reciever")
+
+  @@map("friends")
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  text        String
+  userId      Int      @map("user_id")
+  createdDate DateTime @default(now()) @map("created_date")
+  user        User     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("notifications")
+}
+
+model WorkoutRequest {
+  id            Int      @id @default(autoincrement())
+  initiatorId   Int      @map("initiator_id")
+  userId        Int      @map("user_id")
+  createdDate   DateTime @default(now()) @map("created_date")
+  updatedDate   DateTime @updatedAt @map("updated_date")
+  statusRequest String
+
+  @@map("workout_requests")
 }

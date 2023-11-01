@@ -5,6 +5,7 @@ export const  API_TAG_NAME ='user-info'
 export const UserInfoError = {
   NotFound : 'User info is not found',
   EmptyList : 'User list is empty',
+  NotCoach : 'User is not coach',
 } as const;
 
 export const UserInfoMessages = {
@@ -18,6 +19,6 @@ export const UserInfoPath = {
   Main:'user-info',
   Id:':id',
   Show:'show',
-  UpdateAvatar: 'upload-avatar',
+  Subscribe: 'subscribe',
   Update: 'update',
 }as const;

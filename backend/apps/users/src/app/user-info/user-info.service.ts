@@ -1,11 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserInfoRepository } from './user-info.repository';
 import { UserQuery } from '@backend/shared-quieries';
 import { UserInfoError } from './user-info.constant';
-import { User } from '@backend/shared/shared-types';
+import { User, UserRole } from '@backend/shared/shared-types';
 import { UserInfoEntity } from './user-info.entity';
 import { UpdateUserDto } from '@backend/shared/shared-dto';
-import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 
 @Injectable()
 export class UserInfoService {
@@ -33,6 +32,14 @@ export class UserInfoService {
     const user = await this.findById(id);
     const userEntity = new UserInfoEntity({...user, ...dto});
     return this.userInfoRepository.update(id, userEntity);
+  }
+
+    public async checkCoach(coachId:number){
+    const userInfo = await this.findById(coachId);
+    if(userInfo.role !== UserRole.Coach){
+      throw new BadRequestException (UserInfoError.NotCoach);
+    }
+    return;
   }
 
 }

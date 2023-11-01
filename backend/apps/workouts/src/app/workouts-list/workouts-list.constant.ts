@@ -15,4 +15,5 @@ export const WorkoutsListPath = {
   Main: 'workouts-list',
   CoachList: 'coach-list',
   Id: ':id',
+  SendNewsletter: 'send-workouts',
 } as const;

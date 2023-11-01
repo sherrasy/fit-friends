@@ -36,6 +36,18 @@ export class RefreshTokenRepository {
     });
   }
 
+  public async findByUserId(
+   userId: number,
+  ): Promise<Token | null> {
+    return this.prisma.refreshToken.findFirst({
+      where: {
+        AND:{
+          userId
+        }
+      },
+    });
+  }
+
   public async deleteExpiredTokens() {
     return this.prisma.refreshToken.deleteMany({
       where: {

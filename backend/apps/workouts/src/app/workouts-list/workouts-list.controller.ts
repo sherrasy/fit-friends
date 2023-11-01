@@ -5,14 +5,16 @@ import { WorkoutsListService } from './workouts-list.service';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
 import { WorkoutRdo } from '../workout/rdo/workout.rdo';
 import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
-import { CoachRoleInterceptor } from '../workout/interceptors/coach-role.interceptor';
+import { CoachRoleInterceptor } from '@backend/shared-interceptors';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
+import { NotifyService } from '../notify/notify.service';
 
 @ApiTags(API_TAG_NAME)
 @Controller(WorkoutsListPath.Main)
 export class WorkoutsListController {
   constructor(
     private readonly workoutsListService: WorkoutsListService,
+    private readonly notifyService: NotifyService
   ) {}
 
   @ApiResponse({
@@ -32,21 +34,33 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowSingle
+    description: WorkoutsListMessages.ShowAll
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: WorkoutsListError.WorkoutNotFound
+    description: WorkoutsListError.EmptyList
   })
   @UseGuards(JwtAuthGuard)
   @Get(WorkoutsListPath.CoachList)
   @UseInterceptors(CoachRoleInterceptor)
     public async showByCoach(@Req() { user }: RequestWithUserPayload, @Query() query:WorkoutByCoachQuery) {
     const coachId = user.sub;
-    const workout = await this.workoutsListService.findByCoachId(coachId, query);
-    return fillObject(WorkoutRdo, workout);
+    const workouts = await this.workoutsListService.findByCoachId(coachId, query);
+    return workouts.map((workout) => fillObject(WorkoutRdo, workout) );
   }
 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:WorkoutsListMessages.NewsSent
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get(WorkoutsListPath.SendNewsletter)
+  public async sendNews(@Req() {user}: RequestWithUserPayload) {
+    const {email} = user;
+    const workouts = await this.workoutsListService.getWorkouts()
+    this.notifyService.sendNewsletter({email, workouts});
+  }
+  
   @ApiResponse({
     status: HttpStatus.OK,
     description: WorkoutsListMessages.ShowAll
