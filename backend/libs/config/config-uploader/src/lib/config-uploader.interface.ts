@@ -10,5 +10,5 @@ export interface UploaderConfig {
     name: string;
     password: string;
     authBase: string;
-  }
+  };
 }

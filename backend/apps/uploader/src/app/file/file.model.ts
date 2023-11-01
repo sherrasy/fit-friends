@@ -1,11 +1,11 @@
 import { File } from '@backend/shared/shared-types';
-import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import { FILE_COLLECTION_NAME } from './file.constant';
 
 @Schema({
   collection: FILE_COLLECTION_NAME,
-  timestamps: true
+  timestamps: true,
 })
 export class FileModel extends Document implements File {
   @Prop({
@@ -14,7 +14,7 @@ export class FileModel extends Document implements File {
   public originalName: string;
 
   @Prop({
-    required: true
+    required: true,
   })
   public hashName: string;
 

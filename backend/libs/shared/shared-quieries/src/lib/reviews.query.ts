@@ -1,12 +1,8 @@
 import { Transform } from 'class-transformer';
 import { IsIn, IsNumber, IsOptional, Max } from 'class-validator';
-import {
-  DefaultQueryParam,
-  orderSortings,
-  sortDirections,
-} from './query.constant';
+import { DefaultQueryParam, sortDirections } from './query.constant';
 
-export class CoachOrderQuery {
+export class ReviewsQuery {
   @Transform(({ value }) => +value || DefaultQueryParam.Limit)
   @IsNumber()
   @Max(DefaultQueryParam.Limit)
@@ -21,7 +17,6 @@ export class CoachOrderQuery {
   @IsOptional()
   public sortDirection?: string = sortDirections[1];
 
-  @IsIn(orderSortings)
   @IsOptional()
-  public sortBy?: string = orderSortings[0];
+  public sortBy?: string = DefaultQueryParam.SortBy;
 }

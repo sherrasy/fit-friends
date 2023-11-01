@@ -3,7 +3,7 @@ export const WORKOUT_TYPE_AMOUNT = 3;
 export const DefaultParam = {
   Step: 1,
   Amount: 0,
-  Status:false
+  Status: false,
 };
 
 export const ParseTimeError = {

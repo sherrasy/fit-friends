@@ -1,13 +1,30 @@
-import { Controller, Get, HttpStatus, Param, Query, Req, UseInterceptors,UseGuards } from '@nestjs/common';
-import { API_TAG_NAME, WorkoutsListError, WorkoutsListMessages, WorkoutsListPath } from './workouts-list.constant';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { WorkoutsListService } from './workouts-list.service';
-import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
-import { WorkoutRdo } from '../workout/rdo/workout.rdo';
-import { WorkoutByCoachQuery, WorkoutListQuery } from '@backend/shared-quieries';
 import { CoachRoleInterceptor } from '@backend/shared-interceptors';
+import {
+  WorkoutByCoachQuery,
+  WorkoutListQuery,
+} from '@backend/shared-quieries';
 import { RequestWithUserPayload } from '@backend/shared/shared-types';
+import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Query,
+  Req,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotifyService } from '../notify/notify.service';
+import { WorkoutRdo } from '../workout/rdo/workout.rdo';
+import {
+  API_TAG_NAME,
+  WorkoutsListError,
+  WorkoutsListMessages,
+  WorkoutsListPath,
+} from './workouts-list.constant';
+import { WorkoutsListService } from './workouts-list.service';
 
 @ApiTags(API_TAG_NAME)
 @Controller(WorkoutsListPath.Main)
@@ -19,55 +36,61 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowAll
+    description: WorkoutsListMessages.ShowAll,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: WorkoutsListError.EmptyList
+    description: WorkoutsListError.EmptyList,
   })
   @Get()
   @UseGuards(JwtAuthGuard)
-  public async show(@Query() query:WorkoutListQuery) {
+  public async show(@Query() query: WorkoutListQuery) {
     const workouts = await this.workoutsListService.showAll(query);
-    return workouts.map((workout) => fillObject(WorkoutRdo, workout) );
+    return workouts.map((workout) => fillObject(WorkoutRdo, workout));
   }
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowAll
+    description: WorkoutsListMessages.ShowAll,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: WorkoutsListError.EmptyList
+    description: WorkoutsListError.EmptyList,
   })
   @UseGuards(JwtAuthGuard)
   @Get(WorkoutsListPath.CoachList)
   @UseInterceptors(CoachRoleInterceptor)
-    public async showByCoach(@Req() { user }: RequestWithUserPayload, @Query() query:WorkoutByCoachQuery) {
+  public async showByCoach(
+    @Req() { user }: RequestWithUserPayload,
+    @Query() query: WorkoutByCoachQuery
+  ) {
     const coachId = user.sub;
-    const workouts = await this.workoutsListService.findByCoachId(coachId, query);
-    return workouts.map((workout) => fillObject(WorkoutRdo, workout) );
+    const workouts = await this.workoutsListService.findByCoachId(
+      coachId,
+      query
+    );
+    return workouts.map((workout) => fillObject(WorkoutRdo, workout));
   }
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description:WorkoutsListMessages.NewsSent
+    description: WorkoutsListMessages.NewsSent,
   })
   @UseGuards(JwtAuthGuard)
   @Get(WorkoutsListPath.SendNewsletter)
-  public async sendNews(@Req() {user}: RequestWithUserPayload) {
-    const {email} = user;
-    const workouts = await this.workoutsListService.getWorkouts()
-    this.notifyService.sendNewsletter({email, workouts});
+  public async sendNews(@Req() { user }: RequestWithUserPayload) {
+    const { email } = user;
+    const workouts = await this.workoutsListService.getWorkouts();
+    this.notifyService.sendNewsletter({ email, workouts });
   }
-  
+
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowAll
+    description: WorkoutsListMessages.ShowSingle,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
-    description: WorkoutsListError.EmptyList
+    description: WorkoutsListError.EmptyList,
   })
   @UseGuards(JwtAuthGuard)
   @Get(WorkoutsListPath.Id)
@@ -75,5 +98,4 @@ export class WorkoutsListController {
     const workout = await this.workoutsListService.findByWorkoutId(id);
     return fillObject(WorkoutRdo, workout);
   }
-
 }

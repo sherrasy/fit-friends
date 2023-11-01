@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { RefreshTokenService } from './refresh-token.service';
 import { RefreshTokenRepository } from './refresh-token.repository';
+import { RefreshTokenService } from './refresh-token.service';
 
 @Module({
   imports: [],

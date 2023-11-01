@@ -1,22 +1,22 @@
-import { StatusRequest } from "@backend/shared/shared-types";
-import { ApiProperty } from "@nestjs/swagger";
-import { Expose } from "class-transformer";
+import { StatusRequest } from '@backend/shared/shared-types';
+import { ApiProperty } from '@nestjs/swagger';
+import { Expose } from 'class-transformer';
 
 export class WorkoutRequestRdo {
   @ApiProperty({
-    description: 'Request Id'
+    description: 'Request Id',
   })
   @Expose()
   public id: number;
 
   @ApiProperty({
-    description: 'User Id'
+    description: 'User Id',
   })
   @Expose()
   public userId: number;
 
   @ApiProperty({
-    description: 'User initiator id'
+    description: 'User initiator id',
   })
   @Expose()
   public initiatorId: number;
@@ -31,5 +31,5 @@ export class WorkoutRequestRdo {
   public createdDate: Date;
 
   @Expose()
-  public updatedDate: Date
+  public updatedDate: Date;
 }

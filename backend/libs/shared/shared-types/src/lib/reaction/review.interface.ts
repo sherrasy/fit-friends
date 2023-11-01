@@ -4,5 +4,5 @@ export interface Review {
   workoutId: number;
   rating: number;
   message: string;
-  createdDate?:Date;
+  createdDate?: Date;
 }

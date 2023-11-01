@@ -1,5 +1,5 @@
-import {  IsEmail, IsInt } from 'class-validator';
-import { EmailError} from '../email-subscriber.constant';
+import { IsEmail, IsInt } from 'class-validator';
+import { EmailError } from '../email-subscriber.constant';
 
 export class UpdateSubscriberDto {
   @IsEmail({}, { message: EmailError.InvalidEmail })

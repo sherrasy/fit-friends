@@ -1,10 +1,13 @@
-import { IsNumber,IsEnum, IsOptional, IsIn, Max } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DefaultQueryParam, NOTIFICATIONS_LIMIT, sortDirections,  } from './query.constant';
-import {FitnessLevel, Location, UserRole, WorkoutType} from '@backend/shared/shared-types'
+import { IsIn, IsNumber, IsOptional, Max } from 'class-validator';
+import {
+  DefaultQueryParam,
+  NOTIFICATIONS_LIMIT,
+  sortDirections,
+} from './query.constant';
 
 export class NotificationsQuery {
-  @Transform(({ value } ) => +value ||  NOTIFICATIONS_LIMIT)
+  @Transform(({ value }) => +value || NOTIFICATIONS_LIMIT)
   @IsNumber()
   @Max(NOTIFICATIONS_LIMIT)
   @IsOptional()
@@ -20,5 +23,4 @@ export class NotificationsQuery {
 
   @IsOptional()
   public sortBy?: string = DefaultQueryParam.SortBy;
-
 }

@@ -1,15 +1,20 @@
 import { uploaderConfig } from '@backend/config-uploader';
-import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config';
-import { ensureDir } from 'fs-extra';
-import { writeFile } from 'node:fs/promises';
-import { extension } from "mime-types";
-import * as crypto from 'node:crypto';
-import dayjs from 'dayjs';
-import { FileRepository } from './file.repository';
 import { WritedFile } from '@backend/shared/shared-types';
-import { FileEntity } from './file.entity';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
+import dayjs from 'dayjs';
+import { ensureDir } from 'fs-extra';
+import { extension } from 'mime-types';
+import * as crypto from 'node:crypto';
+import { writeFile } from 'node:fs/promises';
 import { FORMAT_PATTERN, FileError } from './file.constant';
+import { FileEntity } from './file.entity';
+import { FileRepository } from './file.repository';
 
 @Injectable()
 export class FileService {
@@ -19,15 +24,18 @@ export class FileService {
     private readonly fileRepository: FileRepository
   ) {}
 
-  private async writeFile(file: Express.Multer.File, type:string): Promise<WritedFile> {
+  private async writeFile(
+    file: Express.Multer.File,
+    type: string
+  ): Promise<WritedFile> {
     const [year, month] = dayjs().format(FORMAT_PATTERN).split(' ');
     const { uploadDirectory } = this.applicationConfig;
     const subDirectory = `${year}/${month}`;
 
     const uuid = crypto.randomUUID();
     const fileExtension = extension(file.mimetype);
-    if(!fileExtension){
-      throw new BadRequestException (FileError.MimetypeError);
+    if (!fileExtension) {
+      throw new BadRequestException(FileError.MimetypeError);
     }
     const hashName = `${uuid}.${fileExtension}`;
 

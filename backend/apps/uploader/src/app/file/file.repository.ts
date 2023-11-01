@@ -1,9 +1,9 @@
+import { File } from '@backend/shared/shared-types';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FileModel } from './file.model';
 import { Model } from 'mongoose';
 import { FileEntity } from './file.entity';
-import { File } from '@backend/shared/shared-types';
+import { FileModel } from './file.model';
 
 @Injectable()
 export class FileRepository {
@@ -17,8 +17,6 @@ export class FileRepository {
   }
 
   public async findById(id: string): Promise<File | null> {
-    return this.fileModel
-      .findOne({ _id: id})
-      .exec();
+    return this.fileModel.findOne({ _id: id }).exec();
   }
 }

@@ -8,7 +8,7 @@ import { ENV_FILE_PATH } from './config-uploader.constant';
       isGlobal: true,
       cache: true,
       load: [uploaderConfig],
-      envFilePath: ENV_FILE_PATH
+      envFilePath: ENV_FILE_PATH,
     }),
   ],
   providers: [],

@@ -1,33 +1,55 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, IsEmail, IsEnum, IsOptional, IsString, Matches, MaxLength, MinLength, ValidateNested } from 'class-validator';
-import { DescriptionLength, ErrorMessage, NameLength, PasswordLength, USERNAME_PATTERN } from '../../constant';
-import { FitnessLevel, Location, UserRole, UserSex, WorkoutType } from '@backend/shared/shared-types';
-import { CreateCoachDto } from './create-coach.dto';
-import { Type } from 'class-transformer';
-import { CreateSportsmanDto } from './create-sportsman.dto';
+import {
+  FitnessLevel,
+  Location,
+  UserRole,
+  UserSex,
+  WorkoutType,
+} from '@backend/shared/shared-types';
 import { WORKOUT_TYPE_AMOUNT } from '@backend/util/util-core';
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import {
+  ArrayMaxSize,
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsString,
+  Matches,
+  MaxLength,
+  MinLength,
+  ValidateNested,
+} from 'class-validator';
+import {
+  DescriptionLength,
+  ErrorMessage,
+  NameLength,
+  PasswordLength,
+  USERNAME_PATTERN,
+} from '../../constant';
+import { CreateCoachDto } from './create-coach.dto';
+import { CreateSportsmanDto } from './create-sportsman.dto';
 
 export class CreateUserDto {
   @ApiProperty({
     description: 'User name',
-    example: 'John Doe'
+    example: 'John Doe',
   })
   @IsString()
   @MinLength(NameLength.Min)
   @MaxLength(NameLength.Max)
-  @Matches(USERNAME_PATTERN, {message:ErrorMessage.Name})
+  @Matches(USERNAME_PATTERN, { message: ErrorMessage.Name })
   public name: string;
 
   @ApiProperty({
     description: 'Unique user email address',
-    example: 'test@test.ru'
+    example: 'test@test.ru',
   })
-  @IsEmail({}, { message: ErrorMessage.Email})
+  @IsEmail({}, { message: ErrorMessage.Email })
   public email: string;
 
   @ApiProperty({
     description: 'User password',
-    example: '123456'
+    example: '123456',
   })
   @IsString()
   @MinLength(PasswordLength.Min)
@@ -36,27 +58,27 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'User gender',
-    enum: UserSex
+    enum: UserSex,
   })
   @IsEnum(UserSex)
   public sex: UserSex;
 
   @ApiProperty({
     description: 'User role',
-    enum: UserRole
+    enum: UserRole,
   })
   @IsEnum(UserRole)
   public role: UserRole;
 
   @ApiProperty({
     description: 'User location',
-    enum: Location
+    enum: Location,
   })
   @IsEnum(Location)
   public location: Location;
 
   @ApiProperty({
-    description: 'User description'
+    description: 'User description',
   })
   @MinLength(DescriptionLength.Min)
   @MaxLength(DescriptionLength.Max)
@@ -64,7 +86,7 @@ export class CreateUserDto {
   public description?: string;
 
   @ApiProperty({
-    description: 'User birthdate'
+    description: 'User birthdate',
   })
   @IsString()
   @IsOptional()
@@ -84,9 +106,8 @@ export class CreateUserDto {
   @ArrayMaxSize(WORKOUT_TYPE_AMOUNT)
   public workoutType: WorkoutType[];
 
-
   @ApiProperty({
-    description: 'User sportsman info'
+    description: 'User sportsman info',
   })
   @ValidateNested()
   @IsOptional()
@@ -94,11 +115,10 @@ export class CreateUserDto {
   public sportsmanInfo?: CreateSportsmanDto;
 
   @ApiProperty({
-    description: 'User coach info'
+    description: 'User coach info',
   })
   @ValidateNested()
   @IsOptional()
   @Type(() => CreateCoachDto)
   public coachInfo?: CreateCoachDto;
-
 }

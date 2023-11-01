@@ -1,5 +1,5 @@
-import { registerAs } from '@nestjs/config';
 import { JWTConfig } from '@backend/shared/shared-types';
+import { registerAs } from '@nestjs/config';
 import * as Joi from 'joi';
 import { ConfigName, DEFAULT_ERROR_MESSAGE } from './config-users.constant';
 
@@ -21,9 +21,7 @@ export default registerAs(ConfigName.Jwt, (): JWTConfig => {
   const { error } = validationSchema.validate(config, { abortEarly: true });
 
   if (error) {
-    throw new Error(
-      `[JWT Config]: ${DEFAULT_ERROR_MESSAGE} ${error.message}`,
-    );
+    throw new Error(`[JWT Config]: ${DEFAULT_ERROR_MESSAGE} ${error.message}`);
   }
 
   return config;

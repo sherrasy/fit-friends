@@ -1,18 +1,14 @@
-import { Module } from '@nestjs/common';
 import { getMailerAsyncOptions } from '@backend/util/util-core';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { MailService } from './mail.service';
+import { Module } from '@nestjs/common';
 import { DEFAULT_OPTION_SPACE } from './mail.constant';
+import { MailService } from './mail.service';
 
 @Module({
   imports: [
-    MailerModule.forRootAsync(getMailerAsyncOptions(DEFAULT_OPTION_SPACE))
+    MailerModule.forRootAsync(getMailerAsyncOptions(DEFAULT_OPTION_SPACE)),
   ],
-  providers: [
-    MailService
-  ],
-  exports: [
-    MailService
-  ]
+  providers: [MailService],
+  exports: [MailService],
 })
 export class MailModule {}

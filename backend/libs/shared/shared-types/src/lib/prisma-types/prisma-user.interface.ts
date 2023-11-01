@@ -1,4 +1,10 @@
-import { PrismaFitnessLevel, PrismaLocation, PrismaUserRole, PrismaUserSex, PrismaWorkoutType } from "./prisma-types";
+import {
+  PrismaFitnessLevel,
+  PrismaLocation,
+  PrismaUserRole,
+  PrismaUserSex,
+  PrismaWorkoutType,
+} from './prisma-types';
 
 export type PrismaSportsman = {
   sportsmanId: number;

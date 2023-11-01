@@ -1,9 +1,7 @@
 export const ErrorMessage = {
-  Name:'Only ru/en letters',
-  Email:'Email is invalid'
+  Name: 'Only ru/en letters',
+  Email: 'Email is invalid',
 } as const;
-
-export const DEFAULT_MIN_PRICE = 0;
 
 export const DEFAULT_ORDER_TYPE = 'абонемент';
 
@@ -41,5 +39,5 @@ export const ReviewTextLength = {
 
 export const RaitingCount = {
   Min: 1,
-  Max: 5
+  Max: 5,
 };

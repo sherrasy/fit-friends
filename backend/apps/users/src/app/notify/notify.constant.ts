@@ -1,1 +1,1 @@
-export const DEFAULT_OPTION_SPACE='rabbit'
+export const DEFAULT_OPTION_SPACE = 'rabbit';

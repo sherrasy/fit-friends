@@ -1,24 +1,29 @@
-import { ApiProperty } from "@nestjs/swagger";
-import {FitnessLevel, UserSex, WorkoutTime, WorkoutType} from '@backend/shared/shared-types'
+import {
+  FitnessLevel,
+  UserSex,
+  WorkoutTime,
+  WorkoutType,
+} from '@backend/shared/shared-types';
+import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
-export class WorkoutFullRdo  {
+export class WorkoutFullRdo {
   @ApiProperty({
     description: 'Unique workout  ID',
-    example: '1'
+    example: '1',
   })
   @Expose()
   public id: number;
 
   @ApiProperty({
     description: 'Coach  id',
-    example: '1'
+    example: '1',
   })
   @Expose()
   public coachId: number;
 
   @ApiProperty({
-    description: 'Workout name'
+    description: 'Workout name',
   })
   @Expose()
   public name: string;
@@ -32,32 +37,32 @@ export class WorkoutFullRdo  {
 
   @ApiProperty({
     description: 'Type of workout',
-    enum: WorkoutType
+    enum: WorkoutType,
   })
   @Expose()
   public workoutType: WorkoutType;
 
   @ApiProperty({
     description: 'Time for workout',
-    enum: WorkoutTime
+    enum: WorkoutTime,
   })
   @Expose()
   public workoutTime: WorkoutTime;
 
   @ApiProperty({
-    description: 'The cost of workout'
+    description: 'The cost of workout',
   })
   @Expose()
   public price: number;
 
   @ApiProperty({
-    description: 'Number of calories to reset'
+    description: 'Number of calories to reset',
   })
   @Expose()
   public calories: number;
 
   @ApiProperty({
-    description: 'Workout description'
+    description: 'Workout description',
   })
   @Expose()
   public description: string;
@@ -80,27 +85,26 @@ export class WorkoutFullRdo  {
 
   @ApiProperty({
     description: 'User gender',
-    enum: UserSex
+    enum: UserSex,
   })
   @Expose()
   public sex: UserSex;
 
   @ApiProperty({
-    description: 'Special offer flag'
+    description: 'Special offer flag',
   })
   @Expose()
   public isSpecialOffer: boolean;
 
   @ApiProperty({
-    description: 'The total price of orders of workout'
+    description: 'The total price of orders of workout',
   })
   @Expose()
   public priceOrdered: number;
 
   @ApiProperty({
-    description: 'The amount of orders of workout'
+    description: 'The amount of orders of workout',
   })
   @Expose()
   public amountOrdered: number;
 }
-

@@ -1,6 +1,5 @@
-
-import { Entity } from '@backend/util/util-types';
 import { File } from '@backend/shared/shared-types';
+import { Entity } from '@backend/util/util-types';
 
 export class FileEntity implements Entity<FileEntity>, File {
   public id: string;
@@ -26,6 +25,6 @@ export class FileEntity implements Entity<FileEntity>, File {
   public toObject(): FileEntity {
     return {
       ...this,
-    }
+    };
   }
 }

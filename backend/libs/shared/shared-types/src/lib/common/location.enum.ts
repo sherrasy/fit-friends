@@ -5,4 +5,3 @@ export enum Location {
   Zvyozdnaya = 'zvyozdnaya',
   Sportivnaya = 'sportivnaya',
 }
-

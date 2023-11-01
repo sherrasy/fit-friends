@@ -1,9 +1,9 @@
-import { IsNumber, IsOptional, IsIn, Max, IsInt } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { DefaultQueryParam, sortDirections,  } from './query.constant';
+import { IsIn, IsInt, IsNumber, IsOptional, Max } from 'class-validator';
+import { DefaultQueryParam, sortDirections } from './query.constant';
 
 export class WorkoutByCoachQuery {
-  @Transform(({ value } ) => +value ||  DefaultQueryParam.Limit)
+  @Transform(({ value }) => +value || DefaultQueryParam.Limit)
   @IsNumber()
   @Max(DefaultQueryParam.Limit)
   @IsOptional()
@@ -13,7 +13,7 @@ export class WorkoutByCoachQuery {
   @IsOptional()
   public page: number;
 
-  @Transform(({ value }) => value.split(",").join('|').split(" ").join(" & ") )
+  @Transform(({ value }) => value.split(',').join('|').split(' ').join(' & '))
   @IsOptional()
   public workoutTime?: string;
 

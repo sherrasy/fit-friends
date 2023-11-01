@@ -1,77 +1,85 @@
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { Location, UserRole, UserSex, FitnessLevel, WorkoutType, Sportsman, Coach } from '@backend/shared/shared-types';
+import {
+  Location,
+  UserRole,
+  UserSex,
+  FitnessLevel,
+  WorkoutType,
+  Sportsman,
+  Coach,
+} from '@backend/shared/shared-types';
 export class UserRdo {
   @ApiProperty({
     description: 'The unique user ID',
-    example: '1'
+    example: '1',
   })
   @Expose({ name: '_id' })
   public id: number;
 
   @ApiProperty({
     description: 'User firstname and lastname',
-    example: 'John Doe'
+    example: 'John Doe',
   })
   @Expose()
   public name: string;
 
   @ApiProperty({
     description: 'User email',
-    example: 'test@test.ru'
+    example: 'test@test.ru',
   })
   @Expose()
   public email: string;
 
   @ApiProperty({
     description: 'User gender',
-    enum: UserSex
+    enum: UserSex,
   })
   @Expose()
   public sex: UserSex;
 
   @ApiProperty({
     description: 'User role',
-    enum: UserRole
+    enum: UserRole,
   })
   @Expose()
   public role: UserRole;
 
   @ApiProperty({
     description: 'User location',
-    enum: Location
+    enum: Location,
   })
   @Expose()
   public location: Location;
 
   @ApiProperty({
-    description: 'User description'
+    description: 'User description',
   })
   @Expose()
   public description?: string;
 
   @ApiProperty({
-    description: 'User birthdate'
+    description: 'User birthdate',
   })
   @Expose()
   public birthDate?: string;
 
   @ApiProperty({
-    description: 'User profile created date'
+    description: 'User profile created date',
   })
   @Expose()
   public createdDate: string;
 
   @ApiProperty({
     description: 'User avatar path',
-    example: '/images/user.png'
+    example: '/images/user.png',
   })
   @Expose()
   public avatar: string;
 
   @ApiProperty({
     description: 'User photo path',
-    example: '/images/user.png'
+    example: '/images/user.png',
   })
   @Expose()
   public photo: string;
@@ -101,5 +109,4 @@ export class UserRdo {
   })
   @Expose()
   public coachInfo: Coach;
-
 }

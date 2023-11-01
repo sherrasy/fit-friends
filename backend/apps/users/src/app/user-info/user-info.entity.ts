@@ -1,5 +1,14 @@
-import { Location, User, UserRole, UserSex, FitnessLevel, WorkoutType, Sportsman, Coach } from '@backend/shared/shared-types';
-import { genSalt, hash, compare } from 'bcrypt';
+import {
+  Coach,
+  FitnessLevel,
+  Location,
+  Sportsman,
+  User,
+  UserRole,
+  UserSex,
+  WorkoutType,
+} from '@backend/shared/shared-types';
+import { compare, genSalt, hash } from 'bcrypt';
 import { SALT_ROUNDS } from './user-info.constant';
 
 export class UserInfoEntity implements User {
@@ -22,13 +31,13 @@ export class UserInfoEntity implements User {
 
   constructor(user: User) {
     this.fillEntity(user);
-   }
-
-  public toObject() {
-    return {...this };
   }
 
-  public fillEntity(user:User) {
+  public toObject() {
+    return { ...this };
+  }
+
+  public fillEntity(user: User) {
     this._id = user._id;
     this.name = user.name;
     this.email = user.email;
@@ -45,7 +54,7 @@ export class UserInfoEntity implements User {
     this.createdDate = user.createdDate;
     this.fitnessLevel = user.fitnessLevel;
     this.workoutType = user.workoutType;
-    }
+  }
 
   public async setPassword(password: string): Promise<UserInfoEntity> {
     const salt = await genSalt(SALT_ROUNDS);

@@ -1,4 +1,4 @@
-import { Workout } from "@backend/shared/shared-types";
+import { Workout } from '@backend/shared/shared-types';
 
 export class SendNewsletterWorkoutsDto {
   public email: string;

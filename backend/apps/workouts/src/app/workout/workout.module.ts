@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
-import { WorkoutController } from './workout.controller';
-import { WorkoutService } from './workout.service';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
 import { JwtAccessStrategy, getJwtOptions } from '@backend/util/util-core';
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { WorkoutController } from './workout.controller';
 import { WorkoutRepository } from './workout.repository';
+import { WorkoutService } from './workout.service';
 
 @Module({
   imports: [
@@ -13,8 +13,8 @@ import { WorkoutRepository } from './workout.repository';
       useFactory: getJwtOptions,
     }),
   ],
-  controllers: [WorkoutController ],
+  controllers: [WorkoutController],
   providers: [WorkoutService, WorkoutRepository, JwtAccessStrategy],
-  exports: [WorkoutRepository]
+  exports: [WorkoutRepository],
 })
 export class WorkoutModule {}
