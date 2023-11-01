@@ -1,19 +1,19 @@
-import { Review } from "@backend/shared/shared-types";
+import { Review } from '@backend/shared/shared-types';
 
 export class ReviewsEntity implements Review {
-  public id?:number;
+  public id?: number;
   public userId: number;
   public workoutId: number;
   public rating: number;
   public message: string;
-  public createdDate:Date;
+  public createdDate: Date;
 
   constructor(review: Review) {
     this.fillEntity(review);
   }
 
   public toObject() {
-    return {...this };
+    return { ...this };
   }
 
   public fillEntity(review: Review) {

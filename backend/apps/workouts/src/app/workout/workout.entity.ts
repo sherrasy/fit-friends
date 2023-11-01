@@ -1,4 +1,10 @@
-import {FitnessLevel, UserSex, Workout, WorkoutTime, WorkoutType} from '@backend/shared/shared-types';
+import {
+  FitnessLevel,
+  UserSex,
+  Workout,
+  WorkoutTime,
+  WorkoutType,
+} from '@backend/shared/shared-types';
 
 export class WorkoutEntity implements Workout {
   public id: number;
@@ -16,18 +22,18 @@ export class WorkoutEntity implements Workout {
   public coachId: number;
   public isSpecialOffer: boolean;
   public createdDate: string;
-  public amountOrdered:number;
-  public priceOrdered:number;
+  public amountOrdered: number;
+  public priceOrdered: number;
 
-  constructor(workout:Workout ) {
+  constructor(workout: Workout) {
     this.fillEntity(workout);
   }
 
   public toObject() {
-    return {...this };
+    return { ...this };
   }
 
-  public fillEntity(workout:Workout) {
+  public fillEntity(workout: Workout) {
     this.id = workout.id;
     this.name = workout.name;
     this.photo = workout.photo;
@@ -46,5 +52,4 @@ export class WorkoutEntity implements Workout {
     this.priceOrdered = workout.priceOrdered;
     this.amountOrdered = workout.amountOrdered;
   }
-
 }

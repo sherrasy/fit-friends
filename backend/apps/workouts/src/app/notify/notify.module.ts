@@ -9,9 +9,9 @@ import { NotifyService } from './notify.service';
     RabbitMQModule.forRootAsync(
       RabbitMQModule,
       getRabbitMQOptions(DEFAULT_OPTION_SPACE)
-    )
+    ),
   ],
   providers: [NotifyService],
-  exports: [NotifyService]
+  exports: [NotifyService],
 })
 export class NotifyModule {}

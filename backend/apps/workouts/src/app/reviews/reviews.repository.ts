@@ -1,9 +1,9 @@
+import { ReviewsQuery } from '@backend/shared-quieries';
+import { Review } from '@backend/shared/shared-types';
+import { DefaultParam } from '@backend/util/util-core';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Review } from '@backend/shared/shared-types';
 import { ReviewsEntity } from './reviews.entity';
-import { ReviewsQuery } from '@backend/shared-quieries';
-import { DefaultParam } from '@backend/util/util-core';
 
 @Injectable()
 export class ReviewsRepository {
@@ -14,15 +14,21 @@ export class ReviewsRepository {
     return await this.prisma.review.create({ data });
   }
 
-  public async findAllByWorkoutId(workoutId: number, {limit, sortBy, sortDirection, page}:ReviewsQuery): Promise<Review[] | null> {
+  public async findAllByWorkoutId(
+    workoutId: number,
+    { limit, sortBy, sortDirection, page }: ReviewsQuery
+  ): Promise<Review[] | null> {
     const queryParams = {
-      where:{
-        workoutId
+      where: {
+        workoutId,
       },
       take: limit,
-      skip: page > DefaultParam.Amount ? limit * (page - DefaultParam.Step) : undefined,
+      skip:
+        page > DefaultParam.Amount
+          ? limit * (page - DefaultParam.Step)
+          : undefined,
       orderBy: [{ [sortBy]: sortDirection }],
-    }
+    };
     return await this.prisma.review.findMany(queryParams);
   }
 

@@ -1,10 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
   FitnessLevel,
   UserSex,
   WorkoutTime,
   WorkoutType,
 } from '@backend/shared/shared-types';
+import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
 export class WorkoutRdo {

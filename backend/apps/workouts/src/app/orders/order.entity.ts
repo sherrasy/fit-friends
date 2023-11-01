@@ -17,7 +17,7 @@ export class OrderEntity implements Order, Entity<OrderEntity> {
   }
 
   public toObject() {
-    return {...this };
+    return { ...this };
   }
 
   public fillEntity(order: Order) {
@@ -31,5 +31,4 @@ export class OrderEntity implements Order, Entity<OrderEntity> {
     this.amountDone = order.amount;
     this.paymentOption = order.paymentOption;
   }
-
 }
