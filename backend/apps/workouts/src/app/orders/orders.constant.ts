@@ -7,7 +7,7 @@ export const OrdersError = {
   WrongUser: 'User id doesn`t match',
 } as const;
 
-export const OrdersMessages = {
+export const OrdersMessage = {
   Add: 'Order added',
   ShowAll: 'Orders of workouts is showing',
 } as const;

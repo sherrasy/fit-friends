@@ -1,4 +1,7 @@
-import { CoachRoleInterceptor } from '@backend/shared-interceptors';
+import {
+  CoachRoleInterceptor,
+  UserRoleInterceptor,
+} from '@backend/shared-interceptors';
 import {
   WorkoutByCoachQuery,
   WorkoutListQuery,
@@ -21,7 +24,7 @@ import { WorkoutRdo } from '../workout/rdo/workout.rdo';
 import {
   API_TAG_NAME,
   WorkoutsListError,
-  WorkoutsListMessages,
+  WorkoutsListMessage,
   WorkoutsListPath,
 } from './workouts-list.constant';
 import { WorkoutsListService } from './workouts-list.service';
@@ -36,7 +39,7 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowAll,
+    description: WorkoutsListMessage.ShowAll,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -51,7 +54,7 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowAll,
+    description: WorkoutsListMessage.ShowAll,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -74,10 +77,11 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.NewsSent,
+    description: WorkoutsListMessage.NewsSent,
   })
   @UseGuards(JwtAuthGuard)
   @Get(WorkoutsListPath.SendNewsletter)
+  @UseInterceptors(UserRoleInterceptor)
   public async sendNews(@Req() { user }: RequestWithUserPayload) {
     const { email } = user;
     const workouts = await this.workoutsListService.getWorkouts();
@@ -86,7 +90,7 @@ export class WorkoutsListController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: WorkoutsListMessages.ShowSingle,
+    description: WorkoutsListMessage.ShowSingle,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,

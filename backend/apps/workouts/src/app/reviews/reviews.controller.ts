@@ -17,7 +17,7 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ReviewsRdo } from './rdo/reviews.rdo';
-import { API_TAG_NAME, ReviewsMessages, ReviewsPath } from './reviews.constant';
+import { API_TAG_NAME, ReviewsMessage, ReviewsPath } from './reviews.constant';
 import { ReviewsService } from './reviews.service';
 
 @ApiTags(API_TAG_NAME)
@@ -27,7 +27,7 @@ export class ReviewsController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: ReviewsMessages.Add,
+    description: ReviewsMessage.Add,
   })
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(UserRoleInterceptor)
@@ -48,7 +48,7 @@ export class ReviewsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: ReviewsMessages.Show,
+    description: ReviewsMessage.Show,
   })
   @UseGuards(JwtAuthGuard)
   @Get(ReviewsPath.Id)

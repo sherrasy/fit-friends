@@ -18,7 +18,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserNotificationRdo } from './rdo/user-notification.rdo';
 import {
   API_TAG_NAME,
-  NotificationsMessages,
+  NotificationsMessage,
   NotificationsPath,
 } from './user-notifications.constant';
 import { UserNotificationsService } from './user-notifications.service';
@@ -32,7 +32,7 @@ export class UserNotificationsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: NotificationsMessages.Show,
+    description: NotificationsMessage.Show,
   })
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -52,7 +52,7 @@ export class UserNotificationsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: NotificationsMessages.Remove,
+    description: NotificationsMessage.Remove,
   })
   @UseGuards(JwtAuthGuard)
   @Delete(NotificationsPath.Id)

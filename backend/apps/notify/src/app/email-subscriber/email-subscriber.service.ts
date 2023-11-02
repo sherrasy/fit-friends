@@ -30,11 +30,6 @@ export class EmailSubscriberService {
   public async updateSubscriber(subscriber: UpdateSubscriberDto) {
     const { email, coach } = subscriber;
     const existsSubscriber = await this.getSubscriber(email);
-
-    if (!existsSubscriber) {
-      throw new NotFoundException(EmailError.InvalidSubscriber);
-    }
-
     const subscriptionsData = existsSubscriber.subscriptions;
 
     let updatedList: number[];
@@ -52,7 +47,11 @@ export class EmailSubscriberService {
   }
 
   public async getSubscriber(email: string) {
-    return await this.emailSubscriberRepository.findByEmail(email);
+    const subscriber = await this.emailSubscriberRepository.findByEmail(email);
+    if (!subscriber) {
+      throw new NotFoundException(EmailError.InvalidSubscriber);
+    }
+    return subscriber;
   }
 
   public async updateDateSent(subscriber: Subscriber) {

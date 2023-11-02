@@ -2,7 +2,7 @@ export const API_TAG_NAME = 'user-notifications';
 
 export const NOTIFICATIONS_ERROR = 'Notification is not found';
 
-export const NotificationsMessages = {
+export const NotificationsMessage = {
   Show: 'Notification list is showing',
   Remove: 'Notification removed',
 } as const;
