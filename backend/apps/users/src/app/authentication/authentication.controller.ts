@@ -20,7 +20,7 @@ import { UserRdo } from '../user-info/rdo/user.rdo';
 import {
   API_TAG_NAME,
   AuthError,
-  AuthMessages,
+  AuthMessage,
   AuthPath,
 } from './authentication.constant';
 import { AuthenticationService } from './authentication.service';
@@ -39,7 +39,7 @@ export class AuthenticationController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: AuthMessages.Register,
+    description: AuthMessage.Register,
   })
   @Post(AuthPath.Register)
   public async create(@Body() dto: CreateUserDto) {
@@ -52,7 +52,7 @@ export class AuthenticationController {
   @ApiResponse({
     type: LoggedUserRdo,
     status: HttpStatus.OK,
-    description: AuthMessages.Login,
+    description: AuthMessage.Login,
   })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
@@ -70,7 +70,7 @@ export class AuthenticationController {
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
     status: HttpStatus.OK,
-    description: AuthMessages.Refresh,
+    description: AuthMessage.Refresh,
   })
   @Post(AuthPath.Refresh)
   @UseGuards(JwtRefreshGuard)

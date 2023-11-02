@@ -26,7 +26,7 @@ import { WorkoutFullRdo } from '../workout/rdo/workout-full.rdo';
 import {
   API_TAG_NAME,
   OrdersError,
-  OrdersMessages,
+  OrdersMessage,
   OrdersPath,
 } from './orders.constant';
 import { OrdersService } from './orders.service';
@@ -39,7 +39,7 @@ export class OrdersController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: OrdersMessages.ShowAll,
+    description: OrdersMessage.ShowAll,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -62,7 +62,7 @@ export class OrdersController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: OrdersMessages.ShowAll,
+    description: OrdersMessage.ShowAll,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -80,7 +80,7 @@ export class OrdersController {
   @ApiResponse({
     type: OrderRdo,
     status: HttpStatus.CREATED,
-    description: OrdersMessages.Add,
+    description: OrdersMessage.Add,
   })
   @UseGuards(JwtAuthGuard)
   @Post()

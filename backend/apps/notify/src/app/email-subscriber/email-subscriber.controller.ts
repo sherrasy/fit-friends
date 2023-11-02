@@ -48,12 +48,10 @@ export class EmailSubscriberController {
   public async sendNewsletter(dto: NewsletterDto) {
     const { email, workouts } = dto;
     const recipient = await this.subscriberService.getSubscriber(email);
-    if (recipient && workouts.length > DefaultParam.Amount) {
-      const newWorkouts = getNewWorkouts(dto, recipient);
-      if (newWorkouts.length > DefaultParam.Amount) {
-        await this.mailService.sendWorkouts(recipient.email, newWorkouts);
-        this.subscriberService.updateDateSent(recipient);
-      }
+    const newWorkouts = getNewWorkouts(workouts, recipient);
+    if (newWorkouts.length > DefaultParam.Amount) {
+      await this.mailService.sendWorkouts(recipient.email, newWorkouts);
+      this.subscriberService.updateDateSent(recipient);
     }
   }
 }

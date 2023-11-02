@@ -19,7 +19,7 @@ import { UserRdo } from './rdo/user.rdo';
 import {
   API_TAG_NAME,
   UserInfoError,
-  UserInfoMessages,
+  UserInfoMessage,
   UserInfoPath,
 } from './user-info.constant';
 import { UserInfoService } from './user-info.service';
@@ -34,7 +34,7 @@ export class UserInfoController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: UserInfoMessages.UserList,
+    description: UserInfoMessage.UserList,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -50,7 +50,7 @@ export class UserInfoController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: UserInfoMessages.UserFound,
+    description: UserInfoMessage.UserFound,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
@@ -65,7 +65,7 @@ export class UserInfoController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: UserInfoMessages.UserFound,
+    description: UserInfoMessage.UserFound,
   })
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(UserRoleInterceptor)

@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserRdo } from '../user-info/rdo/user.rdo';
-import { API_TAG_NAME, FriendsMessages, FriendsPath } from './friends.constant';
+import { API_TAG_NAME, FriendsMessage, FriendsPath } from './friends.constant';
 import { FriendsService } from './friends.service';
 import { FriendRdo } from './rdo/friend.rdo';
 
@@ -25,7 +25,7 @@ export class FriendsController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: FriendsMessages.Add,
+    description: FriendsMessage.Add,
   })
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(UserRoleInterceptor)
@@ -41,7 +41,7 @@ export class FriendsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: FriendsMessages.Show,
+    description: FriendsMessage.Show,
   })
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -53,7 +53,7 @@ export class FriendsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: FriendsMessages.Remove,
+    description: FriendsMessage.Remove,
   })
   @UseGuards(JwtAuthGuard)
   @Delete(FriendsPath.Id)

@@ -8,7 +8,7 @@ export const AuthError = {
   TokenNotFound: 'Token does not exist',
 } as const;
 
-export const AuthMessages = {
+export const AuthMessage = {
   Register: 'User registered successfully',
   Login: 'Login successfull',
   Refresh: 'Get a new access/refresh tokens',

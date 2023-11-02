@@ -20,7 +20,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { WorkoutRequestRdo } from './rdo/workout-request.rdo';
 import {
   API_TAG_NAME,
-  WorkoutRequestMessages,
+  WorkoutRequestMessage,
   WorkoutRequestPath,
 } from './workout-request.constant';
 import { WorkoutRequestService } from './workout-request.service';
@@ -32,7 +32,7 @@ export class WorkoutRequestController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: WorkoutRequestMessages.Add,
+    description: WorkoutRequestMessage.Add,
   })
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(UserRoleInterceptor)
@@ -48,7 +48,7 @@ export class WorkoutRequestController {
 
   @ApiResponse({
     status: HttpStatus.CREATED,
-    description: WorkoutRequestMessages.Update,
+    description: WorkoutRequestMessage.Update,
   })
   @UseGuards(JwtAuthGuard)
   @Patch(WorkoutRequestPath.Id)

@@ -8,7 +8,7 @@ export const UserInfoError = {
   NotCoach: 'User is not coach',
 } as const;
 
-export const UserInfoMessages = {
+export const UserInfoMessage = {
   UserFound: 'User data found',
   UserList: 'User list is showing',
 } as const;

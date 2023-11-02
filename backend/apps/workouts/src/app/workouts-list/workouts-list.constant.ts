@@ -5,7 +5,7 @@ export const WorkoutsListError = {
   EmptyList: 'There are no workouts that can be loaded',
 } as const;
 
-export const WorkoutsListMessages = {
+export const WorkoutsListMessage = {
   ShowSingle: 'Workout is showing',
   ShowAll: 'List of workouts is showing',
   NewsSent: 'Workouts sent',
