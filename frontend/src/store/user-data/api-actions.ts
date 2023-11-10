@@ -1,19 +1,20 @@
 import {AxiosInstance, AxiosError} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {saveToken} from '../../services/token';
+import {dropToken, saveToken} from '../../services/token';
 import { toast } from 'react-toastify';
 import { AppDispatch, State } from '../../types/state.type';
-import { ActionName, ApiRoute, AppRoute, ReducerName, VALIDATION_ERROR_NAME } from '../../utils/constant';
+import { ActionName, ApiRoute, AppRoute, ReducerName } from '../../utils/constant';
 import { redirectToRoute } from '../action';
-import { AxiosErrorResponse } from '../../types/axios-error-response.type';
-import { User } from '../../types/user.interface';
 import { AuthData } from '../../types/auth-data.type';
-import { getValidationErrorMessages } from '../../utils/helpers';
 import { CreateUserDto } from '../../dto/user/create/create-user.dto';
-import { UserData } from '../../types/user-data.type';
+import { StatusCodes } from 'http-status-codes';
+import { TokenData, TokenPayloadData } from '../../types/token-data.type';
+import { User } from '../../types/user.interface';
+import { jwtDecode } from 'jwt-decode';
+import { UserRole } from '../../types/user-role.enum';
 
 
-export const checkAuth = createAsyncThunk<User, undefined, {
+export const checkAuth = createAsyncThunk<number, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -22,16 +23,18 @@ export const checkAuth = createAsyncThunk<User, undefined, {
   async (_arg, {extra: api}) => {
     try{
       const {data} = await api.get<User>(ApiRoute.Login);
-      return data;
+      return data.id;
     }catch(error){
-      const axiosError = error as AxiosError<AxiosErrorResponse>;
-      toast.error(axiosError.response?.data.message, {toastId:ActionName.CheckAuth});
+      const axiosError = error as AxiosError;
+      if(axiosError.response?.status === StatusCodes.UNAUTHORIZED){
+        dropToken();
+      }
       return Promise.reject(error);
     }
   }
 );
 
-export const login = createAsyncThunk<UserData|void, AuthData, {
+export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -39,17 +42,22 @@ export const login = createAsyncThunk<UserData|void, AuthData, {
   `${ReducerName.User}/${ActionName.Login}`,
   async (authData, { dispatch, extra: api}) => {
     try{
-      const {data} = await api.post<UserData>(ApiRoute.Login, authData);
-      const { token } = data;
-      saveToken(token);
-      dispatch(redirectToRoute(AppRoute.Main));
-      return data;
+      const {data} = await api.post<TokenData>(ApiRoute.Login, authData);
+      const { accessToken } = data;
+      saveToken(accessToken);
+      const userInfo:TokenPayloadData = jwtDecode(accessToken);
+
+      if(userInfo.role === UserRole.Coach) {
+        dispatch(redirectToRoute(AppRoute.CoachAccount));
+      }
+      else {
+        dispatch(redirectToRoute(AppRoute.Main));
+      }
+      return userInfo;
     }
     catch(error){
-      const axiosError = error as AxiosError<AxiosErrorResponse>;
-      const isValidationError = axiosError.response?.data.errorType === VALIDATION_ERROR_NAME;
-      const errorMessage = isValidationError ? getValidationErrorMessages(axiosError) : axiosError.response?.data.message;
-      toast.error(errorMessage, {toastId:ActionName.Login});
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.response?.statusText, {toastId:ActionName.Login});
     }
   },
 );
@@ -66,8 +74,8 @@ export const register = createAsyncThunk< void, CreateUserDto, {
       dispatch(redirectToRoute(AppRoute.Login));
     }
     catch(error){
-      const axiosError = error as AxiosError<AxiosErrorResponse>;
-      toast.error(axiosError.response?.data.message, {toastId:ActionName.Register});
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message, {toastId:ActionName.Register});
     }
   },
 );

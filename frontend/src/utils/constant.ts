@@ -1,5 +1,6 @@
 export const AppRoute = {
   Main: '/',
+  Intro: '/intro',
   Login: '/login',
   Register: '/register',
   AddWorkout: '/add-workout',
@@ -43,7 +44,7 @@ export const ApiRoute = {
 } as const;
 
 export const ApiConnectParam = {
-  Url:'http://localhost:4000',
+  Url:'http://localhost:4000/api',
   Timeout: 5000
 };
 
@@ -54,8 +55,11 @@ export const ApiErrorsMessage = {
 
 export const ValidationPattern = {
   Email: /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/,
-  Password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/,
+  Password: /^(?=.*[A-Za-z0-9])(?=.*\d)[A-Za-z\d0-9]{6,12}$/,
   Name: /^[a-zA-Zа-яА-Я]{1,15}$/,
 } as const;
 
-export const VALIDATION_ERROR_NAME = 'VALIDATION_ERROR';
+export const UserFormFieldName = {
+  Email:'email',
+  Password:'password'
+} as const;

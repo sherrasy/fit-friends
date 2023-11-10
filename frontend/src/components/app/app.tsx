@@ -19,16 +19,22 @@ import UserPurchasesPage from '../../pages/user-purchases-page/user-purchases-pa
 import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
+import { useAppSelector } from '../../hooks';
+import { getAuthCheckedStatus } from '../../store/user-data/selectors';
+import MainPage from '../../pages/main-page/main-page';
 
 function App(): JSX.Element {
-  const isAuthChecked = true;
+  // const dispatch = useAppDispatch();
+  // const authStatus = useAppSelector(getIsAuthorized);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
 
   if(!isAuthChecked){
     return <Loader/>;
   }
   return (
     <Routes>
-      <Route path={AppRoute.Main} element={<IntroPage/>} />
+      <Route path={AppRoute.Intro} element={<IntroPage/>} />
+      <Route path={AppRoute.Main} element={<MainPage/>} />
       <Route path={AppRoute.Login} element={<LoginPage/>} />
       <Route path={AppRoute.Register} element={<SignUpPage />} />
       <Route path={AppRoute.AddWorkout} element={<AddWorkoutPage />} />
