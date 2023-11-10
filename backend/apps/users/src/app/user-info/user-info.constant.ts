@@ -11,6 +11,8 @@ export const UserInfoError = {
 export const UserInfoMessage = {
   UserFound: 'User data found',
   UserList: 'User list is showing',
+  AvatarAdded: "Avatar added successfully",
+  PhotoAdded: "Photo added successfully"
 } as const;
 
 export const UserInfoPath = {
@@ -19,4 +21,6 @@ export const UserInfoPath = {
   Show: 'show',
   Subscribe: 'subscribe',
   Update: 'update',
+  UpdateAvatar: 'upload-avatar',
+  UpdatePhoto: 'upload-photo',
 } as const;

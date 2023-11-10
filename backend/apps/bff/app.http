@@ -1,0 +1,179 @@
+@AToken={{login.response.body.accessToken}}
+@RToken={{login.response.body.refreshToken}}
+
+# Регистрация пользователя
+# @name register
+POST http://localhost:4000/api/users/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@test.local",
+  "name": "John Doe",
+  "password": "123456",
+  "avatar": "avatar1.png",
+  "sex": "male",
+  "birthDate": "14.10.2023",
+  "role": "sportsman",
+  "description": "John sportsman description",
+  "location": "pionerskaya",
+  "photo": "photo1.png",
+  "fitnessLevel": "beginner",
+  "workoutType": ["yoga"],
+  "sportsmanInfo":{
+    "workoutTime" :"10-30 мин",
+    "caloriesTotal": 1000,
+    "caloriesPerDay": 1000,
+    "isReady": true
+    }
+}
+
+###
+
+# Вход в систему
+# @name login
+POST http://localhost:4000/api/users/login HTTP/1.1
+Authorization: Bearer {{AToken}} {{RToken}}
+Content-Type: application/json
+
+# # # Sportsman
+{
+  "email": "user@test.local",
+  "password": "123456"
+}
+
+##Coach
+# {
+#   "email": "first-coach@test.ru",
+#   "password": "test123"
+# }
+
+
+###
+
+# Новая JWT пара токенов
+# @name login
+POST http://localhost:4000/api/users/refresh HTTP/1.1
+Authorization: Bearer {{RToken}}
+
+###
+
+# Отзыв токена
+POST http://localhost:4000/api/users/revoke HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Upload avatar
+POST http://localhost:3002/api/files/upload/avatar HTTP/1.1
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="avatar"; filename="photo-1@2x.png"
+Content-Type: image/png
+
+< ../../../assets/photo-1@2x.png
+--boundary--
+
+###
+
+# Upload user photo
+POST http://localhost:3002/api/files/upload/user-photo HTTP/1.1
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="user-photo"; filename="user-card-photo1.jpg"
+Content-Type: image/jpeg
+
+< ../../../assets/user-card-photo1.jpg
+--boundary--
+
+###
+
+
+# Список друзей
+GET http://localhost:4000/api/users/friends HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Добавить в друзья (только пользователь)
+POST http://localhost:4000/api/users/friends/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Удалить из друзей (только пользователь)
+DELETE  http://localhost:4000/api/users/friends/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Детальная информация о пользователе (карточка пользователя)
+GET http://localhost:4000/api/users/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Список (каталог пользователей)
+GET http://localhost:4000/api/users/show?workoutType=yoga,stretching HTTP/1.1
+Authorization: Bearer {{AToken}}
+# Query params
+## role=coach
+## workoutType=yoga || workoutType=yoga,stretching
+## fitnessLevel=pro
+## location=pionerskaya || location=pionerskaya,zvyozdnaya
+###
+
+# Редактирование информации о пользователе
+PATCH http://localhost:4000/api/users/update HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{AToken}}
+
+{
+  "description": "Sportsman amateur long description",
+  "fitnessLevel": "amateur",
+  "workoutType": ["aerobics", "crossfit"]
+}
+
+###
+
+# Подписаться / отписаться на рассылку тренера
+POST http://localhost:4000/api/users/subscribe/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Список оповещений
+GET http://localhost:4000/api/users/notifications HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Удалить оповещение
+DELETE  http://localhost:4000/api/users/notifications/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Создать запрос (только пользователь)
+POST http://localhost:4000/api/users/requests HTTP/1.1
+Authorization: Bearer {{AToken}}
+Content-Type: application/json
+
+{
+  "userId":3
+}
+
+###
+
+
+# Изменить статус
+Patch http://localhost:4000/api/users/requests/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+Content-Type: application/json
+
+{
+  "statusRequest":"accepted"
+}
+
+###

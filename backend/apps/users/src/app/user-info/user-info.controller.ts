@@ -12,6 +12,7 @@ import {
   Req,
   UseGuards,
   UseInterceptors,
+  Body
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotifyService } from '../notify/notify.service';
@@ -78,4 +79,24 @@ export class UserInfoController {
     await this.userInfoService.checkCoach(id);
     await this.notifyService.updateSubscriber({ email, coach: id });
   }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:UserInfoMessage.AvatarAdded
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post(UserInfoPath.UpdateAvatar)
+  public async updateAvatar(@Req() { user }: RequestWithUserPayload, @Body('avatarId') avatarId:string) {
+    return this.userInfoService.updateAvatar(user.sub, avatarId);
+  }
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:UserInfoMessage.PhotoAdded
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post(UserInfoPath.UpdatePhoto)
+  public async updatePhoto(@Req() { user }: RequestWithUserPayload, @Body('avatarId') photoId:string) {
+    return this.userInfoService.updatePhoto(user.sub, photoId);
+  }
+
 }
