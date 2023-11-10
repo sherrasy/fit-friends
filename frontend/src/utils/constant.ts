@@ -40,6 +40,7 @@ export const ActionName = {
 
 export const ApiRoute = {
   Login: '/users/login',
+  CheckLogin: '/users/check-login',
   Register: '/users/register',
 } as const;
 

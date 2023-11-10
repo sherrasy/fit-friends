@@ -1,15 +1,15 @@
-import { Body, Req, Get, Param, Controller, Post, UseFilters, UseGuards, UploadedFile, UseInterceptors, HttpStatus } from '@nestjs/common';
+import { Body, Req, Get, Param, Controller, Post, UseFilters, UseGuards,  UseInterceptors, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
 import { AppPath, ControllerName, UserMessages } from '../app.constant';
-import { MongoidValidationPipe } from '@backend/shared-pipes';
 import { CreateUserDto, LoginUserDto } from '@backend/shared/shared-dto';
 import 'multer';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { IsAuthorizedInterceptor } from '../interceptors/is-authorized.interceptor';
 import { CheckJwtAuthGuard } from '../guards/check-jwt-auth.guard';
+import { CheckAuthGuard } from '../guards/check-auth.guard';
+import { UserIdInterceptor } from '../interceptors/user-id.interceptor';
 
 @ApiTags(ControllerName.User)
 @Controller(ControllerName.User)
@@ -45,6 +45,19 @@ export class UsersController {
     return data;
   }
 
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(UserIdInterceptor)
+  @Get('check')
+  public async loginUser(@Req() req: Request, @Body() body) {
+    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.UserInfo}/${body.userId}`, {
+      headers: {
+        'Authorization': req.headers['authorization']
+      }
+    });
+    return {...data};
+}
+
+
   @ApiResponse({
     status: HttpStatus.OK,
     description: UserMessages.UserFound
@@ -54,7 +67,7 @@ export class UsersController {
     description: UserMessages.NotFound
   })
   @Get(AppPath.Id)
-  public async showSingle(@Req() req: Request, @Param('id') id: MongoidValidationPipe) {
+  public async showSingle(@Req() req: Request, @Param('id') id: number) {
     const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.UserInfo}/${id}`, {
       headers: {
         'Authorization': req.headers['authorization']

@@ -22,7 +22,7 @@ export const checkAuth = createAsyncThunk<number, undefined, {
   `${ReducerName.User}/${ActionName.CheckAuth}`,
   async (_arg, {extra: api}) => {
     try{
-      const {data} = await api.get<User>(ApiRoute.Login);
+      const {data} = await api.get<User>(ApiRoute.CheckLogin);
       return data.id;
     }catch(error){
       const axiosError = error as AxiosError;
