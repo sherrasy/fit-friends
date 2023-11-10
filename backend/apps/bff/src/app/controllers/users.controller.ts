@@ -47,7 +47,7 @@ export class UsersController {
 
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(UserIdInterceptor)
-  @Get('check')
+  @Get(AppPath.CheckLogin)
   public async loginUser(@Req() req: Request, @Body() body) {
     const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.UserInfo}/${body.userId}`, {
       headers: {

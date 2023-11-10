@@ -20,22 +20,30 @@ import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
 import { useAppSelector } from '../../hooks';
-import { getAuthCheckedStatus } from '../../store/user-data/selectors';
+import {
+  getAuthCheckedStatus,
+} from '../../store/user-data/selectors';
 import MainPage from '../../pages/main-page/main-page';
+import UnauthorizedRoute from '../../pages/unauthorized-route/unauthorized-route';
 
 function App(): JSX.Element {
-  // const dispatch = useAppDispatch();
-  // const authStatus = useAppSelector(getIsAuthorized);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
 
-  if(!isAuthChecked){
-    return <Loader/>;
+  if (!isAuthChecked) {
+    return <Loader />;
   }
   return (
     <Routes>
-      <Route path={AppRoute.Intro} element={<IntroPage/>} />
-      <Route path={AppRoute.Main} element={<MainPage/>} />
-      <Route path={AppRoute.Login} element={<LoginPage/>} />
+      <Route path={AppRoute.Intro} element={<IntroPage />} />
+      <Route path={AppRoute.Main} element={<MainPage />} />
+      <Route
+        path={AppRoute.Login}
+        element={
+          <UnauthorizedRoute>
+            <LoginPage />
+          </UnauthorizedRoute>
+        }
+      />
       <Route path={AppRoute.Register} element={<SignUpPage />} />
       <Route path={AppRoute.AddWorkout} element={<AddWorkoutPage />} />
       <Route path={AppRoute.CoachAccount} element={<CoachAccountPage />} />
@@ -52,8 +60,8 @@ function App(): JSX.Element {
       <Route path={AppRoute.WorkoutInfo} element={<WorkoutInfoPage />} />
       <Route path={AppRoute.WorkoutsList} element={<WorkoutsListPage />} />
       <Route path={AppRoute.Error} element={<ErrorPage />} />
-
-    </Routes>);
+    </Routes>
+  );
 }
 
 export default App;

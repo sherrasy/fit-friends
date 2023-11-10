@@ -7,6 +7,7 @@ const initialState:UserState = {
   authStatus:AuthorizationStatus.Unknown,
   userId: null,
   role: null,
+  userData:null
 };
 
 
@@ -16,8 +17,9 @@ export const userData = createSlice({
   reducers:{},
   extraReducers(builder){
     builder
-      .addCase(checkAuth.fulfilled, (state) => {
+      .addCase(checkAuth.fulfilled, (state, action) => {
         state.authStatus = AuthorizationStatus.Auth;
+        state.userData = action.payload ?? null;
       })
       .addCase(checkAuth.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;

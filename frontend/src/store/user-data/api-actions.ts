@@ -14,7 +14,7 @@ import { jwtDecode } from 'jwt-decode';
 import { UserRole } from '../../types/user-role.enum';
 
 
-export const checkAuth = createAsyncThunk<number, undefined, {
+export const checkAuth = createAsyncThunk<User, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -23,7 +23,7 @@ export const checkAuth = createAsyncThunk<number, undefined, {
   async (_arg, {extra: api}) => {
     try{
       const {data} = await api.get<User>(ApiRoute.CheckLogin);
-      return data.id;
+      return data;
     }catch(error){
       const axiosError = error as AxiosError;
       if(axiosError.response?.status === StatusCodes.UNAUTHORIZED){

@@ -9,6 +9,7 @@ export const AppPath = {
   Refresh: 'refresh',
   Check: 'check',
   CheckAuth: 'check-auth',
+  CheckLogin: 'check-login',
   Revoke: 'revoke',
   Show: 'show',
   Id: ':id',
