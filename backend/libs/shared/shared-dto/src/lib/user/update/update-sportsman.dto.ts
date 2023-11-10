@@ -64,5 +64,5 @@ export class UpdateSportsmanDto {
   })
   @IsBoolean()
   @IsOptional()
-  isReady?: boolean;
+  public isReady?: boolean;
 }
