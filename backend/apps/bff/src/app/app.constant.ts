@@ -39,6 +39,8 @@ export const UserMessages = {
   Login: "Login successfull",
   UserFound: "User data found",
   Refresh: 'Get a new access/refresh tokens',
+  AvatarAdded: "Avatar added successfully",
+  PhotoAdded: "Photo added successfully"
 } as const;
 
 

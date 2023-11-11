@@ -95,7 +95,7 @@ export class UserInfoController {
   })
   @UseGuards(JwtAuthGuard)
   @Post(UserInfoPath.UpdatePhoto)
-  public async updatePhoto(@Req() { user }: RequestWithUserPayload, @Body('avatarId') photoId:string) {
+  public async updatePhoto(@Req() { user }: RequestWithUserPayload, @Body('photoId') photoId:string) {
     return this.userInfoService.updatePhoto(user.sub, photoId);
   }
 

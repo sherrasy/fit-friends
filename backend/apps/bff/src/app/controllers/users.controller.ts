@@ -1,15 +1,17 @@
-import { Body, Req, Get, Param, Controller, Post, UseFilters, UseGuards,  UseInterceptors, HttpStatus } from '@nestjs/common';
+import { Body, Req, Get, Param, Controller, Post, UseFilters, UseGuards,  UseInterceptors, HttpStatus, UploadedFile } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
-import { AppPath, ControllerName, UserMessages } from '../app.constant';
+import { AppPath, ControllerName, FileType, UserMessages } from '../app.constant';
 import { CreateUserDto, LoginUserDto } from '@backend/shared/shared-dto';
 import 'multer';
+import FormData from 'form-data'
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IsAuthorizedInterceptor } from '../interceptors/is-authorized.interceptor';
 import { CheckJwtAuthGuard } from '../guards/check-jwt-auth.guard';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { UserIdInterceptor } from '../interceptors/user-id.interceptor';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags(ControllerName.User)
 @Controller(ControllerName.User)
@@ -100,6 +102,54 @@ export class UsersController {
       }
     });
 
+    return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:UserMessages.AvatarAdded
+  })
+  @UseGuards(CheckAuthGuard)
+  @Post(`${AppPath.Upload}-${FileType.Avatar}`)
+  @UseInterceptors(FileInterceptor(FileType.Avatar))
+  public async uploadAvatar(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
+    const formData = new FormData()
+    formData.append(FileType.Avatar, Buffer.from(file.buffer), file.originalname)
+    const { data:avatarData } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Avatar}`, formData, {
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        ...formData.getHeaders()
+      }
+    });
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Avatar}`, {avatarId:avatarData.id}, {
+      headers: {
+        'Authorization': req.headers['authorization']
+      }
+    });
+    return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:UserMessages.PhotoAdded
+  })
+  @UseGuards(CheckAuthGuard)
+  @Post(`${AppPath.Upload}-${FileType.UserPhoto}`)
+  @UseInterceptors(FileInterceptor(FileType.UserPhoto))
+  public async uploadUserPhoto(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
+    const formData = new FormData()
+    formData.append(FileType.UserPhoto, Buffer.from(file.buffer), file.originalname)
+    const { data:photoData } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.UserPhoto}`, formData, {
+      headers: {
+        'Content-Type': req.headers['content-type'],
+        ...formData.getHeaders()
+      }
+    });
+    const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.UserPhoto}`, {photoId:photoData.id}, {
+      headers: {
+        'Authorization': req.headers['authorization']
+      }
+    });
     return data;
   }
 

@@ -22,5 +22,5 @@ export const UserInfoPath = {
   Subscribe: 'subscribe',
   Update: 'update',
   UpdateAvatar: 'upload-avatar',
-  UpdatePhoto: 'upload-photo',
+  UpdatePhoto: 'upload-user-photo',
 } as const;
