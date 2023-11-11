@@ -20,6 +20,8 @@ export const userData = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.authStatus = AuthorizationStatus.Auth;
         state.userData = action.payload ?? null;
+        state.role = action.payload?.role ?? null;
+        state.userId = action.payload?.id ?? null;
       })
       .addCase(checkAuth.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;

@@ -12,11 +12,12 @@ function LoginPage(): JSX.Element {
     email: '',
     password: '',
   };
-  const errorMessage =
-    'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова';
+  const DEFAULT_ERROR =
+    'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова.';
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(loginDataDefault);
   const [isErrorShown, SetIsErrorShown] = useState(false);
+  const [errorMessage, SetErrorMessage] = useState('');
 
   const handleSubmitData = (authData: AuthData) => dispatch(login(authData));
 
@@ -36,6 +37,8 @@ function LoginPage(): JSX.Element {
       handleSubmitData(formData);
       SetIsErrorShown(false);
     } else {
+      const errorFields = ` Ошибка в полях: ${!isEmailValid ? 'email' : ''}${!isPasswordValid ? ' пароль' : ''}.`;
+      SetErrorMessage( DEFAULT_ERROR.concat(errorFields));
       SetIsErrorShown(true);
     }
   };

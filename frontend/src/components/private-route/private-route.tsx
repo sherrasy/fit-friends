@@ -1,16 +1,24 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../utils/constant';
 import { useAppSelector } from '../../hooks';
-import { getIsAuthorized } from '../../store/user-data/selectors';
+import { getIsAuthorized, getUserRole } from '../../store/user-data/selectors';
+import { UserRole } from '../../types/user-role.enum';
+import { AppRoute } from '../../utils/constant';
 
 type PrivateRouteProps = {
   children:JSX.Element;
+  restrictedFor: UserRole;
+  redirectTo: string;
 }
-function PrivateRoute({children}:PrivateRouteProps): JSX.Element {
+function PrivateRoute({children, restrictedFor, redirectTo}:PrivateRouteProps): JSX.Element {
   const isAuthorized = useAppSelector(getIsAuthorized);
+  const role = useAppSelector(getUserRole);
+
+  if(!isAuthorized || !role){
+    return <Navigate to={AppRoute.Intro}/>;
+  }
 
   return (
-    isAuthorized ? children : <Navigate to={AppRoute.Login}/>
+    isAuthorized && role !== restrictedFor ? children : <Navigate to={redirectTo}/>
   );
 }
 

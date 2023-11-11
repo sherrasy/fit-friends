@@ -1,6 +1,6 @@
 export const AppRoute = {
-  Main: '/',
-  Intro: '/intro',
+  Main: '/main',
+  Intro: '/',
   Login: '/login',
   Register: '/register',
   AddWorkout: '/add-workout',
@@ -55,7 +55,7 @@ export const ApiErrorsMessage = {
 } as const;
 
 export const ValidationPattern = {
-  Email: /^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/,
+  Email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
   Password: /^(?=.*[A-Za-z0-9])(?=.*\d)[A-Za-z\d0-9]{6,12}$/,
   Name: /^[a-zA-Zа-яА-Я]{1,15}$/,
 } as const;
