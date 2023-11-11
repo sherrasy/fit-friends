@@ -69,7 +69,7 @@ function UserInfo():JSX.Element{
               <input
                 type="checkbox"
                 name="ready-for-training"
-                checked
+                // checked
               />
               <span className="custom-toggle__icon">
                 <svg width="9" height="6" aria-hidden="true">
@@ -94,7 +94,7 @@ function UserInfo():JSX.Element{
                   type="checkbox"
                   name="specialization"
                   value="yoga"
-                  checked
+                  // checked
                 />
                 <span className="btn-checkbox__btn">Йога</span>
               </label>
@@ -117,7 +117,7 @@ function UserInfo():JSX.Element{
                   type="checkbox"
                   name="specialization"
                   value="aerobics"
-                  checked
+                  // checked
                 />
                 <span className="btn-checkbox__btn">Аэробика</span>
               </label>
@@ -151,7 +151,7 @@ function UserInfo():JSX.Element{
                   type="checkbox"
                   name="specialization"
                   value="pilates"
-                  checked
+                  // checked
                 />
                 <span className="btn-checkbox__btn">Пилатес</span>
               </label>
@@ -163,7 +163,7 @@ function UserInfo():JSX.Element{
                   type="checkbox"
                   name="specialization"
                   value="stretching"
-                  checked
+                  // checked
                 />
                 <span className="btn-checkbox__btn">Стрейчинг</span>
               </label>

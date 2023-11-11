@@ -54,13 +54,12 @@ export const ApiErrorsMessage = {
   FetchPagesError:'Can`t get pages data'
 } as const;
 
-export const ValidationPattern = {
-  Email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,5}$/,
-  Password: /^(?=.*[A-Za-z0-9])(?=.*\d)[A-Za-z\d0-9]{6,12}$/,
-  Name: /^[a-zA-Zа-яА-Я]{1,15}$/,
-} as const;
-
 export const UserFormFieldName = {
+  Name:'name',
   Email:'email',
-  Password:'password'
+  BirthDate:'birthDate',
+  Location:'location',
+  Password:'password',
+  Sex:'sex',
+  Role:'role',
 } as const;

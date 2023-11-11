@@ -112,7 +112,7 @@ export class UsersController {
   @UseGuards(CheckAuthGuard)
   @Post(`${AppPath.Upload}-${FileType.Avatar}`)
   @UseInterceptors(FileInterceptor(FileType.Avatar))
-  public async uploadAvatar(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
+  public async updateAvatar(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
     const formData = new FormData()
     formData.append(FileType.Avatar, Buffer.from(file.buffer), file.originalname)
     const { data:avatarData } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Avatar}`, formData, {
@@ -136,7 +136,7 @@ export class UsersController {
   @UseGuards(CheckAuthGuard)
   @Post(`${AppPath.Upload}-${FileType.UserPhoto}`)
   @UseInterceptors(FileInterceptor(FileType.UserPhoto))
-  public async uploadUserPhoto(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
+  public async updateUserPhoto(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
     const formData = new FormData()
     formData.append(FileType.UserPhoto, Buffer.from(file.buffer), file.originalname)
     const { data:photoData } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.UserPhoto}`, formData, {

@@ -80,7 +80,7 @@ function PopupReview(): JSX.Element {
                           name="оценка тренировки"
                           aria-label="оценка 5."
                           value="5"
-                          checked
+                          // checked
                         />
                         <span className="popup__rate-number">5</span>
                       </label>

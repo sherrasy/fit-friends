@@ -68,7 +68,7 @@ function UserInfoPage(): JSX.Element {
                                 type="checkbox"
                                 value="user-agreement-1"
                                 name="user-agreement"
-                                checked
+                                // checked
                               />
                               <span className="custom-toggle__icon">
                                 <svg width="9" height="6" aria-hidden="true">

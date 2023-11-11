@@ -79,7 +79,7 @@ function PopupOrder(): JSX.Element {
                             type="radio"
                             name="payment-purchases"
                             aria-label="Visa."
-                            checked
+                            // checked
                           />
                           <span className="btn-radio-image__image">
                             <svg width="58" height="20" aria-hidden="true">

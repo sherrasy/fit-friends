@@ -1,11 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { checkValidity } from '../../utils/helpers';
-import { UserFormFieldName, ValidationPattern } from '../../utils/constant';
+import { UserFormFieldName } from '../../utils/constant';
 import { AuthData } from '../../types/auth-data.type';
 import { login } from '../../store/user-data/api-actions';
 import InputErrorField from '../../components/input-error-field/input-error-field';
 import '../../styles/common-styles.css';
+import { PasswordLength, ValidationPattern } from '../../utils/validation.constant';
 
 function LoginPage(): JSX.Element {
   const loginDataDefault = {
@@ -18,6 +19,7 @@ function LoginPage(): JSX.Element {
   const [formData, setFormData] = useState(loginDataDefault);
   const [isErrorShown, SetIsErrorShown] = useState(false);
   const [errorMessage, SetErrorMessage] = useState('');
+  const [isEmptyShown, SetIsEmptyShown] = useState(false);
 
   const handleSubmitData = (authData: AuthData) => dispatch(login(authData));
 
@@ -28,12 +30,14 @@ function LoginPage(): JSX.Element {
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    const isMissingData = Object.values(formData).some((item)=> item === '');
+    SetIsEmptyShown(isMissingData);
     const isEmailValid = checkValidity(formData.email, ValidationPattern.Email);
     const isPasswordValid = checkValidity(
       formData.password,
       ValidationPattern.Password
     );
-    if (isEmailValid && isPasswordValid) {
+    if (isEmailValid && isPasswordValid && !isEmptyShown) {
       handleSubmitData(formData);
       SetIsErrorShown(false);
     } else {
@@ -86,7 +90,7 @@ function LoginPage(): JSX.Element {
                           />
                         </span>
                       </label>
-                      {formData[UserFormFieldName.Email] === '' && <InputErrorField/>}
+                      {isEmptyShown && formData[UserFormFieldName.Email] === '' && <InputErrorField/>}
                     </div>
                     <div className="custom-input sign-in__input">
                       <label>
@@ -96,12 +100,14 @@ function LoginPage(): JSX.Element {
                             type="password"
                             id={UserFormFieldName.Password}
                             name={UserFormFieldName.Password}
+                            minLength={PasswordLength.Min}
+                            maxLength={PasswordLength.Max}
                             onChange={handleInputChange}
                             required
                           />
                         </span>
                       </label>
-                      {formData[UserFormFieldName.Password] === '' && <InputErrorField/>}
+                      {isEmptyShown && formData[UserFormFieldName.Password] === '' && <InputErrorField/>}
                     </div>
                     <button className="btn sign-in__button" type="submit">
                       Продолжить

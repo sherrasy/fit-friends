@@ -120,7 +120,7 @@ function CoachWorkoutsFilters(): JSX.Element {
                       type="checkbox"
                       value="duration-1"
                       name="duration"
-                      checked
+                      // checked
                     />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">

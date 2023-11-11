@@ -1,5 +1,6 @@
 import { Coach } from './coach.interface';
 import { FitnessLevel } from './fitness-level.enum';
+import { Location } from './location.enum';
 import { Sportsman } from './sportsman.interface';
 import { UserRole } from './user-role.enum';
 import { UserSex } from './user-sex.enum';
@@ -23,5 +24,16 @@ export interface User {
   sportsmanInfo?: Sportsman | null;
   coachInfo?: Coach | null;
   token?:string|undefined;
+}
+
+export interface NewUserGeneral {
+  name: string;
+  email: string;
+  avatar?: string;
+  password: string;
+  sex: UserSex;
+  birthDate: string;
+  role: UserRole;
+  location: Location;
 }
 

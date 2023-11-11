@@ -1,20 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, ReducerName } from '../../utils/constant';
 import { UserState } from '../../types/state.type';
 import { checkAuth, login } from './api-actions';
+import { NewUserGeneral } from '../../types/user.interface';
 
 const initialState:UserState = {
   authStatus:AuthorizationStatus.Unknown,
   userId: null,
   role: null,
-  userData:null
+  userData:null,
+  newUserData:null,
 };
 
 
 export const userData = createSlice({
   name: ReducerName.User,
   initialState,
-  reducers:{},
+  reducers:{
+    createNewUser: (state, actions: PayloadAction<NewUserGeneral>) => {
+      state.newUserData = actions.payload;
+    },
+  },
   extraReducers(builder){
     builder
       .addCase(checkAuth.fulfilled, (state, action) => {
@@ -34,5 +40,8 @@ export const userData = createSlice({
       .addCase(login.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
       });
+
   }
 });
+
+export const {createNewUser} = userData.actions;

@@ -10,7 +10,6 @@ import ErrorPage from '../../pages/error-page/error-page';
 import IntroPage from '../../pages/intro-page/intro-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
-import QuestionnairePage from '../../pages/questionnaire-page/questionnaire-page';
 import SignUpPage from '../../pages/sign-up-page/sign-up-page';
 import UserAccountPage from '../../pages/user-account-page/user-account-page';
 import UserFriendsPage from '../../pages/user-friends-page/user-friends-page';
@@ -118,7 +117,6 @@ function App(): JSX.Element {
           </PrivateRoute>
         }
       />
-      <Route path={AppRoute.Questionnaire} element={<QuestionnairePage />} />
       <Route
         path={AppRoute.UserAccount}
         element={

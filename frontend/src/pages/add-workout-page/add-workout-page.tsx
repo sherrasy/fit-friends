@@ -137,7 +137,11 @@ function AddWorkoutPage(): JSX.Element {
                               </div>
                               <div className="custom-toggle-radio__block">
                                 <label>
-                                  <input type="radio" name="gender" checked />
+                                  <input
+                                    type="radio"
+                                    name="gender"
+                                    // checked
+                                  />
                                   <span className="custom-toggle-radio__icon"></span>
                                   <span className="custom-toggle-radio__label">
                                     Женщинам

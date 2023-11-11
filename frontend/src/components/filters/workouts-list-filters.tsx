@@ -127,7 +127,12 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type" name="type" checked />
+                    <input
+                      type="checkbox"
+                      value="type"
+                      name="type"
+                      // checked
+                    />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -140,7 +145,12 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type-1" name="type" checked />
+                    <input
+                      type="checkbox"
+                      value="type-1"
+                      name="type"
+                      // checked
+                    />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -210,7 +220,11 @@ function WorkoutsListFilters(): JSX.Element {
             </h4>
             <div className="btn-radio-sort gym-catalog-form__radio">
               <label>
-                <input type="radio" name="sort" checked />
+                <input
+                  type="radio"
+                  name="sort"
+                  // checked
+                />
                 <span className="btn-radio-sort__label">Дешевле</span>
               </label>
               <label>

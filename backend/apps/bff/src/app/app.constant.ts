@@ -1,6 +1,7 @@
 export const ControllerName = {
   User: 'users',
   Workouts: 'workouts',
+  Uploader: 'uploads',
 } as const;
 
 export const AppPath = {

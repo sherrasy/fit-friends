@@ -26,7 +26,7 @@ function UsersListFilters(): JSX.Element {
                       type="checkbox"
                       value="user-agreement-1"
                       name="user-agreement"
-                      checked
+                      // checked
                     />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
@@ -44,7 +44,7 @@ function UsersListFilters(): JSX.Element {
                       type="checkbox"
                       value="user-agreement-1"
                       name="user-agreement"
-                      checked
+                      // checked
                     />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
@@ -62,7 +62,7 @@ function UsersListFilters(): JSX.Element {
                       type="checkbox"
                       value="user-agreement-1"
                       name="user-agreement"
-                      checked
+                      // checked
                     />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
@@ -133,7 +133,7 @@ function UsersListFilters(): JSX.Element {
                       type="checkbox"
                       value="spezialization-1"
                       name="spezialization"
-                      checked
+                      // checked
                     />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
@@ -151,7 +151,7 @@ function UsersListFilters(): JSX.Element {
                       type="checkbox"
                       value="spezialization-1"
                       name="spezialization"
-                      checked
+                      // checked
                     />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
@@ -169,7 +169,7 @@ function UsersListFilters(): JSX.Element {
                       type="checkbox"
                       value="spezialization-1"
                       name="spezialization"
-                      checked
+                      // checked
                     />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
@@ -242,7 +242,11 @@ function UsersListFilters(): JSX.Element {
               </div>
               <div className="custom-toggle-radio__block">
                 <label>
-                  <input type="radio" name="user-agreement" checked />
+                  <input
+                    type="radio"
+                    name="user-agreement"
+                    //  checked
+                  />
                   <span className="custom-toggle-radio__icon"></span>
                   <span className="custom-toggle-radio__label">Любитель</span>
                 </label>
@@ -268,7 +272,11 @@ function UsersListFilters(): JSX.Element {
             </h3>
             <div className="btn-radio-sort">
               <label>
-                <input type="radio" name="sort" checked />
+                <input
+                  type="radio"
+                  name="sort"
+                  // checked
+                />
                 <span className="btn-radio-sort__label">Тренеры</span>
               </label>
               <label>

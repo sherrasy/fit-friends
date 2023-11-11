@@ -42,7 +42,7 @@ function QuestionnaireUser(): JSX.Element {
                             type="checkbox"
                             name="specialisation"
                             value="power"
-                            checked
+                            // checked
                           />
                           <span className="btn-checkbox__btn">Силовые</span>
                         </label>
@@ -65,7 +65,7 @@ function QuestionnaireUser(): JSX.Element {
                             type="checkbox"
                             name="specialisation"
                             value="crossfit"
-                            checked
+                            // checked
                           />
                           <span className="btn-checkbox__btn">Кроссфит</span>
                         </label>
@@ -77,7 +77,7 @@ function QuestionnaireUser(): JSX.Element {
                             type="checkbox"
                             name="specialisation"
                             value="boxing"
-                            checked
+                            // checked
                           />
                           <span className="btn-checkbox__btn">Бокс</span>
                         </label>
@@ -122,7 +122,11 @@ function QuestionnaireUser(): JSX.Element {
                       </div>
                       <div className="custom-toggle-radio__block">
                         <label>
-                          <input type="radio" name="time" checked />
+                          <input
+                            type="radio"
+                            name="time"
+                            // checked
+                          />
                           <span className="custom-toggle-radio__icon"></span>
                           <span className="custom-toggle-radio__label">
                             30-50 мин
@@ -165,7 +169,11 @@ function QuestionnaireUser(): JSX.Element {
                       </div>
                       <div className="custom-toggle-radio__block">
                         <label>
-                          <input type="radio" name="level" checked />
+                          <input
+                            type="radio"
+                            name="level"
+                            // checked
+                          />
                           <span className="custom-toggle-radio__icon"></span>
                           <span className="custom-toggle-radio__label">
                             Любитель
