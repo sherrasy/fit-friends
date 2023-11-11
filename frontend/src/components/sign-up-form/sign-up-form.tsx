@@ -1,6 +1,7 @@
-import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+/* eslint-disable indent */
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Location } from '../../types/location.enum';
-import { UserFormFieldName } from '../../utils/constant';
+import { LocationToName, UserFormFieldName, UserSexToName } from '../../utils/constant';
 import { UserSex } from '../../types/user-sex.enum';
 import { UserRole } from '../../types/user-role.enum';
 import { NameLength, PasswordLength, ValidationPattern } from '../../utils/validation.constant';
@@ -52,9 +53,8 @@ function SignUpForm():JSX.Element{
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleLocationChange = (evt: MouseEvent<HTMLLIElement>) => {
-    const { innerText } = evt.currentTarget;
-    setFormData({ ...formData, location: innerText });
+  const handleLocationChange = (location:Location) => {
+    setFormData({ ...formData, location });
     setIsOpened(false);
   };
 
@@ -91,7 +91,6 @@ function SignUpForm():JSX.Element{
       SetIsErrorShown(true);
     }
   };
-
 
   return(
     <div className="popup-form popup-form--sign-up">
@@ -173,7 +172,7 @@ function SignUpForm():JSX.Element{
                       aria-label="Выберите одну из опций"
                       onClick={handleToggleButtonClick}
                     >
-                      <span className="custom-select__text">{formData.location}</span>
+                      <span className="custom-select__text">{LocationToName[formData.location as Location]}</span>
                       <span className="custom-select__icon">
                         <svg width="15" height="6" aria-hidden="true">
                           <use xlinkHref="#arrow-down"></use>
@@ -188,9 +187,10 @@ function SignUpForm():JSX.Element{
                           tabIndex={0}
                           className="custom-select__item"
                           aria-selected={item === formData.location}
-                          onClick={handleLocationChange}
+                          value={item}
+                          onClick={()=>handleLocationChange(item)}
                         >
-                          {item}
+                          {LocationToName[item]}
                         </li>
                       )) }
                     </ul>
@@ -215,33 +215,17 @@ function SignUpForm():JSX.Element{
                   <div className="sign-up__radio">
                     <span className="sign-up__label">Пол</span>
                     <div className="custom-toggle-radio custom-toggle-radio--big">
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name={UserFormFieldName.Sex} value={UserSex.Male} checked={formData.sex === UserSex.Male} onChange={handleInputChange}/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                          Мужской
-                          </span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name={UserFormFieldName.Sex} value={UserSex.Female} checked={formData.sex === UserSex.Female} onChange={handleInputChange}/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                          Женский
-                          </span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name={UserFormFieldName.Sex} value={UserSex.Any} checked={formData.sex === UserSex.Any} onChange={handleInputChange}/>
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                          Неважно
-                          </span>
-                        </label>
-                      </div>
+                      {Object.values(UserSex).map(( value)=>
+                        (<div className="custom-toggle-radio__block" key={value}>
+                          <label>
+                            <input type="radio" name={UserFormFieldName.Sex} value={value} checked={formData.sex === value} onChange={handleInputChange}/>
+                            <span className="custom-toggle-radio__icon"></span>
+                            <span className="custom-toggle-radio__label">
+                              {UserSexToName[value]}
+                            </span>
+                          </label>
+                         </div>)
+                      )}
                     </div>
                   </div>
                 </div>

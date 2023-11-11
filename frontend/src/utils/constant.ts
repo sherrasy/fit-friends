@@ -63,3 +63,27 @@ export const UserFormFieldName = {
   Sex:'sex',
   Role:'role',
 } as const;
+
+export const UserSexToName = {
+  male : 'Мужской',
+  female : 'Женский',
+  any : 'Неважно',
+};
+
+export const LocationToName = {
+  pionerskaya : 'Пионерская',
+  petrogradskaya : 'Петроградская',
+  udelnaya : 'Удельная',
+  zvyozdnaya : 'Звездная',
+  sportivnaya : 'Спортивная',
+};
+
+export const WorkoutTypeToName = {
+  yoga : 'йога',
+  running : 'бег',
+  boxing : 'бокс',
+  stretching : 'стрейчинг',
+  crossfit : 'кроссфит',
+  aerobics : 'аэробика',
+  pilates : 'пилатес',
+};
