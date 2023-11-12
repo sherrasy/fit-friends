@@ -1,4 +1,5 @@
 import { FitnessLevel } from '../../../types/fitness-level.enum';
+import { Location } from '../../../types/location.enum';
 import { UserRole } from '../../../types/user-role.enum';
 import { UserSex } from '../../../types/user-sex.enum';
 import { WorkoutType } from '../../../types/workout-type.enum';

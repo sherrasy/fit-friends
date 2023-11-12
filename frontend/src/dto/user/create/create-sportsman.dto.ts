@@ -7,5 +7,5 @@ export class CreateSportsmanDto {
 
   public caloriesPerDay!: number;
 
-  isReady!: boolean;
+  public isReady!: boolean;
 }

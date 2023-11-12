@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, ReducerName } from '../../utils/constant';
 import { UserState } from '../../types/state.type';
 import { checkAuth, login } from './api-actions';
-import { NewUserGeneral } from '../../types/user.interface';
+import { NewUserGeneral, User } from '../../types/user.interface';
 
 const initialState:UserState = {
   authStatus:AuthorizationStatus.Unknown,
@@ -19,6 +19,12 @@ export const userData = createSlice({
   reducers:{
     createNewUser: (state, actions: PayloadAction<NewUserGeneral>) => {
       state.newUserData = actions.payload;
+    },
+    setUserData: (state, actions: PayloadAction<User>) => {
+      state.userData = actions.payload;
+      state.role = actions.payload.role;
+      state.userId = actions.payload.id;
+      state.authStatus = AuthorizationStatus.Auth;
     },
   },
   extraReducers(builder){
@@ -40,8 +46,7 @@ export const userData = createSlice({
       .addCase(login.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
       });
-
   }
 });
 
-export const {createNewUser} = userData.actions;
+export const {createNewUser, setUserData} = userData.actions;

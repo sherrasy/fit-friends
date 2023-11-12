@@ -12,6 +12,7 @@ import { TokenData, TokenPayloadData } from '../../types/token-data.type';
 import { User } from '../../types/user.interface';
 import { jwtDecode } from 'jwt-decode';
 import { UserRole } from '../../types/user-role.enum';
+import { setUserData } from './user-data';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -42,8 +43,7 @@ export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
   `${ReducerName.User}/${ActionName.Login}`,
   async (authData, { dispatch, extra: api}) => {
     try{
-      const {data} = await api.post<TokenData>(ApiRoute.Login, authData);
-      const { accessToken } = data;
+      const {data :  { accessToken }} = await api.post<TokenData>(ApiRoute.Login, authData);
       saveToken(accessToken);
       const userInfo:TokenPayloadData = jwtDecode(accessToken);
 
@@ -62,16 +62,25 @@ export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
   },
 );
 
-export const register = createAsyncThunk< void, CreateUserDto, {
+export const register = createAsyncThunk<void, CreateUserDto, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   `${ReducerName.User}/${ActionName.Register}`,
-  async (authData, { dispatch, extra: api}) => {
+  async (userData, { dispatch, extra: api}) => {
     try{
-      await api.post<CreateUserDto>(ApiRoute.Register, authData);
-      dispatch(redirectToRoute(AppRoute.Login));
+      const {data:newUser} = await api.post<CreateUserDto>(ApiRoute.Register, userData);
+      const {data: {accessToken}} = await api.post<TokenData>(ApiRoute.Login, {email: userData.email, password: userData.password});
+      saveToken(accessToken);
+      const authInfo:TokenPayloadData = jwtDecode(accessToken);
+      dispatch(setUserData({...newUser, id:authInfo.sub}));
+      if(newUser.role === UserRole.Coach) {
+        dispatch(redirectToRoute(AppRoute.CoachAccount));
+      }
+      else {
+        dispatch(redirectToRoute(AppRoute.Main));
+      }
     }
     catch(error){
       const axiosError = error as AxiosError;

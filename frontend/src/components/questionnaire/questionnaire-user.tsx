@@ -1,10 +1,97 @@
-function QuestionnaireUser(): JSX.Element {
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { FitnessLevel } from '../../types/fitness-level.enum';
+import { WorkoutTime } from '../../types/workout-time.enum';
+import { WorkoutType } from '../../types/workout-type.enum';
+import {
+  DefaultParam,
+  FitnessLevelToName,
+  UserFormError,
+  UserFormFieldName,
+  WorkoutTypeToName,
+} from '../../utils/constant';
+import { capitalizeFirstLetter } from '../../utils/helpers';
+import { NewUserGeneral } from '../../types/user.interface';
+import { toast } from 'react-toastify';
+import { CreateUserDto } from '../../dto/user/create/create-user.dto';
+import { register } from '../../store/user-data/api-actions';
+import {
+  CaloriesAmount,
+  WORKOUT_TYPE_AMOUNT,
+} from '../../utils/validation.constant';
+import InputErrorField from '../input-error-field/input-error-field';
+
+type QuestionnaireUserProps = {
+  newUserData: NewUserGeneral;
+};
+
+function QuestionnaireUser({
+  newUserData,
+}: QuestionnaireUserProps): JSX.Element {
+  const sportsmanInfoDefault = {
+    isReady: DefaultParam.Status,
+    workoutTime: WorkoutTime.Basic,
+    caloriesTotal: DefaultParam.Amount,
+    caloriesPerDay: DefaultParam.Amount,
+  };
+  const dispatch = useAppDispatch();
+  const [sportsmanInfo, setSportsmanInfo] = useState(sportsmanInfoDefault);
+  const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>([]);
+  const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);
+  const [isEmptyShown, SetIsEmptyShown] = useState(DefaultParam.Status);
+
+  const handleSubmitData = (data: CreateUserDto) => dispatch(register(data));
+
+  const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const value = evt.target.value as WorkoutType;
+    if (!workoutTypes) {
+      setWorkoutTypes([value]);
+      return;
+    }
+    const isExists = workoutTypes.includes(value);
+    if (workoutTypes.length === WORKOUT_TYPE_AMOUNT && !isExists) {
+      toast.warn(UserFormError.InvalidTypesLength);
+      return;
+    }
+    const types = isExists
+      ? workoutTypes.filter((item) => item !== value)
+      : workoutTypes.concat(value);
+    setWorkoutTypes(types);
+  };
+
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = evt.target;
+    const fieldValue = type === 'number' ? +value : value;
+    setSportsmanInfo({ ...sportsmanInfo, [name]: fieldValue });
+  };
+  const handleFitnessLevelChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { value } = evt.target;
+    setFitnessLevel(value as FitnessLevel);
+  };
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const sportsmanData = {
+      ...newUserData,
+      workoutType: workoutTypes,
+      fitnessLevel,
+      sportsmanInfo,
+    };
+    const isValid = workoutTypes.length > DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesPerDay !== DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesTotal !== DefaultParam.Amount;
+    if (isValid){
+      handleSubmitData(sportsmanData);
+      SetIsEmptyShown(DefaultParam.Status);
+    } else {
+      SetIsEmptyShown(true);
+    }
+  };
+
   return (
     <div className="popup-form popup-form--questionnaire-user">
       <div className="popup-form__wrapper">
         <div className="popup-form__content">
           <div className="popup-form__form">
-            <form method="get">
+            <form method="post" action="/" onSubmit={handleFormSubmit}>
               <div className="questionnaire-user">
                 <h1 className="visually-hidden">Опросник</h1>
                 <div className="questionnaire-user__wrapper">
@@ -13,144 +100,54 @@ function QuestionnaireUser(): JSX.Element {
                       Ваша специализация (тип) тренировок
                     </span>
                     <div className="specialization-checkbox questionnaire-user__specializations">
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="yoga"
-                          />
-                          <span className="btn-checkbox__btn">Йога</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="running"
-                          />
-                          <span className="btn-checkbox__btn">Бег</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="power"
-                            // checked
-                          />
-                          <span className="btn-checkbox__btn">Силовые</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="aerobics"
-                          />
-                          <span className="btn-checkbox__btn">Аэробика</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="crossfit"
-                            // checked
-                          />
-                          <span className="btn-checkbox__btn">Кроссфит</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="boxing"
-                            // checked
-                          />
-                          <span className="btn-checkbox__btn">Бокс</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="pilates"
-                          />
-                          <span className="btn-checkbox__btn">Пилатес</span>
-                        </label>
-                      </div>
-                      <div className="btn-checkbox">
-                        <label>
-                          <input
-                            className="visually-hidden"
-                            type="checkbox"
-                            name="specialisation"
-                            value="stretching"
-                          />
-                          <span className="btn-checkbox__btn">Стрейчинг</span>
-                        </label>
-                      </div>
+                      {Object.values(WorkoutType).map((item) => (
+                        <div className="btn-checkbox" key={item}>
+                          <label>
+                            <input
+                              className="visually-hidden"
+                              type="checkbox"
+                              name="specialisation"
+                              value={item}
+                              onChange={handleWorkoutTypesChange}
+                              checked={
+                                workoutTypes
+                                  ? workoutTypes.includes(item)
+                                  : false
+                              }
+                            />
+                            <span className="btn-checkbox__btn">
+                              {capitalizeFirstLetter(WorkoutTypeToName[item])}
+                            </span>
+                          </label>
+                        </div>
+                      ))}
                     </div>
+                    {isEmptyShown && workoutTypes.length === 0 && (
+                      <InputErrorField />
+                    )}
                   </div>
                   <div className="questionnaire-user__block">
                     <span className="questionnaire-user__legend">
                       Сколько времени вы готовы уделять на тренировку в день
                     </span>
                     <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="time" />
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                            10-30 мин
-                          </span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input
-                            type="radio"
-                            name="time"
-                            // checked
-                          />
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                            30-50 мин
-                          </span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="time" />
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                            50-80 мин
-                          </span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="time" />
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                            80-100 мин
-                          </span>
-                        </label>
-                      </div>
+                      {Object.values(WorkoutTime).map((item) => (
+                        <div className="custom-toggle-radio__block" key={item}>
+                          <label>
+                            <input
+                              type="radio"
+                              name={UserFormFieldName.workoutTime}
+                              value={item}
+                              checked={sportsmanInfo.workoutTime === item}
+                              onChange={handleInputChange}
+                            />
+                            <span className="custom-toggle-radio__icon"></span>
+                            <span className="custom-toggle-radio__label">
+                              {item}
+                            </span>
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="questionnaire-user__block">
@@ -158,37 +155,23 @@ function QuestionnaireUser(): JSX.Element {
                       Ваш уровень
                     </span>
                     <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="level" />
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                            Новичок
-                          </span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input
-                            type="radio"
-                            name="level"
-                            // checked
-                          />
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                            Любитель
-                          </span>
-                        </label>
-                      </div>
-                      <div className="custom-toggle-radio__block">
-                        <label>
-                          <input type="radio" name="level" />
-                          <span className="custom-toggle-radio__icon"></span>
-                          <span className="custom-toggle-radio__label">
-                            Профессионал
-                          </span>
-                        </label>
-                      </div>
+                      {Object.values(FitnessLevel).map((item) => (
+                        <div className="custom-toggle-radio__block" key={item}>
+                          <label>
+                            <input
+                              type="radio"
+                              name={UserFormFieldName.fitnessLevel}
+                              value={item}
+                              checked={fitnessLevel === item}
+                              onChange={handleFitnessLevelChange}
+                            />
+                            <span className="custom-toggle-radio__icon"></span>
+                            <span className="custom-toggle-radio__label">
+                              {FitnessLevelToName[item]}
+                            </span>
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="questionnaire-user__block">
@@ -199,11 +182,21 @@ function QuestionnaireUser(): JSX.Element {
                       <div className="custom-input custom-input--with-text-right questionnaire-user__input">
                         <label>
                           <span className="custom-input__wrapper">
-                            <input type="number" name="calories-lose" />
+                            <input
+                              type="number"
+                              name={UserFormFieldName.caloriesTotal}
+                              min={CaloriesAmount.Min}
+                              max={CaloriesAmount.Max}
+                              onChange={handleInputChange}
+                              required
+                            />
                             <span className="custom-input__text">ккал</span>
                           </span>
                         </label>
                       </div>
+                      {isEmptyShown && !sportsmanInfo[UserFormFieldName.caloriesTotal] && (
+                        <InputErrorField />
+                      )}
                     </div>
                     <div className="questionnaire-user__calories-waste">
                       <span className="questionnaire-user__legend">
@@ -212,13 +205,23 @@ function QuestionnaireUser(): JSX.Element {
                       <div className="custom-input custom-input--with-text-right questionnaire-user__input">
                         <label>
                           <span className="custom-input__wrapper">
-                            <input type="number" name="calories-waste" />
+                            <input
+                              type="number"
+                              name={UserFormFieldName.caloriesPerDay}
+                              min={CaloriesAmount.Min}
+                              max={CaloriesAmount.Max}
+                              required
+                              onChange={handleInputChange}
+                            />
                             <span className="custom-input__text">ккал</span>
                           </span>
                         </label>
                       </div>
                     </div>
                   </div>
+                  {isEmptyShown && !sportsmanInfo[UserFormFieldName.caloriesPerDay] && (
+                    <InputErrorField />
+                  )}
                 </div>
                 <button
                   className="btn questionnaire-user__button"

@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { checkValidity } from '../../utils/helpers';
-import { UserFormFieldName } from '../../utils/constant';
+import { UserFormError, UserFormFieldName } from '../../utils/constant';
 import { AuthData } from '../../types/auth-data.type';
 import { login } from '../../store/user-data/api-actions';
 import InputErrorField from '../../components/input-error-field/input-error-field';
@@ -13,8 +13,6 @@ function LoginPage(): JSX.Element {
     email: '',
     password: '',
   };
-  const DEFAULT_ERROR =
-    'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова.';
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(loginDataDefault);
   const [isErrorShown, SetIsErrorShown] = useState(false);
@@ -42,7 +40,7 @@ function LoginPage(): JSX.Element {
       SetIsErrorShown(false);
     } else {
       const errorFields = ` Ошибка в полях: ${!isEmailValid ? 'email' : ''}${!isPasswordValid ? ' пароль' : ''}.`;
-      SetErrorMessage( DEFAULT_ERROR.concat(errorFields));
+      SetErrorMessage( UserFormError.LoginFailed.concat(errorFields));
       SetIsErrorShown(true);
     }
   };

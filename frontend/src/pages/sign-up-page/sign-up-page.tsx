@@ -29,8 +29,8 @@ function SignUpPage(): JSX.Element {
           </svg>
         </div>
         {!newUserData && <SignUpForm/>}
-        {(newUserData && newUserData.role === UserRole.Sportsman) && <QuestionnaireUser />}
-        {(newUserData && newUserData.role === UserRole.Coach) && <QuestionnaireCoach />}
+        {(newUserData && newUserData.role === UserRole.Sportsman) && <QuestionnaireUser newUserData={newUserData}/>}
+        {(newUserData && newUserData.role === UserRole.Coach) && <QuestionnaireCoach newUserData={newUserData}/>}
       </main>
     </div>
   );

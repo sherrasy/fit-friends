@@ -4,6 +4,7 @@ import { Location } from './location.enum';
 import { Sportsman } from './sportsman.interface';
 import { UserRole } from './user-role.enum';
 import { UserSex } from './user-sex.enum';
+import { WorkoutTime } from './workout-time.enum';
 import { WorkoutType } from './workout-type.enum';
 
 export interface User {
@@ -11,14 +12,13 @@ export interface User {
   name: string;
   email: string;
   avatar?: string;
-  passwordHash: string;
   sex: UserSex;
   birthDate?: string;
   role: UserRole;
   description?: string;
   location: Location;
   photo?: string;
-  createdDate: string;
+  createdDate?: string;
   fitnessLevel: FitnessLevel;
   workoutType: WorkoutType[];
   sportsmanInfo?: Sportsman | null;
@@ -35,5 +35,25 @@ export interface NewUserGeneral {
   birthDate: string;
   role: UserRole;
   location: Location;
+}
+
+export interface NewUserSportsman {
+  workoutType: WorkoutType[];
+  fitnessLevel: FitnessLevel;
+  sportsmanInfo:{
+  workoutTime: WorkoutTime;
+  caloriesTotal: number;
+  caloriesPerDay: number;
+};
+}
+
+export interface NewUserCoach {
+  workoutType: WorkoutType[];
+  fitnessLevel: FitnessLevel;
+  coachInfo:{
+  certificate?: string;
+  successInfo: string;
+  isPersonal: boolean;
+};
 }
 

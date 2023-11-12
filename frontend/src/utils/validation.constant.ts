@@ -38,3 +38,5 @@ export const RaitingCount = {
   Min: 1,
   Max: 5,
 };
+
+export const WORKOUT_TYPE_AMOUNT = 3;

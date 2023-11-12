@@ -62,6 +62,17 @@ export const UserFormFieldName = {
   Password:'password',
   Sex:'sex',
   Role:'role',
+  workoutTime:'workoutTime',
+  fitnessLevel:'fitnessLevel',
+  caloriesTotal: 'caloriesTotal',
+  caloriesPerDay:'caloriesPerDay',
+  successInfo:'successInfo',
+} as const;
+
+export const UserFormError = {
+  InvalidTypesLength:'Нельзя выбрать больше трех типов тренировок',
+  RegistrationFailed:'Возникла ошибка регистрации. Проверьте введенные данные и попробуйте снова.',
+  LoginFailed: 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова.',
 } as const;
 
 export const UserSexToName = {
@@ -81,9 +92,21 @@ export const LocationToName = {
 export const WorkoutTypeToName = {
   yoga : 'йога',
   running : 'бег',
-  boxing : 'бокс',
+  box : 'бокс',
   stretching : 'стрейчинг',
   crossfit : 'кроссфит',
   aerobics : 'аэробика',
   pilates : 'пилатес',
+};
+
+export const FitnessLevelToName = {
+  beginner:'Новичок',
+  amateur:'Любитель',
+  pro:'Профессионал',
+};
+
+export const DefaultParam = {
+  Step: 1,
+  Amount: 0,
+  Status: false,
 };

@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Location } from '../../types/location.enum';
-import { LocationToName, UserFormFieldName, UserSexToName } from '../../utils/constant';
+import { LocationToName, UserFormError, UserFormFieldName, UserSexToName } from '../../utils/constant';
 import { UserSex } from '../../types/user-sex.enum';
 import { UserRole } from '../../types/user-role.enum';
 import { NameLength, PasswordLength, ValidationPattern } from '../../utils/validation.constant';
@@ -13,25 +13,14 @@ import { checkValidity } from '../../utils/helpers';
 
 function SignUpForm():JSX.Element{
   const signUpDataDefault = {
-    name:'Monster',
-    email:'monsta@mail.ru',
-    birthDate:'2023-11-11',
-    location:'pionerskaya',
-    password:'test123',
-    sex:UserSex.Female,
-    role:UserRole.Sportsman,
+    name: '',
+    email: '',
+    birthDate: '',
+    location: '',
+    password: '',
+    sex: UserSex.Male,
+    role: UserRole.Sportsman,
   };
-  // const signUpDataDefault = {
-  //   name: '',
-  //   email: '',
-  //   birthDate: '',
-  //   location: '',
-  //   password: '',
-  //   sex: UserSex.Male,
-  //   role: UserRole.Sportsman,
-  // };
-  const DEFAULT_ERROR =
-    'Возникла ошибка регистрации. Проверьте введенные данные и попробуйте снова.';
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState(signUpDataDefault);
   const [isAgreed, setIsAgreed] = useState(false);
@@ -48,8 +37,6 @@ function SignUpForm():JSX.Element{
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
-    const isEmpty = value === '';
-    SetIsEmptyShown(isEmpty);
     setFormData({ ...formData, [name]: value });
   };
 
@@ -87,7 +74,7 @@ function SignUpForm():JSX.Element{
       SetIsErrorShown(false);
     } else {
       const errorFields = ` Ошибка в полях: ${!isEmailValid ? 'email' : ''}${!isNameValid ? ' имя' : ''}${!isPasswordValid ? ' пароль' : ''}.`;
-      SetErrorMessage( DEFAULT_ERROR.concat(errorFields));
+      SetErrorMessage( UserFormError.RegistrationFailed.concat(errorFields));
       SetIsErrorShown(true);
     }
   };
