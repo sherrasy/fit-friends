@@ -25,6 +25,18 @@ export interface User {
   coachInfo?: Coach | null;
   token?:string|undefined;
 }
+export interface UserInfoInterface {
+  name: string;
+  avatar?: string;
+  sex: UserSex;
+  birthDate?: string;
+  description?: string;
+  location: Location;
+  fitnessLevel: FitnessLevel;
+  workoutType: WorkoutType[];
+  sportsmanInfo?: Sportsman | null;
+  coachInfo?: Coach | null;
+}
 
 export interface NewUserGeneral {
   name: string;

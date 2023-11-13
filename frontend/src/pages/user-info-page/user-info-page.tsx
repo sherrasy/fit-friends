@@ -1,3 +1,4 @@
+import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
 import UserCard from '../../components/user-card/user-card';
 import WorkoutListCard from '../../components/workout-card/workout-list-card';
@@ -10,12 +11,7 @@ function UserInfoPage(): JSX.Element {
         <div className="inner-page inner-page--no-sidebar">
           <div className="container">
             <div className="inner-page__wrapper">
-              <button className="btn-flat inner-page__back" type="button">
-                <svg width="14" height="10" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg>
-                <span>Назад</span>
-              </button>
+              <BackButton/>
               <div className="inner-page__content">
                 <section className="user-card-coach">
                   <h1 className="visually-hidden">

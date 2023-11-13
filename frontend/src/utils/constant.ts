@@ -62,17 +62,29 @@ export const UserFormFieldName = {
   Password:'password',
   Sex:'sex',
   Role:'role',
-  workoutTime:'workoutTime',
-  fitnessLevel:'fitnessLevel',
-  caloriesTotal: 'caloriesTotal',
-  caloriesPerDay:'caloriesPerDay',
-  successInfo:'successInfo',
+  WorkoutTime:'workoutTime',
+  FitnessLevel:'fitnessLevel',
+  CaloriesTotal: 'caloriesTotal',
+  CaloriesPerDay:'caloriesPerDay',
+  SuccessInfo:'successInfo',
+  Description:'description',
 } as const;
 
 export const UserFormError = {
   InvalidTypesLength:'Нельзя выбрать больше трех типов тренировок',
   RegistrationFailed:'Возникла ошибка регистрации. Проверьте введенные данные и попробуйте снова.',
   LoginFailed: 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова.',
+} as const;
+
+export const ReadyToTrainText = {
+  Coach:'Готов тренировать',
+  User:'Готов к тренировке',
+} as const;
+
+export const HeaderTab = {
+  Main:'main',
+  Account:'account',
+  Friends: 'friends',
 } as const;
 
 export const UserSexToName = {
@@ -107,6 +119,7 @@ export const FitnessLevelToName = {
 
 export const DefaultParam = {
   Step: 1,
+  StepBack: -1,
   Amount: 0,
   Status: false,
 };

@@ -1,5 +1,105 @@
-function UserInfo():JSX.Element{
-  return(
+import { ChangeEvent, useLayoutEffect, useState } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getUserData } from '../../store/user-data/selectors';
+import {
+  DefaultParam,
+  FitnessLevelToName,
+  LocationToName,
+  ReadyToTrainText,
+  UserFormError,
+  UserFormFieldName,
+  UserSexToName,
+  WorkoutTypeToName,
+} from '../../utils/constant';
+import { WorkoutType } from '../../types/workout-type.enum';
+import { capitalizeFirstLetter } from '../../utils/helpers';
+import { UserRole } from '../../types/user-role.enum';
+import Loader from '../loader/loader';
+import { UserInfoInterface } from '../../types/user.interface';
+import { Location } from '../../types/location.enum';
+import { UserSex } from '../../types/user-sex.enum';
+import { FitnessLevel } from '../../types/fitness-level.enum';
+import { WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
+import { toast } from 'react-toastify';
+
+function UserInfo(): JSX.Element {
+  const userInfo = useAppSelector(getUserData);
+  const [isEditing, setIsEditing] = useState(DefaultParam.Status);
+  const [readyStatus, setReadyStatus] = useState(DefaultParam.Status);
+  const [formData, setFormData] = useState<UserInfoInterface | null>(null);
+  const [isOpened, setIsOpened] = useState('');
+
+  useLayoutEffect(() => {
+    if (userInfo) {
+      setFormData(userInfo);
+
+      const { role, sportsmanInfo, coachInfo } = userInfo;
+      if (role === UserRole.Coach && coachInfo?.isPersonal) {
+        setReadyStatus(coachInfo?.isPersonal);
+      }
+      if (role === UserRole.Sportsman && sportsmanInfo?.isReady) {
+        setReadyStatus(sportsmanInfo.isReady);
+      }
+    }
+  }, [userInfo]);
+
+  if (!userInfo || !formData) {
+    return <Loader />;
+  }
+
+  const handleFormButtonClick = () => {
+    setIsEditing((prev) => !prev);
+  };
+
+  const handleToggleButtonClick = (name: string) => {
+    setIsOpened(name);
+  };
+
+  const handleSelectChange = (item: Location|UserSex|FitnessLevel, name:string) => {
+    setFormData({ ...formData, [name]:item });
+    setIsOpened('');
+  };
+
+  const handleTextFieldChange = (evt: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleStatusChange = (status:boolean) => {
+    setReadyStatus((prev)=>!prev);
+    switch (userInfo.role){
+      case UserRole.Coach:{
+        const coachInfo = {...formData.coachInfo, isPersonal: status};
+        setFormData({ ...formData, coachInfo});
+        break;
+      }
+      case UserRole.Sportsman:{
+        const sportsmanInfo = {...formData.sportsmanInfo, isReady: status};
+        setFormData({ ...formData, sportsmanInfo});
+        break;
+      }
+    }
+  };
+
+  const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const value = evt.target.value as WorkoutType;
+    const workoutTypes = formData.workoutType;
+    if (!workoutTypes) {
+      setFormData({ ...formData, workoutType: [value] });
+      return;
+    }
+    const isExists = workoutTypes.includes(value);
+    if (workoutTypes.length === WORKOUT_TYPE_AMOUNT && !isExists) {
+      toast.warn(UserFormError.InvalidTypesLength);
+      return;
+    }
+    const types = isExists
+      ? workoutTypes.filter((item) => item !== value)
+      : workoutTypes.concat(value);
+    setFormData({ ...formData, workoutType: types });
+  };
+
+  return (
     <section className="user-info">
       <div className="user-info__header">
         <div className="input-load-avatar">
@@ -26,12 +126,13 @@ function UserInfo():JSX.Element{
         <button
           className="btn-flat btn-flat--underlined user-info__edit-button"
           type="button"
-          aria-label="Редактировать"
+          aria-label={isEditing ? 'Сохранить' : 'Редактировать'}
+          onClick={handleFormButtonClick}
         >
           <svg width="12" height="12" aria-hidden="true">
             <use xlinkHref="#icon-edit"></use>
           </svg>
-          <span>Редактировать</span>
+          <span>{isEditing ? 'Сохранить' : 'Редактировать'}</span>
         </button>
         <div className="user-info__section">
           <h2 className="user-info__title">Обо мне</h2>
@@ -41,9 +142,10 @@ function UserInfo():JSX.Element{
               <span className="custom-input__wrapper">
                 <input
                   type="text"
-                  name="name"
-                  value="Валерия"
-                  disabled
+                  name={UserFormFieldName.Name}
+                  defaultValue={formData.name}
+                  onChange={handleTextFieldChange}
+                  disabled={!isEditing}
                 />
               </span>
             </label>
@@ -51,25 +153,27 @@ function UserInfo():JSX.Element{
           <div className="custom-textarea custom-textarea--readonly user-info__textarea">
             <label>
               <span className="custom-textarea__label">Описание</span>
-              <textarea name="description" placeholder=" " disabled>
-              Персональный тренер и инструктор групповых программ с
-              опытом более 4х лет. Специализация: коррекция фигуры и
-              осанки, снижение веса, восстановление после травм,
-              пилатес.
+              <textarea
+                name={UserFormFieldName.Description}
+                onBlur={handleTextFieldChange}
+                placeholder=" "
+                disabled={!isEditing}
+              >
+                {formData.description}
               </textarea>
             </label>
           </div>
         </div>
         <div className="user-info__section user-info__section--status">
-          <h2 className="user-info__title user-info__title--status">
-          Статус
-          </h2>
+          <h2 className="user-info__title user-info__title--status">Статус</h2>
           <div className="custom-toggle custom-toggle--switch user-info__toggle">
             <label>
               <input
                 type="checkbox"
                 name="ready-for-training"
-                // checked
+                checked={readyStatus}
+                onChange={()=>handleStatusChange(!readyStatus)}
+                disabled={!isEditing}
               />
               <span className="custom-toggle__icon">
                 <svg width="9" height="6" aria-hidden="true">
@@ -77,138 +181,99 @@ function UserInfo():JSX.Element{
                 </svg>
               </span>
               <span className="custom-toggle__label">
-              Готов тренировать
+                {userInfo.role === UserRole.Coach
+                  ? ReadyToTrainText.Coach
+                  : ReadyToTrainText.User}
               </span>
             </label>
           </div>
         </div>
         <div className="user-info__section">
           <h2 className="user-info__title user-info__title--specialization">
-          Специализация
+            Специализация
           </h2>
           <div className="specialization-checkbox user-info__specialization">
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="yoga"
-                  // checked
-                />
-                <span className="btn-checkbox__btn">Йога</span>
-              </label>
-            </div>
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="running"
-                />
-                <span className="btn-checkbox__btn">Бег</span>
-              </label>
-            </div>
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="aerobics"
-                  // checked
-                />
-                <span className="btn-checkbox__btn">Аэробика</span>
-              </label>
-            </div>
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="boxing"
-                />
-                <span className="btn-checkbox__btn">Бокс</span>
-              </label>
-            </div>
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="power"
-                />
-                <span className="btn-checkbox__btn">Силовые</span>
-              </label>
-            </div>
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="pilates"
-                  // checked
-                />
-                <span className="btn-checkbox__btn">Пилатес</span>
-              </label>
-            </div>
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="stretching"
-                  // checked
-                />
-                <span className="btn-checkbox__btn">Стрейчинг</span>
-              </label>
-            </div>
-            <div className="btn-checkbox">
-              <label>
-                <input
-                  className="visually-hidden"
-                  type="checkbox"
-                  name="specialization"
-                  value="crossfit"
-                />
-                <span className="btn-checkbox__btn">Кроссфит</span>
-              </label>
-            </div>
+            {Object.values(WorkoutType).map((item) => (
+              <div className="btn-checkbox" key={item}>
+                <label>
+                  <input
+                    className="visually-hidden"
+                    type="checkbox"
+                    name="specialization"
+                    value={item}
+                    onChange={handleWorkoutTypesChange}
+                    checked={
+                      formData.workoutType.includes(item)
+                    }
+                    disabled={!isEditing}
+                  />
+                  <span className="btn-checkbox__btn">
+                    {capitalizeFirstLetter(WorkoutTypeToName[item])}
+                  </span>
+                </label>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="custom-select--readonly custom-select user-info__select">
+        <div
+          className={`${
+            !isEditing ? 'custom-select--readonly' : ''
+          } custom-select
+        ${ isOpened === UserFormFieldName.Location ? 'is-open' : 'custom-select--not-selected' }
+        user-info${isEditing ? '-edit' : ''}__select`}
+        >
           <span className="custom-select__label">Локация</span>
           <div className="custom-select__placeholder">
-          ст. м. Адмиралтейская
+            ст. м. {LocationToName[formData.location]}
           </div>
           <button
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            disabled
+            onClick={() => handleToggleButtonClick(UserFormFieldName.Location)}
+            disabled={!isEditing}
           >
-            <span className="custom-select__text"></span>
+            <span className="custom-select__text">
+              {LocationToName[formData.location]}
+            </span>
             <span className="custom-select__icon">
               <svg width="15" height="6" aria-hidden="true">
                 <use xlinkHref="#arrow-down"></use>
               </svg>
             </span>
           </button>
-          <ul className="custom-select__list" role="listbox"></ul>
+          <ul className="custom-select__list" role="listbox">
+            {Object.values(Location).map((item) => (
+              <li
+                key={item}
+                role="option"
+                tabIndex={0}
+                className="custom-select__item"
+                aria-selected={item === formData.location}
+                value={item}
+                onClick={() => handleSelectChange(item, UserFormFieldName.Location)}
+              >
+                {LocationToName[item]}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="custom-select--readonly custom-select user-info__select">
+        <div className={`${
+          !isEditing ? 'custom-select--readonly' : ''
+        } custom-select
+        ${ isOpened === UserFormFieldName.Sex ? 'is-open' : 'custom-select--not-selected' }
+        user-info${isEditing ? '-edit' : ''}__select`}
+        >
           <span className="custom-select__label">Пол</span>
-          <div className="custom-select__placeholder">Женский</div>
+          <div className="custom-select__placeholder">
+            {UserSexToName[formData.sex]}
+          </div>
           <button
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            disabled
+            onClick={() => handleToggleButtonClick(UserFormFieldName.Sex)}
+            disabled={!isEditing}
           >
             <span className="custom-select__text"></span>
             <span className="custom-select__icon">
@@ -217,18 +282,38 @@ function UserInfo():JSX.Element{
               </svg>
             </span>
           </button>
-          <ul className="custom-select__list" role="listbox"></ul>
+          <ul className="custom-select__list" role="listbox">
+            {Object.values(UserSex).map((item) => (
+              <li
+                key={item}
+                role="option"
+                tabIndex={0}
+                className="custom-select__item"
+                aria-selected={item === formData.sex}
+                value={item}
+                onClick={() => handleSelectChange(item, UserFormFieldName.Sex)}
+              >
+                {UserSexToName[item]}
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="custom-select--readonly custom-select user-info__select">
+        <div className={`${
+          !isEditing ? 'custom-select--readonly' : ''
+        } custom-select
+        ${ isOpened === UserFormFieldName.FitnessLevel ? 'is-open' : 'custom-select--not-selected' }
+        user-info${isEditing ? '-edit' : ''}__select`}
+        >
           <span className="custom-select__label">Уровень</span>
           <div className="custom-select__placeholder">
-          Профессионал
+            {FitnessLevelToName[formData.fitnessLevel]}
           </div>
           <button
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            disabled
+            onClick={() => handleToggleButtonClick(UserFormFieldName.FitnessLevel)}
+            disabled={!isEditing}
           >
             <span className="custom-select__text"></span>
             <span className="custom-select__icon">
@@ -237,7 +322,21 @@ function UserInfo():JSX.Element{
               </svg>
             </span>
           </button>
-          <ul className="custom-select__list" role="listbox"></ul>
+          <ul className="custom-select__list" role="listbox">
+            {Object.values(FitnessLevel).map((item) => (
+              <li
+                key={item}
+                role="option"
+                tabIndex={0}
+                className="custom-select__item"
+                aria-selected={item === formData.fitnessLevel}
+                value={item}
+                onClick={() => handleSelectChange(item, UserFormFieldName.FitnessLevel)}
+              >
+                {FitnessLevelToName[item]}
+              </li>
+            ))}
+          </ul>
         </div>
       </form>
     </section>

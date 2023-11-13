@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom';
+import AdvertisementThumbnail from '../../components/advertisement-thumbnail/advertisement-thumbnail';
 import Header from '../../components/header/header';
 import UserInfo from '../../components/user-info/user-info';
+import { AppRoute } from '../../utils/constant';
 
 function CoachAccountPage(): JSX.Element {
   return (
@@ -14,9 +17,9 @@ function CoachAccountPage(): JSX.Element {
               <div className="inner-page__content">
                 <div className="personal-account-coach">
                   <div className="personal-account-coach__navigation">
-                    <a
+                    <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      href="/"
+                      to={AppRoute.CoachWorkouts}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
@@ -26,10 +29,10 @@ function CoachAccountPage(): JSX.Element {
                       <span className="thumbnail-link__text">
                         Мои тренировки
                       </span>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      href="/"
+                      to={AppRoute.AddWorkout}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
@@ -39,10 +42,10 @@ function CoachAccountPage(): JSX.Element {
                       <span className="thumbnail-link__text">
                         Создать тренировку
                       </span>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      href="/"
+                      to={AppRoute.CoachFriends}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
@@ -50,10 +53,10 @@ function CoachAccountPage(): JSX.Element {
                         </svg>
                       </div>
                       <span className="thumbnail-link__text">Мои друзья</span>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      href="/"
+                      to={AppRoute.Orders}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
@@ -61,33 +64,9 @@ function CoachAccountPage(): JSX.Element {
                         </svg>
                       </div>
                       <span className="thumbnail-link__text">Мои заказы</span>
-                    </a>
+                    </Link>
                     <div className="personal-account-coach__calendar">
-                      <div className="thumbnail-spec-gym">
-                        <div className="thumbnail-spec-gym__image">
-                          <picture>
-                            <source
-                              type="image/webp"
-                              srcSet="img/content/thumbnails/nearest-gym-01.webp, img/content/thumbnails/nearest-gym-01@2x.webp 2x"
-                            />
-                            <img
-                              src="img/content/thumbnails/nearest-gym-01.jpg"
-                              srcSet="img/content/thumbnails/nearest-gym-01@2x.jpg 2x"
-                              width="330"
-                              height="190"
-                              alt=""
-                            />
-                          </picture>
-                        </div>
-                        <div
-                          className="thumbnail-spec-gym__header"
-                          style={{ alignItems: 'center' }}
-                        >
-                          <h3 className="thumbnail-spec-gym__title">
-                            Скоро тут будет интересно
-                          </h3>
-                        </div>
-                      </div>
+                      <AdvertisementThumbnail/>
                     </div>
                   </div>
                   <div className="personal-account-coach__additional-info">

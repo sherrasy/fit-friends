@@ -1,17 +1,26 @@
 /* eslint-disable indent */
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Location } from '../../types/location.enum';
-import { LocationToName, UserFormError, UserFormFieldName, UserSexToName } from '../../utils/constant';
+import {
+  LocationToName,
+  UserFormError,
+  UserFormFieldName,
+  UserSexToName,
+} from '../../utils/constant';
 import { UserSex } from '../../types/user-sex.enum';
 import { UserRole } from '../../types/user-role.enum';
-import { NameLength, PasswordLength, ValidationPattern } from '../../utils/validation.constant';
+import {
+  NameLength,
+  PasswordLength,
+  ValidationPattern,
+} from '../../utils/validation.constant';
 import { useAppDispatch } from '../../hooks';
 import InputErrorField from '../input-error-field/input-error-field';
 import { createNewUser } from '../../store/user-data/user-data';
 import { NewUserGeneral } from '../../types/user.interface';
 import { checkValidity } from '../../utils/helpers';
 
-function SignUpForm():JSX.Element{
+function SignUpForm(): JSX.Element {
   const signUpDataDefault = {
     name: '',
     email: '',
@@ -29,10 +38,11 @@ function SignUpForm():JSX.Element{
   const [errorMessage, SetErrorMessage] = useState('');
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
-  const handleSubmitData = (data: NewUserGeneral) => dispatch(createNewUser(data));
+  const handleSubmitData = (data: NewUserGeneral) =>
+    dispatch(createNewUser(data));
 
   const handleAgreedInputChange = () => {
-    setIsAgreed((prev)=> !prev);
+    setIsAgreed((prev) => !prev);
   };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +50,7 @@ function SignUpForm():JSX.Element{
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleLocationChange = (location:Location) => {
+  const handleLocationChange = (location: Location) => {
     setFormData({ ...formData, location });
     setIsOpened(false);
   };
@@ -51,35 +61,37 @@ function SignUpForm():JSX.Element{
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if(!isAgreed){
+    if (!isAgreed) {
       const message = 'Ознакомьтесь с политикой конфиденциальности';
       SetErrorMessage(message);
       SetIsErrorShown(true);
       return;
     }
-    const isMissingData = Object.values(formData).some((item)=> item === '');
+    const isMissingData = Object.values(formData).some((item) => item === '');
     SetIsEmptyShown(isMissingData);
     const isEmailValid = checkValidity(formData.email, ValidationPattern.Email);
     const isPasswordValid = checkValidity(
       formData.password,
       ValidationPattern.Password
     );
-    const isNameValid = checkValidity(
-      formData.name,
-      ValidationPattern.Name
-    );
+    const isNameValid = checkValidity(formData.name, ValidationPattern.Name);
     const isFieldsValid = isEmailValid && isPasswordValid && isNameValid;
-    if ( isFieldsValid && !isEmptyShown) {
-      handleSubmitData({...formData, location:formData.location as Location});
+    if (isFieldsValid && !isEmptyShown) {
+      handleSubmitData({
+        ...formData,
+        location: formData.location as Location,
+      });
       SetIsErrorShown(false);
     } else {
-      const errorFields = ` Ошибка в полях: ${!isEmailValid ? 'email' : ''}${!isNameValid ? ' имя' : ''}${!isPasswordValid ? ' пароль' : ''}.`;
-      SetErrorMessage( UserFormError.RegistrationFailed.concat(errorFields));
+      const errorFields = ` Ошибка в полях: ${!isEmailValid ? 'email' : ''}${
+        !isNameValid ? ' имя' : ''
+      }${!isPasswordValid ? ' пароль' : ''}.`;
+      SetErrorMessage(UserFormError.RegistrationFailed.concat(errorFields));
       SetIsErrorShown(true);
     }
   };
 
-  return(
+  return (
     <div className="popup-form popup-form--sign-up">
       <div className="popup-form__wrapper">
         <div className="popup-form__content">
@@ -105,11 +117,9 @@ function SignUpForm():JSX.Element{
                     </label>
                   </div>
                   <div className="sign-up__description">
-                    <h2 className="sign-up__legend">
-                    Загрузите фото профиля
-                    </h2>
+                    <h2 className="sign-up__legend">Загрузите фото профиля</h2>
                     <span className="sign-up__text">
-                    JPG, PNG, оптимальный размер 100&times;100&nbsp;px
+                      JPG, PNG, оптимальный размер 100&times;100&nbsp;px
                     </span>
                   </div>
                 </div>
@@ -118,25 +128,41 @@ function SignUpForm():JSX.Element{
                     <label>
                       <span className="custom-input__label">Имя</span>
                       <span className="custom-input__wrapper">
-                        <input type="text" name={UserFormFieldName.Name} minLength={NameLength.Min} maxLength={NameLength.Max} onChange={handleInputChange} required/>
+                        <input
+                          type="text"
+                          name={UserFormFieldName.Name}
+                          minLength={NameLength.Min}
+                          maxLength={NameLength.Max}
+                          onChange={handleInputChange}
+                          required
+                        />
                       </span>
                     </label>
-                    {isEmptyShown && formData[UserFormFieldName.Name] === '' && <InputErrorField/>}
+                    {isEmptyShown &&
+                      formData[UserFormFieldName.Name] === '' && (
+                        <InputErrorField />
+                      )}
                   </div>
                   <div className="custom-input">
                     <label>
                       <span className="custom-input__label">E-mail</span>
                       <span className="custom-input__wrapper">
-                        <input type="email" name={UserFormFieldName.Email} onChange={handleInputChange} required />
+                        <input
+                          type="email"
+                          name={UserFormFieldName.Email}
+                          onChange={handleInputChange}
+                          required
+                        />
                       </span>
                     </label>
-                    {isEmptyShown && formData[UserFormFieldName.Email] === '' && <InputErrorField/>}
+                    {isEmptyShown &&
+                      formData[UserFormFieldName.Email] === '' && (
+                        <InputErrorField />
+                      )}
                   </div>
                   <div className="custom-input">
                     <label>
-                      <span className="custom-input__label">
-                      Дата рождения
-                      </span>
+                      <span className="custom-input__label">Дата рождения</span>
                       <span className="custom-input__wrapper">
                         <input
                           type="date"
@@ -147,19 +173,29 @@ function SignUpForm():JSX.Element{
                         />
                       </span>
                     </label>
-                    {isEmptyShown && formData[UserFormFieldName.BirthDate] === '' && <InputErrorField/>}
+                    {isEmptyShown &&
+                      formData[UserFormFieldName.BirthDate] === '' && (
+                        <InputErrorField />
+                      )}
                   </div>
-                  <div className={`custom-select ${isOpened ? 'is-open' : 'custom-select--not-selected'} not-empty`}>
-                    <span className="custom-select__label">
-                    Ваша локация
-                    </span>
+                  <div
+                    className={`custom-select ${
+                      isOpened ? 'is-open' : 'custom-select--not-selected'
+                    }`}
+                  >
+                    <span className="custom-select__label">Ваша локация</span>
+                    <div className="custom-select__placeholder">
+                      {LocationToName[formData.location as Location]}
+                    </div>
                     <button
                       className="custom-select__button"
                       type="button"
                       aria-label="Выберите одну из опций"
                       onClick={handleToggleButtonClick}
                     >
-                      <span className="custom-select__text">{LocationToName[formData.location as Location]}</span>
+                      <span className="custom-select__text">
+                        {LocationToName[formData.location as Location]}
+                      </span>
                       <span className="custom-select__icon">
                         <svg width="15" height="6" aria-hidden="true">
                           <use xlinkHref="#arrow-down"></use>
@@ -167,7 +203,7 @@ function SignUpForm():JSX.Element{
                       </span>
                     </button>
                     <ul className="custom-select__list" role="listbox">
-                      { Object.values(Location).map((item)=>(
+                      {Object.values(Location).map((item) => (
                         <li
                           key={item}
                           role="option"
@@ -175,13 +211,16 @@ function SignUpForm():JSX.Element{
                           className="custom-select__item"
                           aria-selected={item === formData.location}
                           value={item}
-                          onClick={()=>handleLocationChange(item)}
+                          onClick={() => handleLocationChange(item)}
                         >
                           {LocationToName[item]}
                         </li>
-                      )) }
+                      ))}
                     </ul>
-                    {isEmptyShown && formData[UserFormFieldName.Location] === '' && <InputErrorField/>}
+                    {isEmptyShown &&
+                      formData[UserFormFieldName.Location] === '' && (
+                        <InputErrorField />
+                      )}
                   </div>
                   <div className="custom-input">
                     <label>
@@ -197,22 +236,31 @@ function SignUpForm():JSX.Element{
                         />
                       </span>
                     </label>
-                    {isEmptyShown && formData[UserFormFieldName.Password] === '' && <InputErrorField/>}
+                    {isEmptyShown &&
+                      formData[UserFormFieldName.Password] === '' && (
+                        <InputErrorField />
+                      )}
                   </div>
                   <div className="sign-up__radio">
                     <span className="sign-up__label">Пол</span>
                     <div className="custom-toggle-radio custom-toggle-radio--big">
-                      {Object.values(UserSex).map(( value)=>
-                        (<div className="custom-toggle-radio__block" key={value}>
+                      {Object.values(UserSex).map((value) => (
+                        <div className="custom-toggle-radio__block" key={value}>
                           <label>
-                            <input type="radio" name={UserFormFieldName.Sex} value={value} checked={formData.sex === value} onChange={handleInputChange}/>
+                            <input
+                              type="radio"
+                              name={UserFormFieldName.Sex}
+                              value={value}
+                              checked={formData.sex === value}
+                              onChange={handleInputChange}
+                            />
                             <span className="custom-toggle-radio__icon"></span>
                             <span className="custom-toggle-radio__label">
                               {UserSexToName[value]}
                             </span>
                           </label>
-                         </div>)
-                      )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -235,7 +283,7 @@ function SignUpForm():JSX.Element{
                           </svg>
                         </span>
                         <span className="role-btn__btn">
-                        Я хочу тренировать
+                          Я хочу тренировать
                         </span>
                       </label>
                     </div>
@@ -255,7 +303,7 @@ function SignUpForm():JSX.Element{
                           </svg>
                         </span>
                         <span className="role-btn__btn">
-                        Я хочу тренироваться
+                          Я хочу тренироваться
                         </span>
                       </label>
                     </div>
@@ -276,17 +324,19 @@ function SignUpForm():JSX.Element{
                       </svg>
                     </span>
                     <span className="sign-up__checkbox-label">
-                    Я соглашаюсь с {''}
+                      Я соглашаюсь с {''}
                       <span>политикой конфиденциальности</span> компании
                     </span>
                   </label>
                 </div>
                 <button className="btn sign-up__button" type="submit">
-                Продолжить
+                  Продолжить
                 </button>
               </div>
             </form>
-            {isErrorShown && <p className="form-input__error">{errorMessage}</p>}
+            {isErrorShown && (
+              <p className="form-input__error">{errorMessage}</p>
+            )}
           </div>
         </div>
       </div>

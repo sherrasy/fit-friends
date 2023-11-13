@@ -136,7 +136,7 @@ function QuestionnaireUser({
                           <label>
                             <input
                               type="radio"
-                              name={UserFormFieldName.workoutTime}
+                              name={UserFormFieldName.WorkoutTime}
                               value={item}
                               checked={sportsmanInfo.workoutTime === item}
                               onChange={handleInputChange}
@@ -160,7 +160,7 @@ function QuestionnaireUser({
                           <label>
                             <input
                               type="radio"
-                              name={UserFormFieldName.fitnessLevel}
+                              name={UserFormFieldName.FitnessLevel}
                               value={item}
                               checked={fitnessLevel === item}
                               onChange={handleFitnessLevelChange}
@@ -184,7 +184,7 @@ function QuestionnaireUser({
                           <span className="custom-input__wrapper">
                             <input
                               type="number"
-                              name={UserFormFieldName.caloriesTotal}
+                              name={UserFormFieldName.CaloriesTotal}
                               min={CaloriesAmount.Min}
                               max={CaloriesAmount.Max}
                               onChange={handleInputChange}
@@ -194,7 +194,7 @@ function QuestionnaireUser({
                           </span>
                         </label>
                       </div>
-                      {isEmptyShown && !sportsmanInfo[UserFormFieldName.caloriesTotal] && (
+                      {isEmptyShown && !sportsmanInfo[UserFormFieldName.CaloriesTotal] && (
                         <InputErrorField />
                       )}
                     </div>
@@ -207,7 +207,7 @@ function QuestionnaireUser({
                           <span className="custom-input__wrapper">
                             <input
                               type="number"
-                              name={UserFormFieldName.caloriesPerDay}
+                              name={UserFormFieldName.CaloriesPerDay}
                               min={CaloriesAmount.Min}
                               max={CaloriesAmount.Max}
                               required
@@ -219,7 +219,7 @@ function QuestionnaireUser({
                       </div>
                     </div>
                   </div>
-                  {isEmptyShown && !sportsmanInfo[UserFormFieldName.caloriesPerDay] && (
+                  {isEmptyShown && !sportsmanInfo[UserFormFieldName.CaloriesPerDay] && (
                     <InputErrorField />
                   )}
                 </div>

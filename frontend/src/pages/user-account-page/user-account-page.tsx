@@ -1,7 +1,15 @@
+import { Link } from 'react-router-dom';
+import AdvertisementThumbnail from '../../components/advertisement-thumbnail/advertisement-thumbnail';
 import Header from '../../components/header/header';
 import UserInfo from '../../components/user-info/user-info';
+import { AppRoute } from '../../utils/constant';
+import { useAppSelector } from '../../hooks';
+import { getUserData } from '../../store/user-data/selectors';
 
 function UserAccountPage(): JSX.Element {
+  const userInfo = useAppSelector(getUserData);
+  const caloriesPerDay = userInfo?.sportsmanInfo?.caloriesPerDay;
+  const caloriesPerWeek = caloriesPerDay && caloriesPerDay * 7;
   return (
     <div className="wrapper">
       <Header />
@@ -24,7 +32,8 @@ function UserAccountPage(): JSX.Element {
                             <input
                               type="text"
                               name="schedule-for-the-day"
-                              value="3 300"
+                              defaultValue={caloriesPerDay}
+                              disabled
                             />
                           </label>
                         </div>
@@ -36,7 +45,8 @@ function UserAccountPage(): JSX.Element {
                             <input
                               type="text"
                               name="schedule-for-the-week"
-                              value="23 100"
+                              defaultValue={caloriesPerWeek}
+                              disabled
                             />
                           </label>
                         </div>
@@ -44,9 +54,9 @@ function UserAccountPage(): JSX.Element {
                     </form>
                   </div>
                   <div className="personal-account-user__additional-info">
-                    <a
+                    <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      href="/"
+                      to={AppRoute.UserFriends}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
@@ -54,10 +64,10 @@ function UserAccountPage(): JSX.Element {
                         </svg>
                       </div>
                       <span className="thumbnail-link__text">Мои друзья</span>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      href="/"
+                      to={AppRoute.Purchases}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
@@ -65,32 +75,8 @@ function UserAccountPage(): JSX.Element {
                         </svg>
                       </div>
                       <span className="thumbnail-link__text">Мои покупки</span>
-                    </a>
-                    <div className="thumbnail-spec-gym">
-                      <div className="thumbnail-spec-gym__image">
-                        <picture>
-                          <source
-                            type="image/webp"
-                            srcSet="img/content/thumbnails/nearest-gym-01.webp, img/content/thumbnails/nearest-gym-01@2x.webp 2x"
-                          />
-                          <img
-                            src="img/content/thumbnails/nearest-gym-01.jpg"
-                            srcSet="img/content/thumbnails/nearest-gym-01@2x.jpg 2x"
-                            width="330"
-                            height="190"
-                            alt=""
-                          />
-                        </picture>
-                      </div>
-                      <div
-                        className="thumbnail-spec-gym__header"
-                        style={{ alignItems: 'center' }}
-                      >
-                        <h3 className="thumbnail-spec-gym__title">
-                          Скоро тут появится что-то полезное
-                        </h3>
-                      </div>
-                    </div>
+                    </Link>
+                    <AdvertisementThumbnail/>
                   </div>
                 </div>
               </div>

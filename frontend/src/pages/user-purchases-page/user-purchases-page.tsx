@@ -1,3 +1,4 @@
+import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import WorkoutListCard from '../../components/workout-card/workout-list-card';
@@ -10,12 +11,7 @@ function UserPurchasesPage(): JSX.Element {
         <section className="my-purchases">
           <div className="container">
             <div className="my-purchases__wrapper">
-              <button className="btn-flat my-purchases__back" type="button">
-                <svg width="14" height="10" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg>
-                <span>Назад</span>
-              </button>
+              <BackButton/>
               <div className="my-purchases__title-wrapper">
                 <h1 className="my-purchases__title">Мои покупки</h1>
                 <div className="my-purchases__controls">

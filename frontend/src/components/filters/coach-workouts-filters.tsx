@@ -1,17 +1,11 @@
+import BackButton from '../back-button/back-button';
+
 function CoachWorkoutsFilters(): JSX.Element {
   return (
     <div className="my-training-form">
       <h2 className="visually-hidden">Мои тренировки Фильтр</h2>
       <div className="my-training-form__wrapper">
-        <button
-          className="btn-flat btn-flat--underlined my-training-form__btnback"
-          type="button"
-        >
-          <svg width="14" height="10" aria-hidden="true">
-            <use xlinkHref="#arrow-left"></use>
-          </svg>
-          <span>Назад</span>
-        </button>
+        <BackButton/>
         <h3 className="my-training-form__title">фильтры</h3>
         <form className="my-training-form__form">
           <div className="my-training-form__block my-training-form__block--price">

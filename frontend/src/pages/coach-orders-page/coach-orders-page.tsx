@@ -1,3 +1,4 @@
+import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import WorkoutOrdersCard from '../../components/workout-card/workout-orders-card';
@@ -10,15 +11,7 @@ function CoachOrdersPage(): JSX.Element {
         <section className="my-orders">
           <div className="container">
             <div className="my-orders__wrapper">
-              <button
-                className="btn-flat btn-flat--underlined my-orders__back"
-                type="button"
-              >
-                <svg width="14" height="10" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg>
-                <span>Назад</span>
-              </button>
+              <BackButton/>
               <div className="my-orders__title-wrapper">
                 <h1 className="my-orders__title">Мои заказы</h1>
                 <div className="sort-for">
