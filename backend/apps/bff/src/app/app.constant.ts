@@ -35,6 +35,7 @@ export const FileType = {
 
 export const UserMessages = {
   NotFound : 'User is not found',
+  UserUpdate : 'User updated',
   InvalidData: 'Data is invalid',
   Register : "User registered successfully",
   Login: "Login successfull",

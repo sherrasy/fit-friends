@@ -3,8 +3,15 @@ import AdvertisementThumbnail from '../../components/advertisement-thumbnail/adv
 import Header from '../../components/header/header';
 import UserInfo from '../../components/user-info/user-info';
 import { AppRoute } from '../../utils/constant';
+import { getUserLoadingStatus } from '../../store/user-data/selectors';
+import { useAppSelector } from '../../hooks';
+import Loader from '../../components/loader/loader';
 
 function CoachAccountPage(): JSX.Element {
+  const isLoading = useAppSelector(getUserLoadingStatus);
+  if(isLoading){
+    return <Loader/>;
+  }
   return (
     <div className="wrapper">
       <Header />

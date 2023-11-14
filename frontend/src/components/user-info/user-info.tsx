@@ -1,5 +1,5 @@
-import { ChangeEvent, useLayoutEffect, useState } from 'react';
-import { useAppSelector } from '../../hooks';
+import { ChangeEvent, FormEvent, useLayoutEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getUserData } from '../../store/user-data/selectors';
 import {
   DefaultParam,
@@ -21,8 +21,11 @@ import { UserSex } from '../../types/user-sex.enum';
 import { FitnessLevel } from '../../types/fitness-level.enum';
 import { WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
 import { toast } from 'react-toastify';
+import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
+import { updateUser } from '../../store/user-data/api-actions';
 
 function UserInfo(): JSX.Element {
+  const dispatch = useAppDispatch();
   const userInfo = useAppSelector(getUserData);
   const [isEditing, setIsEditing] = useState(DefaultParam.Status);
   const [readyStatus, setReadyStatus] = useState(DefaultParam.Status);
@@ -46,6 +49,7 @@ function UserInfo(): JSX.Element {
   if (!userInfo || !formData) {
     return <Loader />;
   }
+  const handleSubmitData = (data: UpdateUserDto) => dispatch(updateUser(data));
 
   const handleFormButtonClick = () => {
     setIsEditing((prev) => !prev);
@@ -55,27 +59,32 @@ function UserInfo(): JSX.Element {
     setIsOpened(name);
   };
 
-  const handleSelectChange = (item: Location|UserSex|FitnessLevel, name:string) => {
-    setFormData({ ...formData, [name]:item });
+  const handleSelectChange = (
+    item: Location | UserSex | FitnessLevel,
+    name: string
+  ) => {
+    setFormData({ ...formData, [name]: item });
     setIsOpened('');
   };
 
-  const handleTextFieldChange = (evt: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
+  const handleTextFieldChange = (
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = evt.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleStatusChange = (status:boolean) => {
-    setReadyStatus((prev)=>!prev);
-    switch (userInfo.role){
-      case UserRole.Coach:{
-        const coachInfo = {...formData.coachInfo, isPersonal: status};
-        setFormData({ ...formData, coachInfo});
+  const handleStatusChange = (status: boolean) => {
+    setReadyStatus((prev) => !prev);
+    switch (userInfo.role) {
+      case UserRole.Coach: {
+        const coachInfo = { ...formData.coachInfo, isPersonal: status };
+        setFormData({ ...formData, coachInfo });
         break;
       }
-      case UserRole.Sportsman:{
-        const sportsmanInfo = {...formData.sportsmanInfo, isReady: status};
-        setFormData({ ...formData, sportsmanInfo});
+      case UserRole.Sportsman: {
+        const sportsmanInfo = { ...formData.sportsmanInfo, isReady: status };
+        setFormData({ ...formData, sportsmanInfo });
         break;
       }
     }
@@ -99,6 +108,15 @@ function UserInfo(): JSX.Element {
     setFormData({ ...formData, workoutType: types });
   };
 
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const isValid =
+      formData.name !== '' && formData.workoutType.length > DefaultParam.Amount;
+    if (isValid) {
+      handleSubmitData(formData);
+      setIsEditing(false);
+    }
+  };
   return (
     <section className="user-info">
       <div className="user-info__header">
@@ -122,18 +140,39 @@ function UserInfo(): JSX.Element {
           </label>
         </div>
       </div>
-      <form className="user-info__form" action="#" method="post">
-        <button
-          className="btn-flat btn-flat--underlined user-info__edit-button"
-          type="button"
-          aria-label={isEditing ? 'Сохранить' : 'Редактировать'}
-          onClick={handleFormButtonClick}
-        >
-          <svg width="12" height="12" aria-hidden="true">
-            <use xlinkHref="#icon-edit"></use>
-          </svg>
-          <span>{isEditing ? 'Сохранить' : 'Редактировать'}</span>
-        </button>
+      <form
+        className="user-info__form"
+        action="/"
+        method="post"
+        onSubmit={handleFormSubmit}
+      >
+        {isEditing && (
+          <button
+            className="btn-flat btn-flat--underlined user-info__edit-button"
+            type="submit"
+            aria-label="Сохранить"
+          >
+            <svg width="12" height="12" aria-hidden="true">
+              <use xlinkHref="#icon-edit"></use>
+            </svg>
+            <span>Сохранить</span>
+          </button>
+        ) }
+        {!isEditing && (
+          <button
+            className="btn-flat btn-flat--underlined user-info__edit-button"
+            type="button"
+            aria-label="Редактировать"
+            onClick={handleFormButtonClick}
+          >
+            {' '}
+            <svg width="12" height="12" aria-hidden="true">
+              <use xlinkHref="#icon-edit"></use>
+            </svg>
+            <span>Редактировать</span>
+          </button>
+        )}
+
         <div className="user-info__section">
           <h2 className="user-info__title">Обо мне</h2>
           <div className="custom-input custom-input--readonly user-info__input">
@@ -158,8 +197,8 @@ function UserInfo(): JSX.Element {
                 onBlur={handleTextFieldChange}
                 placeholder=" "
                 disabled={!isEditing}
+                defaultValue={formData.description}
               >
-                {formData.description}
               </textarea>
             </label>
           </div>
@@ -172,7 +211,7 @@ function UserInfo(): JSX.Element {
                 type="checkbox"
                 name="ready-for-training"
                 checked={readyStatus}
-                onChange={()=>handleStatusChange(!readyStatus)}
+                onChange={() => handleStatusChange(!readyStatus)}
                 disabled={!isEditing}
               />
               <span className="custom-toggle__icon">
@@ -202,9 +241,7 @@ function UserInfo(): JSX.Element {
                     name="specialization"
                     value={item}
                     onChange={handleWorkoutTypesChange}
-                    checked={
-                      formData.workoutType.includes(item)
-                    }
+                    checked={formData.workoutType.includes(item)}
                     disabled={!isEditing}
                   />
                   <span className="btn-checkbox__btn">
@@ -219,7 +256,11 @@ function UserInfo(): JSX.Element {
           className={`${
             !isEditing ? 'custom-select--readonly' : ''
           } custom-select
-        ${ isOpened === UserFormFieldName.Location ? 'is-open' : 'custom-select--not-selected' }
+        ${
+    isOpened === UserFormFieldName.Location
+      ? 'is-open'
+      : 'custom-select--not-selected'
+    }
         user-info${isEditing ? '-edit' : ''}__select`}
         >
           <span className="custom-select__label">Локация</span>
@@ -251,17 +292,23 @@ function UserInfo(): JSX.Element {
                 className="custom-select__item"
                 aria-selected={item === formData.location}
                 value={item}
-                onClick={() => handleSelectChange(item, UserFormFieldName.Location)}
+                onClick={() =>
+                  handleSelectChange(item, UserFormFieldName.Location)}
               >
                 {LocationToName[item]}
               </li>
             ))}
           </ul>
         </div>
-        <div className={`${
-          !isEditing ? 'custom-select--readonly' : ''
-        } custom-select
-        ${ isOpened === UserFormFieldName.Sex ? 'is-open' : 'custom-select--not-selected' }
+        <div
+          className={`${
+            !isEditing ? 'custom-select--readonly' : ''
+          } custom-select
+        ${
+    isOpened === UserFormFieldName.Sex
+      ? 'is-open'
+      : 'custom-select--not-selected'
+    }
         user-info${isEditing ? '-edit' : ''}__select`}
         >
           <span className="custom-select__label">Пол</span>
@@ -298,10 +345,15 @@ function UserInfo(): JSX.Element {
             ))}
           </ul>
         </div>
-        <div className={`${
-          !isEditing ? 'custom-select--readonly' : ''
-        } custom-select
-        ${ isOpened === UserFormFieldName.FitnessLevel ? 'is-open' : 'custom-select--not-selected' }
+        <div
+          className={`${
+            !isEditing ? 'custom-select--readonly' : ''
+          } custom-select
+        ${
+    isOpened === UserFormFieldName.FitnessLevel
+      ? 'is-open'
+      : 'custom-select--not-selected'
+    }
         user-info${isEditing ? '-edit' : ''}__select`}
         >
           <span className="custom-select__label">Уровень</span>
@@ -312,7 +364,8 @@ function UserInfo(): JSX.Element {
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            onClick={() => handleToggleButtonClick(UserFormFieldName.FitnessLevel)}
+            onClick={() =>
+              handleToggleButtonClick(UserFormFieldName.FitnessLevel)}
             disabled={!isEditing}
           >
             <span className="custom-select__text"></span>
@@ -331,7 +384,8 @@ function UserInfo(): JSX.Element {
                 className="custom-select__item"
                 aria-selected={item === formData.fitnessLevel}
                 value={item}
-                onClick={() => handleSelectChange(item, UserFormFieldName.FitnessLevel)}
+                onClick={() =>
+                  handleSelectChange(item, UserFormFieldName.FitnessLevel)}
               >
                 {FitnessLevelToName[item]}
               </li>

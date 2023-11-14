@@ -11,6 +11,7 @@ export const UserInfoError = {
 export const UserInfoMessage = {
   UserFound: 'User data found',
   UserList: 'User list is showing',
+  UserUpdated: 'User updated successfully',
   AvatarAdded: "Avatar added successfully",
   PhotoAdded: "Photo added successfully"
 } as const;

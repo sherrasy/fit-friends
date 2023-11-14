@@ -36,12 +36,16 @@ export const ActionName = {
   Login: 'login',
   Register: 'register',
   Redirect: 'app/redirectToRoute',
+  FetchUser: 'fetch-user',
+  UpdateUser: 'update-user',
 } as const;
 
 export const ApiRoute = {
   Login: '/users/login',
   CheckLogin: '/users/check-login',
   Register: '/users/register',
+  UsersMain: '/users',
+  UpdateUser: '/users/update',
 } as const;
 
 export const ApiConnectParam = {

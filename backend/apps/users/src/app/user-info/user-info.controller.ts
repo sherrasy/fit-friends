@@ -12,7 +12,8 @@ import {
   Req,
   UseGuards,
   UseInterceptors,
-  Body
+  Body,
+  Patch
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { NotifyService } from '../notify/notify.service';
@@ -24,6 +25,7 @@ import {
   UserInfoPath,
 } from './user-info.constant';
 import { UserInfoService } from './user-info.service';
+import { UpdateUserDto } from '@backend/shared/shared-dto';
 
 @ApiTags(API_TAG_NAME)
 @Controller(UserInfoPath.Main)
@@ -78,6 +80,17 @@ export class UserInfoController {
     const { email } = user;
     await this.userInfoService.checkCoach(id);
     await this.notifyService.updateSubscriber({ email, coach: id });
+  }
+
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:UserInfoMessage.UserUpdated
+  })
+  @UseGuards(JwtAuthGuard)
+  @Patch(UserInfoPath.Update)
+  public async updateUser(@Req() { user }: RequestWithUserPayload, @Body() dto:UpdateUserDto) {
+    return this.userInfoService.updateUser(user.sub, dto);
   }
 
   @ApiResponse({

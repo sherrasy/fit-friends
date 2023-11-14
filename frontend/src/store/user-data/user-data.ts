@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, ReducerName } from '../../utils/constant';
 import { UserState } from '../../types/state.type';
-import { checkAuth, login } from './api-actions';
+import { checkAuth, fetchUser, login, updateUser } from './api-actions';
 import { NewUserGeneral, User } from '../../types/user.interface';
 
 const initialState:UserState = {
@@ -10,6 +10,8 @@ const initialState:UserState = {
   role: null,
   userData:null,
   newUserData:null,
+  isUserLoading:false,
+  isUserUpdating:false,
 };
 
 
@@ -45,6 +47,26 @@ export const userData = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
+      })
+      .addCase(fetchUser.pending, (state) => {
+        state.isUserLoading = true;
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.userData = action.payload;
+        state.isUserLoading = false;
+      })
+      .addCase(fetchUser.rejected, (state) => {
+        state.isUserLoading = false;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isUserUpdating = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.userData = action.payload;
+        state.isUserUpdating = false;
+      })
+      .addCase(updateUser.rejected, (state) => {
+        state.isUserUpdating = false;
       });
   }
 });

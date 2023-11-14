@@ -13,4 +13,6 @@ export type UserState = {
   role:UserRole|null;
   userData:User|null;
   newUserData:NewUserGeneral|null;
+  isUserLoading:boolean;
+  isUserUpdating:boolean;
  }

@@ -13,6 +13,7 @@ import { User } from '../../types/user.interface';
 import { jwtDecode } from 'jwt-decode';
 import { UserRole } from '../../types/user-role.enum';
 import { setUserData } from './user-data';
+import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -46,7 +47,7 @@ export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
       const {data :  { accessToken }} = await api.post<TokenData>(ApiRoute.Login, authData);
       saveToken(accessToken);
       const userInfo:TokenPayloadData = jwtDecode(accessToken);
-
+      dispatch(fetchUser(userInfo.sub));
       if(userInfo.role === UserRole.Coach) {
         dispatch(redirectToRoute(AppRoute.CoachAccount));
       }
@@ -85,6 +86,46 @@ export const register = createAsyncThunk<void, CreateUserDto, {
     catch(error){
       const axiosError = error as AxiosError;
       toast.error(axiosError.message, {toastId:ActionName.Register});
+    }
+  },
+);
+
+export const fetchUser = createAsyncThunk<User, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.FetchUser}`,
+  async (id, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
+      return data;
+    }
+    catch(error){
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.response?.statusText, {toastId:ActionName.FetchUser});
+      return Promise.reject(error);
+
+    }
+  },
+);
+
+export const updateUser = createAsyncThunk<User, UpdateUserDto, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.UpdateUser}`,
+  async (dto, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.patch<User>(ApiRoute.UpdateUser, dto);
+      return data;
+    }
+    catch(error){
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.response?.statusText, {toastId:ActionName.UpdateUser});
+      return Promise.reject(error);
+
     }
   },
 );

@@ -1,4 +1,5 @@
 import { FitnessLevel } from '../../../types/fitness-level.enum';
+import { Location } from '../../../types/location.enum';
 import { UserSex } from '../../../types/user-sex.enum';
 import { WorkoutType } from '../../../types/workout-type.enum';
 import { UpdateCoachDto } from './update-coach.dto';
@@ -19,7 +20,7 @@ export class UpdateUserDto {
 
   public workoutType?: WorkoutType[];
 
-  public sportsmanInfo?: UpdateSportsmanDto;
+  public sportsmanInfo?: UpdateSportsmanDto|null;
 
-  public coachInfo?: UpdateCoachDto;
+  public coachInfo?: UpdateCoachDto | null;
 }

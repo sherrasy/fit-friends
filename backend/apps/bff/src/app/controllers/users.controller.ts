@@ -1,9 +1,9 @@
-import { Body, Req, Get, Param, Controller, Post, UseFilters, UseGuards,  UseInterceptors, HttpStatus, UploadedFile } from '@nestjs/common';
+import { Body, Req, Get, Param, Controller, Post, UseFilters, UseGuards,  UseInterceptors, HttpStatus, UploadedFile, Patch } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
 import { AppPath, ControllerName, FileType, UserMessages } from '../app.constant';
-import { CreateUserDto, LoginUserDto } from '@backend/shared/shared-dto';
+import { CreateUserDto, LoginUserDto, UpdateUserDto } from '@backend/shared/shared-dto';
 import 'multer';
 import FormData from 'form-data'
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -146,6 +146,21 @@ export class UsersController {
       }
     });
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.UserPhoto}`, {photoId:photoData.id}, {
+      headers: {
+        'Authorization': req.headers['authorization']
+      }
+    });
+    return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:UserMessages.UserUpdate
+  })
+  @UseGuards(CheckAuthGuard)
+  @Patch(`${AppPath.Update}`)
+  public async updateUser(@Req() req: Request, @Body() dto:UpdateUserDto) {
+    const { data } = await this.httpService.axiosRef.patch(`${ApplicationServiceURL.UserInfo}/${AppPath.Update}`, dto, {
       headers: {
         'Authorization': req.headers['authorization']
       }
