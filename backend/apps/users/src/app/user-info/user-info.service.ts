@@ -43,4 +43,16 @@ export class UserInfoService {
     }
     return;
   }
+
+  public async updateAvatar (id:number, avatarId:string){
+    const user = await this.findById(id);
+    const userEntity = new UserInfoEntity({...user, avatar:avatarId});
+    return this.userInfoRepository.update(id, userEntity);
+  }
+
+  public async updatePhoto (id:number, photoId:string){
+    const user = await this.findById(id);
+    const userEntity = new UserInfoEntity({...user, photo:photoId});
+    return this.userInfoRepository.update(id, userEntity);
+  }
 }

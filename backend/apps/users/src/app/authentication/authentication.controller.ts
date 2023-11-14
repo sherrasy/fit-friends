@@ -84,6 +84,12 @@ export class AuthenticationController {
     return payload;
   }
 
+  @UseGuards(CheckJwtAuthGuard)
+  @Post(AuthPath.CheckAuth)
+  public async checkAuthorized(@Req() { user: payload }: RequestWithUserPayload) {
+    return payload;
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post(AuthPath.Revoke)
   @HttpCode(HttpStatus.NO_CONTENT)
