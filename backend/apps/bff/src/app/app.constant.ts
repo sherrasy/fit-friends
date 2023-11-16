@@ -11,6 +11,7 @@ export const AppPath = {
   Check: 'check',
   CheckAuth: 'check-auth',
   CheckLogin: 'check-login',
+  CheckEmail: 'check-email',
   Revoke: 'revoke',
   Show: 'show',
   Id: ':id',

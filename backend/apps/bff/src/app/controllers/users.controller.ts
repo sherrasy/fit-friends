@@ -158,7 +158,7 @@ export class UsersController {
     description:UserMessages.UserUpdate
   })
   @UseGuards(CheckAuthGuard)
-  @Patch(`${AppPath.Update}`)
+  @Patch(AppPath.Update)
   public async updateUser(@Req() req: Request, @Body() dto:UpdateUserDto) {
     const { data } = await this.httpService.axiosRef.patch(`${ApplicationServiceURL.UserInfo}/${AppPath.Update}`, dto, {
       headers: {
@@ -168,4 +168,9 @@ export class UsersController {
     return data;
   }
 
+  @Post(AppPath.CheckEmail)
+public async checkEmail(@Body() email: string) {
+  const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/${AppPath.CheckEmail}`, email);
+  return data;
+}
 }

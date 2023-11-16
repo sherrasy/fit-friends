@@ -33,6 +33,7 @@ export const ReducerName = {
 
 export const ActionName = {
   CheckAuth: 'checkAuth',
+  CheckEmail: 'checkEmail',
   Login: 'login',
   Register: 'register',
   Redirect: 'app/redirectToRoute',
@@ -43,6 +44,7 @@ export const ActionName = {
 export const ApiRoute = {
   Login: '/users/login',
   CheckLogin: '/users/check-login',
+  CheckEmail: '/users/check-email',
   Register: '/users/register',
   UsersMain: '/users',
   UpdateUser: '/users/update',
@@ -76,6 +78,7 @@ export const UserFormFieldName = {
 
 export const UserFormError = {
   InvalidTypesLength:'Нельзя выбрать больше трех типов тренировок',
+  InvalidEmail:'Этот email уже используется',
   RegistrationFailed:'Возникла ошибка регистрации. Проверьте введенные данные и попробуйте снова.',
   LoginFailed: 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова.',
 } as const;

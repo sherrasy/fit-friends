@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useLayoutEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getUserData } from '../../store/user-data/selectors';
+import { getUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -27,6 +27,7 @@ import { updateUser } from '../../store/user-data/api-actions';
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector(getUserData);
+  const isUpdating = useAppSelector(getUserUpdatingStatus);
   const [isEditing, setIsEditing] = useState(DefaultParam.Status);
   const [readyStatus, setReadyStatus] = useState(DefaultParam.Status);
   const [formData, setFormData] = useState<UserInfoInterface | null>(null);
@@ -38,7 +39,7 @@ function UserInfo(): JSX.Element {
 
       const { role, sportsmanInfo, coachInfo } = userInfo;
       if (role === UserRole.Coach && coachInfo?.isPersonal) {
-        setReadyStatus(coachInfo?.isPersonal);
+        setReadyStatus(coachInfo.isPersonal);
       }
       if (role === UserRole.Sportsman && sportsmanInfo?.isReady) {
         setReadyStatus(sportsmanInfo.isReady);
@@ -49,7 +50,7 @@ function UserInfo(): JSX.Element {
   if (!userInfo || !formData) {
     return <Loader />;
   }
-  const handleSubmitData = (data: UpdateUserDto) => dispatch(updateUser(data));
+  const handleSubmitData = (data: UpdateUserDto) => data !== userInfo && dispatch(updateUser(data));
 
   const handleFormButtonClick = () => {
     setIsEditing((prev) => !prev);
@@ -164,6 +165,7 @@ function UserInfo(): JSX.Element {
             type="button"
             aria-label="Редактировать"
             onClick={handleFormButtonClick}
+            disabled={isUpdating}
           >
             {' '}
             <svg width="12" height="12" aria-hidden="true">

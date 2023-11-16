@@ -36,6 +36,19 @@ export const checkAuth = createAsyncThunk<User, undefined, {
   }
 );
 
+export const checkEmail = createAsyncThunk<boolean, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.CheckEmail}`,
+  async (email, {extra: api}) => {
+    const {data} = await api.post<User>(ApiRoute.CheckEmail, email);
+    return !!data;
+  }
+);
+
+
 export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
   dispatch: AppDispatch;
   state: State;

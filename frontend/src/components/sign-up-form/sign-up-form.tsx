@@ -14,11 +14,14 @@ import {
   PasswordLength,
   ValidationPattern,
 } from '../../utils/validation.constant';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import InputErrorField from '../input-error-field/input-error-field';
 import { createNewUser } from '../../store/user-data/user-data';
 import { NewUserGeneral } from '../../types/user.interface';
 import { checkValidity } from '../../utils/helpers';
+import { checkEmail } from '../../store/user-data/api-actions';
+import { getEmailExistsStatus } from '../../store/user-data/selectors';
+import { toast } from 'react-toastify';
 
 function SignUpForm(): JSX.Element {
   const signUpDataDefault = {
@@ -31,6 +34,7 @@ function SignUpForm(): JSX.Element {
     role: UserRole.Sportsman,
   };
   const dispatch = useAppDispatch();
+  const isEmailExists = useAppSelector(getEmailExistsStatus);
   const [formData, setFormData] = useState(signUpDataDefault);
   const [isAgreed, setIsAgreed] = useState(false);
   const [isEmptyShown, SetIsEmptyShown] = useState(false);
@@ -45,8 +49,15 @@ function SignUpForm(): JSX.Element {
     setIsAgreed((prev) => !prev);
   };
 
+  const handleCheckEmail = (email:string) => {
+    dispatch(checkEmail(email));
+    };
+
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
+    if(name === UserFormFieldName.Email){
+      handleCheckEmail(value);
+    }
     setFormData({ ...formData, [name]: value });
   };
 
@@ -69,7 +80,11 @@ function SignUpForm(): JSX.Element {
     }
     const isMissingData = Object.values(formData).some((item) => item === '');
     SetIsEmptyShown(isMissingData);
-    const isEmailValid = checkValidity(formData.email, ValidationPattern.Email);
+    const isEmailValid = checkValidity(formData.email, ValidationPattern.Email) && !isEmailExists;
+    if(isEmailExists){
+      toast.warn(UserFormError.InvalidEmail);
+      return false;
+    }
     const isPasswordValid = checkValidity(
       formData.password,
       ValidationPattern.Password

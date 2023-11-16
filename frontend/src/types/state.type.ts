@@ -15,4 +15,5 @@ export type UserState = {
   newUserData:NewUserGeneral|null;
   isUserLoading:boolean;
   isUserUpdating:boolean;
+  isEmailExists:boolean;
  }

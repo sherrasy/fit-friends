@@ -9,4 +9,6 @@ export const getUserData = (state: State): User|null => state[ReducerName.User].
 export const getUserRole = (state: State): UserRole|null => state[ReducerName.User].role;
 export const getUserId = (state: State): number|null => state[ReducerName.User].userId;
 export const getUserLoadingStatus = (state: State): boolean => state[ReducerName.User].isUserLoading;
+export const getUserUpdatingStatus = (state: State): boolean => state[ReducerName.User].isUserUpdating;
+export const getEmailExistsStatus = (state: State): boolean => state[ReducerName.User].isEmailExists;
 export const getNewUserData = (state: State): NewUserGeneral|null => state[ReducerName.User].newUserData;
