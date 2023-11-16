@@ -131,3 +131,12 @@ export const DefaultParam = {
   Amount: 0,
   Status: false,
 };
+
+
+export const FileTypeName = {
+  Avatar: 'avatar',
+  UserPhoto: 'user-photo',
+  WorkoutPhoto: 'workout-photo',
+  Certificate: 'certificate',
+  Video: 'video',
+} as const;

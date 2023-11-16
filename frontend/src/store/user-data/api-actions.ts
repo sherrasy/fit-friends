@@ -15,6 +15,7 @@ import { UserRole } from '../../types/user-role.enum';
 import { setUserData } from './user-data';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { FileType } from '../../types/file.type';
+import { adaptAvatarToServer } from '../../utils/adapters/adaptersToServer';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -89,12 +90,12 @@ export const register = createAsyncThunk<void, CreateUserDto & FileType, {
       const {data: {accessToken}} = await api.post<TokenData>(ApiRoute.Login, {email: userData.email, password: userData.password});
       saveToken(accessToken);
       const authInfo:TokenPayloadData = jwtDecode(accessToken);
-      // if(newUser && userData.avatarFile?.name){
-      //   const {data} = await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(userData.avatarFile) );
-      //   dispatch(setUserData({...data, id:authInfo.sub}));
-      // } else {
-      dispatch(setUserData({...newUser, id:authInfo.sub}));
-      // }
+      if(newUser && userData.avatarFile?.name){
+        const {data} = await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(userData.avatarFile) );
+        dispatch(setUserData({...data, id:authInfo.sub}));
+      } else {
+        dispatch(setUserData({...newUser, id:authInfo.sub}));
+      }
 
       if(newUser.role === UserRole.Coach) {
         dispatch(redirectToRoute(AppRoute.CoachAccount));
