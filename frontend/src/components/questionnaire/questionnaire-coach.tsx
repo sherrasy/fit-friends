@@ -18,9 +18,10 @@ import InputErrorField from '../input-error-field/input-error-field';
 
 type QuestionnaireCoachProps = {
   newUserData:NewUserGeneral;
+  avatarFile: File | undefined;
 }
 
-function QuestionnaireCoach({newUserData}:QuestionnaireCoachProps): JSX.Element {
+function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>([]);
   const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);

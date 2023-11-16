@@ -15,14 +15,14 @@ export class EmailSubscriberService {
 
   public async addSubscriber(subscriber: CreateSubscriberDto) {
     const { email } = subscriber;
-    const existsSubscriber = await this.getSubscriber(email);
+    const existsSubscriber = await this.emailSubscriberRepository.findByEmail(email);
 
     if (existsSubscriber) {
       return existsSubscriber;
     }
 
     const subscriberData = { ...subscriber, dateNotify: dayjs().toISOString() };
-    return this.emailSubscriberRepository.create(
+    return await this.emailSubscriberRepository.create(
       new EmailSubscriberEntity(subscriberData)
     );
   }

@@ -23,10 +23,11 @@ import InputErrorField from '../input-error-field/input-error-field';
 
 type QuestionnaireUserProps = {
   newUserData: NewUserGeneral;
+  avatarFile: File | undefined;
 };
 
 function QuestionnaireUser({
-  newUserData,
+  newUserData,avatarFile
 }: QuestionnaireUserProps): JSX.Element {
   const sportsmanInfoDefault = {
     isReady: DefaultParam.Status,
@@ -40,7 +41,7 @@ function QuestionnaireUser({
   const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);
   const [isEmptyShown, SetIsEmptyShown] = useState(DefaultParam.Status);
 
-  const handleSubmitData = (data: CreateUserDto) => dispatch(register(data));
+  const handleSubmitData = (data: CreateUserDto) => dispatch(register({...data, avatarFile}));
 
   const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value as WorkoutType;

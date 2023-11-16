@@ -1,12 +1,22 @@
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import SignUpForm from '../../components/sign-up-form/sign-up-form';
 import { getNewUserData } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/user-role.enum';
 import QuestionnaireUser from '../../components/questionnaire/questionnaire-user';
 import QuestionnaireCoach from '../../components/questionnaire/questionnaire-coach';
+import { createNewUser } from '../../store/user-data/user-data';
+import { NewUserGeneral } from '../../types/user.interface';
+import { useState } from 'react';
 
 function SignUpPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const newUserData = useAppSelector(getNewUserData);
+
+  const [avatarFile, setAvatarFile] = useState<File>();
+  const handleSubmitData = (data: NewUserGeneral, file: File) => {
+    dispatch(createNewUser(data));
+    setAvatarFile(file);
+  };
   return (
     <div className="wrapper">
       <main>
@@ -28,9 +38,9 @@ function SignUpPage(): JSX.Element {
             <use xlinkHref="#icon-logotype"></use>
           </svg>
         </div>
-        {!newUserData && <SignUpForm/>}
-        {(newUserData && newUserData.role === UserRole.Sportsman) && <QuestionnaireUser newUserData={newUserData}/>}
-        {(newUserData && newUserData.role === UserRole.Coach) && <QuestionnaireCoach newUserData={newUserData}/>}
+        {!newUserData && <SignUpForm onSubmit = {handleSubmitData}/>}
+        {(newUserData && newUserData.role === UserRole.Sportsman) && <QuestionnaireUser newUserData={newUserData} avatarFile={avatarFile}/>}
+        {(newUserData && newUserData.role === UserRole.Coach) && <QuestionnaireCoach newUserData={newUserData} avatarFile={avatarFile}/>}
       </main>
     </div>
   );

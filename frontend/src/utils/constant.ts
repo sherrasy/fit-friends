@@ -48,6 +48,7 @@ export const ApiRoute = {
   Register: '/users/register',
   UsersMain: '/users',
   UpdateUser: '/users/update',
+  UploadAvatar: '/users/upload-avatar',
 } as const;
 
 export const ApiConnectParam = {
@@ -111,7 +112,7 @@ export const LocationToName = {
 export const WorkoutTypeToName = {
   yoga : 'йога',
   running : 'бег',
-  box : 'бокс',
+  boxing : 'бокс',
   stretching : 'стрейчинг',
   crossfit : 'кроссфит',
   aerobics : 'аэробика',

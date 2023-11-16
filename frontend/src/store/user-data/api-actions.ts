@@ -14,6 +14,7 @@ import { jwtDecode } from 'jwt-decode';
 import { UserRole } from '../../types/user-role.enum';
 import { setUserData } from './user-data';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
+import { FileType } from '../../types/file.type';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -43,7 +44,7 @@ export const checkEmail = createAsyncThunk<boolean, string, {
 }>(
   `${ReducerName.User}/${ActionName.CheckEmail}`,
   async (email, {extra: api}) => {
-    const {data} = await api.post<User>(ApiRoute.CheckEmail, email);
+    const {data} = await api.post<User>(ApiRoute.CheckEmail, {email});
     return !!data;
   }
 );
@@ -76,7 +77,7 @@ export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
   },
 );
 
-export const register = createAsyncThunk<void, CreateUserDto, {
+export const register = createAsyncThunk<void, CreateUserDto & FileType, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -84,11 +85,17 @@ export const register = createAsyncThunk<void, CreateUserDto, {
   `${ReducerName.User}/${ActionName.Register}`,
   async (userData, { dispatch, extra: api}) => {
     try{
-      const {data:newUser} = await api.post<CreateUserDto>(ApiRoute.Register, userData);
+      const {data:newUser} = await api.post<User>(ApiRoute.Register, userData);
       const {data: {accessToken}} = await api.post<TokenData>(ApiRoute.Login, {email: userData.email, password: userData.password});
       saveToken(accessToken);
       const authInfo:TokenPayloadData = jwtDecode(accessToken);
+      // if(newUser && userData.avatarFile?.name){
+      //   const {data} = await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(userData.avatarFile) );
+      //   dispatch(setUserData({...data, id:authInfo.sub}));
+      // } else {
       dispatch(setUserData({...newUser, id:authInfo.sub}));
+      // }
+
       if(newUser.role === UserRole.Coach) {
         dispatch(redirectToRoute(AppRoute.CoachAccount));
       }

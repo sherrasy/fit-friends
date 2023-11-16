@@ -114,11 +114,10 @@ export class UsersController {
   @UseInterceptors(FileInterceptor(FileType.Avatar))
   public async updateAvatar(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
     const formData = new FormData()
-    formData.append(FileType.Avatar, Buffer.from(file.buffer), file.originalname)
+    formData.append(FileType.Avatar, Buffer.from(file.buffer), {filename:file.originalname, contentType:file.mimetype})
     const { data:avatarData } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Avatar}`, formData, {
       headers: {
-        'Content-Type': req.headers['content-type'],
-        ...formData.getHeaders()
+        'Content-Type': 'multipart/form-data'
       }
     });
     const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Avatar}`, {avatarId:avatarData.id}, {
@@ -169,7 +168,7 @@ export class UsersController {
   }
 
   @Post(AppPath.CheckEmail)
-public async checkEmail(@Body() email: string) {
+public async checkEmail(@Body()  email:string) {
   const { data } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Users}/${AppPath.CheckEmail}`, email);
   return data;
 }
