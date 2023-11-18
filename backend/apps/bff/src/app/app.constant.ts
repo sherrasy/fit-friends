@@ -24,6 +24,7 @@ export const AppPath = {
   Notifications: 'notifications',
   Requests: 'requests',
   Friends: 'friends',
+  File: 'file',
 } as const;
 
 export const FileType = {

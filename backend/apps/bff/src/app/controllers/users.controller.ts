@@ -113,7 +113,6 @@ export class UsersController {
   @Post(`${AppPath.Upload}-${FileType.Avatar}`)
   @UseInterceptors(FileInterceptor(FileType.Avatar))
   public async updateAvatar(@Req() req: Request, @UploadedFile() file: Express.Multer.File) {
-    console.log(file)
     const formData = new FormData()
     formData.append(FileType.Avatar, Buffer.from(file.buffer), {filename:file.originalname, contentType:file.mimetype})
     const { data:avatarData } = await this.httpService.axiosRef.post(`${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Avatar}`, formData, {

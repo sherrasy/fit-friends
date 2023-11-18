@@ -44,12 +44,11 @@ export class FileService {
 
     await ensureDir(uploadDirectoryPath);
     await writeFile(destinationFile, file.buffer);
-
     return {
       hashName,
       fileExtension,
       subDirectory,
-      path: `/${subDirectory}/${hashName}`,
+      path: `/${subDirectory}/${type}/${hashName}`,
     };
   }
 

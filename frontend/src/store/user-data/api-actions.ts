@@ -16,6 +16,7 @@ import { setUserData } from './user-data';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { FileType } from '../../types/file.type';
 import { adaptAvatarToServer } from '../../utils/adapters/adaptersToServer';
+import { File } from '../../types/file.interface';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -27,7 +28,15 @@ export const checkAuth = createAsyncThunk<User, undefined, {
   async (_arg, {extra: api}) => {
     try{
       const {data} = await api.get<User>(ApiRoute.CheckLogin);
-      return data;
+      const userPhotos = {
+        avatar: data.avatar,
+        photo:data.photo,
+      };
+      if(data.avatar){
+        const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
+        userPhotos.avatar = avatar.path || '';
+      }
+      return {...data, ...userPhotos};
     }catch(error){
       const axiosError = error as AxiosError;
       if(axiosError.response?.status === StatusCodes.UNAUTHORIZED){
@@ -120,7 +129,15 @@ export const fetchUser = createAsyncThunk<User, number, {
   async (id, { dispatch, extra: api}) => {
     try{
       const {data} = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
-      return data;
+      const userPhotos = {
+        avatar: data.avatar,
+        photo:data.photo,
+      };
+      if(data.avatar){
+        const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
+        userPhotos.avatar = avatar.path || '';
+      }
+      return {...data, ...userPhotos};
     }
     catch(error){
       const axiosError = error as AxiosError;
@@ -131,7 +148,7 @@ export const fetchUser = createAsyncThunk<User, number, {
   },
 );
 
-export const updateUser = createAsyncThunk<User, UpdateUserDto, {
+export const updateUser = createAsyncThunk<User, UpdateUserDto & FileType, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -139,6 +156,9 @@ export const updateUser = createAsyncThunk<User, UpdateUserDto, {
   `${ReducerName.User}/${ActionName.UpdateUser}`,
   async (dto, { dispatch, extra: api}) => {
     try{
+      if( dto.avatarFile?.name){
+        await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(dto.avatarFile) );
+      }
       const {data} = await api.patch<User>(ApiRoute.UpdateUser, dto);
       return data;
     }
@@ -146,7 +166,6 @@ export const updateUser = createAsyncThunk<User, UpdateUserDto, {
       const axiosError = error as AxiosError;
       toast.error(axiosError.response?.statusText, {toastId:ActionName.UpdateUser});
       return Promise.reject(error);
-
     }
   },
 );

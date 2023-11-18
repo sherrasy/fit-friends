@@ -49,6 +49,7 @@ export const ApiRoute = {
   UsersMain: '/users',
   UpdateUser: '/users/update',
   UploadAvatar: '/users/upload-avatar',
+  File: '/uploads/file',
 } as const;
 
 export const ApiConnectParam = {
