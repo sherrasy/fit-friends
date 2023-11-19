@@ -12,7 +12,7 @@ function CoachWorkoutsFilters(): JSX.Element {
             <h4 className="my-training-form__block-title">Цена, ₽</h4>
             <div className="filter-price">
               <div className="filter-price__input-text filter-price__input-text--min">
-                <input type="number" id="text-min" name="text-min" value="0" />
+                <input type="number" id="text-min" name="text-min" defaultValue="0" />
                 <label htmlFor="text-min">от</label>
               </div>
               <div className="filter-price__input-text filter-price__input-text--max">
@@ -20,7 +20,7 @@ function CoachWorkoutsFilters(): JSX.Element {
                   type="number"
                   id="text-max"
                   name="text-max"
-                  value="3200"
+                  defaultValue="3200"
                 />
                 <label htmlFor="text-max">до</label>
               </div>
@@ -95,7 +95,7 @@ function CoachWorkoutsFilters(): JSX.Element {
               <li className="my-training-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="duration-1" name="duration" />
+                    <input type="checkbox" defaultValue="duration-1" name="duration" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -112,7 +112,7 @@ function CoachWorkoutsFilters(): JSX.Element {
                   <label>
                     <input
                       type="checkbox"
-                      value="duration-1"
+                      defaultValue="duration-1"
                       name="duration"
                       // checked
                     />
@@ -130,7 +130,7 @@ function CoachWorkoutsFilters(): JSX.Element {
               <li className="my-training-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="duration-1" name="duration" />
+                    <input type="checkbox" defaultValue="duration-1" name="duration" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -145,7 +145,7 @@ function CoachWorkoutsFilters(): JSX.Element {
               <li className="my-training-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="duration-1" name="duration" />
+                    <input type="checkbox" defaultValue="duration-1" name="duration" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>

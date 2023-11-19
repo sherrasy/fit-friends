@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import AddWorkoutPage from '../../pages/add-workout-page/add-workout-page';
 import CoachAccountPage from '../../pages/coach-account-page/coach-account-page';
 import CoachFriendsPage from '../../pages/coach-friends-page/coach-friends-page';
@@ -18,15 +18,27 @@ import UserPurchasesPage from '../../pages/user-purchases-page/user-purchases-pa
 import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
-import { getAuthCheckedStatus } from '../../store/user-data/selectors';
+import { getAuthCheckedStatus, getUserRole } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/user-role.enum';
 import { AppRoute } from '../../utils/constant';
 import Loader from '../loader/loader';
 import PrivateRoute from '../private-route/private-route';
 import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';
+import { useEffect } from 'react';
+import { fetchUserList } from '../../store/user-data/api-actions';
+import { fetchWorkouts } from '../../store/workout-data/api-actions';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const userRole = useAppSelector(getUserRole);
+
+  useEffect(()=>{
+    if(userRole === UserRole.Sportsman){
+      dispatch(fetchUserList());
+      dispatch(fetchWorkouts());
+    }
+  },[dispatch, userRole]);
 
   if (!isAuthChecked) {
     return <Loader />;

@@ -12,7 +12,7 @@ function WorkoutsListFilters(): JSX.Element {
             <h4 className="gym-catalog-form__block-title">Цена, ₽</h4>
             <div className="filter-price">
               <div className="filter-price__input-text filter-price__input-text--min">
-                <input type="number" id="text-min" name="text-min" value="0" />
+                <input type="number" id="text-min" name="text-min" defaultValue="0" />
                 <label htmlFor="text-min">от</label>
               </div>
               <div className="filter-price__input-text filter-price__input-text--max">
@@ -20,7 +20,7 @@ function WorkoutsListFilters(): JSX.Element {
                   type="number"
                   id="text-max"
                   name="text-max"
-                  value="3200"
+                  defaultValue="3200"
                 />
                 <label htmlFor="text-max">до</label>
               </div>
@@ -95,7 +95,7 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type-1" name="type" />
+                    <input type="checkbox" defaultValue="type-1" name="type" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -108,7 +108,7 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type-1" name="type" />
+                    <input type="checkbox" defaultValue="type-1" name="type" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -123,7 +123,7 @@ function WorkoutsListFilters(): JSX.Element {
                   <label>
                     <input
                       type="checkbox"
-                      value="type"
+                      defaultValue="type"
                       name="type"
                       // checked
                     />
@@ -141,7 +141,7 @@ function WorkoutsListFilters(): JSX.Element {
                   <label>
                     <input
                       type="checkbox"
-                      value="type-1"
+                      defaultValue="type-1"
                       name="type"
                       // checked
                     />
@@ -157,7 +157,7 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type-1" name="type" />
+                    <input type="checkbox" defaultValue="type-1" name="type" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -170,7 +170,7 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type-1" name="type" />
+                    <input type="checkbox" defaultValue="type-1" name="type" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -183,7 +183,7 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type-1" name="type" />
+                    <input type="checkbox" defaultValue="type-1" name="type" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>
@@ -196,7 +196,7 @@ function WorkoutsListFilters(): JSX.Element {
               <li className="gym-catalog-form__check-list-item">
                 <div className="custom-toggle custom-toggle--checkbox">
                   <label>
-                    <input type="checkbox" value="type-1" name="type" />
+                    <input type="checkbox" defaultValue="type-1" name="type" />
                     <span className="custom-toggle__icon">
                       <svg width="9" height="6" aria-hidden="true">
                         <use xlinkHref="#arrow-check"></use>

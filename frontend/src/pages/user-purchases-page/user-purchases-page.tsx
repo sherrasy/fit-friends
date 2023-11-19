@@ -39,7 +39,7 @@ function UserPurchasesPage(): JSX.Element {
               </div>
               <ul className="my-purchases__list">
                 <li className="my-purchases__item">
-                  <WorkoutListCard />
+                  {/* <WorkoutListCard /> */}
                 </li>
               </ul>
               {/* <ShowMoreButton /> */}

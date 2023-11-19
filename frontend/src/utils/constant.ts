@@ -12,11 +12,11 @@ export const AppRoute = {
   UserInfo: '/user-info',
   WorkoutInfo: '/workout-info',
   Orders: '/orders',
-  Purchases: '/Purchases',
+  Purchases: '/purchases',
   CoachWorkouts: '/coach-workouts',
   Questionnaire: '/questionnaire',
-  UserList:'user-list',
-  WorkoutsList:'workouts-list',
+  UserList:'/user-list',
+  WorkoutsList:'/workouts-list',
   Error: '*',
 } as const;
 
@@ -39,16 +39,25 @@ export const ActionName = {
   Register: 'register',
   Redirect: 'app/redirectToRoute',
   FetchUser: 'fetch-user',
+  FetchUserList: 'fetch-user-list',
   FetchFriends: 'fetch-friends',
+  FetchWorkouts: 'fetch-workouts',
+  fetchCoachWorkouts: 'fetch-coach-workouts',
   UpdateUser: 'update-user',
 } as const;
 
 export const ApiRoute = {
+  UsersMain: '/users',
+  WorkoutsMain: '/workouts',
   Login: '/users/login',
   CheckLogin: '/users/check-login',
   CheckEmail: '/users/check-email',
   Register: '/users/register',
-  UsersMain: '/users',
+  UsersShow: '/users/show',
+  WorkoutsShow: '/workouts/show',
+  PurchasesShow: '/workouts/orders',
+  OrdersShow: '/workouts/orders/coach-list',
+  CoachWorkoutsShow: '/workouts/coach-list',
   UpdateUser: '/users/update',
   Friends: '/users/friends',
   UploadAvatar: '/users/upload-avatar',
@@ -149,6 +158,7 @@ export const CardsLimit = {
   Default:6,
   CoachOrders:4,
   SpecialOffer:3,
+  ReadyUsers:8,
 };
 
 export const sortDirections = ['asc', 'desc'];

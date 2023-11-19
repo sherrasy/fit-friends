@@ -17,7 +17,7 @@ function CoachWorkoutsPage(): JSX.Element {
                 <div className="my-trainings">
                   <ul className="my-trainings__list">
                     <li className="my-trainings__item">
-                      <WorkoutListCard/>
+                      {/* <WorkoutListCard/> */}
                     </li>
                   </ul>
                   {/* <ShowMoreButton/> */}

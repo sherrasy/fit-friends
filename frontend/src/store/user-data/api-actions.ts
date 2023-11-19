@@ -17,6 +17,7 @@ import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { FileType } from '../../types/file.type';
 import { adaptAvatarToServer } from '../../utils/adapters/adaptersToServer';
 import { File } from '../../types/file.interface';
+import { Query } from '../../types/query.type';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -141,6 +142,30 @@ export const fetchUser = createAsyncThunk<User, number, {
     catch(error){
       const axiosError = error as AxiosError;
       toast.error(axiosError.response?.statusText, {toastId:ActionName.FetchUser});
+      return Promise.reject(error);
+
+    }
+  },
+);
+
+export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.FetchUserList}`,
+  async (query, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<User[]>(ApiRoute.UsersShow);
+      await Promise.all(data.map(async(item)=>{
+        if(item.avatar){
+          const {data:{path}} = await api.get<File>(`${ApiRoute.File}/${item.avatar}`);
+          item.avatarPath = path || '';
+        }
+      }));
+      return data;
+    }
+    catch(error){
       return Promise.reject(error);
 
     }

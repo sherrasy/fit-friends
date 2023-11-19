@@ -47,7 +47,7 @@ function UserInfoPage(): JSX.Element {
                       </div>
                       <ul className="user-card-coach__training-list">
                         <li className="user-card-coach__training-item">
-                          <WorkoutListCard />
+                          {/* <WorkoutListCard /> */}
                         </li>
                       </ul>
                       <form className="user-card-coach__training-form">
