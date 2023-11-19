@@ -28,6 +28,7 @@ export enum AuthorizationStatus {
 
 export const ReducerName = {
   User: 'USER',
+  Account: 'ACCOUNT',
   Workout: 'WORKOUT',
 } as const;
 
@@ -38,6 +39,7 @@ export const ActionName = {
   Register: 'register',
   Redirect: 'app/redirectToRoute',
   FetchUser: 'fetch-user',
+  FetchFriends: 'fetch-friends',
   UpdateUser: 'update-user',
 } as const;
 
@@ -48,6 +50,7 @@ export const ApiRoute = {
   Register: '/users/register',
   UsersMain: '/users',
   UpdateUser: '/users/update',
+  Friends: '/users/friends',
   UploadAvatar: '/users/upload-avatar',
   File: '/uploads/file',
 } as const;
@@ -141,3 +144,11 @@ export const FileTypeName = {
   Certificate: 'certificate',
   Video: 'video',
 } as const;
+
+export const CardsLimit = {
+  Default:6,
+  CoachOrders:4,
+  SpecialOffer:3,
+};
+
+export const sortDirections = ['asc', 'desc'];

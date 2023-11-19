@@ -37,7 +37,7 @@ function CoachOrdersPage(): JSX.Element {
                   <WorkoutOrdersCard/>
                 </li>
               </ul>
-              <ShowMoreButton />
+              {/* <ShowMoreButton /> */}
             </div>
           </div>
         </section>

@@ -9,7 +9,7 @@ async function fillDb() {
     create: {
       name: 'First Sportsman',
       email: 'first-sportsman@test.ru',
-      avatar: 'avatar1.png',
+      avatar: null,
       password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'male',
       birthDate: '14.10.2023',
@@ -35,7 +35,7 @@ async function fillDb() {
     create: {
       name: 'First Coach',
       email: 'first-coach@test.ru',
-      avatar: 'avatar2.png',
+      avatar: null,
       password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'male',
       role: 'coach',
@@ -58,7 +58,7 @@ async function fillDb() {
     create: {
       name: 'Second Sportsman',
       email: 'second-sportsman@test.ru',
-      avatar: 'avatar3.png',
+      avatar: null,
       password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'any',
       role: 'sportsman',
@@ -82,7 +82,7 @@ async function fillDb() {
     create: {
       name: 'Second Coach',
       email: 'second-coach@test.ru',
-      avatar: 'avatar4.png',
+      avatar: null,
       password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'female',
       birthDate: '12.10.2023',
@@ -106,7 +106,7 @@ async function fillDb() {
     create: {
       name: 'Third Sportsman',
       email: 'third-sportsman@test.ru',
-      avatar: 'avatar5.png',
+      avatar: null,
       password: '$2b$10$tVtQtK6jwSUx5so6dPV/DOtpZWJjojgZWKVQIFOuT./pftCYrOMD.',
       sex: 'female',
       role: 'sportsman',

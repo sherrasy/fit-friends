@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useLayoutEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useLayoutEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
 import {
@@ -32,6 +32,8 @@ function UserInfo(): JSX.Element {
   const [readyStatus, setReadyStatus] = useState(DefaultParam.Status);
   const [formData, setFormData] = useState<UserInfoInterface | null>(null);
   const [isOpened, setIsOpened] = useState('');
+  const [avatar, setAvatar] = useState<File>();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useLayoutEffect(() => {
     if (userInfo) {
@@ -50,7 +52,7 @@ function UserInfo(): JSX.Element {
   if (!userInfo || !formData) {
     return <Loader />;
   }
-  const handleSubmitData = (data: UpdateUserDto) => data !== userInfo && dispatch(updateUser(data));
+  const handleSubmitData = (data: UpdateUserDto) => dispatch(updateUser({...data, avatarFile:avatar}));
 
   const handleFormButtonClick = () => {
     setIsEditing((prev) => !prev);
@@ -109,6 +111,25 @@ function UserInfo(): JSX.Element {
     setFormData({ ...formData, workoutType: types });
   };
 
+  const handleAvatarUpload = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) {
+      return;
+    }
+    setAvatar(evt.target.files[0]);
+  };
+
+  const handleAvatarOpen = () => {
+    if(fileInputRef.current){
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleAvatarDelete = () => {
+    if(fileInputRef.current){
+      fileInputRef.current.value = '';
+      setAvatar(undefined);}
+  };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const isValid =
@@ -126,20 +147,55 @@ function UserInfo(): JSX.Element {
             <input
               className="visually-hidden"
               type="file"
+              ref={fileInputRef}
               name="user-photo-1"
               accept="image/png, image/jpeg"
+              onChange={handleAvatarUpload}
+              disabled={!isEditing}
             />
             <span className="input-load-avatar__avatar">
-              <img
-                src="img/content/user-photo-1.png"
-                srcSet="img/content/user-photo-1@2x.png 2x"
-                width="98"
-                height="98"
-                alt="user"
-              />
+              {avatar ? (
+                <img
+                  src={URL.createObjectURL(avatar)}
+                  width={98}
+                  height={98}
+                  alt="user avatar"
+                />
+              ) : (
+                <img
+                  src={userInfo.avatarPath}
+                  width={98}
+                  height={98}
+                  alt="user avatar"
+                />
+              )}
             </span>
           </label>
+
         </div>
+        {isEditing && (
+          <div className="user-info-edit__controls">
+            <label
+              className="user-info-edit__control-btn"
+              aria-label="обновить"
+              htmlFor="photoUser"
+              onClick={handleAvatarOpen}
+            >
+              <svg width="16" height="16" aria-hidden="true">
+                <use xlinkHref="#icon-change"></use>
+              </svg>
+            </label>
+            <button
+              className="user-info-edit__control-btn"
+              aria-label="удалить"
+              onClick={handleAvatarDelete}
+            >
+              <svg width="14" height="16" aria-hidden="true">
+                <use xlinkHref="#icon-trash"></use>
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
       <form
         className="user-info__form"

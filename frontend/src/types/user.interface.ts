@@ -24,6 +24,7 @@ export interface User {
   sportsmanInfo?: Sportsman | null;
   coachInfo?: Coach | null;
   token?:string|undefined;
+  avatarPath?:string;
 }
 export interface UserInfoInterface {
   name: string;

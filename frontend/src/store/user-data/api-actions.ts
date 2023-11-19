@@ -29,12 +29,11 @@ export const checkAuth = createAsyncThunk<User, undefined, {
     try{
       const {data} = await api.get<User>(ApiRoute.CheckLogin);
       const userPhotos = {
-        avatar: data.avatar,
-        photo:data.photo,
+        avatarPath: '',
       };
       if(data.avatar){
         const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
-        userPhotos.avatar = avatar.path || '';
+        userPhotos.avatarPath = avatar ? avatar.path : '';
       }
       return {...data, ...userPhotos};
     }catch(error){
@@ -130,12 +129,12 @@ export const fetchUser = createAsyncThunk<User, number, {
     try{
       const {data} = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
       const userPhotos = {
-        avatar: data.avatar,
-        photo:data.photo,
+        avatarPath: '',
+        photoPath:'',
       };
       if(data.avatar){
         const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
-        userPhotos.avatar = avatar.path || '';
+        userPhotos.avatarPath = avatar ? avatar.path : '';
       }
       return {...data, ...userPhotos};
     }
@@ -156,10 +155,10 @@ export const updateUser = createAsyncThunk<User, UpdateUserDto & FileType, {
   `${ReducerName.User}/${ActionName.UpdateUser}`,
   async (dto, { dispatch, extra: api}) => {
     try{
+      const {data} = await api.patch<User>(ApiRoute.UpdateUser, dto);
       if( dto.avatarFile?.name){
         await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(dto.avatarFile) );
       }
-      const {data} = await api.patch<User>(ApiRoute.UpdateUser, dto);
       return data;
     }
     catch(error){

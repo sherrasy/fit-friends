@@ -4,6 +4,7 @@ import { HttpModule } from '@nestjs/axios';
 import { HttpCLientParam } from './app.config';
 import { CheckAuthGuard } from './guards/check-auth.guard';
 import { UploaderController } from './controllers/uploader.controller';
+import { WorkoutsController } from './controllers/workouts.controller';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UploaderController } from './controllers/uploader.controller';
   controllers: [
     UsersController,
     UploaderController,
+    WorkoutsController,
   ],
   providers: [CheckAuthGuard],
 })

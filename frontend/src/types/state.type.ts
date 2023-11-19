@@ -17,3 +17,8 @@ export type UserState = {
   isUserUpdating:boolean;
   isEmailExists:boolean;
  }
+
+export type AccountState = {
+  friends: User[]|null;
+  isFriendsLoading:boolean;
+ }

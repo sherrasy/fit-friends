@@ -20,7 +20,7 @@ function CoachWorkoutsPage(): JSX.Element {
                       <WorkoutListCard/>
                     </li>
                   </ul>
-                  <ShowMoreButton/>
+                  {/* <ShowMoreButton/> */}
                 </div>
               </div>
             </div>

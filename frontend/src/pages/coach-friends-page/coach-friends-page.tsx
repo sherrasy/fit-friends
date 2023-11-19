@@ -17,10 +17,10 @@ function CoachFriendsPage(): JSX.Element {
               </div>
               <ul className="friends-list__list">
                 <li className="friends-list__item">
-                  <FriendCard/>
+                  {/* <FriendCard/> */}
                 </li>
               </ul>
-              <ShowMoreButton/>
+              {/* <ShowMoreButton/> */}
             </div>
           </div>
         </section>

@@ -42,7 +42,7 @@ function UserPurchasesPage(): JSX.Element {
                   <WorkoutListCard />
                 </li>
               </ul>
-              <ShowMoreButton />
+              {/* <ShowMoreButton /> */}
             </div>
           </div>
         </section>
