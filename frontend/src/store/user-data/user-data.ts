@@ -64,8 +64,7 @@ export const userData = createSlice({
       .addCase(updateUser.pending, (state) => {
         state.isUserUpdating = true;
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.userData = action.payload;
+      .addCase(updateUser.fulfilled, (state) => {
         state.isUserUpdating = false;
       })
       .addCase(updateUser.rejected, (state) => {

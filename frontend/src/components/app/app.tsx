@@ -18,7 +18,7 @@ import UserPurchasesPage from '../../pages/user-purchases-page/user-purchases-pa
 import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
-import { getAuthCheckedStatus, getUserRole } from '../../store/user-data/selectors';
+import { getAuthCheckedStatus, getUserData, getUserRole } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/user-role.enum';
 import { AppRoute } from '../../utils/constant';
 import Loader from '../loader/loader';
@@ -26,19 +26,21 @@ import PrivateRoute from '../private-route/private-route';
 import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';
 import { useEffect } from 'react';
 import { fetchUserList } from '../../store/user-data/api-actions';
-import { fetchWorkouts } from '../../store/workout-data/api-actions';
+import { fetchUserSpecialWorkouts, fetchWorkouts } from '../../store/workout-data/api-actions';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
   const userRole = useAppSelector(getUserRole);
+  const userInfo = useAppSelector(getUserData);
 
   useEffect(()=>{
-    if(userRole === UserRole.Sportsman){
+    if(userRole === UserRole.Sportsman && userInfo){
       dispatch(fetchUserList());
       dispatch(fetchWorkouts());
+      dispatch(fetchUserSpecialWorkouts(userInfo));
     }
-  },[dispatch, userRole]);
+  },[dispatch, userRole, userInfo]);
 
   if (!isAuthChecked) {
     return <Loader />;

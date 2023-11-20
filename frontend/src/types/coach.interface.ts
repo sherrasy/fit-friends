@@ -1,7 +1,7 @@
 export interface Coach {
-  coachId?: number;
-  userId?: number;
+  coachId: number;
+  userId: number;
   certificate?: string;
-  successInfo?: string;
-  isPersonal?: boolean;
+  successInfo: string;
+  isPersonal: boolean;
 }

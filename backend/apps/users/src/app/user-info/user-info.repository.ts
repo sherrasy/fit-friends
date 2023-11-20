@@ -65,7 +65,7 @@ export class UserInfoRepository
     return adaptPrismaUser(user);
   }
 
-  public async show({
+  public async show(id:number, {
     limit,
     page,
     role,
@@ -78,6 +78,7 @@ export class UserInfoRepository
     const queryParams = {
       where: {
         AND: {
+          userId:{not:id},
           role: role as UserRole,
           fitnessLevel: fitnessLevel as FitnessLevel,
           workoutType: undefined,

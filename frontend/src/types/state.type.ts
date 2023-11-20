@@ -28,5 +28,6 @@ export type AccountState = {
 
 export type WorkoutState = {
   workouts: Workout[]|null;
+  specialUserWorkouts: Workout[]|null;
   isWorkoutsLoading:boolean;
  }

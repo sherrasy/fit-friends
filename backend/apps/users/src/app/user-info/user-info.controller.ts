@@ -46,8 +46,8 @@ export class UserInfoController {
   @UseInterceptors(UserRoleInterceptor)
   @UseGuards(JwtAuthGuard)
   @Get(UserInfoPath.Show)
-  public async showList(@Query() query: UserQuery) {
-    const users = await this.userInfoService.getUserList(query);
+  public async showList( @Req() { user }: RequestWithUserPayload,  @Query() query: UserQuery) {
+    const users = await this.userInfoService.getUserList(user.sub, query);
     return users.map((user) => fillObject(UserRdo, user));
   }
 
@@ -90,7 +90,8 @@ export class UserInfoController {
   @UseGuards(JwtAuthGuard)
   @Patch(UserInfoPath.Update)
   public async updateUser(@Req() { user }: RequestWithUserPayload, @Body() dto:UpdateUserDto) {
-    return this.userInfoService.updateUser(user.sub, dto);
+    const updatedUser = await this.userInfoService.updateUser(user.sub, dto);
+    return fillObject(UserRdo, updatedUser);
   }
 
   @ApiResponse({

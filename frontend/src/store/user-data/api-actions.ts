@@ -172,7 +172,7 @@ export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
   },
 );
 
-export const updateUser = createAsyncThunk<User, UpdateUserDto & FileType, {
+export const updateUser = createAsyncThunk<void, UpdateUserDto & FileType, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -184,7 +184,7 @@ export const updateUser = createAsyncThunk<User, UpdateUserDto & FileType, {
       if( dto.avatarFile?.name){
         await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(dto.avatarFile) );
       }
-      return data;
+      dispatch(fetchUser(data.id));
     }
     catch(error){
       const axiosError = error as AxiosError;

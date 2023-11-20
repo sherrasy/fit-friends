@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ReducerName } from '../../utils/constant';
 import { WorkoutState } from '../../types/state.type';
-import { fetchWorkouts } from './api-actions';
+import { fetchUserSpecialWorkouts, fetchWorkouts } from './api-actions';
 
 const initialState:WorkoutState = {
   workouts:null,
+  specialUserWorkouts:null,
   isWorkoutsLoading:false,
 };
 
@@ -23,6 +24,16 @@ export const workoutData = createSlice({
         state.isWorkoutsLoading = false;
       })
       .addCase(fetchWorkouts.rejected, (state) => {
+        state.isWorkoutsLoading = false;
+      })
+      .addCase(fetchUserSpecialWorkouts.pending, (state) => {
+        state.isWorkoutsLoading = true;
+      })
+      .addCase(fetchUserSpecialWorkouts.fulfilled, (state, action) => {
+        state.specialUserWorkouts = action.payload ?? null;
+        state.isWorkoutsLoading = false;
+      })
+      .addCase(fetchUserSpecialWorkouts.rejected, (state) => {
         state.isWorkoutsLoading = false;
       });
   }

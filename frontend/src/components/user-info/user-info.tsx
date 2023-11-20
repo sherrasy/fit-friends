@@ -23,6 +23,8 @@ import { WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
 import { toast } from 'react-toastify';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { updateUser } from '../../store/user-data/api-actions';
+import { Coach } from '../../types/coach.interface';
+import { Sportsman } from '../../types/sportsman.interface';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -81,12 +83,12 @@ function UserInfo(): JSX.Element {
     setReadyStatus((prev) => !prev);
     switch (userInfo.role) {
       case UserRole.Coach: {
-        const coachInfo = { ...formData.coachInfo, isPersonal: status };
+        const coachInfo = { ...formData.coachInfo, isPersonal: status } as Coach;
         setFormData({ ...formData, coachInfo });
         break;
       }
       case UserRole.Sportsman: {
-        const sportsmanInfo = { ...formData.sportsmanInfo, isReady: status };
+        const sportsmanInfo = { ...formData.sportsmanInfo, isReady: status } as Sportsman;
         setFormData({ ...formData, sportsmanInfo });
         break;
       }

@@ -42,6 +42,7 @@ export const ActionName = {
   FetchUserList: 'fetch-user-list',
   FetchFriends: 'fetch-friends',
   FetchWorkouts: 'fetch-workouts',
+  FetchUserSpecialWorkouts: 'fetch-special-workouts',
   fetchCoachWorkouts: 'fetch-coach-workouts',
   UpdateUser: 'update-user',
 } as const;
@@ -158,6 +159,7 @@ export const CardsLimit = {
   Default:6,
   CoachOrders:4,
   SpecialOffer:3,
+  SpecialForUser:9,
   ReadyUsers:8,
 };
 
