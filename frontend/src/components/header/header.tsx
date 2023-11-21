@@ -13,8 +13,7 @@ function Header(): JSX.Element {
     userRole === UserRole.Coach ? AppRoute.CoachAccount : AppRoute.Main;
   const accountPagePath =
     userRole === UserRole.Coach ? AppRoute.CoachAccount : AppRoute.UserAccount;
-  const friendsListPath =
-    userRole === UserRole.Coach ? AppRoute.CoachFriends : AppRoute.UserFriends;
+  const friendsListPath = AppRoute.Friends;
   useLayoutEffect(() => {
     switch (pathname) {
       case mainPagePath: {

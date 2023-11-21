@@ -6,17 +6,19 @@ import { AuthorizationStatus, CardsLimit, DefaultParam, ReducerName } from '../.
 
 export const getIsAuthorized = (state: State): boolean => state[ReducerName.User].authStatus === AuthorizationStatus.Auth;
 export const getAuthCheckedStatus = (state: State): boolean => state[ReducerName.User].authStatus !== AuthorizationStatus.Unknown;
+export const getCurrentUserData = (state: State): User|null => state[ReducerName.User].currentUserData;
 export const getUserData = (state: State): User|null => state[ReducerName.User].userData;
 export const getUserRole = (state: State): UserRole|null => state[ReducerName.User].role;
 export const getUserId = (state: State): number|null => state[ReducerName.User].userId;
-export const getUserLoadingStatus = (state: State): boolean => state[ReducerName.User].isUserLoading;
+export const getUserLoadingStatus = (state: State): boolean => state[ReducerName.User].isCurrentUserLoading;
 export const getUserListLoadingStatus = (state: State): boolean => state[ReducerName.User].isUserListLoading;
 export const getUserUpdatingStatus = (state: State): boolean => state[ReducerName.User].isUserUpdating;
 export const getEmailExistsStatus = (state: State): boolean => state[ReducerName.User].isEmailExists;
 export const getNewUserData = (state: State): NewUserGeneral|null => state[ReducerName.User].newUserData;
 export const getUserList = (state: State): User[]|null => state[ReducerName.User].userListData;
+export const getUserError = (state: State): boolean => state[ReducerName.User].hasUserError;
 
 export const getReadyUsers = createSelector(
   [getUserList],
-  (users): User[] | undefined => users?.filter((user)=> user.sportsmanInfo?.isReady).slice(DefaultParam.Amount,CardsLimit.ReadyUsers)
+  (users): User[] | null => users ? users.filter((user)=> user.sportsmanInfo?.isReady).slice(DefaultParam.Amount,CardsLimit.ReadyUsers) : null
 );

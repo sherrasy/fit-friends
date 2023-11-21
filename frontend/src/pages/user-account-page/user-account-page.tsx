@@ -4,10 +4,10 @@ import Header from '../../components/header/header';
 import UserInfo from '../../components/user-info/user-info';
 import { AppRoute } from '../../utils/constant';
 import { useAppSelector } from '../../hooks';
-import { getUserData } from '../../store/user-data/selectors';
+import { getCurrentUserData } from '../../store/user-data/selectors';
 
 function UserAccountPage(): JSX.Element {
-  const userInfo = useAppSelector(getUserData);
+  const userInfo = useAppSelector(getCurrentUserData);
   const caloriesPerDay = userInfo?.sportsmanInfo?.caloriesPerDay;
   const caloriesPerWeek = caloriesPerDay && caloriesPerDay * 7;
   return (
@@ -56,7 +56,7 @@ function UserAccountPage(): JSX.Element {
                   <div className="personal-account-user__additional-info">
                     <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      to={AppRoute.UserFriends}
+                      to={AppRoute.Friends}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">

@@ -71,7 +71,7 @@ export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
       const {data :  { accessToken }} = await api.post<TokenData>(ApiRoute.Login, authData);
       saveToken(accessToken);
       const userInfo:TokenPayloadData = jwtDecode(accessToken);
-      dispatch(fetchUser(userInfo.sub));
+      dispatch(fetchCurrentUser(userInfo.sub));
       if(userInfo.role === UserRole.Coach) {
         dispatch(redirectToRoute(AppRoute.CoachAccount));
       }
@@ -147,6 +147,33 @@ export const fetchUser = createAsyncThunk<User, number, {
     }
   },
 );
+export const fetchCurrentUser = createAsyncThunk<User, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.FetchCurrentUser}`,
+  async (id, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
+      const userPhotos = {
+        avatarPath: '',
+        photoPath:'',
+      };
+      if(data.avatar){
+        const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
+        userPhotos.avatarPath = avatar ? avatar.path : '';
+      }
+      return {...data, ...userPhotos};
+    }
+    catch(error){
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.response?.statusText, {toastId:ActionName.FetchUser});
+      return Promise.reject(error);
+
+    }
+  },
+);
 
 export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
   dispatch: AppDispatch;
@@ -184,7 +211,7 @@ export const updateUser = createAsyncThunk<void, UpdateUserDto & FileType, {
       if( dto.avatarFile?.name){
         await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(dto.avatarFile) );
       }
-      dispatch(fetchUser(data.id));
+      dispatch(fetchCurrentUser(data.id));
     }
     catch(error){
       const axiosError = error as AxiosError;

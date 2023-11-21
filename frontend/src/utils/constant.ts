@@ -7,8 +7,7 @@ export const AppRoute = {
   EditWorkout: '/edit-workout',
   CoachAccount: '/coach-account',
   UserAccount: '/user-account',
-  CoachFriends: '/coach-friends',
-  UserFriends: '/user-friends',
+  Friends: '/friends',
   UserInfo: '/user-info',
   WorkoutInfo: '/workout-info',
   Orders: '/orders',
@@ -39,11 +38,16 @@ export const ActionName = {
   Register: 'register',
   Redirect: 'app/redirectToRoute',
   FetchUser: 'fetch-user',
+  FetchCurrentUser: 'fetch-current-user',
   FetchUserList: 'fetch-user-list',
   FetchFriends: 'fetch-friends',
+  FetchUserOrders: 'fetch-user-orders',
+  FetchCoachOrders: 'fetch-coach-orders',
   FetchWorkouts: 'fetch-workouts',
   FetchUserSpecialWorkouts: 'fetch-special-workouts',
   fetchCoachWorkouts: 'fetch-coach-workouts',
+  fetchWorkout: 'fetch-workout',
+  fetchReviews: 'fetch-reviews',
   UpdateUser: 'update-user',
 } as const;
 
@@ -58,6 +62,7 @@ export const ApiRoute = {
   WorkoutsShow: '/workouts/show',
   PurchasesShow: '/workouts/orders',
   OrdersShow: '/workouts/orders/coach-list',
+  ReviewsShow: '/workouts/show-reviews',
   CoachWorkoutsShow: '/workouts/coach-list',
   UpdateUser: '/users/update',
   Friends: '/users/friends',
@@ -113,6 +118,11 @@ export const UserSexToName = {
   male : 'Мужской',
   female : 'Женский',
   any : 'Неважно',
+};
+export const UserSexToHashtagName = {
+  male : 'для_мужчин',
+  female : 'для_женщин',
+  any : 'для_всех',
 };
 
 export const LocationToName = {

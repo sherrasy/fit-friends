@@ -98,6 +98,24 @@ export class WorkoutsController {
 
   @ApiResponse({
     status: HttpStatus.OK,
+    description: WorkoutMessages.ShowReviews,
+  })
+  @UseGuards(CheckAuthGuard)
+  @Get(`${AppPath.Show}-${AppPath.Reviews}/${AppPath.Id}`)
+  public async showReviews(
+    @Param('id') id: number,@Req() req: Request,
+  ) {
+    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.ReviewsList}/${id}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      });
+          return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
     description: WorkoutMessages.ShowSingle,
   })
   @ApiResponse({

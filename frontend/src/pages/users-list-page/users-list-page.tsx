@@ -7,15 +7,11 @@ import {
   getUserListLoadingStatus,
 } from '../../store/user-data/selectors';
 import Loader from '../../components/loader/loader';
-import ErrorPage from '../error-page/error-page';
 
 function UsersListPage(): JSX.Element {
   const userList = useAppSelector(getUserList);
   const userListLoading = useAppSelector(getUserListLoadingStatus);
 
-  if (!userList) {
-    return <ErrorPage />;
-  }
   if (userListLoading) {
     return <Loader />;
   }
@@ -31,7 +27,7 @@ function UsersListPage(): JSX.Element {
               <div className="inner-page__content">
                 <div className="users-catalog">
                   <ul className="users-catalog__list">
-                    {userList.map((item) => (
+                    {userList?.map((item) => (
                       <li className="users-catalog__item" key={item.id}>
                         <UserCardSmall user={item}/>
                       </li>

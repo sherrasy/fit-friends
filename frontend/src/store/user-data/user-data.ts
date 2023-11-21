@@ -1,20 +1,23 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, ReducerName } from '../../utils/constant';
 import { UserState } from '../../types/state.type';
-import { checkAuth, checkEmail, fetchUser, fetchUserList, login, updateUser } from './api-actions';
+import { checkAuth, checkEmail, fetchCurrentUser, fetchUser, fetchUserList, login, updateUser } from './api-actions';
 import { NewUserGeneral, User } from '../../types/user.interface';
 
 const initialState:UserState = {
   authStatus:AuthorizationStatus.Unknown,
   userId: null,
   role: null,
+  currentUserData:null,
   userData:null,
   userListData:null,
   newUserData:null,
+  isCurrentUserLoading:false,
   isUserLoading:false,
   isUserListLoading:false,
   isUserUpdating:false,
   isEmailExists:false,
+  hasUserError:false,
 };
 
 
@@ -26,7 +29,7 @@ export const userData = createSlice({
       state.newUserData = actions.payload;
     },
     setUserData: (state, actions: PayloadAction<User>) => {
-      state.userData = actions.payload;
+      state.currentUserData = actions.payload;
       state.role = actions.payload.role;
       state.userId = actions.payload.id;
       state.authStatus = AuthorizationStatus.Auth;
@@ -36,7 +39,7 @@ export const userData = createSlice({
     builder
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.authStatus = AuthorizationStatus.Auth;
-        state.userData = action.payload ?? null;
+        state.currentUserData = action.payload ?? null;
         state.role = action.payload?.role ?? null;
         state.userId = action.payload?.id ?? null;
       })
@@ -51,8 +54,19 @@ export const userData = createSlice({
       .addCase(login.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
       })
+      .addCase(fetchCurrentUser.pending, (state) => {
+        state.isCurrentUserLoading = true;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.currentUserData = action.payload;
+        state.isCurrentUserLoading = false;
+      })
+      .addCase(fetchCurrentUser.rejected, (state) => {
+        state.isCurrentUserLoading = false;
+      })
       .addCase(fetchUser.pending, (state) => {
         state.isUserLoading = true;
+        state.hasUserError = false;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.userData = action.payload;
@@ -60,6 +74,7 @@ export const userData = createSlice({
       })
       .addCase(fetchUser.rejected, (state) => {
         state.isUserLoading = false;
+        state.hasUserError = true;
       })
       .addCase(updateUser.pending, (state) => {
         state.isUserUpdating = true;

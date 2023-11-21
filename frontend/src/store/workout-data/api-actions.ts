@@ -6,6 +6,7 @@ import { Workout } from '../../types/workout.interface';
 import { Query } from '../../types/query.type';
 import { User } from '../../types/user.interface';
 import { toast } from 'react-toastify';
+import { Review } from '../../types/review.interface';
 
 export const fetchWorkouts = createAsyncThunk<Workout[], Query|undefined, {
   dispatch: AppDispatch;
@@ -55,6 +56,37 @@ export const fetchCoachWorkouts = createAsyncThunk<Workout[], Query|undefined, {
   async (query, { dispatch, extra: api}) => {
     try{
       const {data} = await api.get<Workout[]>(ApiRoute.CoachWorkoutsShow);
+      return data;
+    }catch(error){
+      return Promise.reject(error);
+    }
+  },
+);
+
+export const fetchWorkout = createAsyncThunk<Workout, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.Workout}/${ActionName.fetchWorkout}`,
+  async (id, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<Workout>(`${ApiRoute.WorkoutsMain}/${id}`);
+      return data;
+    }catch(error){
+      return Promise.reject(error);
+    }
+  },
+);
+export const fetchReviews = createAsyncThunk<Review[], number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.Workout}/${ActionName.fetchReviews}`,
+  async (id, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<Review[]>(`${ApiRoute.ReviewsShow}/${id}`);
       return data;
     }catch(error){
       return Promise.reject(error);

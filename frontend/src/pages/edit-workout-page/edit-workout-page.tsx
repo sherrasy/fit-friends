@@ -1,7 +1,15 @@
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import ReviewsList from '../../components/reviews-list/reviews-list';
+import { useAppSelector } from '../../hooks';
+import { getReviews, getReviewsLoadingStatus } from '../../store/workout-data/selectors';
 
 function EditWorkoutPage(): JSX.Element {
+  const reviews = useAppSelector(getReviews);
+  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
+  if(isReviewsLoading ){
+    return <Loader/>;
+  }
   return (
     <div className="wrapper">
       <Header />
@@ -10,7 +18,7 @@ function EditWorkoutPage(): JSX.Element {
           <div className="container">
             <div className="inner-page__wrapper">
               <h1 className="visually-hidden">Карточка тренировки</h1>
-              <ReviewsList />
+              <ReviewsList reviews={reviews}/>
               <div className="training-card training-card--edit">
                 <div className="training-info">
                   <h2 className="visually-hidden">Информация о тренировке</h2>

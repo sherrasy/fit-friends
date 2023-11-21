@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import AddWorkoutPage from '../../pages/add-workout-page/add-workout-page';
 import CoachAccountPage from '../../pages/coach-account-page/coach-account-page';
-import CoachFriendsPage from '../../pages/coach-friends-page/coach-friends-page';
 import CoachOrdersPage from '../../pages/coach-orders-page/coach-orders-page';
 import CoachWorkoutsPage from '../../pages/coach-workouts-page/coach-workouts-page';
 import EditWorkoutPage from '../../pages/edit-workout-page/edit-workout-page';
@@ -12,33 +11,41 @@ import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import SignUpPage from '../../pages/sign-up-page/sign-up-page';
 import UserAccountPage from '../../pages/user-account-page/user-account-page';
-import UserFriendsPage from '../../pages/user-friends-page/user-friends-page';
+import FriendsPage from '../../pages/friends-page/friends-page';
 import UserInfoPage from '../../pages/user-info-page/user-info-page';
 import UserPurchasesPage from '../../pages/user-purchases-page/user-purchases-page';
 import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
-import { getAuthCheckedStatus, getUserData, getUserRole } from '../../store/user-data/selectors';
+import { getAuthCheckedStatus, getCurrentUserData, getUserRole } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/user-role.enum';
 import { AppRoute } from '../../utils/constant';
 import Loader from '../loader/loader';
-import PrivateRoute from '../private-route/private-route';
 import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';
 import { useEffect } from 'react';
 import { fetchUserList } from '../../store/user-data/api-actions';
-import { fetchUserSpecialWorkouts, fetchWorkouts } from '../../store/workout-data/api-actions';
+import { fetchCoachWorkouts, fetchUserSpecialWorkouts, fetchWorkouts } from '../../store/workout-data/api-actions';
+import { fetchCoachOrders, fetchFriends, fetchUserOrders } from '../../store/account-data/api-actions';
+import PrivateRoleRoute from '../private-route/private-role-route';
+import PrivateRoute from '../private-route/private-route';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
   const userRole = useAppSelector(getUserRole);
-  const userInfo = useAppSelector(getUserData);
+  const userInfo = useAppSelector(getCurrentUserData);
 
   useEffect(()=>{
     if(userRole === UserRole.Sportsman && userInfo){
       dispatch(fetchUserList());
       dispatch(fetchWorkouts());
       dispatch(fetchUserSpecialWorkouts(userInfo));
+      dispatch(fetchUserOrders());
+    }
+    if(userRole === UserRole.Coach && userInfo){
+      dispatch(fetchCoachWorkouts());
+      dispatch(fetchCoachOrders());
+      dispatch(fetchFriends());
     }
   },[dispatch, userRole, userInfo]);
 
@@ -51,12 +58,12 @@ function App(): JSX.Element {
       <Route
         path={AppRoute.Main}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Coach}
             redirectTo={AppRoute.CoachAccount}
           >
             <MainPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route
@@ -79,77 +86,65 @@ function App(): JSX.Element {
       <Route
         path={AppRoute.CoachAccount}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Sportsman}
             redirectTo={AppRoute.Main}
           >
             <CoachAccountPage />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path={AppRoute.CoachFriends}
-        element={
-          <PrivateRoute
-            restrictedFor={UserRole.Sportsman}
-            redirectTo={AppRoute.Error}
-          >
-            <CoachFriendsPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route
         path={AppRoute.Orders}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Sportsman}
             redirectTo={AppRoute.Error}
           >
             <CoachOrdersPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route
         path={AppRoute.CoachWorkouts}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Sportsman}
             redirectTo={AppRoute.Error}
           >
             <CoachWorkoutsPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route
         path={AppRoute.EditWorkout}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Sportsman}
             redirectTo={AppRoute.Error}
           >
             <EditWorkoutPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route
         path={AppRoute.UserAccount}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Coach}
             redirectTo={AppRoute.Error}
           >
             <UserAccountPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route
-        path={AppRoute.UserFriends}
+        path={AppRoute.Friends}
         element={
           <PrivateRoute
-            restrictedFor={UserRole.Coach}
             redirectTo={AppRoute.Error}
           >
-            <UserFriendsPage />
+            <FriendsPage />
           </PrivateRoute>
         }
       />
@@ -157,35 +152,35 @@ function App(): JSX.Element {
       <Route
         path={AppRoute.Purchases}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Coach}
             redirectTo={AppRoute.Error}
           >
             <UserPurchasesPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route
         path={AppRoute.UserList}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Coach}
             redirectTo={AppRoute.Error}
           >
             <UsersListPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
-      <Route path={AppRoute.WorkoutInfo} element={<WorkoutInfoPage />} />
+      <Route path={`${AppRoute.WorkoutInfo}/:id`} element={<WorkoutInfoPage />} />
       <Route
         path={AppRoute.WorkoutsList}
         element={
-          <PrivateRoute
+          <PrivateRoleRoute
             restrictedFor={UserRole.Coach}
             redirectTo={AppRoute.CoachAccount}
           >
             <WorkoutsListPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route path={AppRoute.Error} element={<ErrorPage />} />

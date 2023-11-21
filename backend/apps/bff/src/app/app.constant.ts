@@ -25,6 +25,7 @@ export const AppPath = {
   Requests: 'requests',
   Orders: 'orders',
   Friends: 'friends',
+  Reviews: 'reviews',
   File: 'file',
 } as const;
 
@@ -62,6 +63,7 @@ export const WorkoutMessages = {
   EmptyList: 'There are no workouts that can be loaded',
   ShowSingle: 'Workout is showing',
   ShowAll: 'List of workouts is showing',
+  ShowReviews: 'List of reviews is showing',
 } as const;
 
 

@@ -179,6 +179,12 @@ Authorization: Bearer {{AToken}}
 
 ###
 
+# Получить отзывы о тренировке
+GET http://localhost:4000/api/workouts/show-reviews/1 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
 # Детальная информация о тренировке
 GET http://localhost:4000/api/workouts/2 HTTP/1.1
 Authorization: Bearer {{AToken}}

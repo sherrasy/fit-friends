@@ -1,14 +1,23 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Workout } from '../../types/workout.interface';
 import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
+import { useAppDispatch } from '../../hooks';
+import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
 
 type WorkoutListCardProps = {
   workout: Workout;
 };
 
 function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
-  const { id, price, name, workoutType, calories, rating, description } =
-    workout;
+  const { id, price, name, workoutType, calories, rating, description } = workout;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const handleRouteChange = ()=>{
+    dispatch(fetchWorkout(id));
+    dispatch(fetchReviews(id));
+    navigate(`${AppRoute.WorkoutInfo}/${id}`);
+
+  };
   return (
     <div className="thumbnail-training">
       <div className="thumbnail-training__inner">
@@ -58,12 +67,12 @@ function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
           <p className="thumbnail-training__text">{description}</p>
         </div>
         <div className="thumbnail-training__button-wrapper">
-          <Link
+          <button
             className="btn btn--small thumbnail-training__button-catalog"
-            to={AppRoute.WorkoutInfo}
+            onClick={handleRouteChange}
           >
             Подробнее
-          </Link>
+          </button>
           <a
             className="btn btn--small btn--outlined thumbnail-training__button-catalog"
             href="/"

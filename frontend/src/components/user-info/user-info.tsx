@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useLayoutEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
+import { getCurrentUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -28,7 +28,7 @@ import { Sportsman } from '../../types/sportsman.interface';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
-  const userInfo = useAppSelector(getUserData);
+  const userInfo = useAppSelector(getCurrentUserData);
   const isUpdating = useAppSelector(getUserUpdatingStatus);
   const [isEditing, setIsEditing] = useState(DefaultParam.Status);
   const [readyStatus, setReadyStatus] = useState(DefaultParam.Status);

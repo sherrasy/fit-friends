@@ -1,7 +1,12 @@
+import { Review } from '../../types/review.interface';
 import BackButton from '../back-button/back-button';
 import ReviewCard from '../review-card/review-card';
 
-function ReviewsList():JSX.Element{
+type ReviewsListProps ={
+  reviews: Review[] | null;
+}
+
+function ReviewsList({reviews}:ReviewsListProps):JSX.Element{
   return(
     <aside className="reviews-side-bar">
       <BackButton/>

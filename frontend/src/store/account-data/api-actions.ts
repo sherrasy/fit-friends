@@ -4,6 +4,7 @@ import { AxiosInstance } from 'axios';
 import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
 import { User } from '../../types/user.interface';
 import { File } from '../../types/file.interface';
+import { Order } from '../../types/order.interface';
 
 export const fetchFriends = createAsyncThunk<User[], undefined, {
   dispatch: AppDispatch;
@@ -20,6 +21,37 @@ export const fetchFriends = createAsyncThunk<User[], undefined, {
           item.avatarPath = path || '';
         }
       }));
+      return data;
+    }catch(error){
+      return Promise.reject(error);
+    }
+  },
+);
+
+export const fetchUserOrders = createAsyncThunk<Order[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.Account}/${ActionName.FetchUserOrders}`,
+  async (_args, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<Order[]>(ApiRoute.PurchasesShow);
+      return data;
+    }catch(error){
+      return Promise.reject(error);
+    }
+  },
+);
+export const fetchCoachOrders = createAsyncThunk<Order[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.Account}/${ActionName.FetchCoachOrders}`,
+  async (_args, { dispatch, extra: api}) => {
+    try{
+      const {data} = await api.get<Order[]>(ApiRoute.OrdersShow);
       return data;
     }catch(error){
       return Promise.reject(error);

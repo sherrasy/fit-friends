@@ -11,9 +11,8 @@ import {
   getFriendsLoadingStatus,
 } from '../../store/account-data/selectors';
 import { CardsLimit, DefaultParam } from '../../utils/constant';
-import ErrorPage from '../error-page/error-page';
 
-function UserFriendsPage(): JSX.Element {
+function FriendsPage(): JSX.Element {
   const [shownAmount, setShownAmount] = useState(0);
   const dispatch = useAppDispatch();
   const friends = useAppSelector(getFriends);
@@ -37,14 +36,11 @@ function UserFriendsPage(): JSX.Element {
     return <Loader />;
   }
 
-  if (!friends) {
-    return <ErrorPage />;
-  }
-
   const handleShownAmount = () => {
-    setShownAmount((prevAmount) =>
-      Math.min(prevAmount + CardsLimit.Default, friends.length)
-    );
+    if(friends){
+      setShownAmount((prevAmount) =>
+        Math.min(prevAmount + CardsLimit.Default, friends.length)
+      );}
   };
 
   return (
@@ -59,13 +55,13 @@ function UserFriendsPage(): JSX.Element {
                 <h1 className="friends-list__title">Мои друзья</h1>
               </div>
               <ul className="friends-list__list">
-                {friends.slice(DefaultParam.Amount, shownAmount).map((item) => (
+                {friends?.slice(DefaultParam.Amount, shownAmount).map((item) => (
                   <li className="friends-list__item" key={item.id}>
                     <FriendCard friend = {item}/>
                   </li>
                 ))}
               </ul>
-              {friends.length > shownAmount && <ShowMoreButton onShown={handleShownAmount}/>}
+              {friends && friends.length > shownAmount && <ShowMoreButton onShown={handleShownAmount}/>}
             </div>
           </div>
         </section>
@@ -73,4 +69,4 @@ function UserFriendsPage(): JSX.Element {
     </div>
   );
 }
-export default UserFriendsPage;
+export default FriendsPage;
