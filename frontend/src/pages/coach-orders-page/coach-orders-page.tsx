@@ -1,9 +1,22 @@
 import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import WorkoutOrdersCard from '../../components/workout-card/workout-orders-card';
+import { useAppSelector } from '../../hooks';
+import {
+  getCoachOrders,
+  getOrdersLoadingStatus,
+} from '../../store/account-data/selectors';
 
 function CoachOrdersPage(): JSX.Element {
+  const orders = useAppSelector(getCoachOrders);
+  const isLoading = useAppSelector(getOrdersLoadingStatus);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="wrapper">
       <Header />
@@ -11,7 +24,7 @@ function CoachOrdersPage(): JSX.Element {
         <section className="my-orders">
           <div className="container">
             <div className="my-orders__wrapper">
-              <BackButton/>
+              <BackButton />
               <div className="my-orders__title-wrapper">
                 <h1 className="my-orders__title">Мои заказы</h1>
                 <div className="sort-for">
@@ -33,9 +46,11 @@ function CoachOrdersPage(): JSX.Element {
                 </div>
               </div>
               <ul className="my-orders__list">
-                <li className="my-orders__item">
-                  <WorkoutOrdersCard/>
-                </li>
+                {orders?.map((order) => (
+                  <li className="my-orders__item" key={order.id}>
+                    <WorkoutOrdersCard order={order} />
+                  </li>
+                ))}
               </ul>
               {/* <ShowMoreButton /> */}
             </div>

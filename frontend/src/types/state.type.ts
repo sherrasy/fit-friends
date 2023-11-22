@@ -1,5 +1,5 @@
 import {store} from '../store/index.js';
-import { Order } from './order.interface.js';
+import { Order, OrderCoach } from './order.interface.js';
 import { Review } from './review.interface.js';
 import { UserAuthStatus } from './user-auth-status.type.js';
 import { UserRole } from './user-role.enum.js';
@@ -29,6 +29,7 @@ export type UserState = {
 export type AccountState = {
   friends: User[]|null;
   orders: Order[]|null;
+  coachOrders: OrderCoach[]|null;
   isFriendsLoading:boolean;
   isOrdersLoading:boolean;
  }

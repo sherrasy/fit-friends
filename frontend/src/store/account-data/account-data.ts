@@ -6,6 +6,7 @@ import { fetchCoachOrders, fetchFriends, fetchUserOrders } from './api-actions';
 const initialState:AccountState = {
   friends:null,
   orders:null,
+  coachOrders:null,
   isFriendsLoading:false,
   isOrdersLoading:false
 };
@@ -41,7 +42,7 @@ export const accountData = createSlice({
         state.isOrdersLoading = true;
       })
       .addCase(fetchCoachOrders.fulfilled, (state, action) => {
-        state.orders = action.payload;
+        state.coachOrders = action.payload;
         state.isOrdersLoading = false;
       })
       .addCase(fetchCoachOrders.rejected, (state) => {

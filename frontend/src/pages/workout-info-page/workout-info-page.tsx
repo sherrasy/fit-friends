@@ -4,10 +4,10 @@ import Loader from '../../components/loader/loader';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import WorkoutInfoCard from '../../components/workout-card/workout-info-card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getReviews, getReviewsLoadingStatus, getWorkout, getWorkoutLoadingStatus } from '../../store/workout-data/selectors';
-import ErrorPage from '../error-page/error-page';
 import { fetchUser } from '../../store/user-data/api-actions';
 import { getUserData, getUserError } from '../../store/user-data/selectors';
+import { getReviews, getReviewsLoadingStatus, getWorkout, getWorkoutLoadingStatus } from '../../store/workout-data/selectors';
+import ErrorPage from '../error-page/error-page';
 
 function WorkoutInfoPage(): JSX.Element {
   const dispatch = useAppDispatch();
