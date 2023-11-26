@@ -6,7 +6,7 @@ import { WorkoutType } from './workout-type.enum';
 import { Workout } from './workout.interface';
 
 export interface Order {
-  id: number;
+  orderId: number;
   createdDate: string;
   orderType: string;
   workoutId: number;

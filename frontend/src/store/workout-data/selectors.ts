@@ -14,7 +14,8 @@ export const getSpecialUserWorkouts = (state: State): Workout[]|null => state[Re
 
 export const getSpecialWorkouts = createSelector(
   [getWorkouts],
-  (workouts): Workout[] | undefined => workouts?.filter((workout)=> workout.isSpecialOffer).slice(DefaultParam.Amount,CardsLimit.SpecialOffer)
+  (workouts): Workout[] | undefined => workouts?.filter((workout)=>
+    workout.isSpecialOffer).slice(DefaultParam.Amount,CardsLimit.SpecialOffer)
 );
 
 export const getPopularWorkouts = createSelector(

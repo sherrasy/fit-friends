@@ -9,7 +9,9 @@ type WorkoutListCardProps = {
 };
 
 function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
-  const { id, price, name, workoutType, calories, rating, description } = workout;
+  const { id, price, name, workoutType, calories, rating, description, specialPrice } = workout;
+  const currentPrice = specialPrice ? specialPrice : price;
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleRouteChange = ()=>{
@@ -36,7 +38,7 @@ function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
             />
           </picture>
         </div>
-        <p className="thumbnail-training__price">{price}</p>
+        <p className="thumbnail-training__price">{currentPrice}</p>
         <h3 className="thumbnail-training__title">{name}</h3>
         <div className="thumbnail-training__info">
           <ul className="thumbnail-training__hashtags-list">

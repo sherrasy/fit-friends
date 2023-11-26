@@ -7,6 +7,7 @@ import { Query } from '../../types/query.type';
 import { User } from '../../types/user.interface';
 import { toast } from 'react-toastify';
 import { Review } from '../../types/review.interface';
+import { getSpecialPrice } from '../../utils/helpers';
 
 export const fetchWorkouts = createAsyncThunk<Workout[], Query|undefined, {
   dispatch: AppDispatch;
@@ -17,7 +18,8 @@ export const fetchWorkouts = createAsyncThunk<Workout[], Query|undefined, {
   async (query, { dispatch, extra: api}) => {
     try{
       const {data} = await api.get<Workout[]>(ApiRoute.WorkoutsShow);
-      return data;
+      const workouts = data.map((workout)=>({...workout, specialPrice: workout.isSpecialOffer ? getSpecialPrice(workout.price) : null}));
+      return workouts;
     }catch(error){
       return Promise.reject(error);
     }
@@ -40,7 +42,8 @@ export const fetchUserSpecialWorkouts = createAsyncThunk<Workout[]|null, User, {
       const caloriesQuery = `caloriesMax=${sportsmanInfo.caloriesTotal}`;
       const workoutTypeQuery = `&workoutType=${workoutType.join(',')}`;
       const {data} = await api.get<Workout[]>(`${ApiRoute.WorkoutsShow}?${caloriesQuery}${workoutTypeQuery}`);
-      return data.slice(DefaultParam.Amount,CardsLimit.SpecialForUser);
+      const workouts = data.map((workout)=>({...workout, specialPrice: workout.isSpecialOffer ? getSpecialPrice(workout.price) : null}));
+      return workouts.slice(DefaultParam.Amount,CardsLimit.SpecialForUser);
     }catch(error){
       return Promise.reject(error);
     }
@@ -56,7 +59,8 @@ export const fetchCoachWorkouts = createAsyncThunk<Workout[], Query|undefined, {
   async (query, { dispatch, extra: api}) => {
     try{
       const {data} = await api.get<Workout[]>(ApiRoute.CoachWorkoutsShow);
-      return data;
+      const workouts = data.map((workout)=>({...workout, specialPrice: workout.isSpecialOffer ? getSpecialPrice(workout.price) : null}));
+      return workouts;
     }catch(error){
       return Promise.reject(error);
     }
@@ -72,7 +76,8 @@ export const fetchWorkout = createAsyncThunk<Workout, number, {
   async (id, { dispatch, extra: api}) => {
     try{
       const {data} = await api.get<Workout>(`${ApiRoute.WorkoutsMain}/${id}`);
-      return data;
+      const workout = {...data, specialPrice: data.isSpecialOffer ? getSpecialPrice(data.price) : null};
+      return workout;
     }catch(error){
       return Promise.reject(error);
     }

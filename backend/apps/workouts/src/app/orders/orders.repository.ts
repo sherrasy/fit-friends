@@ -15,6 +15,7 @@ export class OrdersRepository {
     const data = {
       ...item.toObject(),
       paymentOption: item.paymentOption as string,
+      amountDone: DefaultParam.Amount
     };
     const order = await this.prisma.workoutOrder.create({
       data,

@@ -80,7 +80,7 @@ function UserPurchasesPage(): JSX.Element {
               </div>
               <ul className="my-purchases__list">
                 {currentPurchases?.slice(DefaultParam.Amount, shownAmount).map((item) => (
-                  <li className="my-purchases__item" key={item.id}>
+                  <li className="my-purchases__item" key={item.orderId}>
                     <WorkoutListCard workout={item.workout} />
                   </li>
                 ))}

@@ -39,8 +39,8 @@ Authorization: Bearer {{AToken}}
 Content-Type: application/json
 
 {
-  "workoutId": 3,
-  "amount": 5,
+  "workoutId": 7,
+  "amount": 1,
   "paymentOption":"umoney",
   "orderType":"абонемент"
 }

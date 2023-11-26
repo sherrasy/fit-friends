@@ -184,4 +184,9 @@ export const SliderBreakpointLimit = {
   Min:1024,
 };
 
+export const RandomNumberLimit = {
+  Max:12,
+  Min:1,
+};
+
 export const sortDirections = ['asc', 'desc'];

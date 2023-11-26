@@ -9,8 +9,8 @@ type WorkoutInfoCardProps = {
 
 function WorkoutInfoCard({ workout, coach }: WorkoutInfoCardProps): JSX.Element {
   const {name:coachName, avatarPath} = coach;
-  const { id, name, description, rating, workoutType, calories, workoutTime, sex, price} = workout;
-
+  const { id, name, description, rating, workoutType, calories, workoutTime, sex, price, specialPrice } = workout;
+  const currentPrice = specialPrice ? specialPrice : price;
   return (
     <div className="training-card">
       <div className="training-info">
@@ -113,7 +113,7 @@ function WorkoutInfoCard({ workout, coach }: WorkoutInfoCardProps): JSX.Element 
                     <input
                       type="text"
                       name="price"
-                      value={`${price} ₽`}
+                      value={`${currentPrice} ₽`}
                       disabled
                     />
                   </label>

@@ -4,7 +4,7 @@ import {
   UpdateOrderAmountDto,
 } from '@backend/shared/shared-dto';
 import { AmountUpdateType, Workout } from '@backend/shared/shared-types';
-import { DefaultParam, getDate } from '@backend/util/util-core';
+import { DefaultParam, getDate, getSpecialPrice } from '@backend/util/util-core';
 import {
   BadRequestException,
   Injectable,
@@ -27,11 +27,12 @@ export class OrdersService {
     if (!workout) {
       throw new BadRequestException(OrdersError.WrongWorkout);
     }
+    const price = workout.isSpecialOffer ? getSpecialPrice(workout.price) : workout.price;
     const order = {
       ...dto,
       userId,
       createdDate: getDate(),
-      price: workout.price,
+      price,
       amountDone: DefaultParam.Amount,
     };
     const orderEntity = new OrderEntity(order);

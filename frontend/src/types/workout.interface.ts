@@ -21,4 +21,5 @@ export interface Workout {
   createdDate: string;
   amountOrdered: number;
   priceOrdered: number;
+  specialPrice: number|null;
 }
