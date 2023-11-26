@@ -173,4 +173,15 @@ export const CardsLimit = {
   ReadyUsers:8,
 };
 
+export const SliderLimit = {
+  Default:4,
+  SpecialOffer:1,
+  SpecialForUser:3,
+};
+
+export const SliderBreakpointLimit = {
+  Max:3000,
+  Min:1024,
+};
+
 export const sortDirections = ['asc', 'desc'];

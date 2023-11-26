@@ -6,6 +6,7 @@ import WorkoutsForUser from '../../components/workouts-for-user/workouts-for-use
 import { useAppSelector } from '../../hooks';
 import { getUserLoadingStatus } from '../../store/user-data/selectors';
 import Loader from '../../components/loader/loader';
+import '../../styles/common-styles.css';
 
 function MainPage(): JSX.Element {
   const isLoading = useAppSelector(getUserLoadingStatus);
