@@ -76,7 +76,8 @@ export class WorkoutRepository
     caloriesMax,
     priceMin,
     priceMax,
-    rating,
+    ratingMin,
+    ratingMax,
     sortBy,
   }: WorkoutListQuery): Promise<Workout[]> {
     const queryParams = {
@@ -84,7 +85,7 @@ export class WorkoutRepository
         AND: {
           calories: { gte: caloriesMin, lte: caloriesMax },
           price: { gte: priceMin, lte: priceMax },
-          rating: { gte: rating },
+          rating: { gte: ratingMin, lte: ratingMax },
           workoutType: undefined,
         },
       },

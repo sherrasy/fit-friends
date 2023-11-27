@@ -38,6 +38,10 @@ export type WorkoutState = {
   workouts: Workout[]|null;
   workout: Workout|null;
   reviews: Review[]|null;
+  specialOfferWorkouts: Workout[]|null;
+  popularWorkouts: Workout[]|null;
+  totalAmount:number;
+  maxPrice:number;
   specialUserWorkouts: Workout[]|null;
   isWorkoutsLoading:boolean;
   isWorkoutLoading:boolean;

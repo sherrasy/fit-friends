@@ -7,6 +7,8 @@ import 'multer';
 import {  ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
 import{CoachOrderQuery, WorkoutListQuery} from"@backend/shared-quieries";
+import { getSpecialPrice } from '@backend/util/util-core';
+import { Workout } from '@backend/shared/shared-types';
 
 @ApiTags(ControllerName.Workouts)
 @Controller(ControllerName.Workouts)
@@ -73,7 +75,10 @@ export class WorkoutsController {
         Authorization: req.headers['authorization'],
       },
     });
-    return data;
+    const totalWorkouts = data.length;
+    const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price) ;
+    const maxPrice = prices?prices.reduce((prev:number, current:number) => (prev > current) ? prev : current):0;
+    return {workouts:data, totalWorkouts, maxPrice};
   }
 
   @ApiResponse({
@@ -94,7 +99,37 @@ export class WorkoutsController {
       },
     });
     return data;
-  }
+    }
+
+    @UseGuards(CheckAuthGuard)
+    @Get(`${AppPath.CoachList}/extra`)
+    public async showExtraWorkoutsCoach(@Req() req: Request ) {
+      const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.WorkoutsList}/${AppPath.CoachList}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      });
+      const totalWorkouts = data.length;
+      const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price) ;
+      const maxPrice = prices.reduce((prev:number, current:number) => (prev > current) ? prev : current);
+      return {workouts:data, totalWorkouts, maxPrice};
+    }
+
+  @UseGuards(CheckAuthGuard)
+  @Get(`${AppPath.Show}/extra`)
+  public async showExtraWorkoutsUser(@Req() req: Request ) {
+    const { data } = await this.httpService.axiosRef.get(ApplicationServiceURL.WorkoutsList,
+    {
+      headers: {
+        Authorization: req.headers['authorization'],
+      },
+    });
+    const totalWorkouts = data.length;
+    const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price) || 0;
+    const maxPrice = prices.reduce((prev:number, current:number) => (prev > current) ? prev : current);
+    return {workouts:data, totalWorkouts, maxPrice};
+    }
 
   @ApiResponse({
     status: HttpStatus.OK,

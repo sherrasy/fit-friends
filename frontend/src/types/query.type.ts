@@ -9,7 +9,8 @@ export type Query = {
   fitnessLevel?: string;
   location?: string;
   workoutTime?: string;
-  rating?: number;
+  ratingMin?: number;
+  ratingMax?: number;
   priceMin?: number;
   priceMax?: number;
   caloriesMin?: number;

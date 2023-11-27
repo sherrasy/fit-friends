@@ -23,3 +23,15 @@ export interface Workout {
   priceOrdered: number;
   specialPrice: number|null;
 }
+
+export interface WorkoutsData {
+  workouts: Workout[];
+  totalWorkouts:number;
+  maxPrice:number;
+}
+export interface ExtraWorkoutsData {
+  specialWorkouts?: Workout[] | null;
+  popularWorkouts?: Workout[] | null;
+  totalWorkouts:number;
+  maxPrice:number;
+}

@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReducerName } from '../../utils/constant';
+import { DefaultParam, ReducerName } from '../../utils/constant';
 import { WorkoutState } from '../../types/state.type';
-import { fetchCoachWorkouts, fetchReviews, fetchUserSpecialWorkouts, fetchWorkout, fetchWorkouts } from './api-actions';
+import { fetchCoachWorkouts, fetchExtraWorkouts, fetchReviews, fetchUserSpecialWorkouts, fetchWorkout, fetchWorkouts } from './api-actions';
 
 const initialState:WorkoutState = {
   workouts:null,
+  specialOfferWorkouts:null,
+  popularWorkouts:null,
   workout:null,
   reviews:null,
+  totalAmount:DefaultParam.Amount,
+  maxPrice:DefaultParam.Amount,
   specialUserWorkouts:null,
   isWorkoutsLoading:false,
   isWorkoutLoading:false,
@@ -28,6 +32,16 @@ export const workoutData = createSlice({
         state.isWorkoutsLoading = false;
       })
       .addCase(fetchWorkouts.rejected, (state) => {
+        state.isWorkoutsLoading = false;
+      })
+      .addCase(fetchExtraWorkouts.pending, (state) => {
+        state.isWorkoutsLoading = true;
+      })
+      .addCase(fetchExtraWorkouts.fulfilled, (state, action) => {
+        state.popularWorkouts = action.payload.popularWorkouts ?? null;
+        state.specialOfferWorkouts = action.payload.specialWorkouts ?? null;
+        state.totalAmount = action.payload.totalWorkouts;
+        state.maxPrice = action.payload.maxPrice;
         state.isWorkoutsLoading = false;
       })
       .addCase(fetchCoachWorkouts.pending, (state) => {

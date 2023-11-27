@@ -1,17 +1,23 @@
 type ShowMoreButtonProps = {
-  onShown: () => void;
+  onShown?: () => void;
+  isLastPage?: boolean;
 };
 
-function ShowMoreButton({ onShown }: ShowMoreButtonProps): JSX.Element {
+function ShowMoreButton({
+  onShown,
+  isLastPage,
+}: ShowMoreButtonProps): JSX.Element {
   return (
     <div className="show-more my-orders__show-more">
-      <button
-        className="btn show-more__button show-more__button--more"
-        type="button"
-        onClick={onShown}
-      >
-        Показать еще
-      </button>
+      {!isLastPage && (
+        <button
+          className="btn show-more__button show-more__button--more"
+          type="button"
+          onClick={onShown}
+        >
+          Показать еще
+        </button>
+      )}
       {/* <button
         className="btn show-more__button show-more__button--to-top"
         type="button"

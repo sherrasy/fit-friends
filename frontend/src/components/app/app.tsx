@@ -24,7 +24,7 @@ import Loader from '../loader/loader';
 import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';
 import { useEffect } from 'react';
 import { fetchUserList } from '../../store/user-data/api-actions';
-import { fetchCoachWorkouts, fetchUserSpecialWorkouts, fetchWorkouts } from '../../store/workout-data/api-actions';
+import { fetchCoachWorkouts, fetchExtraWorkouts, fetchUserSpecialWorkouts, fetchWorkouts } from '../../store/workout-data/api-actions';
 import { fetchCoachOrders, fetchFriends, fetchUserOrders } from '../../store/account-data/api-actions';
 import PrivateRoleRoute from '../private-route/private-role-route';
 import PrivateRoute from '../private-route/private-route';
@@ -39,12 +39,14 @@ function App(): JSX.Element {
     if(userRole === UserRole.Sportsman && userInfo){
       dispatch(fetchUserList());
       dispatch(fetchWorkouts());
+      dispatch(fetchExtraWorkouts(userRole));
       dispatch(fetchUserSpecialWorkouts(userInfo));
       dispatch(fetchUserOrders());
     }
     if(userRole === UserRole.Coach && userInfo){
       dispatch(fetchCoachWorkouts());
       dispatch(fetchCoachOrders());
+      dispatch(fetchExtraWorkouts(userRole));
       dispatch(fetchFriends());
     }
   },[dispatch, userRole, userInfo]);

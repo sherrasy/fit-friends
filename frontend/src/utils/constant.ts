@@ -44,10 +44,11 @@ export const ActionName = {
   FetchUserOrders: 'fetch-user-orders',
   FetchCoachOrders: 'fetch-coach-orders',
   FetchWorkouts: 'fetch-workouts',
+  FetchExtraWorkouts: 'fetch-extra-workouts',
   FetchUserSpecialWorkouts: 'fetch-special-workouts',
-  fetchCoachWorkouts: 'fetch-coach-workouts',
-  fetchWorkout: 'fetch-workout',
-  fetchReviews: 'fetch-reviews',
+  FetchCoachWorkouts: 'fetch-coach-workouts',
+  FetchWorkout: 'fetch-workout',
+  FetchReviews: 'fetch-reviews',
   UpdateUser: 'update-user',
 } as const;
 
@@ -94,6 +95,19 @@ export const UserFormFieldName = {
   CaloriesPerDay:'caloriesPerDay',
   SuccessInfo:'successInfo',
   Description:'description',
+} as const;
+
+export const WorkoutFilterName = {
+  PriceMin:'priceMin',
+  CaloriesMin:'caloriesMin',
+  PriceMax:'priceMax',
+  CaloriesMax:'caloriesMax',
+} as const;
+
+export const WorkoutFilterSortName = {
+  Cheap:'cheap',
+  Expensive:'expensive',
+  Free:'free',
 } as const;
 
 export const UserFormError = {
@@ -190,3 +204,8 @@ export const RandomNumberLimit = {
 };
 
 export const sortDirections = ['asc', 'desc'];
+
+export const SortingFieldName = {
+  Date: 'createdDate',
+  Price: 'price',
+};
