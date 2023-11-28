@@ -37,16 +37,16 @@ Authorization: Bearer {{AToken}} {{RToken}}
 Content-Type: application/json
 
 # # # Sportsman
-# {
-#   "email": "user@test.local",
-#   "password": "123456"
-# }
+{
+  "email": "user@test.local",
+  "password": "123456"
+}
 
 ##Coach
-{
-  "email": "first-coach@test.ru",
-  "password": "test123"
-}
+# {
+#   "email": "first-coach@test.ru",
+#   "password": "test123"
+# }
 
 
 ###
@@ -121,7 +121,7 @@ Authorization: Bearer {{AToken}}
 ###
 
 # Список (каталог пользователей)
-GET http://localhost:4000/api/users/show?workoutType=yoga,stretching HTTP/1.1
+GET http://localhost:4000/api/users/show?workoutType=pilates HTTP/1.1
 Authorization: Bearer {{AToken}}
 # Query params
 ## role=coach

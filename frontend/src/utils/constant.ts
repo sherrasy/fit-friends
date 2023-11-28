@@ -105,6 +105,11 @@ export const WorkoutFilterName = {
   CaloriesMax:'caloriesMax',
 } as const;
 
+export const UserFilterName = {
+  FitnessLevel:'fitnessLevel',
+  Role:'role',
+} as const;
+
 export const WorkoutFilterSortName = {
   Cheap:'cheap',
   Expensive:'expensive',

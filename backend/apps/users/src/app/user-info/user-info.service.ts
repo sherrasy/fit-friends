@@ -24,9 +24,6 @@ export class UserInfoService {
 
   public async getUserList(id:number, query: UserQuery): Promise<User[]> {
     const userList = await this.userInfoRepository.show(id, query);
-    if (!userList.length) {
-      throw new NotFoundException(UserInfoError.EmptyList);
-    }
     return userList;
   }
 

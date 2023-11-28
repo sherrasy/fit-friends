@@ -7,7 +7,7 @@ export type Query = {
   role?: string;
   workoutType?: string[];
   fitnessLevel?: string;
-  location?: string;
+  location?: string[];
   workoutTime?: string[];
   ratingMin?: number;
   ratingMax?: number;

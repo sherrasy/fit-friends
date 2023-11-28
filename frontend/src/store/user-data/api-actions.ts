@@ -3,7 +3,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {dropToken, saveToken} from '../../services/token';
 import { toast } from 'react-toastify';
 import { AppDispatch, State } from '../../types/state.type';
-import { ActionName, ApiRoute, AppRoute, ReducerName } from '../../utils/constant';
+import { ActionName, ApiRoute, AppRoute, CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
 import { redirectToRoute } from '../action';
 import { AuthData } from '../../types/user/auth-data.type';
 import { CreateUserDto } from '../../dto/user/create/create-user.dto';
@@ -18,6 +18,7 @@ import { FileType } from '../../types/reaction/file.type';
 import { adaptAvatarToServer } from '../../utils/adapters/adaptersToServer';
 import { File } from '../../types/reaction/file.interface';
 import { Query } from '../../types/query.type';
+import { getUserQueryString } from '../../utils/helpers';
 
 
 export const checkAuth = createAsyncThunk<User, undefined, {
@@ -183,14 +184,15 @@ export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
   `${ReducerName.User}/${ActionName.FetchUserList}`,
   async (query, { dispatch, extra: api}) => {
     try{
-      const {data} = await api.get<User[]>(ApiRoute.UsersShow);
+      const queryString = query ? getUserQueryString(query) : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}`;
+      const {data} = await api.get<User[]>(`${ApiRoute.UsersShow}/${queryString}`);
       await Promise.all(data.map(async(item)=>{
         if(item.avatar){
           const {data:{path}} = await api.get<File>(`${ApiRoute.File}/${item.avatar}`);
           item.avatarPath = path || '';
         }
       }));
-      dispatch(fetchUserListAmount);
+      dispatch(fetchUserListAmount());
       return data;
     }
     catch(error){

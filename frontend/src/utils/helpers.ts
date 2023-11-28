@@ -52,3 +52,25 @@ export const getWorkoutQueryString = (query: Query) => {
     : `sortDirection=${sortDirections[1]}`;
   return `?${limitQuery}${pageQuery}${workoutTypeQuery}${workoutTimeQuery}${priceMinQuery}${priceMaxQuery}${caloriesMinQuery}${caloriesMaxQuery}${ratingMinQuery}${ratingMaxQuery}${sortByQuery}${sortDirectionQuery}`;
 };
+
+export const getUserQueryString = (query: Query) => {
+  const limitQuery = query.limit
+    ? `limit=${query.limit}&`
+    : `limit=${CardsLimit.Default}&`;
+  const pageQuery = query.page
+    ? `page=${query.page}&`
+    : `page=${DefaultParam.Step}&`;
+  const workoutTypeQuery = (query.workoutType && query.workoutType.length)
+    ? `workoutType=${query.workoutType.join(',')}&`
+    : '';
+  const locationQuery = (query.location && query.location.length)
+    ? `location=${query.location.join(',')}&`
+    : '';
+  const fitnessLevelQuery = query.fitnessLevel
+    ? `fitnessLevel=${query.fitnessLevel}&`
+    : '';
+  const roleQuery = query.role
+    ? `role=${query.role}`
+    : '';
+  return `?${limitQuery}${pageQuery}${workoutTypeQuery}${fitnessLevelQuery}${locationQuery}${roleQuery}`;
+};
