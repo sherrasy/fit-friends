@@ -34,7 +34,8 @@ export class WorkoutRepository
       caloriesMax,
       priceMin,
       priceMax,
-      rating,
+      ratingMin,
+      ratingMax,
       sortBy,
     }: WorkoutByCoachQuery
   ): Promise<Workout[] | null> {
@@ -44,7 +45,7 @@ export class WorkoutRepository
           coachId,
           calories: { gte: caloriesMin, lte: caloriesMax },
           price: { gte: priceMin, lte: priceMax },
-          rating: { gte: rating },
+          rating: { gte: ratingMin, lte: ratingMax },
           workoutTime: undefined,
         },
       },

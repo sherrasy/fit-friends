@@ -35,7 +35,7 @@ export const fetchWorkouts = createAsyncThunk<
     try {
       const queryString = query ? getWorkoutQueryString(query) : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}&sortBy=${SortingFieldName.Date}`;
       const {
-        data,
+        data
       } = await api.get<Workout[]>(`${ApiRoute.WorkoutsShow}${queryString}`);
       const workoutsData = data.map((workout) => ({
         ...workout,
@@ -146,9 +146,8 @@ Workout[],
   async (query, { dispatch, extra: api }) => {
     try {
       const queryString = query ? getWorkoutQueryString(query) : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}&sortBy=${SortingFieldName.Date}`;
-
       const {
-        data,
+        data
       } = await api.get<Workout[]>(`${ApiRoute.CoachWorkoutsShow}${queryString}`);
       const workoutsData = data.map((workout) => ({
         ...workout,

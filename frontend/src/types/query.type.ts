@@ -8,7 +8,7 @@ export type Query = {
   workoutType?: string[];
   fitnessLevel?: string;
   location?: string;
-  workoutTime?: string;
+  workoutTime?: string[];
   ratingMin?: number;
   ratingMax?: number;
   priceMin?: number;

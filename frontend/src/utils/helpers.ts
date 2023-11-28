@@ -27,6 +27,9 @@ export const getWorkoutQueryString = (query: Query) => {
   const workoutTypeQuery = (query.workoutType && query.workoutType.length)
     ? `workoutType=${query.workoutType.join(',')}&`
     : '';
+  const workoutTimeQuery = (query.workoutTime && query.workoutTime.length)
+    ? `workoutTime=${query.workoutTime.join(',')}&`
+    : '';
   const priceMinQuery = query.priceMin ? `priceMin=${query.priceMin}&` : '';
   const priceMaxQuery = query.priceMax ? `priceMax=${query.priceMax}&` : '';
   const caloriesMinQuery = query.caloriesMin
@@ -46,6 +49,6 @@ export const getWorkoutQueryString = (query: Query) => {
     : `sortBy=${SortingFieldName.Date}&`;
   const sortDirectionQuery = query.sortDirection
     ? `sortDirection=${query.sortDirection}`
-    : `sortDirection=${sortDirections[0]}`;
-  return `?${limitQuery}${pageQuery}${workoutTypeQuery}${priceMinQuery}${priceMaxQuery}${caloriesMinQuery}${caloriesMaxQuery}${ratingMinQuery}${ratingMaxQuery}${sortByQuery}${sortDirectionQuery}`;
+    : `sortDirection=${sortDirections[1]}`;
+  return `?${limitQuery}${pageQuery}${workoutTypeQuery}${workoutTimeQuery}${priceMinQuery}${priceMaxQuery}${caloriesMinQuery}${caloriesMaxQuery}${ratingMinQuery}${ratingMaxQuery}${sortByQuery}${sortDirectionQuery}`;
 };

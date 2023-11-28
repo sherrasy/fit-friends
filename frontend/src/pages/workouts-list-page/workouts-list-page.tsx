@@ -24,13 +24,13 @@ function WorkoutsListPage(): JSX.Element {
   const workoutsListLoading = useAppSelector(getWorkoutsLoadingStatus);
   const [currentPage, setCurrentPage] = useState(DefaultParam.Step);
   const [currentSorting, setCurrentSorting] = useState('');
-  const [workoutTypes, setWorkoutTypes] = useState<string[]>();
+  const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>();
   const [query, setQuery] = useState<Query>({
     limit: CardsLimit.Default,
   });
   const isLastPage = currentPage === pagesAmount;
   const isMoreVisible = !isLastPage && pagesAmount > DefaultParam.Amount && workoutsList?.length === CardsLimit.Default;
-  const isReturnVisible = isLastPage || (workoutsList ? workoutsList.length < CardsLimit.Default : false);
+  const isReturnVisible = isLastPage && (!((workoutsList && workoutsList.length < CardsLimit.Default)));
   const defaultSliderStep = 100;
   const valuesByType = {
     price: [DefaultParam.Amount, maxPrice],
@@ -116,7 +116,6 @@ function WorkoutsListPage(): JSX.Element {
       : workoutTypes.concat(value);
     setWorkoutTypes(types);
   };
-
 
   const handleSortChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const currentSort = evt.target.value;
@@ -331,7 +330,7 @@ function WorkoutsListPage(): JSX.Element {
                                     onChange={handleWorkoutTypesChange}
                                     checked={
                                       workoutTypes
-                                        ? workoutTypes.includes(key)
+                                        ? workoutTypes.includes(key as WorkoutType)
                                         : false
                                     }
                                   />

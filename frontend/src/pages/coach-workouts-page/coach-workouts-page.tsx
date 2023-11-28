@@ -1,5 +1,5 @@
 import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
@@ -13,9 +13,16 @@ import {
 } from '../../store/workout-data/selectors';
 import { Query } from '../../types/query.type';
 import { WorkoutTime } from '../../types/common/workout-time.enum';
-import { CardsLimit, DefaultParam, WorkoutFilterName } from '../../utils/constant';
+import {
+  CardsLimit,
+  DefaultParam,
+  WorkoutFilterName,
+} from '../../utils/constant';
 import { CaloriesAmount, RaitingCount } from '../../utils/validation.constant';
-import { fetchCoachWorkouts, fetchExtraWorkouts } from '../../store/workout-data/api-actions';
+import {
+  fetchCoachWorkouts,
+  fetchExtraWorkouts,
+} from '../../store/workout-data/api-actions';
 import { UserRole } from '../../types/common/user-role.enum';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
@@ -25,13 +32,18 @@ function CoachWorkoutsPage(): JSX.Element {
   const pagesAmount = useAppSelector(getPages);
   const workouts = useAppSelector(getWorkouts);
   const workoutsLoading = useAppSelector(getWorkoutsLoadingStatus);
+  const [workoutTimes, setWorkoutTimes] = useState<WorkoutTime[]>();
   const [currentPage, setCurrentPage] = useState(DefaultParam.Step);
   const [query, setQuery] = useState<Query>({
     limit: CardsLimit.Default,
   });
   const isLastPage = currentPage === pagesAmount;
-  const isMoreVisible = !isLastPage && pagesAmount > DefaultParam.Amount && workouts?.length === CardsLimit.Default;
-  const isReturnVisible = isLastPage || (workouts ? workouts.length < CardsLimit.Default : false);
+  const isMoreVisible =
+    !isLastPage &&
+    pagesAmount > DefaultParam.Amount &&
+    workouts?.length === CardsLimit.Default;
+  const isReturnVisible =
+    isLastPage && !(workouts && workouts.length < CardsLimit.Default);
   const defaultSliderStep = 100;
   const valuesByType = {
     price: [DefaultParam.Amount, maxPrice],
@@ -65,22 +77,28 @@ function CoachWorkoutsPage(): JSX.Element {
     setCurrentPage(DefaultParam.Step);
   };
 
-  const handleFilterChange = (
-    evt: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFilterChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = evt.target;
     const currentValue = +Math.max(DefaultParam.Amount, +value);
     setFormValue({ ...formValue, [name]: currentValue });
-    if (name === WorkoutFilterName.PriceMin && currentValue <= formValue.priceMax
+    if (
+      name === WorkoutFilterName.PriceMin &&
+      currentValue <= formValue.priceMax
     ) {
       setQuery({
-        ...query, priceMin: currentValue, priceMax: formValue.priceMax,
+        ...query,
+        priceMin: currentValue,
+        priceMax: formValue.priceMax,
       });
     }
-    if (name === WorkoutFilterName.PriceMax && currentValue >= formValue.priceMin
+    if (
+      name === WorkoutFilterName.PriceMax &&
+      currentValue >= formValue.priceMin
     ) {
       setQuery({
-        ...query, priceMin: formValue.priceMin, priceMax: currentValue,
+        ...query,
+        priceMin: formValue.priceMin,
+        priceMax: currentValue,
       });
     }
     if (
@@ -93,16 +111,49 @@ function CoachWorkoutsPage(): JSX.Element {
     ) {
       setQuery({ ...query, priceMin: undefined, priceMax: undefined });
     }
-    if (name === WorkoutFilterName.CaloriesMin && currentValue <= formValue.caloriesMax) {
-      setQuery({ ...query, caloriesMin: currentValue, caloriesMax: formValue.caloriesMax });
+    if (
+      name === WorkoutFilterName.CaloriesMin &&
+      currentValue <= formValue.caloriesMax
+    ) {
+      setQuery({
+        ...query,
+        caloriesMin: currentValue,
+        caloriesMax: formValue.caloriesMax,
+      });
     }
-    if (name === WorkoutFilterName.CaloriesMax && currentValue >= formValue.caloriesMin) {
-      setQuery({ ...query, caloriesMin: formValue.caloriesMin, caloriesMax: currentValue });
+    if (
+      name === WorkoutFilterName.CaloriesMax &&
+      currentValue >= formValue.caloriesMin
+    ) {
+      setQuery({
+        ...query,
+        caloriesMin: formValue.caloriesMin,
+        caloriesMax: currentValue,
+      });
     }
-    if ((name === WorkoutFilterName.CaloriesMax && currentValue === 0 && formValue.caloriesMin === 0)
-      || (name === WorkoutFilterName.CaloriesMin && currentValue === 0 && formValue.caloriesMax === 0)) {
+    if (
+      (name === WorkoutFilterName.CaloriesMax &&
+        currentValue === 0 &&
+        formValue.caloriesMin === 0) ||
+      (name === WorkoutFilterName.CaloriesMin &&
+        currentValue === 0 &&
+        formValue.caloriesMax === 0)
+    ) {
       setQuery({ ...query, caloriesMin: undefined, caloriesMax: undefined });
     }
+  };
+
+  const handleWorkoutTimesChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const value = evt.target.value as WorkoutTime;
+    if (!workoutTimes) {
+      setWorkoutTimes([value]);
+      return;
+    }
+    const isExists = workoutTimes.includes(value);
+    const types = isExists
+      ? workoutTimes.filter((item) => item !== value)
+      : workoutTimes.concat(value);
+    setWorkoutTimes(types);
   };
 
   const handlePriceSliderChange = (evt: ChangeResult) => {
@@ -130,6 +181,7 @@ function CoachWorkoutsPage(): JSX.Element {
       setQuery({ ...query, caloriesMax: maxValue });
     }
   };
+
   const handleRatingSliderChange = (evt: ChangeResult) => {
     const minValue = evt.minValue;
     const maxValue = evt.maxValue;
@@ -144,10 +196,15 @@ function CoachWorkoutsPage(): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(fetchCoachWorkouts({ ...query, page: currentPage }));
+    dispatch(
+      fetchCoachWorkouts({
+        ...query,
+        page: currentPage,
+        workoutTime: workoutTimes,
+      })
+    );
     dispatch(fetchExtraWorkouts(UserRole.Coach));
-  }, [dispatch, query, currentPage]);
-
+  }, [dispatch, query, currentPage, workoutTimes]);
 
   if (workoutsLoading) {
     return <Loader />;
@@ -292,14 +349,25 @@ function CoachWorkoutsPage(): JSX.Element {
                         Длительность
                       </h4>
                       <ul className="my-training-form__check-list">
-                        {Object.entries(WorkoutTime).map(([key, value])=>(
-                          <li className="my-training-form__check-list-item" key={key}>
+                        {Object.entries(WorkoutTime).map(([key, value]) => (
+                          <li
+                            className="my-training-form__check-list-item"
+                            key={key}
+                          >
                             <div className="custom-toggle custom-toggle--checkbox">
                               <label>
                                 <input
                                   type="checkbox"
-                                  defaultValue={key}
-                                  name="duration"
+                                  defaultValue={value}
+                                  name="workoutTime"
+                                  onChange={handleWorkoutTimesChange}
+                                  checked={
+                                    workoutTimes
+                                      ? workoutTimes.includes(
+                                          value as WorkoutTime
+                                      )
+                                      : false
+                                  }
                                 />
                                 <span className="custom-toggle__icon">
                                   <svg width="9" height="6" aria-hidden="true">
@@ -311,8 +379,8 @@ function CoachWorkoutsPage(): JSX.Element {
                                 </span>
                               </label>
                             </div>
-                          </li>)
-                        )}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </form>
@@ -330,8 +398,8 @@ function CoachWorkoutsPage(): JSX.Element {
                   <ShowMoreButton
                     onShown={handleShowClick}
                     onReturn={handleReturnClick}
-                    isShowMoreVisible = {isMoreVisible}
-                    isReturnVisible = {isReturnVisible}
+                    isShowMoreVisible={isMoreVisible}
+                    isReturnVisible={isReturnVisible}
                   />
                 </div>
               </div>

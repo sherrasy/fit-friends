@@ -75,10 +75,7 @@ export class WorkoutsController {
         Authorization: req.headers['authorization'],
       },
     });
-    const totalWorkouts = data.length;
-    const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price) ;
-    const maxPrice = prices?prices.reduce((prev:number, current:number) => (prev > current) ? prev : current):0;
-    return {workouts:data, totalWorkouts, maxPrice};
+    return data;
   }
 
   @ApiResponse({

@@ -32,7 +32,8 @@ Authorization: Bearer {{AToken}}
 ## workoutTime=10-30%20мин || workoutTime=10-30%20мин,30-50%20мин
 ## priceMin=0
 ## priceMax=5000
-## rating=0
+## ratingMin=0
+## ratingMax=0
 ## caloriesMin=2000
 ## caloriesMax=3000
 
