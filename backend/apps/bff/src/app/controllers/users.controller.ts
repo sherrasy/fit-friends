@@ -35,6 +35,7 @@ import { CheckJwtAuthGuard } from '../guards/check-jwt-auth.guard';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { UserIdInterceptor } from '../interceptors/user-id.interceptor';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { UserQuery } from '@backend/shared-quieries';
 
 @ApiTags(ControllerName.User)
 @Controller(ControllerName.User)
@@ -255,7 +256,20 @@ export class UsersController {
     description: UserMessages.EmptyList,
   })
   @Get(AppPath.Show)
-  public async show(@Req() req: Request) {
+  public async show(@Req() req: Request,  @Query() query:UserQuery) {
+    const { data } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
+      {params:query,
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+  @Get(`${AppPath.Show}/count`)
+  public async showAmount(@Req() req: Request, ) {
     const { data } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
       {
@@ -264,7 +278,7 @@ export class UsersController {
         },
       }
     );
-    return data;
+    return data.length;
   }
 
    @ApiResponse({

@@ -5,12 +5,35 @@ import { useAppSelector } from '../../hooks';
 import {
   getUserList,
   getUserListLoadingStatus,
+  getUserPages,
 } from '../../store/user-data/selectors';
 import Loader from '../../components/loader/loader';
+import { useState } from 'react';
+import { CardsLimit, DefaultParam } from '../../utils/constant';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
 function UsersListPage(): JSX.Element {
   const userList = useAppSelector(getUserList);
+  const pagesAmount = useAppSelector(getUserPages);
   const userListLoading = useAppSelector(getUserListLoadingStatus);
+  const [currentPage, setCurrentPage] = useState(DefaultParam.Step);
+  const isLastPage = currentPage === pagesAmount;
+  const isMoreVisible =
+    !isLastPage &&
+    pagesAmount > DefaultParam.Amount &&
+    userList?.length === CardsLimit.Default;
+  const isReturnVisible =
+    isLastPage && !(userList && userList.length < CardsLimit.Default);
+
+  const handleShowClick = () => {
+    if (currentPage !== pagesAmount) {
+      setCurrentPage((prev) => prev + DefaultParam.Step);
+    }
+  };
+
+  const handleReturnClick = () => {
+    setCurrentPage(DefaultParam.Step);
+  };
 
   if (userListLoading) {
     return <Loader />;
@@ -33,20 +56,12 @@ function UsersListPage(): JSX.Element {
                       </li>
                     ))}
                   </ul>
-                  <div className="show-more users-catalog__show-more">
-                    <button
-                      className="btn show-more__button show-more__button--more"
-                      type="button"
-                    >
-                      Показать еще
-                    </button>
-                    <button
-                      className="btn show-more__button show-more__button--to-top"
-                      type="button"
-                    >
-                      Вернуться в начало
-                    </button>
-                  </div>
+                  <ShowMoreButton
+                    onShown={handleShowClick}
+                    onReturn={handleReturnClick}
+                    isShowMoreVisible={isMoreVisible}
+                    isReturnVisible={isReturnVisible}
+                  />
                 </div>
               </div>
             </div>

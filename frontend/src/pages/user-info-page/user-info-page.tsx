@@ -1,9 +1,36 @@
+import { useParams } from 'react-router-dom';
 import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
 import UserCard from '../../components/user-card/user-card';
 import WorkoutListCard from '../../components/workout-card/workout-list-card';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getUserData, getUserError, getUserLoadingStatus } from '../../store/user-data/selectors';
+import { UserRole } from '../../types/common/user-role.enum';
+import { useEffect } from 'react';
+import { fetchUser } from '../../store/user-data/api-actions';
+import Loader from '../../components/loader/loader';
+import ErrorPage from '../error-page/error-page';
 
 function UserInfoPage(): JSX.Element {
+  const {id:userId} = useParams();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getUserData);
+  const userError = useAppSelector(getUserError);
+  const isUserLoading = useAppSelector(getUserLoadingStatus);
+
+  useEffect(() => {
+    if(userId) {
+      dispatch(fetchUser(+userId));
+    }
+  }, [dispatch, userId]);
+
+  if (!user || userError) {
+    return (<ErrorPage />);
+  }
+
+  if (isUserLoading) {
+    return (<Loader />);
+  }
   return (
     <div className="wrapper">
       <Header />
@@ -18,7 +45,7 @@ function UserInfoPage(): JSX.Element {
                     Карточка пользователя роль тренер
                   </h1>
                   <div className="user-card-coach__wrapper">
-                    <UserCard />
+                    <UserCard user={user}/>
                     <div className="user-card-coach__training">
                       <div className="user-card-coach__training-head">
                         <h2 className="user-card-coach__training-title">

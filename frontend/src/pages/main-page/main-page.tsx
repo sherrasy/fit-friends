@@ -4,12 +4,12 @@ import PopularTrainings from '../../components/popular-trainings/popular-trainin
 import SpecialOffers from '../../components/special-offers/special-offers';
 import WorkoutsForUser from '../../components/workouts-for-user/workouts-for-user';
 import { useAppSelector } from '../../hooks';
-import { getUserLoadingStatus } from '../../store/user-data/selectors';
+import { getCurrentUserLoadingStatus } from '../../store/user-data/selectors';
 import Loader from '../../components/loader/loader';
 import '../../styles/common-styles.css';
 
 function MainPage(): JSX.Element {
-  const isLoading = useAppSelector(getUserLoadingStatus);
+  const isLoading = useAppSelector(getCurrentUserLoadingStatus);
   if(isLoading){
     return <Loader/>;
   }

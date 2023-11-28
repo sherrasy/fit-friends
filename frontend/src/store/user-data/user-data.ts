@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus, ReducerName } from '../../utils/constant';
+import { AuthorizationStatus, DefaultParam, ReducerName } from '../../utils/constant';
 import { UserState } from '../../types/state.type';
-import { checkAuth, checkEmail, fetchCurrentUser, fetchUser, fetchUserList, login, updateUser } from './api-actions';
+import { checkAuth, checkEmail, fetchCurrentUser, fetchUser, fetchUserList, fetchUserListAmount, login, updateUser } from './api-actions';
 import { NewUserGeneral, User } from '../../types/user/user.interface';
 
 const initialState:UserState = {
@@ -18,6 +18,7 @@ const initialState:UserState = {
   isUserUpdating:false,
   isEmailExists:false,
   hasUserError:false,
+  totalAmount:DefaultParam.Amount,
 };
 
 
@@ -97,6 +98,9 @@ export const userData = createSlice({
       .addCase(fetchUserList.fulfilled, (state, action) => {
         state.userListData = action.payload;
         state.isUserListLoading = false;
+      })
+      .addCase(fetchUserListAmount.fulfilled, (state, action) => {
+        state.totalAmount = action.payload;
       })
       .addCase(fetchUserList.rejected, (state) => {
         state.isUserListLoading = false;

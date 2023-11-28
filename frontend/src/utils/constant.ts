@@ -40,6 +40,7 @@ export const ActionName = {
   FetchUser: 'fetch-user',
   FetchCurrentUser: 'fetch-current-user',
   FetchUserList: 'fetch-user-list',
+  FetchUserListAmount: 'fetch-user-list-amount',
   FetchFriends: 'fetch-friends',
   FetchUserOrders: 'fetch-user-orders',
   FetchCoachOrders: 'fetch-coach-orders',
@@ -118,8 +119,8 @@ export const UserFormError = {
 } as const;
 
 export const ReadyToTrainText = {
-  Coach:'Готов тренировать',
-  User:'Готов к тренировке',
+  Coach:['Готов тренировать', 'Не готов тренировать'],
+  User:['Готов к тренировке', 'Не готов тренироваться'],
 } as const;
 
 export const HeaderTab = {
@@ -133,6 +134,7 @@ export const UserSexToName = {
   female : 'Женский',
   any : 'Неважно',
 };
+
 export const UserSexToHashtagName = {
   male : 'для_мужчин',
   female : 'для_женщин',

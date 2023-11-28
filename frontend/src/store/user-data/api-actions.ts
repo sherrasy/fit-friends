@@ -190,12 +190,24 @@ export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
           item.avatarPath = path || '';
         }
       }));
+      dispatch(fetchUserListAmount);
       return data;
     }
     catch(error){
       return Promise.reject(error);
 
     }
+  },
+);
+export const fetchUserListAmount = createAsyncThunk<number, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.FetchUserListAmount}`,
+  async (query, { dispatch, extra: api}) => {
+    const {data} = await api.get<number>(`${ApiRoute.UsersShow}/count`);
+    return data;
   },
 );
 

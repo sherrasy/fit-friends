@@ -150,7 +150,7 @@ function App(): JSX.Element {
           </PrivateRoute>
         }
       />
-      <Route path={AppRoute.UserInfo} element={<UserInfoPage />} />
+      <Route path={`${AppRoute.UserInfo}/:id`} element={<UserInfoPage />} />
       <Route
         path={AppRoute.Purchases}
         element={

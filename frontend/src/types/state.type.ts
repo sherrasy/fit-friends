@@ -24,6 +24,7 @@ export type UserState = {
   isUserUpdating:boolean;
   isEmailExists:boolean;
   hasUserError:boolean;
+  totalAmount:number;
  }
 
 export type AccountState = {

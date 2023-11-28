@@ -281,8 +281,8 @@ function UserInfo(): JSX.Element {
               </span>
               <span className="custom-toggle__label">
                 {userInfo.role === UserRole.Coach
-                  ? ReadyToTrainText.Coach
-                  : ReadyToTrainText.User}
+                  ? ReadyToTrainText.Coach[0]
+                  : ReadyToTrainText.User[0]}
               </span>
             </label>
           </div>

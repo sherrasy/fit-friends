@@ -46,7 +46,7 @@ function UserCardSmall({ user }: UserCardSmallProps): JSX.Element {
           </li>
         ))}
       </ul>
-      <Link className="btn btn--medium thumbnail-user__button" to={AppRoute.UserInfo}>
+      <Link className="btn btn--medium thumbnail-user__button" to={`${AppRoute.UserInfo}/${id}`}>
         Подробнее
       </Link>
     </div>
