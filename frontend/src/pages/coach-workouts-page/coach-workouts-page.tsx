@@ -12,11 +12,11 @@ import {
   getWorkoutsLoadingStatus,
 } from '../../store/workout-data/selectors';
 import { Query } from '../../types/query.type';
-import { WorkoutTime } from '../../types/workout-time.enum';
+import { WorkoutTime } from '../../types/common/workout-time.enum';
 import { CardsLimit, DefaultParam, WorkoutFilterName } from '../../utils/constant';
 import { CaloriesAmount, RaitingCount } from '../../utils/validation.constant';
 import { fetchCoachWorkouts, fetchExtraWorkouts } from '../../store/workout-data/api-actions';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
 function CoachWorkoutsPage(): JSX.Element {
@@ -30,6 +30,8 @@ function CoachWorkoutsPage(): JSX.Element {
     limit: CardsLimit.Default,
   });
   const isLastPage = currentPage === pagesAmount;
+  const isMoreVisible = !isLastPage && pagesAmount > DefaultParam.Amount && workouts?.length === CardsLimit.Default;
+  const isReturnVisible = isLastPage || (workouts ? workouts.length < CardsLimit.Default : false);
   const defaultSliderStep = 100;
   const valuesByType = {
     price: [DefaultParam.Amount, maxPrice],
@@ -57,6 +59,10 @@ function CoachWorkoutsPage(): JSX.Element {
     if (currentPage !== pagesAmount) {
       setCurrentPage((prev) => prev + DefaultParam.Step);
     }
+  };
+
+  const handleReturnClick = () => {
+    setCurrentPage(DefaultParam.Step);
   };
 
   const handleFilterChange = (
@@ -321,12 +327,12 @@ function CoachWorkoutsPage(): JSX.Element {
                       </li>
                     ))}
                   </ul>
-                  {pagesAmount > DefaultParam.Amount && (
-                    <ShowMoreButton
-                      onShown={handleShowClick}
-                      isLastPage={isLastPage}
-                    />
-                  )}
+                  <ShowMoreButton
+                    onShown={handleShowClick}
+                    onReturn={handleReturnClick}
+                    isShowMoreVisible = {isMoreVisible}
+                    isReturnVisible = {isReturnVisible}
+                  />
                 </div>
               </div>
             </div>

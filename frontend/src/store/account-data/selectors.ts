@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { Order, OrderCoach } from '../../types/order.interface';
+import { Order, OrderCoach } from '../../types/reaction/order.interface';
 import { State } from '../../types/state.type';
-import { User } from '../../types/user.interface';
+import { User } from '../../types/user/user.interface';
 import { ReducerName } from '../../utils/constant';
 
 export const getFriendsLoadingStatus = (state: State): boolean => state[ReducerName.Account].isFriendsLoading;

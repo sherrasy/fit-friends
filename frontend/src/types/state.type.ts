@@ -1,10 +1,10 @@
 import {store} from '../store/index.js';
-import { Order, OrderCoach } from './order.interface.js';
-import { Review } from './review.interface.js';
-import { UserAuthStatus } from './user-auth-status.type.js';
-import { UserRole } from './user-role.enum.js';
-import { User, NewUserGeneral } from './user.interface.js';
-import { Workout } from './workout.interface.js';
+import { Order, OrderCoach } from './reaction/order.interface.js';
+import { Review } from './reaction/review.interface.js';
+import { UserAuthStatus } from './user/user-auth-status.type.js';
+import { UserRole } from './common/user-role.enum.js';
+import { User, NewUserGeneral } from './user/user.interface.js';
+import { Workout } from './workout/workout.interface.js';
 
 export type State = ReturnType<typeof store.getState>;
 

@@ -1,5 +1,5 @@
-import { UserRole } from '../../types/user-role.enum';
-import { User } from '../../types/user.interface';
+import { UserRole } from '../../types/common/user-role.enum';
+import { User } from '../../types/user/user.interface';
 import { LocationToName, WorkoutTypeToName } from '../../utils/constant';
 
 type FriendCardProps = {

@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
-import { FitnessLevel } from '../../types/fitness-level.enum';
-import { WorkoutType } from '../../types/workout-type.enum';
+import { FitnessLevel } from '../../types/common/fitness-level.enum';
+import { WorkoutType } from '../../types/common/workout-type.enum';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -10,7 +10,7 @@ import {
 } from '../../utils/constant';
 import { capitalizeFirstLetter } from '../../utils/helpers';
 import { DescriptionLength, WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
-import { NewUserGeneral } from '../../types/user.interface';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import { register } from '../../store/user-data/api-actions';
 import { CreateUserDto } from '../../dto/user/create/create-user.dto';
 import { useAppDispatch } from '../../hooks';

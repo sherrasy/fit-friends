@@ -1,14 +1,14 @@
 /* eslint-disable indent */
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { Location } from '../../types/location.enum';
+import { Location } from '../../types/common/location.enum';
 import {
   LocationToName,
   UserFormError,
   UserFormFieldName,
   UserSexToName,
 } from '../../utils/constant';
-import { UserSex } from '../../types/user-sex.enum';
-import { UserRole } from '../../types/user-role.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import {
   NameLength,
   PasswordLength,
@@ -20,7 +20,7 @@ import { checkValidity } from '../../utils/helpers';
 import { checkEmail } from '../../store/user-data/api-actions';
 import { getEmailExistsStatus } from '../../store/user-data/selectors';
 import { toast } from 'react-toastify';
-import { NewUserGeneral } from '../../types/user.interface';
+import { NewUserGeneral } from '../../types/user/user.interface';
 
 
 type SignUpFormProps = {

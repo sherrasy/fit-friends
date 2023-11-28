@@ -1,4 +1,4 @@
-import { Review } from '../../types/review.interface';
+import { Review } from '../../types/reaction/review.interface';
 
  type ReviewCardProps = {
   review:Review;

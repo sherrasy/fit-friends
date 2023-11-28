@@ -1,4 +1,4 @@
-import { WorkoutTime } from './workout-time.enum';
+import { WorkoutTime } from '../common/workout-time.enum';
 
 export interface Sportsman {
   sportsmanId: number;

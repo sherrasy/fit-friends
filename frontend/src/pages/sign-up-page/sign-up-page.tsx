@@ -1,11 +1,11 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import SignUpForm from '../../components/sign-up-form/sign-up-form';
 import { getNewUserData } from '../../store/user-data/selectors';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import QuestionnaireUser from '../../components/questionnaire/questionnaire-user';
 import QuestionnaireCoach from '../../components/questionnaire/questionnaire-coach';
 import { createNewUser } from '../../store/user-data/user-data';
-import { NewUserGeneral } from '../../types/user.interface';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import { useState } from 'react';
 
 function SignUpPage(): JSX.Element {

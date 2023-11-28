@@ -11,20 +11,20 @@ import {
   UserSexToName,
   WorkoutTypeToName,
 } from '../../utils/constant';
-import { WorkoutType } from '../../types/workout-type.enum';
+import { WorkoutType } from '../../types/common/workout-type.enum';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import Loader from '../loader/loader';
-import { UserInfoInterface } from '../../types/user.interface';
-import { Location } from '../../types/location.enum';
-import { UserSex } from '../../types/user-sex.enum';
-import { FitnessLevel } from '../../types/fitness-level.enum';
+import { UserInfoInterface } from '../../types/user/user.interface';
+import { Location } from '../../types/common/location.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { FitnessLevel } from '../../types/common/fitness-level.enum';
 import { WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
 import { toast } from 'react-toastify';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { updateUser } from '../../store/user-data/api-actions';
-import { Coach } from '../../types/coach.interface';
-import { Sportsman } from '../../types/sportsman.interface';
+import { Coach } from '../../types/user/coach.interface';
+import { Sportsman } from '../../types/user/sportsman.interface';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();

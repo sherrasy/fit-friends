@@ -5,18 +5,18 @@ import { toast } from 'react-toastify';
 import { AppDispatch, State } from '../../types/state.type';
 import { ActionName, ApiRoute, AppRoute, ReducerName } from '../../utils/constant';
 import { redirectToRoute } from '../action';
-import { AuthData } from '../../types/auth-data.type';
+import { AuthData } from '../../types/user/auth-data.type';
 import { CreateUserDto } from '../../dto/user/create/create-user.dto';
 import { StatusCodes } from 'http-status-codes';
-import { TokenData, TokenPayloadData } from '../../types/token-data.type';
-import { User } from '../../types/user.interface';
+import { TokenData, TokenPayloadData } from '../../types/user/token-data.type';
+import { User } from '../../types/user/user.interface';
 import { jwtDecode } from 'jwt-decode';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import { setUserData } from './user-data';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
-import { FileType } from '../../types/file.type';
+import { FileType } from '../../types/reaction/file.type';
 import { adaptAvatarToServer } from '../../utils/adapters/adaptersToServer';
-import { File } from '../../types/file.interface';
+import { File } from '../../types/reaction/file.interface';
 import { Query } from '../../types/query.type';
 
 

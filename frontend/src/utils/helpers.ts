@@ -24,7 +24,7 @@ export const getWorkoutQueryString = (query: Query) => {
   const pageQuery = query.page
     ? `page=${query.page}&`
     : `page=${DefaultParam.Step}&`;
-  const workoutTypeQuery = query.workoutType
+  const workoutTypeQuery = (query.workoutType && query.workoutType.length)
     ? `workoutType=${query.workoutType.join(',')}&`
     : '';
   const priceMinQuery = query.priceMin ? `priceMin=${query.priceMin}&` : '';

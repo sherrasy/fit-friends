@@ -18,7 +18,7 @@ import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
 import { getAuthCheckedStatus, getCurrentUserData, getUserRole } from '../../store/user-data/selectors';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import { AppRoute } from '../../utils/constant';
 import Loader from '../loader/loader';
 import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';

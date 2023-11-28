@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../../types/state.type';
 import { AxiosInstance } from 'axios';
 import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
-import { User } from '../../types/user.interface';
-import { File } from '../../types/file.interface';
-import { Order, OrderCoach } from '../../types/order.interface';
+import { User } from '../../types/user/user.interface';
+import { File } from '../../types/reaction/file.interface';
+import { Order, OrderCoach } from '../../types/reaction/order.interface';
 
 export const fetchFriends = createAsyncThunk<User[], undefined, {
   dispatch: AppDispatch;

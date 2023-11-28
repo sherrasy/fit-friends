@@ -1,7 +1,7 @@
 import { State } from '../../types/state.type';
-import { Workout } from '../../types/workout.interface';
+import { Workout } from '../../types/workout/workout.interface';
 import { CardsLimit, ReducerName } from '../../utils/constant';
-import { Review } from '../../types/review.interface';
+import { Review } from '../../types/reaction/review.interface';
 
 export const getWorkoutsLoadingStatus = (state: State): boolean => state[ReducerName.Workout].isWorkoutsLoading;
 export const getWorkoutLoadingStatus = (state: State): boolean => state[ReducerName.Workout].isWorkoutLoading;

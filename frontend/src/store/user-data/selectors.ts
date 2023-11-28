@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { State } from '../../types/state.type';
-import { UserRole } from '../../types/user-role.enum';
-import { User, NewUserGeneral } from '../../types/user.interface';
+import { UserRole } from '../../types/common/user-role.enum';
+import { User, NewUserGeneral } from '../../types/user/user.interface';
 import { AuthorizationStatus, CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
 
 export const getIsAuthorized = (state: State): boolean => state[ReducerName.User].authStatus === AuthorizationStatus.Auth;

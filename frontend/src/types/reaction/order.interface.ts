@@ -1,9 +1,9 @@
-import { FitnessLevel } from './fitness-level.enum';
-import { PaymentOption } from './payment-option.enum';
-import { UserSex } from './user-sex.enum';
-import { WorkoutTime } from './workout-time.enum';
-import { WorkoutType } from './workout-type.enum';
-import { Workout } from './workout.interface';
+import { FitnessLevel } from '../common/fitness-level.enum';
+import { PaymentOption } from '../common/payment-option.enum';
+import { UserSex } from '../common/user-sex.enum';
+import { WorkoutTime } from '../common/workout-time.enum';
+import { WorkoutType } from '../common/workout-type.enum';
+import { Workout } from '../workout/workout.interface';
 
 export interface Order {
   orderId: number;

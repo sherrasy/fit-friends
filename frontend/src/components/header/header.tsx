@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getUserRole } from '../../store/user-data/selectors';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import { AppRoute, HeaderTab } from '../../utils/constant';
 import { useLayoutEffect, useState } from 'react';
 

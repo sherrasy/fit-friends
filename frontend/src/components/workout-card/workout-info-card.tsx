@@ -1,5 +1,5 @@
-import { User } from '../../types/user.interface';
-import { Workout } from '../../types/workout.interface';
+import { User } from '../../types/user/user.interface';
+import { Workout } from '../../types/workout/workout.interface';
 import { UserSexToHashtagName, WorkoutTypeToName } from '../../utils/constant';
 
 type WorkoutInfoCardProps = {

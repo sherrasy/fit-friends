@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { OrderCoach } from '../../types/order.interface';
+import { OrderCoach } from '../../types/reaction/order.interface';
 import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
 
 type WorkoutOrdersCardProps = {

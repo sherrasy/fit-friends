@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
@@ -10,10 +10,11 @@ import {
   fetchExtraWorkouts, fetchWorkouts,
 } from '../../store/workout-data/api-actions';
 import { Query } from '../../types/query.type';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import { CaloriesAmount, RaitingCount } from '../../utils/validation.constant';
 import BackButton from '../../components/back-button/back-button';
 import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
+import { WorkoutType } from '../../types/common/workout-type.enum';
 
 function WorkoutsListPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,10 +24,13 @@ function WorkoutsListPage(): JSX.Element {
   const workoutsListLoading = useAppSelector(getWorkoutsLoadingStatus);
   const [currentPage, setCurrentPage] = useState(DefaultParam.Step);
   const [currentSorting, setCurrentSorting] = useState('');
+  const [workoutTypes, setWorkoutTypes] = useState<string[]>();
   const [query, setQuery] = useState<Query>({
     limit: CardsLimit.Default,
   });
   const isLastPage = currentPage === pagesAmount;
+  const isMoreVisible = !isLastPage && pagesAmount > DefaultParam.Amount && workoutsList?.length === CardsLimit.Default;
+  const isReturnVisible = isLastPage || (workoutsList ? workoutsList.length < CardsLimit.Default : false);
   const defaultSliderStep = 100;
   const valuesByType = {
     price: [DefaultParam.Amount, maxPrice],
@@ -56,8 +60,12 @@ function WorkoutsListPage(): JSX.Element {
     }
   };
 
+  const handleReturnClick = () => {
+    setCurrentPage(DefaultParam.Step);
+  };
+
   const handleFilterChange = (
-    evt: React.ChangeEvent<HTMLInputElement>
+    evt: ChangeEvent<HTMLInputElement>
   ) => {
     const { value, name } = evt.target;
     const currentValue = +Math.max(DefaultParam.Amount, +value);
@@ -96,7 +104,21 @@ function WorkoutsListPage(): JSX.Element {
     }
   };
 
-  const handleSortChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const value = evt.target.value as WorkoutType;
+    if (!workoutTypes) {
+      setWorkoutTypes([value]);
+      return;
+    }
+    const isExists = workoutTypes.includes(value);
+    const types = isExists
+      ? workoutTypes.filter((item) => item !== value)
+      : workoutTypes.concat(value);
+    setWorkoutTypes(types);
+  };
+
+
+  const handleSortChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const currentSort = evt.target.value;
     setCurrentSorting(currentSort);
     switch (currentSort) {
@@ -150,9 +172,9 @@ function WorkoutsListPage(): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(fetchWorkouts({ ...query, page: currentPage }));
+    dispatch(fetchWorkouts({ ...query, page: currentPage, workoutType:workoutTypes }));
     dispatch(fetchExtraWorkouts(UserRole.Sportsman));
-  }, [dispatch, query, currentPage]);
+  }, [dispatch, query, currentPage, workoutTypes]);
 
   if (workoutsListLoading) {
     return <Loader />;
@@ -304,8 +326,14 @@ function WorkoutsListPage(): JSX.Element {
                                 <label>
                                   <input
                                     type="checkbox"
-                                    defaultValue={key}
+                                    value={key}
                                     name="workoutType"
+                                    onChange={handleWorkoutTypesChange}
+                                    checked={
+                                      workoutTypes
+                                        ? workoutTypes.includes(key)
+                                        : false
+                                    }
                                   />
                                   <span className="custom-toggle__icon">
                                     <svg
@@ -376,12 +404,12 @@ function WorkoutsListPage(): JSX.Element {
                     </li>
                   ))}
                 </ul>
-                {pagesAmount > DefaultParam.Amount && (
-                  <ShowMoreButton
-                    onShown={handleShowClick}
-                    isLastPage={isLastPage}
-                  />
-                )}
+                <ShowMoreButton
+                  onShown={handleShowClick}
+                  onReturn={handleReturnClick}
+                  isShowMoreVisible = {isMoreVisible}
+                  isReturnVisible = {isReturnVisible}
+                />
               </div>
             </div>
           </div>

@@ -13,13 +13,13 @@ import {
   ExtraWorkoutsData,
   Workout,
   WorkoutsData,
-} from '../../types/workout.interface';
+} from '../../types/workout/workout.interface';
 import { Query } from '../../types/query.type';
-import { User } from '../../types/user.interface';
+import { User } from '../../types/user/user.interface';
 import { toast } from 'react-toastify';
-import { Review } from '../../types/review.interface';
+import { Review } from '../../types/reaction/review.interface';
 import { getWorkoutQueryString, getSpecialPrice } from '../../utils/helpers';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 
 export const fetchWorkouts = createAsyncThunk<
   Workout[],
