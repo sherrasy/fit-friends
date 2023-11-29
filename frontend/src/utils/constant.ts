@@ -50,7 +50,9 @@ export const ActionName = {
   FetchCoachWorkouts: 'fetch-coach-workouts',
   FetchWorkout: 'fetch-workout',
   FetchReviews: 'fetch-reviews',
+  FetchNotifications: 'fetch-notifications',
   UpdateUser: 'update-user',
+  RemoveNotification: 'remove-notification',
 } as const;
 
 export const ApiRoute = {
@@ -65,6 +67,7 @@ export const ApiRoute = {
   PurchasesShow: '/workouts/orders',
   OrdersShow: '/workouts/orders/coach-list',
   ReviewsShow: '/workouts/show-reviews',
+  Notifications: '/users/notifications',
   CoachWorkoutsShow: '/workouts/coach-list',
   UpdateUser: '/users/update',
   Friends: '/users/friends',

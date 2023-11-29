@@ -9,6 +9,13 @@ export const capitalizeFirstLetter = (string: string) =>
 
 export const getSpecialPrice = (price: number) => price - price * 0.1;
 
+export const formatNotificationDate = (date: Date) => new Date(date).toLocaleString('ru-RU', {
+  day: '2-digit',
+  month: 'long',
+  hour:'2-digit',
+  minute:'2-digit'
+});
+
 export const generateRandomNumber = () => {
   const number =
     Math.floor(

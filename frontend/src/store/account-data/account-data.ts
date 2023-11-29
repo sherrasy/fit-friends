@@ -1,14 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ReducerName } from '../../utils/constant';
 import { AccountState } from '../../types/state.type';
-import { fetchCoachOrders, fetchFriends, fetchUserOrders } from './api-actions';
+import { fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeNotification } from './api-actions';
 
 const initialState:AccountState = {
   friends:null,
   orders:null,
+  notifications:null,
   coachOrders:null,
   isFriendsLoading:false,
-  isOrdersLoading:false
+  isOrdersLoading:false,
+  isNotificationsLoading:false,
+  isNotificationDeleting:false,
+  hasNotificationsError:false,
 };
 
 
@@ -47,6 +51,28 @@ export const accountData = createSlice({
       })
       .addCase(fetchCoachOrders.rejected, (state) => {
         state.isOrdersLoading = false;
+      })
+      .addCase(fetchNotifications.pending, (state) => {
+        state.isNotificationsLoading = true;
+      })
+      .addCase(fetchNotifications.fulfilled, (state, action) => {
+        state.notifications = action.payload;
+        state.isNotificationsLoading = false;
+      })
+      .addCase(fetchNotifications.rejected, (state) => {
+        state.isNotificationsLoading = false;
+      })
+      .addCase(removeNotification.pending, (state) => {
+        state.isNotificationDeleting = true;
+        state.hasNotificationsError = false;
+      })
+      .addCase(removeNotification.fulfilled, (state) => {
+        state.isNotificationDeleting = false;
+        state.hasNotificationsError = false;
+      })
+      .addCase(removeNotification.rejected, (state) => {
+        state.isNotificationDeleting = false;
+        state.hasNotificationsError = true;
       });
   }
 });

@@ -52,6 +52,8 @@ export const UserMessages = {
   RemoveFriend: 'Friend removed',
   UserList: 'User list is showing',
 EmptyList: 'User list is empty',
+ShowNotifications: 'Notification list is showing',
+RemoveNotification: 'Notification removed',
 } as const;
 
 export const WorkoutMessages = {

@@ -12,6 +12,7 @@ import {
   UploadedFile,
   Patch,
   Query,
+  Delete,
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
@@ -279,6 +280,40 @@ export class UsersController {
       }
     );
     return data.length;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: UserMessages.UserList,
+  })
+  @Get(AppPath.Notifications)
+  public async showNotifications(@Req() req: Request) {
+    const { data } = await this.httpService.axiosRef.get(
+      ApplicationServiceURL.UserNotifications,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: UserMessages.UserList,
+  })
+  @Delete(`${AppPath.Notifications}/${AppPath.Id}`)
+  public async deleteNotification(@Req() req: Request,  @Param('id') id:number) {
+    const { data } = await this.httpService.axiosRef.delete(
+      `${ApplicationServiceURL.UserNotifications}/${id}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
   }
 
    @ApiResponse({

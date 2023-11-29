@@ -1,12 +1,26 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getUserRole } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/common/user-role.enum';
 import { AppRoute, HeaderTab } from '../../utils/constant';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import {
+  getNotificationDeleting,
+  getNotifications,
+  getNotificationsError,
+} from '../../store/account-data/selectors';
+import { formatNotificationDate } from '../../utils/helpers';
+import {
+  fetchNotifications,
+  removeNotification,
+} from '../../store/account-data/api-actions';
 
 function Header(): JSX.Element {
+  const dispatch = useAppDispatch();
   const userRole = useAppSelector(getUserRole);
+  const notifications = useAppSelector(getNotifications);
+  const isDeleting = useAppSelector(getNotificationDeleting);
+  const hasError = useAppSelector(getNotificationsError);
   const { pathname } = useLocation();
   const [activeTab, setActiveTab] = useState<string>(HeaderTab.Main);
   const mainPagePath =
@@ -14,6 +28,11 @@ function Header(): JSX.Element {
   const accountPagePath =
     userRole === UserRole.Coach ? AppRoute.CoachAccount : AppRoute.UserAccount;
   const friendsListPath = AppRoute.Friends;
+
+  const handleNotification = (id: number) => {
+    dispatch(removeNotification(id));
+  };
+
   useLayoutEffect(() => {
     switch (pathname) {
       case mainPagePath: {
@@ -30,6 +49,13 @@ function Header(): JSX.Element {
       }
     }
   }, [accountPagePath, friendsListPath, mainPagePath, pathname, userRole]);
+
+  useEffect(() => {
+    if (!hasError) {
+      dispatch(fetchNotifications());
+    }
+  }, [dispatch, isDeleting, hasError]);
+
   return (
     <header className="header">
       <div className="container">
@@ -80,7 +106,12 @@ function Header(): JSX.Element {
               </Link>
             </li>
             <li className="main-nav__item main-nav__item--notifications">
-              <Link className="main-nav__link" to="/" aria-label="Уведомления" onClick={(evt)=> evt.preventDefault()}>
+              <Link
+                className="main-nav__link"
+                to="/"
+                aria-label="Уведомления"
+                onClick={(evt) => evt.preventDefault()}
+              >
                 <svg width="14" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-notification"></use>
                 </svg>
@@ -88,19 +119,22 @@ function Header(): JSX.Element {
               <div className="main-nav__dropdown">
                 <p className="main-nav__label">Оповещения</p>
                 <ul className="main-nav__sublist">
-                  <li className="main-nav__subitem">
-                    <a className="notification is-active" href="/">
-                      <p className="notification__text">
-                        Катерина пригласила вас на&nbsp;тренировку
-                      </p>
-                      <time
-                        className="notification__time"
-                        dateTime="2023-12-23 12:35"
+                  {notifications?.map(({ id, text, createdDate }) => (
+                    <li className="main-nav__subitem" key={id}>
+                      <div
+                        className="notification is-active"
+                        onClick={() => handleNotification(id)}
                       >
-                        23 декабря, 12:35
-                      </time>
-                    </a>
-                  </li>
+                        <p className="notification__text">{text}</p>
+                        <time
+                          className="notification__time"
+                          dateTime={createdDate.toString()}
+                        >
+                          {formatNotificationDate(createdDate)}
+                        </time>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </li>

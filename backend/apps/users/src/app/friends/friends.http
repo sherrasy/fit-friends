@@ -29,13 +29,13 @@ Authorization: Bearer {{AToken}}
 ###
 
 # Добавить в друзья (только пользователь)
-POST http://localhost:3001/api/friends/2 HTTP/1.1
+POST http://localhost:3001/api/friends/25 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
 
 # Удалить из друзей (только пользователь)
-DELETE  http://localhost:3001/api/friends/2 HTTP/1.1
+DELETE  http://localhost:3001/api/friends/25 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###

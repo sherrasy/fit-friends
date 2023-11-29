@@ -37,16 +37,16 @@ Authorization: Bearer {{AToken}} {{RToken}}
 Content-Type: application/json
 
 # # # Sportsman
-{
-  "email": "user@test.local",
-  "password": "123456"
-}
+# {
+#   "email": "user@test.local",
+#   "password": "123456"
+# }
 
 ##Coach
-# {
-#   "email": "first-coach@test.ru",
-#   "password": "test123"
-# }
+{
+  "email": "first-coach@test.ru",
+  "password": "test123"
+}
 
 
 ###
@@ -120,6 +120,18 @@ GET http://localhost:4000/api/users/friends HTTP/1.1
 Authorization: Bearer {{AToken}}
 ###
 
+# Список оповещений
+GET http://localhost:4000/api/users/notifications HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Удалить оповещение
+DELETE  http://localhost:3001/api/users/notifications/2 HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
 # Список (каталог пользователей)
 GET http://localhost:4000/api/users/show?workoutType=pilates HTTP/1.1
 Authorization: Bearer {{AToken}}
@@ -190,3 +202,4 @@ GET http://localhost:4000/api/workouts/2 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
+
