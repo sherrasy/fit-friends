@@ -1,49 +1,41 @@
-function WorkoutsForUser():JSX.Element{
-  return(
+import { useAppSelector } from '../../hooks';
+import { getSpecialUserWorkouts } from '../../store/workout-data/selectors';
+import { SliderLimit } from '../../utils/constant';
+import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
+import SliderButtons from '../slider-buttons/slider-buttons';
+import Slider from '../slider/slider';
+import WorkoutSmallCard from '../workout-card/workout-small-card';
+
+type ButtonGroupProp = {
+  next?: () => void;
+  previous?: () => void;
+};
+
+const ButtonGroup = ({ next, previous }: ButtonGroupProp) => (
+  <div className="special-for-you__title-wrapper">
+    <h2 className="special-for-you__title">Специально подобрано для вас</h2>
+    <SliderButtons next={next} previous={previous}/>
+  </div>
+);
+
+function WorkoutsForUser(): JSX.Element {
+  const workouts = useAppSelector(getSpecialUserWorkouts);
+  return (
     <section className="special-for-you">
       <div className="container">
-        <div className="special-for-you__wrapper">
-          <div className="special-for-you__title-wrapper">
-            <h2 className="special-for-you__title">
-          Специально подобрано для вас
-            </h2>
-            <div className="special-for-you__controls">
-              <button className="btn-icon special-for-you__control" type="button" aria-label="previous">
-                <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg>
-              </button>
-              <button className="btn-icon special-for-you__control" type="button" aria-label="next">
-                <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-right"></use>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <ul className="special-for-you__list">
-            <li className="special-for-you__item">
-              <div className="thumbnail-preview">
-                <div className="thumbnail-preview__image">
-                  <picture>
-                    <source type="image/webp" srcSet="
-                      img/content/thumbnails/preview-03.webp,
-                      img/content/thumbnails/preview-03@2x.webp 2x
-                    "
-                    />
-                    <img src="img/content/thumbnails/preview-03.jpg"
-                      srcSet="img/content/thumbnails/preview-03@2x.jpg 2x" width="452" height="191" alt=""
-                    />
-                  </picture>
-                </div>
-                <div className="thumbnail-preview__inner">
-                  <h3 className="thumbnail-preview__title">crossfit</h3>
-                  <div className="thumbnail-preview__button-wrapper">
-                    <a className="btn btn--small thumbnail-preview__button" href="/">Подробнее</a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
+        <div className="special-for-you__wrapper slider-main-reverse">
+          {(!workouts || !workouts.length) && <AdvertisementThumbnail/>}
+          {workouts && workouts.length !== 0 && (
+            <Slider
+              items={SliderLimit.SpecialForUser}
+              currentButtons={<ButtonGroup />}
+              isOutsideButtons
+            >
+              {workouts.map((item) => (
+                <WorkoutSmallCard workout={item} key={item.id} />
+              ))}
+            </Slider>
+          )}
         </div>
       </div>
     </section>

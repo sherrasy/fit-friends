@@ -1,26 +1,34 @@
 /* eslint-disable indent */
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { Location } from '../../types/location.enum';
+import { Location } from '../../types/common/location.enum';
 import {
   LocationToName,
   UserFormError,
   UserFormFieldName,
   UserSexToName,
 } from '../../utils/constant';
-import { UserSex } from '../../types/user-sex.enum';
-import { UserRole } from '../../types/user-role.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import {
   NameLength,
   PasswordLength,
   ValidationPattern,
 } from '../../utils/validation.constant';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import InputErrorField from '../input-error-field/input-error-field';
-import { createNewUser } from '../../store/user-data/user-data';
-import { NewUserGeneral } from '../../types/user.interface';
 import { checkValidity } from '../../utils/helpers';
+import { checkEmail } from '../../store/user-data/api-actions';
+import { getEmailExistsStatus } from '../../store/user-data/selectors';
+import { toast } from 'react-toastify';
+import { NewUserGeneral } from '../../types/user/user.interface';
 
-function SignUpForm(): JSX.Element {
+
+type SignUpFormProps = {
+  onSubmit: (userData: NewUserGeneral, file: File) => void;
+};
+
+
+function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
   const signUpDataDefault = {
     name: '',
     email: '',
@@ -31,18 +39,21 @@ function SignUpForm(): JSX.Element {
     role: UserRole.Sportsman,
   };
   const dispatch = useAppDispatch();
+  const isEmailExists = useAppSelector(getEmailExistsStatus);
   const [formData, setFormData] = useState(signUpDataDefault);
   const [isAgreed, setIsAgreed] = useState(false);
   const [isEmptyShown, SetIsEmptyShown] = useState(false);
   const [isErrorShown, SetIsErrorShown] = useState(false);
   const [errorMessage, SetErrorMessage] = useState('');
   const [isOpened, setIsOpened] = useState<boolean>(false);
-
-  const handleSubmitData = (data: NewUserGeneral) =>
-    dispatch(createNewUser(data));
+  const [avatar, setAvatar] = useState<File>();
 
   const handleAgreedInputChange = () => {
     setIsAgreed((prev) => !prev);
+  };
+
+  const handleCheckEmail = () => {
+    dispatch(checkEmail(formData.email));
   };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +70,13 @@ function SignUpForm(): JSX.Element {
     setIsOpened((prevIsOpened) => !prevIsOpened);
   };
 
+  const handleAvatarUpload = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) {
+      return;
+    }
+    setAvatar(evt.target.files[0]);
+  };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (!isAgreed) {
@@ -69,18 +87,24 @@ function SignUpForm(): JSX.Element {
     }
     const isMissingData = Object.values(formData).some((item) => item === '');
     SetIsEmptyShown(isMissingData);
-    const isEmailValid = checkValidity(formData.email, ValidationPattern.Email);
+    const isEmailValid =
+      checkValidity(formData.email, ValidationPattern.Email) && !isEmailExists;
+    if (isEmailExists) {
+      toast.warn(UserFormError.InvalidEmail);
+      return false;
+    }
     const isPasswordValid = checkValidity(
       formData.password,
       ValidationPattern.Password
     );
     const isNameValid = checkValidity(formData.name, ValidationPattern.Name);
     const isFieldsValid = isEmailValid && isPasswordValid && isNameValid;
-    if (isFieldsValid && !isEmptyShown) {
-      handleSubmitData({
+    if (isFieldsValid && !isEmptyShown && avatar) {
+      onSubmit({
         ...formData,
         location: formData.location as Location,
-      });
+        avatar:String(avatar),
+      }, avatar);
       SetIsErrorShown(false);
     } else {
       const errorFields = ` Ошибка в полях: ${!isEmailValid ? 'email' : ''}${
@@ -108,12 +132,22 @@ function SignUpForm(): JSX.Element {
                         className="visually-hidden"
                         type="file"
                         accept="image/png, image/jpeg"
+                        onChange={handleAvatarUpload}
+                        required
                       />
-                      <span className="input-load-avatar__btn">
-                        <svg width="20" height="20" aria-hidden="true">
-                          <use xlinkHref="#icon-import"></use>
-                        </svg>
-                      </span>
+                      {avatar ? (
+                        <img
+                          src={URL.createObjectURL(avatar)}
+                          alt="Avatar preview"
+                          className="register-form__avatar-preview"
+                        />
+                      ) : (
+                        <span className="input-load-avatar__btn">
+                          <svg width="20" height="20" aria-hidden="true">
+                            <use xlinkHref="#icon-import"></use>
+                          </svg>
+                        </span>
+                      )}
                     </label>
                   </div>
                   <div className="sign-up__description">
@@ -151,6 +185,7 @@ function SignUpForm(): JSX.Element {
                           type="email"
                           name={UserFormFieldName.Email}
                           onChange={handleInputChange}
+                          onBlur={handleCheckEmail}
                           required
                         />
                       </span>

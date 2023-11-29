@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getUserRole } from '../../store/user-data/selectors';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import { AppRoute, HeaderTab } from '../../utils/constant';
 import { useLayoutEffect, useState } from 'react';
 
@@ -13,8 +13,7 @@ function Header(): JSX.Element {
     userRole === UserRole.Coach ? AppRoute.CoachAccount : AppRoute.Main;
   const accountPagePath =
     userRole === UserRole.Coach ? AppRoute.CoachAccount : AppRoute.UserAccount;
-  const friendsListPath =
-    userRole === UserRole.Coach ? AppRoute.CoachFriends : AppRoute.UserFriends;
+  const friendsListPath = AppRoute.Friends;
   useLayoutEffect(() => {
     switch (pathname) {
       case mainPagePath: {

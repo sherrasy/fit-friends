@@ -2,9 +2,9 @@ import { ClassConstructor, plainToInstance } from 'class-transformer';
 import dayjs from 'dayjs';
 import { HostName, ParseTimeError } from './constant';
 
-export const getDate = () => {
-  return dayjs().toISOString();
-};
+export const getDate = () => dayjs().toISOString();
+
+export const getSpecialPrice = (price:number) => price - price*0.1;
 
 export function fillObject<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
   return plainToInstance(someDto, plainObject, {

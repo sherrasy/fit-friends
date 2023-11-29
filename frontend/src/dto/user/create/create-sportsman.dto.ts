@@ -1,4 +1,4 @@
-import { WorkoutTime } from '../../../types/workout-time.enum';
+import { WorkoutTime } from '../../../types/common/workout-time.enum';
 
 export class CreateSportsmanDto {
   public workoutTime!: WorkoutTime;

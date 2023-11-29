@@ -1,11 +1,11 @@
 import { Coach } from './coach.interface';
-import { FitnessLevel } from './fitness-level.enum';
-import { Location } from './location.enum';
+import { FitnessLevel } from '../common/fitness-level.enum';
+import { Location } from '../common/location.enum';
 import { Sportsman } from './sportsman.interface';
-import { UserRole } from './user-role.enum';
-import { UserSex } from './user-sex.enum';
-import { WorkoutTime } from './workout-time.enum';
-import { WorkoutType } from './workout-type.enum';
+import { UserRole } from '../common/user-role.enum';
+import { UserSex } from '../common/user-sex.enum';
+import { WorkoutTime } from '../common/workout-time.enum';
+import { WorkoutType } from '../common/workout-type.enum';
 
 export interface User {
   id: number;
@@ -24,6 +24,7 @@ export interface User {
   sportsmanInfo?: Sportsman | null;
   coachInfo?: Coach | null;
   token?:string|undefined;
+  avatarPath?:string;
 }
 export interface UserInfoInterface {
   name: string;

@@ -25,13 +25,17 @@ export class FriendsRepository {
     });
   }
 
-  public async findAllByUserId(userId: number): Promise<User[] | null> {
+  public async findAllByUserId(userId: number ): Promise<User[] | null> {
     const data = await this.prisma.friend.findMany({
       where: {
         userId,
       },
       include: {
-        friend: true,
+        friend: {
+          include:{
+            sportsmanInfo:true,
+            coachInfo:true,
+          }},
       },
     });
     return data.map((item) => {
@@ -45,7 +49,11 @@ export class FriendsRepository {
         friendId,
       },
       include: {
-        user: true,
+        user: {
+          include:{
+            sportsmanInfo:true,
+            coachInfo:true,
+          }},
       },
     });
     return data.map((item) => {

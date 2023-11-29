@@ -5,23 +5,23 @@ POST http://localhost:3001/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 # Sportsman
-{
-  "email": "user@test.local",
-  "password": "123456"
-}
+# {
+#   "email": "user@test.local",
+#   "password": "123456"
+# }
 
 # Coach
-# {
-#   "email": "first-coach@test.ru",
-#   "password": "test123"
-# }
+{
+  "email": "first-coach@test.ru",
+  "password": "test123"
+}
 
 ###
 
 
 
 # Детальная информация о пользователе (карточка пользователя)
-GET http://localhost:3001/api/user-info/2 HTTP/1.1
+GET http://localhost:3001/api/user-info/24 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###

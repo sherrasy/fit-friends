@@ -1,4 +1,4 @@
-import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile } from '@nestjs/common';
+import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile, Get, Param } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
@@ -52,4 +52,9 @@ export class UploaderController {
     return data;
   }
 
+  @Get(`${AppPath.File}/${AppPath.Id}`)
+  public async show(@Param('id') fileId: string) {
+    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.Uploader}/${fileId}`);
+    return data;
+  }
 }

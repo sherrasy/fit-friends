@@ -1,8 +1,21 @@
-function FriendCard():JSX.Element{
-  return(
+import { UserRole } from '../../types/common/user-role.enum';
+import { User } from '../../types/user/user.interface';
+import { LocationToName, WorkoutTypeToName } from '../../utils/constant';
+
+type FriendCardProps = {
+  friend: User;
+};
+
+function FriendCard({ friend }: FriendCardProps): JSX.Element {
+  const { name, avatarPath, location, role, workoutType, coachInfo, sportsmanInfo } = friend;
+  const readyStatus = role === UserRole.Sportsman ? sportsmanInfo?.isReady : coachInfo?.isPersonal;
+  return (
     <div className="thumbnail-friend">
-      <div className="thumbnail-friend__info thumbnail-friend__info--theme-light">
-        {/* "thumbnail-friend__info thumbnail-friend__info--theme-dark" */}
+      <div
+        className={`thumbnail-friend__info thumbnail-friend__info--theme-${
+          role === UserRole.Sportsman ? 'light' : 'dark'
+        }`}
+      >
         <div className="thumbnail-friend__image-status">
           <div className="thumbnail-friend__image">
             <picture>
@@ -21,25 +34,27 @@ function FriendCard():JSX.Element{
           </div>
         </div>
         <div className="thumbnail-friend__header">
-          <h2 className="thumbnail-friend__name">София</h2>
+          <h2 className="thumbnail-friend__name">{name}</h2>
           <div className="thumbnail-friend__location">
             <svg width="14" height="16" aria-hidden="true">
               <use xlinkHref="#icon-location"></use>
             </svg>
             <address className="thumbnail-friend__location-address">
-            Электросила
+              {LocationToName[location]}
             </address>
           </div>
         </div>
         <ul className="thumbnail-friend__training-types-list">
-          <li>
-            <div className="hashtag thumbnail-friend__hashtag">
-              <span>#кроссфит</span>
-            </div>
-          </li>
+          {workoutType.map((item) => (
+            <li key={item}>
+              <div className="hashtag thumbnail-friend__hashtag">
+                <span>#{WorkoutTypeToName[item]}</span>
+              </div>
+            </li>
+          ))}
         </ul>
         <div className="thumbnail-friend__activity-bar">
-          <div className="thumbnail-friend__ready-status thumbnail-friend__ready-status--is-not-ready">
+          <div className={`thumbnail-friend__ready-status thumbnail-friend__ready-status--is-${readyStatus ? 'ready' : 'not-ready'}`}>
             <span>Не&nbsp;готов к&nbsp;тренировке</span>
           </div>
           {/* <div className="thumbnail-friend__ready-status thumbnail-friend__ready-status--is-ready">

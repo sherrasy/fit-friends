@@ -1,4 +1,4 @@
-import { UserRole } from './user-role.enum';
+import { UserRole } from '../common/user-role.enum';
 
 export type TokenData = {
   accessToken: string;

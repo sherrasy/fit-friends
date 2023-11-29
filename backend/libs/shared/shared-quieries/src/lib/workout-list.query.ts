@@ -31,7 +31,12 @@ export class WorkoutListQuery {
   @Transform(({ value }) => +value)
   @IsOptional()
   @IsInt()
-  public rating?: number;
+  public ratingMin?: number;
+  
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  @IsInt()
+  public ratingMax?: number;
 
   @Transform(({ value }) => +value)
   @IsOptional()

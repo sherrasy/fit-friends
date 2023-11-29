@@ -11,6 +11,7 @@ export const AppPath = {
   Check: 'check',
   CheckAuth: 'check-auth',
   CheckLogin: 'check-login',
+  CheckEmail: 'check-email',
   Revoke: 'revoke',
   Show: 'show',
   Id: ':id',
@@ -22,7 +23,10 @@ export const AppPath = {
   SendNewsletter: 'send-workouts',
   Notifications: 'notifications',
   Requests: 'requests',
+  Orders: 'orders',
   Friends: 'friends',
+  Reviews: 'reviews',
+  File: 'file',
 } as const;
 
 export const FileType = {
@@ -42,7 +46,24 @@ export const UserMessages = {
   UserFound: "User data found",
   Refresh: 'Get a new access/refresh tokens',
   AvatarAdded: "Avatar added successfully",
-  PhotoAdded: "Photo added successfully"
+  PhotoAdded: "Photo added successfully",
+  AddFriend: 'Friend added successfully',
+  ShowFriends: 'Friend list is showing',
+  RemoveFriend: 'Friend removed',
+  UserList: 'User list is showing',
+EmptyList: 'User list is empty',
+} as const;
+
+export const WorkoutMessages = {
+  OrderNotFound: 'Order is not found',
+  EmptyOrders: 'There are no orders that can be loaded',
+  AddOrder: 'Order added',
+  ShowOrders: 'Orders of workouts is showing',
+  WorkoutNotFound: 'Workout is not found',
+  EmptyList: 'There are no workouts that can be loaded',
+  ShowSingle: 'Workout is showing',
+  ShowAll: 'List of workouts is showing',
+  ShowReviews: 'List of reviews is showing',
 } as const;
 
 

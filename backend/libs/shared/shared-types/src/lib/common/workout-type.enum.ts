@@ -1,7 +1,7 @@
 export enum WorkoutType {
   Yoga = 'yoga',
   Running = 'running',
-  Boxing = 'box',
+  Boxing = 'boxing',
   Stretching = 'stretching',
   Crossfit = 'crossfit',
   Aerobics = 'aerobics',

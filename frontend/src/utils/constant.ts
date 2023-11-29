@@ -7,16 +7,15 @@ export const AppRoute = {
   EditWorkout: '/edit-workout',
   CoachAccount: '/coach-account',
   UserAccount: '/user-account',
-  CoachFriends: '/coach-friends',
-  UserFriends: '/user-friends',
+  Friends: '/friends',
   UserInfo: '/user-info',
   WorkoutInfo: '/workout-info',
   Orders: '/orders',
-  Purchases: '/Purchases',
+  Purchases: '/purchases',
   CoachWorkouts: '/coach-workouts',
   Questionnaire: '/questionnaire',
-  UserList:'user-list',
-  WorkoutsList:'workouts-list',
+  UserList:'/user-list',
+  WorkoutsList:'/workouts-list',
   Error: '*',
 } as const;
 
@@ -28,24 +27,49 @@ export enum AuthorizationStatus {
 
 export const ReducerName = {
   User: 'USER',
+  Account: 'ACCOUNT',
   Workout: 'WORKOUT',
 } as const;
 
 export const ActionName = {
   CheckAuth: 'checkAuth',
+  CheckEmail: 'checkEmail',
   Login: 'login',
   Register: 'register',
   Redirect: 'app/redirectToRoute',
   FetchUser: 'fetch-user',
+  FetchCurrentUser: 'fetch-current-user',
+  FetchUserList: 'fetch-user-list',
+  FetchUserListAmount: 'fetch-user-list-amount',
+  FetchFriends: 'fetch-friends',
+  FetchUserOrders: 'fetch-user-orders',
+  FetchCoachOrders: 'fetch-coach-orders',
+  FetchWorkouts: 'fetch-workouts',
+  FetchExtraWorkouts: 'fetch-extra-workouts',
+  FetchUserSpecialWorkouts: 'fetch-special-workouts',
+  FetchCoachWorkouts: 'fetch-coach-workouts',
+  FetchWorkout: 'fetch-workout',
+  FetchReviews: 'fetch-reviews',
   UpdateUser: 'update-user',
 } as const;
 
 export const ApiRoute = {
+  UsersMain: '/users',
+  WorkoutsMain: '/workouts',
   Login: '/users/login',
   CheckLogin: '/users/check-login',
+  CheckEmail: '/users/check-email',
   Register: '/users/register',
-  UsersMain: '/users',
+  UsersShow: '/users/show',
+  WorkoutsShow: '/workouts/show',
+  PurchasesShow: '/workouts/orders',
+  OrdersShow: '/workouts/orders/coach-list',
+  ReviewsShow: '/workouts/show-reviews',
+  CoachWorkoutsShow: '/workouts/coach-list',
   UpdateUser: '/users/update',
+  Friends: '/users/friends',
+  UploadAvatar: '/users/upload-avatar',
+  File: '/uploads/file',
 } as const;
 
 export const ApiConnectParam = {
@@ -74,15 +98,34 @@ export const UserFormFieldName = {
   Description:'description',
 } as const;
 
+export const WorkoutFilterName = {
+  PriceMin:'priceMin',
+  CaloriesMin:'caloriesMin',
+  PriceMax:'priceMax',
+  CaloriesMax:'caloriesMax',
+} as const;
+
+export const UserFilterName = {
+  FitnessLevel:'fitnessLevel',
+  Role:'role',
+} as const;
+
+export const WorkoutFilterSortName = {
+  Cheap:'cheap',
+  Expensive:'expensive',
+  Free:'free',
+} as const;
+
 export const UserFormError = {
   InvalidTypesLength:'Нельзя выбрать больше трех типов тренировок',
+  InvalidEmail:'Этот email уже используется',
   RegistrationFailed:'Возникла ошибка регистрации. Проверьте введенные данные и попробуйте снова.',
   LoginFailed: 'Возникла ошибка входа. Проверьте введенные данные и попробуйте снова.',
 } as const;
 
 export const ReadyToTrainText = {
-  Coach:'Готов тренировать',
-  User:'Готов к тренировке',
+  Coach:['Готов тренировать', 'Не готов тренировать'],
+  User:['Готов к тренировке', 'Не готов тренироваться'],
 } as const;
 
 export const HeaderTab = {
@@ -97,6 +140,12 @@ export const UserSexToName = {
   any : 'Неважно',
 };
 
+export const UserSexToHashtagName = {
+  male : 'для_мужчин',
+  female : 'для_женщин',
+  any : 'для_всех',
+};
+
 export const LocationToName = {
   pionerskaya : 'Пионерская',
   petrogradskaya : 'Петроградская',
@@ -108,7 +157,7 @@ export const LocationToName = {
 export const WorkoutTypeToName = {
   yoga : 'йога',
   running : 'бег',
-  box : 'бокс',
+  boxing : 'бокс',
   stretching : 'стрейчинг',
   crossfit : 'кроссфит',
   aerobics : 'аэробика',
@@ -126,4 +175,44 @@ export const DefaultParam = {
   StepBack: -1,
   Amount: 0,
   Status: false,
+};
+
+
+export const FileTypeName = {
+  Avatar: 'avatar',
+  UserPhoto: 'user-photo',
+  WorkoutPhoto: 'workout-photo',
+  Certificate: 'certificate',
+  Video: 'video',
+} as const;
+
+export const CardsLimit = {
+  Default:6,
+  CoachOrders:4,
+  SpecialOffer:3,
+  SpecialForUser:9,
+  ReadyUsers:8,
+};
+
+export const SliderLimit = {
+  Default:4,
+  SpecialOffer:1,
+  SpecialForUser:3,
+};
+
+export const SliderBreakpointLimit = {
+  Max:3000,
+  Min:1024,
+};
+
+export const RandomNumberLimit = {
+  Max:12,
+  Min:1,
+};
+
+export const sortDirections = ['asc', 'desc'];
+
+export const SortingFieldName = {
+  Date: 'createdDate',
+  Price: 'price',
 };

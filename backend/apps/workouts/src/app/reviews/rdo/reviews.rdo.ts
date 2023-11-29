@@ -22,4 +22,7 @@ export class ReviewsRdo {
 
   @Expose()
   public createdDate: Date;
+
+  @Expose()
+  public userId: number;
 }

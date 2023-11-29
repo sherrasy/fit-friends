@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { FitnessLevel } from '../../types/fitness-level.enum';
-import { WorkoutTime } from '../../types/workout-time.enum';
-import { WorkoutType } from '../../types/workout-type.enum';
+import { FitnessLevel } from '../../types/common/fitness-level.enum';
+import { WorkoutTime } from '../../types/common/workout-time.enum';
+import { WorkoutType } from '../../types/common/workout-type.enum';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -11,7 +11,7 @@ import {
   WorkoutTypeToName,
 } from '../../utils/constant';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { NewUserGeneral } from '../../types/user.interface';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import { toast } from 'react-toastify';
 import { CreateUserDto } from '../../dto/user/create/create-user.dto';
 import { register } from '../../store/user-data/api-actions';
@@ -23,10 +23,11 @@ import InputErrorField from '../input-error-field/input-error-field';
 
 type QuestionnaireUserProps = {
   newUserData: NewUserGeneral;
+  avatarFile: File | undefined;
 };
 
 function QuestionnaireUser({
-  newUserData,
+  newUserData,avatarFile
 }: QuestionnaireUserProps): JSX.Element {
   const sportsmanInfoDefault = {
     isReady: DefaultParam.Status,
@@ -40,7 +41,7 @@ function QuestionnaireUser({
   const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);
   const [isEmptyShown, SetIsEmptyShown] = useState(DefaultParam.Status);
 
-  const handleSubmitData = (data: CreateUserDto) => dispatch(register(data));
+  const handleSubmitData = (data: CreateUserDto) => dispatch(register({...data, avatarFile}));
 
   const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value as WorkoutType;

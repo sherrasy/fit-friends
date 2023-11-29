@@ -9,7 +9,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="avatar"; filename="photo-1@2x.png"
 Content-Type: image/png
 
-< ../../../assets/photo-1@2x.png
+< backend\apps\uploader\src\assets\photo-1@2x.png
 --boundary--
 
 ###
@@ -23,7 +23,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="user-photo"; filename="user-card-photo1.jpg"
 Content-Type: image/jpeg
 
-< ../../../assets/user-card-photo1.jpg
+< backend\apps\uploader\src\assets\user-card-photo1.jpg
 --boundary--
 
 ###
@@ -37,7 +37,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="workout-photo"; filename="training-1.png"
 Content-Type: image/png
 
-< ../../../assets/training-1.png
+< backend\apps\uploader\src\assets\training-1.png
 --boundary--
 
 ###
@@ -53,7 +53,7 @@ Content-Type: multipart/form-data; boundary=boundary
 Content-Disposition: form-data; name="certificate"; filename="1.pdf"
 Content-Type: application/pdf
 
-< ../../../assets/1.pdf
+< backend\apps\uploader\src\assets\1.pdf
 --boundary--
 
 ###

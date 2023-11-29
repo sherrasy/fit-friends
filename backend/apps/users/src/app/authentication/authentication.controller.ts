@@ -90,6 +90,11 @@ export class AuthenticationController {
     return payload;
   }
 
+  @Post(AuthPath.CheckEmail)
+  public async checkEmail(@Body('email') email: string) {
+    return this.authService.checkEmail(email);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post(AuthPath.Revoke)
   @HttpCode(HttpStatus.NO_CONTENT)

@@ -1,8 +1,36 @@
-function ShowMoreButton():JSX.Element{
-  return(
+type ShowMoreButtonProps = {
+  onShown?: () => void;
+  onReturn?: () => void;
+  isShowMoreVisible?: boolean;
+  isReturnVisible?: boolean;
+};
+
+function ShowMoreButton({
+  onShown,
+  onReturn,
+  isShowMoreVisible,
+  isReturnVisible,
+}: ShowMoreButtonProps): JSX.Element {
+  return (
     <div className="show-more my-orders__show-more">
-      <button className="btn show-more__button show-more__button--more" type="button">Показать еще</button>
-      <button className="btn show-more__button show-more__button--to-top" type="button">Вернуться в начало</button>
+      {isShowMoreVisible && (
+        <button
+          className="btn show-more__button show-more__button--more"
+          type="button"
+          onClick={onShown}
+        >
+          Показать еще
+        </button>
+      )}
+      {isReturnVisible && (
+        <button
+          className="btn show-more__button"
+          type="button"
+          onClick={onReturn}
+        >
+          Вернуться в начало
+        </button>
+      )}
     </div>
   );
 }

@@ -93,4 +93,9 @@ export class AuthenticationService {
   public async revokeToken(userId: number) {
     return await this.refreshTokenService.deleteTokenByUserId(userId);
   }
+
+  public async checkEmail(email: string) {
+    return await this.userInfoRepository.findByEmail(email);
+
+  }
 }

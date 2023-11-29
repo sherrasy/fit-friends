@@ -1,5 +1,24 @@
-function WorkoutOrdersCard():JSX.Element{
-  return(
+import { Link } from 'react-router-dom';
+import { OrderCoach } from '../../types/reaction/order.interface';
+import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
+
+type WorkoutOrdersCardProps = {
+  order: OrderCoach;
+};
+
+function WorkoutOrdersCard({ order }: WorkoutOrdersCardProps): JSX.Element {
+  const {
+    id,
+    price,
+    priceOrdered,
+    amountOrdered,
+    name,
+    rating,
+    workoutType,
+    description,
+    calories,
+  } = order;
+  return (
     <div className="thumbnail-training">
       <div className="thumbnail-training__inner">
         <div className="thumbnail-training__image">
@@ -18,22 +37,25 @@ function WorkoutOrdersCard():JSX.Element{
           </picture>
         </div>
         <p className="thumbnail-training__price">
-          <span className="thumbnail-training__price-value">
-          800
-          </span>
+          <span className="thumbnail-training__price-value">{price}</span>
           <span>₽</span>
         </p>
-        <h2 className="thumbnail-training__title">energy</h2>
+        <h2 className="thumbnail-training__title">{name}</h2>
         <div className="thumbnail-training__info">
           <ul className="thumbnail-training__hashtags-list">
+            {workoutType.map((item) => (
+              <li
+                className="thumbnail-training__hashtags-item"
+                key={`${item}-${id}`}
+              >
+                <div className="hashtag thumbnail-training__hashtag">
+                  <span>#{WorkoutTypeToName[item]}</span>
+                </div>
+              </li>
+            ))}
             <li className="thumbnail-training__hashtags-item">
               <div className="hashtag thumbnail-training__hashtag">
-                <span>#пилатес</span>
-              </div>
-            </li>
-            <li className="thumbnail-training__hashtags-item">
-              <div className="hashtag thumbnail-training__hashtag">
-                <span>#320ккал</span>
+                <span>#{calories}ккал</span>
               </div>
             </li>
           </ul>
@@ -41,26 +63,23 @@ function WorkoutOrdersCard():JSX.Element{
             <svg width="16" height="16" aria-hidden="true">
               <use xlinkHref="#icon-star"></use>
             </svg>
-            <span className="thumbnail-training__rate-value">
-            4
-            </span>
+            <span className="thumbnail-training__rate-value">{rating}</span>
           </div>
         </div>
         <div className="thumbnail-training__text-wrapper">
           <p className="thumbnail-training__text">
-          Упражнения укрепляют мышечный корсет, делают суставы
-          более гибкими, улучшают осанку и&nbsp;координацию.
+            {description}
           </p>
         </div>
-        <a
+        <Link
           className="btn-flat btn-flat--underlined thumbnail-training__button-orders"
-          href="/"
+          to={`${AppRoute.WorkoutInfo}/${id}`}
         >
           <svg width="18" height="18" aria-hidden="true">
             <use xlinkHref="#icon-info"></use>
           </svg>
           <span>Подробнее</span>
-        </a>
+        </Link>
       </div>
       <div className="thumbnail-training__total-info">
         <div className="thumbnail-training__total-info-card">
@@ -68,10 +87,10 @@ function WorkoutOrdersCard():JSX.Element{
             <use xlinkHref="#icon-chart"></use>
           </svg>
           <p className="thumbnail-training__total-info-value">
-          1
+            {amountOrdered}
           </p>
           <p className="thumbnail-training__total-info-text">
-          Куплено тренировок
+            Куплено тренировок
           </p>
         </div>
         <div className="thumbnail-training__total-info-card">
@@ -79,11 +98,10 @@ function WorkoutOrdersCard():JSX.Element{
             <use xlinkHref="#icon-wallet"></use>
           </svg>
           <p className="thumbnail-training__total-info-value">
-          800<span>₽</span>
+            {priceOrdered}
+            <span>₽</span>
           </p>
-          <p className="thumbnail-training__total-info-text">
-          Общая сумма
-          </p>
+          <p className="thumbnail-training__total-info-text">Общая сумма</p>
         </div>
       </div>
     </div>

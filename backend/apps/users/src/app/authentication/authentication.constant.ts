@@ -21,5 +21,6 @@ export const AuthPath = {
   Refresh: 'refresh',
   Check: 'check',
   CheckAuth: 'check-auth',
+  CheckEmail: 'check-email',
   Revoke: 'revoke',
 } as const;

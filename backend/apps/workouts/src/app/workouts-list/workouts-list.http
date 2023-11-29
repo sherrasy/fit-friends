@@ -5,16 +5,16 @@ POST http://localhost:3001/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 # Sportsman
-# {
-#   "email": "user@test.local",
-#   "password": "123456"
-# }
+{
+  "email": "user@test.local",
+  "password": "123456"
+}
 
 # Coach
-{
-  "email": "first-coach@test.ru",
-  "password": "test123"
-}
+# {
+#   "email": "first-coach@test.ru",
+#   "password": "test123"
+# }
 
 ###
 
@@ -32,7 +32,8 @@ Authorization: Bearer {{AToken}}
 ## workoutTime=10-30%20мин || workoutTime=10-30%20мин,30-50%20мин
 ## priceMin=0
 ## priceMax=5000
-## rating=0
+## ratingMin=0
+## ratingMax=0
 ## caloriesMin=2000
 ## caloriesMax=3000
 
@@ -46,7 +47,8 @@ Authorization: Bearer {{AToken}}
 ## workoutType=yoga || workoutType=yoga,stretching
 ## priceMin=0
 ## priceMax=5000
-## rating=0
+## ratingMin=0
+## ratingMax=0
 ## caloriesMin=2000
 ## caloriesMax=3000
 

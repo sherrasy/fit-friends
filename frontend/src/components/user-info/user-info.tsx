@@ -1,6 +1,6 @@
-import { ChangeEvent, FormEvent, useLayoutEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useLayoutEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getUserData } from '../../store/user-data/selectors';
+import { getCurrentUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -11,26 +11,31 @@ import {
   UserSexToName,
   WorkoutTypeToName,
 } from '../../utils/constant';
-import { WorkoutType } from '../../types/workout-type.enum';
+import { WorkoutType } from '../../types/common/workout-type.enum';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { UserRole } from '../../types/user-role.enum';
+import { UserRole } from '../../types/common/user-role.enum';
 import Loader from '../loader/loader';
-import { UserInfoInterface } from '../../types/user.interface';
-import { Location } from '../../types/location.enum';
-import { UserSex } from '../../types/user-sex.enum';
-import { FitnessLevel } from '../../types/fitness-level.enum';
+import { UserInfoInterface } from '../../types/user/user.interface';
+import { Location } from '../../types/common/location.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { FitnessLevel } from '../../types/common/fitness-level.enum';
 import { WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
 import { toast } from 'react-toastify';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { updateUser } from '../../store/user-data/api-actions';
+import { Coach } from '../../types/user/coach.interface';
+import { Sportsman } from '../../types/user/sportsman.interface';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
-  const userInfo = useAppSelector(getUserData);
+  const userInfo = useAppSelector(getCurrentUserData);
+  const isUpdating = useAppSelector(getUserUpdatingStatus);
   const [isEditing, setIsEditing] = useState(DefaultParam.Status);
   const [readyStatus, setReadyStatus] = useState(DefaultParam.Status);
   const [formData, setFormData] = useState<UserInfoInterface | null>(null);
   const [isOpened, setIsOpened] = useState('');
+  const [avatar, setAvatar] = useState<File>();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useLayoutEffect(() => {
     if (userInfo) {
@@ -38,7 +43,7 @@ function UserInfo(): JSX.Element {
 
       const { role, sportsmanInfo, coachInfo } = userInfo;
       if (role === UserRole.Coach && coachInfo?.isPersonal) {
-        setReadyStatus(coachInfo?.isPersonal);
+        setReadyStatus(coachInfo.isPersonal);
       }
       if (role === UserRole.Sportsman && sportsmanInfo?.isReady) {
         setReadyStatus(sportsmanInfo.isReady);
@@ -49,7 +54,7 @@ function UserInfo(): JSX.Element {
   if (!userInfo || !formData) {
     return <Loader />;
   }
-  const handleSubmitData = (data: UpdateUserDto) => dispatch(updateUser(data));
+  const handleSubmitData = (data: UpdateUserDto) => dispatch(updateUser({...data, avatarFile:avatar}));
 
   const handleFormButtonClick = () => {
     setIsEditing((prev) => !prev);
@@ -78,12 +83,12 @@ function UserInfo(): JSX.Element {
     setReadyStatus((prev) => !prev);
     switch (userInfo.role) {
       case UserRole.Coach: {
-        const coachInfo = { ...formData.coachInfo, isPersonal: status };
+        const coachInfo = { ...formData.coachInfo, isPersonal: status } as Coach;
         setFormData({ ...formData, coachInfo });
         break;
       }
       case UserRole.Sportsman: {
-        const sportsmanInfo = { ...formData.sportsmanInfo, isReady: status };
+        const sportsmanInfo = { ...formData.sportsmanInfo, isReady: status } as Sportsman;
         setFormData({ ...formData, sportsmanInfo });
         break;
       }
@@ -108,6 +113,25 @@ function UserInfo(): JSX.Element {
     setFormData({ ...formData, workoutType: types });
   };
 
+  const handleAvatarUpload = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) {
+      return;
+    }
+    setAvatar(evt.target.files[0]);
+  };
+
+  const handleAvatarOpen = () => {
+    if(fileInputRef.current){
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleAvatarDelete = () => {
+    if(fileInputRef.current){
+      fileInputRef.current.value = '';
+      setAvatar(undefined);}
+  };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const isValid =
@@ -125,20 +149,55 @@ function UserInfo(): JSX.Element {
             <input
               className="visually-hidden"
               type="file"
+              ref={fileInputRef}
               name="user-photo-1"
               accept="image/png, image/jpeg"
+              onChange={handleAvatarUpload}
+              disabled={!isEditing}
             />
             <span className="input-load-avatar__avatar">
-              <img
-                src="img/content/user-photo-1.png"
-                srcSet="img/content/user-photo-1@2x.png 2x"
-                width="98"
-                height="98"
-                alt="user"
-              />
+              {avatar ? (
+                <img
+                  src={URL.createObjectURL(avatar)}
+                  width={98}
+                  height={98}
+                  alt="user avatar"
+                />
+              ) : (
+                <img
+                  src={userInfo.avatarPath}
+                  width={98}
+                  height={98}
+                  alt="user avatar"
+                />
+              )}
             </span>
           </label>
+
         </div>
+        {isEditing && (
+          <div className="user-info-edit__controls">
+            <label
+              className="user-info-edit__control-btn"
+              aria-label="обновить"
+              htmlFor="photoUser"
+              onClick={handleAvatarOpen}
+            >
+              <svg width="16" height="16" aria-hidden="true">
+                <use xlinkHref="#icon-change"></use>
+              </svg>
+            </label>
+            <button
+              className="user-info-edit__control-btn"
+              aria-label="удалить"
+              onClick={handleAvatarDelete}
+            >
+              <svg width="14" height="16" aria-hidden="true">
+                <use xlinkHref="#icon-trash"></use>
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
       <form
         className="user-info__form"
@@ -164,6 +223,7 @@ function UserInfo(): JSX.Element {
             type="button"
             aria-label="Редактировать"
             onClick={handleFormButtonClick}
+            disabled={isUpdating}
           >
             {' '}
             <svg width="12" height="12" aria-hidden="true">
@@ -221,8 +281,8 @@ function UserInfo(): JSX.Element {
               </span>
               <span className="custom-toggle__label">
                 {userInfo.role === UserRole.Coach
-                  ? ReadyToTrainText.Coach
-                  : ReadyToTrainText.User}
+                  ? ReadyToTrainText.Coach[0]
+                  : ReadyToTrainText.User[0]}
               </span>
             </label>
           </div>

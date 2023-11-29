@@ -3,12 +3,12 @@ import AdvertisementThumbnail from '../../components/advertisement-thumbnail/adv
 import Header from '../../components/header/header';
 import UserInfo from '../../components/user-info/user-info';
 import { AppRoute } from '../../utils/constant';
-import { getUserLoadingStatus } from '../../store/user-data/selectors';
+import { getCurrentUserLoadingStatus } from '../../store/user-data/selectors';
 import { useAppSelector } from '../../hooks';
 import Loader from '../../components/loader/loader';
 
 function CoachAccountPage(): JSX.Element {
-  const isLoading = useAppSelector(getUserLoadingStatus);
+  const isLoading = useAppSelector(getCurrentUserLoadingStatus);
   if(isLoading){
     return <Loader/>;
   }
@@ -52,7 +52,7 @@ function CoachAccountPage(): JSX.Element {
                     </Link>
                     <Link
                       className="thumbnail-link thumbnail-link--theme-light"
-                      to={AppRoute.CoachFriends}
+                      to={AppRoute.Friends}
                     >
                       <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
                         <svg width="30" height="26" aria-hidden="true">
