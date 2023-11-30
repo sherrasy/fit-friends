@@ -37,3 +37,8 @@ export interface OrderCoach {
   priceOrdered: number;
   amountOrdered: number;
 }
+
+export interface OrderCoachData {
+  orders: OrderCoach[];
+  ordersAmount: number;
+}

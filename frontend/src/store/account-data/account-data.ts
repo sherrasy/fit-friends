@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReducerName } from '../../utils/constant';
+import { DefaultParam, ReducerName } from '../../utils/constant';
 import { AccountState } from '../../types/state.type';
 import { fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeNotification } from './api-actions';
 
 const initialState:AccountState = {
   friends:null,
+  friendsAmount:DefaultParam.Amount,
   orders:null,
   notifications:null,
   coachOrders:null,
+  ordersAmount:DefaultParam.Amount,
   isFriendsLoading:false,
   isOrdersLoading:false,
   isNotificationsLoading:false,
@@ -26,7 +28,8 @@ export const accountData = createSlice({
         state.isFriendsLoading = true;
       })
       .addCase(fetchFriends.fulfilled, (state, action) => {
-        state.friends = action.payload;
+        state.friends = action.payload.friends;
+        state.friendsAmount = action.payload.friendsAmount;
         state.isFriendsLoading = false;
       })
       .addCase(fetchFriends.rejected, (state) => {
@@ -46,7 +49,8 @@ export const accountData = createSlice({
         state.isOrdersLoading = true;
       })
       .addCase(fetchCoachOrders.fulfilled, (state, action) => {
-        state.coachOrders = action.payload;
+        state.coachOrders = action.payload.orders;
+        state.ordersAmount = action.payload.ordersAmount;
         state.isOrdersLoading = false;
       })
       .addCase(fetchCoachOrders.rejected, (state) => {

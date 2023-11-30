@@ -40,6 +40,7 @@ export const ActionName = {
   FetchUser: 'fetch-user',
   FetchCurrentUser: 'fetch-current-user',
   FetchUserList: 'fetch-user-list',
+  FetchReadyUserList: 'fetch-ready-user-list',
   FetchUserListAmount: 'fetch-user-list-amount',
   FetchFriends: 'fetch-friends',
   FetchUserOrders: 'fetch-user-orders',
@@ -131,6 +132,11 @@ export const ReadyToTrainText = {
   User:['Готов к тренировке', 'Не готов тренироваться'],
 } as const;
 
+export const RequestWorkoutText = {
+  Coach:'на персональную тренировку',
+  User:'на совместную тренировку',
+} as const;
+
 export const HeaderTab = {
   Main:'main',
   Account:'account',
@@ -218,4 +224,6 @@ export const sortDirections = ['asc', 'desc'];
 export const SortingFieldName = {
   Date: 'createdDate',
   Price: 'price',
+  AmountOrdered: 'amountOrdered',
+  PriceOrdered: 'priceOrdered',
 };

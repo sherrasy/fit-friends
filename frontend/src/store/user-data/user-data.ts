@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, DefaultParam, ReducerName } from '../../utils/constant';
 import { UserState } from '../../types/state.type';
-import { checkAuth, checkEmail, fetchCurrentUser, fetchUser, fetchUserList, fetchUserListAmount, login, updateUser } from './api-actions';
+import { checkAuth, checkEmail, fetchCurrentUser, fetchReadyUserList, fetchUser, fetchUserList, fetchUserListAmount, login, updateUser } from './api-actions';
 import { NewUserGeneral, User } from '../../types/user/user.interface';
 
 const initialState:UserState = {
@@ -11,6 +11,7 @@ const initialState:UserState = {
   currentUserData:null,
   userData:null,
   userListData:null,
+  readyUsers:null,
   newUserData:null,
   isCurrentUserLoading:false,
   isUserLoading:false,
@@ -98,6 +99,9 @@ export const userData = createSlice({
       .addCase(fetchUserList.fulfilled, (state, action) => {
         state.userListData = action.payload;
         state.isUserListLoading = false;
+      })
+      .addCase(fetchReadyUserList.fulfilled, (state, action) => {
+        state.readyUsers = action.payload;
       })
       .addCase(fetchUserListAmount.fulfilled, (state, action) => {
         state.totalAmount = action.payload;

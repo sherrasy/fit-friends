@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { OrderCoach } from '../../types/reaction/order.interface';
 import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
+import { useAppDispatch } from '../../hooks';
+import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
+import { generateRandomNumber } from '../../utils/helpers';
 
 type WorkoutOrdersCardProps = {
   order: OrderCoach;
@@ -17,19 +20,25 @@ function WorkoutOrdersCard({ order }: WorkoutOrdersCardProps): JSX.Element {
     workoutType,
     description,
     calories,
+    photo
   } = order;
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const handleRouteChange = () =>{
+    dispatch(fetchWorkout(id));
+    dispatch(fetchReviews(id));
+    const path = `${AppRoute.EditWorkout}/${id}`;
+    navigate(path);
+  };
+  const randomPhotoId = generateRandomNumber();
   return (
     <div className="thumbnail-training">
       <div className="thumbnail-training__inner">
         <div className="thumbnail-training__image">
           <picture>
-            <source
-              type="image/webp"
-              srcSet="img/content/thumbnails/training-01.webp, img/content/thumbnails/training-01@2x.webp 2x"
-            />
             <img
-              src="img/content/thumbnails/training-01.jpg"
-              srcSet="img/content/thumbnails/training-01@2x.jpg 2x"
+              src={photo ? photo : `/img/content/thumbnails/training-${randomPhotoId}.jpg`}
               width="330"
               height="190"
               alt=""
@@ -71,15 +80,15 @@ function WorkoutOrdersCard({ order }: WorkoutOrdersCardProps): JSX.Element {
             {description}
           </p>
         </div>
-        <Link
+        <button
           className="btn-flat btn-flat--underlined thumbnail-training__button-orders"
-          to={`${AppRoute.WorkoutInfo}/${id}`}
+          onClick={handleRouteChange}
         >
           <svg width="18" height="18" aria-hidden="true">
             <use xlinkHref="#icon-info"></use>
           </svg>
           <span>Подробнее</span>
-        </Link>
+        </button>
       </div>
       <div className="thumbnail-training__total-info">
         <div className="thumbnail-training__total-info-card">

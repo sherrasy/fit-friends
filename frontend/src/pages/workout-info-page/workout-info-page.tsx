@@ -8,9 +8,12 @@ import { fetchUser } from '../../store/user-data/api-actions';
 import { getUserData, getUserError } from '../../store/user-data/selectors';
 import { getReviews, getReviewsLoadingStatus, getWorkout, getWorkoutLoadingStatus } from '../../store/workout-data/selectors';
 import ErrorPage from '../error-page/error-page';
+import { useParams } from 'react-router-dom';
+import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
 
 function WorkoutInfoPage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const {id} = useParams();
   const workout = useAppSelector(getWorkout);
   const coach = useAppSelector(getUserData);
   const coachError = useAppSelector(getUserError);
@@ -23,6 +26,13 @@ function WorkoutInfoPage(): JSX.Element {
       dispatch(fetchUser(workout.coachId));
     }
   }, [dispatch, workout]);
+
+  useEffect(()=>{
+    if (id) {
+      dispatch(fetchWorkout(+id));
+      dispatch(fetchReviews(+id));
+    }
+  }, [dispatch, id]);
 
   if(!workout || coachError || !coach){
     return <ErrorPage/>;

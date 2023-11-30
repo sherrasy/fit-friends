@@ -18,6 +18,7 @@ export type UserState = {
   currentUserData:User|null;
   userData:User|null;
   userListData:User[]|null;
+  readyUsers:User[]|null;
   newUserData:NewUserGeneral|null;
   isCurrentUserLoading:boolean;
   isUserLoading:boolean;
@@ -30,7 +31,9 @@ export type UserState = {
 
 export type AccountState = {
   friends: User[]|null;
+  friendsAmount:number;
   orders: Order[]|null;
+  ordersAmount:number;
   notifications: UserNotification[]|null;
   coachOrders: OrderCoach[]|null;
   isFriendsLoading:boolean;

@@ -4,6 +4,7 @@ import { UserNotificationsRepository } from '../user-notifications/user-notifica
 import { FriendsError } from './friends.constant';
 import { FriendsEntity } from './friends.entity';
 import { FriendsRepository } from './friends.repository';
+import { DefaultQuery } from '@backend/shared-quieries';
 
 @Injectable()
 export class FriendsService {
@@ -39,11 +40,11 @@ export class FriendsService {
     return this.friendsRepository.destroy(friendData.id);
   }
 
-  public async showFriends(userId: number, role: string) {
+  public async showFriends(userId: number, role: string, query: DefaultQuery) {
     const friendsList =
       role === UserRole.Sportsman
-        ? await this.friendsRepository.findAllByUserId(userId)
-        : await this.friendsRepository.findAllByCoachId(userId);
+        ? await this.friendsRepository.findAllByUserId(userId, query)
+        : await this.friendsRepository.findAllByCoachId(userId, query);
     return friendsList;
   }
 }

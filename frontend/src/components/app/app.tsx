@@ -23,7 +23,7 @@ import { AppRoute } from '../../utils/constant';
 import Loader from '../loader/loader';
 import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';
 import { useEffect } from 'react';
-import { fetchUserList } from '../../store/user-data/api-actions';
+import { fetchReadyUserList, fetchUserList } from '../../store/user-data/api-actions';
 import { fetchCoachWorkouts, fetchExtraWorkouts, fetchUserSpecialWorkouts, fetchWorkouts } from '../../store/workout-data/api-actions';
 import { fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders } from '../../store/account-data/api-actions';
 import PrivateRoleRoute from '../private-route/private-role-route';
@@ -38,6 +38,7 @@ function App(): JSX.Element {
   useEffect(()=>{
     if(userRole === UserRole.Sportsman && userInfo){
       dispatch(fetchUserList());
+      dispatch(fetchReadyUserList());
       dispatch(fetchWorkouts());
       dispatch(fetchExtraWorkouts(userRole));
       dispatch(fetchUserSpecialWorkouts(userInfo));
@@ -121,7 +122,7 @@ function App(): JSX.Element {
         }
       />
       <Route
-        path={AppRoute.EditWorkout}
+        path={`${AppRoute.EditWorkout}/:id`}
         element={
           <PrivateRoleRoute
             restrictedFor={UserRole.Sportsman}

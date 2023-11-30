@@ -1,4 +1,4 @@
-import { ReviewsQuery } from '@backend/shared-quieries';
+import { DefaultQuery } from '@backend/shared-quieries';
 import { Review } from '@backend/shared/shared-types';
 import { DefaultParam } from '@backend/util/util-core';
 import { Injectable } from '@nestjs/common';
@@ -16,7 +16,7 @@ export class ReviewsRepository {
 
   public async findAllByWorkoutId(
     workoutId: number,
-    { limit, sortBy, sortDirection, page }: ReviewsQuery
+    { limit, sortBy, sortDirection, page }: DefaultQuery
   ): Promise<Review[] | null> {
     const queryParams = {
       where: {

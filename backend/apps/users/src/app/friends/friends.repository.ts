@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { adaptPrismaUser } from '../utils/adapt-prisma-user';
 import { FriendsEntity } from './friends.entity';
+import { DefaultQuery } from '@backend/shared-quieries';
+import { DefaultParam } from '@backend/util/util-core';
 
 @Injectable()
 export class FriendsRepository {
@@ -25,11 +27,17 @@ export class FriendsRepository {
     });
   }
 
-  public async findAllByUserId(userId: number ): Promise<User[] | null> {
-    const data = await this.prisma.friend.findMany({
+  public async findAllByUserId(userId: number, {limit, page, sortBy, sortDirection}:DefaultQuery ): Promise<User[] | null> {
+    const queryParams = {
       where: {
         userId,
       },
+      take: limit,
+      skip:
+        page > DefaultParam.Amount
+          ? limit * (page - DefaultParam.Step)
+          : undefined,
+      orderBy: [{ [sortBy]: sortDirection }],
       include: {
         friend: {
           include:{
@@ -37,17 +45,25 @@ export class FriendsRepository {
             coachInfo:true,
           }},
       },
-    });
+      };
+
+    const data = await this.prisma.friend.findMany(queryParams);
     return data.map((item) => {
       return adaptPrismaUser(item.friend);
     });
   }
 
-  public async findAllByCoachId(friendId: number): Promise<User[] | null> {
-    const data = await this.prisma.friend.findMany({
+  public async findAllByCoachId(friendId: number, {limit, page, sortBy, sortDirection}:DefaultQuery): Promise<User[] | null> {
+    const queryParams = {
       where: {
         friendId,
       },
+      take: limit,
+      skip:
+        page > DefaultParam.Amount
+          ? limit * (page - DefaultParam.Step)
+          : undefined,
+      orderBy: [{ [sortBy]: sortDirection }],
       include: {
         user: {
           include:{
@@ -55,7 +71,8 @@ export class FriendsRepository {
             coachInfo:true,
           }},
       },
-    });
+      };
+    const data = await this.prisma.friend.findMany(queryParams);
     return data.map((item) => {
       return adaptPrismaUser(item.user);
     });

@@ -9,39 +9,48 @@ import Loader from '../../components/loader/loader';
 import {
   getFriends,
   getFriendsLoadingStatus,
+  getFriendsPages,
 } from '../../store/account-data/selectors';
 import { CardsLimit, DefaultParam } from '../../utils/constant';
+import { getCurrentUserData } from '../../store/user-data/selectors';
+import ErrorPage from '../error-page/error-page';
 
 function FriendsPage(): JSX.Element {
-  const [shownAmount, setShownAmount] = useState(0);
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(getCurrentUserData);
   const friends = useAppSelector(getFriends);
   const isLoading = useAppSelector(getFriendsLoadingStatus);
+  const pagesAmount = useAppSelector(getFriendsPages);
+  const [currentPage, setCurrentPage] = useState(DefaultParam.Step);
+  const isLastPage = currentPage === pagesAmount;
+  const isMoreVisible =
+    !isLastPage &&
+    pagesAmount > DefaultParam.Amount &&
+    friends?.length === CardsLimit.Default;
+  const isReturnVisible =
+    isLastPage && !(friends && friends.length < CardsLimit.Default);
+
+  const handleShowClick = () => {
+    if (currentPage !== pagesAmount) {
+      setCurrentPage((prev) => prev + DefaultParam.Step);
+    }
+  };
+
+  const handleReturnClick = () => {
+    setCurrentPage(DefaultParam.Step);
+  };
 
   useEffect(() => {
-    dispatch(fetchFriends());
-  }, [dispatch]);
+    dispatch(fetchFriends({page:currentPage}));
+  }, [dispatch,currentPage]);
 
-  useEffect(() => {
-    let isPageMounted = true;
-    isPageMounted &&
-      friends &&
-      setShownAmount(Math.min(CardsLimit.Default, friends.length));
-    return () => {
-      isPageMounted = false;
-    };
-  }, [friends]);
+  if (!currentUser) {
+    return <ErrorPage />;
+  }
 
   if (isLoading) {
     return <Loader />;
   }
-
-  const handleShownAmount = () => {
-    if(friends){
-      setShownAmount((prevAmount) =>
-        Math.min(prevAmount + CardsLimit.Default, friends.length)
-      );}
-  };
 
   return (
     <div className="wrapper">
@@ -55,13 +64,18 @@ function FriendsPage(): JSX.Element {
                 <h1 className="friends-list__title">Мои друзья</h1>
               </div>
               <ul className="friends-list__list">
-                {friends?.slice(DefaultParam.Amount, shownAmount).map((item) => (
+                {friends?.map((item) => (
                   <li className="friends-list__item" key={item.id}>
-                    <FriendCard friend = {item}/>
+                    <FriendCard friend = {item} currentUser={currentUser}/>
                   </li>
                 ))}
               </ul>
-              {friends && friends.length > shownAmount && <ShowMoreButton onShown={handleShownAmount}/>}
+              <ShowMoreButton
+                onShown={handleShowClick}
+                onReturn={handleReturnClick}
+                isShowMoreVisible={isMoreVisible}
+                isReturnVisible={isReturnVisible}
+              />
             </div>
           </div>
         </section>

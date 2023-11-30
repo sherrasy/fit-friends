@@ -176,6 +176,32 @@ export const fetchCurrentUser = createAsyncThunk<User, number, {
   },
 );
 
+export const fetchReadyUserList = createAsyncThunk<User[], Query|undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  `${ReducerName.User}/${ActionName.FetchReadyUserList}`,
+  async (query, { dispatch, extra: api}) => {
+    try{
+      const queryString = `?role=${UserRole.Sportsman}`;
+      const {data} = await api.get<User[]>(`${ApiRoute.UsersShow}/${queryString}`);
+      await Promise.all(data.filter((item)=>item.sportsmanInfo && item.sportsmanInfo.isReady).slice(CardsLimit.ReadyUsers).map(async(item)=>{
+        if(item.avatar){
+          const {data:{path}} = await api.get<File>(`${ApiRoute.File}/${item.avatar}`);
+          item.avatarPath = path || '';
+        }
+      }));
+      dispatch(fetchUserListAmount());
+      return data;
+    }
+    catch(error){
+      return Promise.reject(error);
+
+    }
+  },
+);
+
 export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -201,6 +227,8 @@ export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
     }
   },
 );
+
+
 export const fetchUserListAmount = createAsyncThunk<number, undefined, {
   dispatch: AppDispatch;
   state: State;

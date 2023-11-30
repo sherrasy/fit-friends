@@ -36,7 +36,7 @@ import { CheckJwtAuthGuard } from '../guards/check-jwt-auth.guard';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { UserIdInterceptor } from '../interceptors/user-id.interceptor';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UserQuery } from '@backend/shared-quieries';
+import { DefaultQuery, UserQuery } from '@backend/shared-quieries';
 
 @ApiTags(ControllerName.User)
 @Controller(ControllerName.User)
@@ -236,7 +236,22 @@ export class UsersController {
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(UserIdInterceptor)
   @Get(AppPath.Friends)
-  public async getFriends(@Req() req: Request) {
+  public async getFriends(@Req() req: Request, @Query() query:DefaultQuery) {
+    const { data } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.UserFriends}`,
+      {
+          params:query,
+
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+  @Get(`${AppPath.Friends}/${AppPath.Count}`)
+  public async showFriendsAmount(@Req() req: Request ) {
     const { data } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.UserFriends}`,
       {
@@ -245,7 +260,7 @@ export class UsersController {
         },
       }
     );
-    return data;
+    return data.length;
   }
 
   @ApiResponse({
@@ -269,8 +284,8 @@ export class UsersController {
     return data;
   }
 
-  @Get(`${AppPath.Show}/count`)
-  public async showAmount(@Req() req: Request, ) {
+  @Get(`${AppPath.Show}/${AppPath.Count}`)
+  public async showUserAmount(@Req() req: Request, ) {
     const { data } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
       {

@@ -60,6 +60,38 @@ export const getWorkoutQueryString = (query: Query) => {
   return `?${limitQuery}${pageQuery}${workoutTypeQuery}${workoutTimeQuery}${priceMinQuery}${priceMaxQuery}${caloriesMinQuery}${caloriesMaxQuery}${ratingMinQuery}${ratingMaxQuery}${sortByQuery}${sortDirectionQuery}`;
 };
 
+export const getOrdersQueryString = (query?: Query) => {
+  const limitQuery = query?.limit
+    ? `limit=${query.limit}&`
+    : `limit=${CardsLimit.CoachOrders}&`;
+  const pageQuery = query?.page
+    ? `page=${query?.page}&`
+    : `page=${DefaultParam.Step}&`;
+  const sortByQuery = query?.sortBy
+    ? `sortBy=${query?.sortBy}&`
+    : `sortBy=${SortingFieldName.AmountOrdered}&`;
+  const sortDirectionQuery = query?.sortDirection
+    ? `sortDirection=${query.sortDirection}`
+    : `sortDirection=${sortDirections[1]}`;
+  return `?${limitQuery}${pageQuery}${sortByQuery}${sortDirectionQuery}`;
+};
+
+export const getFriendsQueryString = (query?: Query) => {
+  const limitQuery = query?.limit
+    ? `limit=${query.limit}&`
+    : `limit=${CardsLimit.Default}&`;
+  const pageQuery = query?.page
+    ? `page=${query?.page}&`
+    : `page=${DefaultParam.Step}&`;
+  const sortByQuery = query?.sortBy
+    ? `sortBy=${query?.sortBy}&`
+    : `sortBy=${SortingFieldName.Date}&`;
+  const sortDirectionQuery = query?.sortDirection
+    ? `sortDirection=${query?.sortDirection}`
+    : `sortDirection=${sortDirections[1]}`;
+  return `?${limitQuery}${pageQuery}${sortByQuery}${sortDirectionQuery}`;
+};
+
 export const getUserQueryString = (query: Query) => {
   const limitQuery = query.limit
     ? `limit=${query.limit}&`

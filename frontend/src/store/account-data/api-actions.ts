@@ -2,14 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../../types/state.type';
 import { AxiosInstance } from 'axios';
 import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
-import { User } from '../../types/user/user.interface';
+import { FriendData, User } from '../../types/user/user.interface';
 import { File } from '../../types/reaction/file.interface';
-import { Order, OrderCoach } from '../../types/reaction/order.interface';
+import { Order, OrderCoach, OrderCoachData } from '../../types/reaction/order.interface';
 import { UserNotification } from '../../types/reaction/user-notification.interface';
+import { Query } from '../../types/query.type';
+import { getFriendsQueryString, getOrdersQueryString } from '../../utils/helpers';
 
 export const fetchFriends = createAsyncThunk<
-  User[],
-  undefined,
+  FriendData,
+  Query|undefined,
   {
     dispatch: AppDispatch;
     state: State;
@@ -17,11 +19,13 @@ export const fetchFriends = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.FetchFriends}`,
-  async (_args, { dispatch, extra: api }) => {
+  async (query, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<User[]>(ApiRoute.Friends);
+      const queryString = getFriendsQueryString(query);
+      const { data:friends } = await api.get<User[]>(`${ApiRoute.Friends}/${queryString}`);
+      const { data:friendsAmount } = await api.get<number>(`${ApiRoute.Friends}/count`);
       await Promise.all(
-        data.map(async (item) => {
+        friends.map(async (item) => {
           if (item.avatar) {
             const {
               data: { path },
@@ -30,7 +34,7 @@ export const fetchFriends = createAsyncThunk<
           }
         })
       );
-      return data;
+      return {friends, friendsAmount};
     } catch (error) {
       return Promise.reject(error);
     }
@@ -58,8 +62,8 @@ export const fetchUserOrders = createAsyncThunk<
 );
 
 export const fetchCoachOrders = createAsyncThunk<
-  OrderCoach[],
-  undefined,
+  OrderCoachData,
+  Query|undefined,
   {
     dispatch: AppDispatch;
     state: State;
@@ -67,10 +71,12 @@ export const fetchCoachOrders = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.FetchCoachOrders}`,
-  async (_args, { dispatch, extra: api }) => {
+  async (query, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<OrderCoach[]>(ApiRoute.OrdersShow);
-      return data;
+      const queryString = getOrdersQueryString(query);
+      const { data:orders } = await api.get<OrderCoach[]>(`${ApiRoute.OrdersShow}/${queryString}`);
+      const { data:ordersAmount } = await api.get<number>(`${ApiRoute.OrdersShow}/count`);
+      return {orders, ordersAmount};
     } catch (error) {
       return Promise.reject(error);
     }

@@ -20,6 +20,8 @@ export const AppPath = {
   Upload: 'upload',
   CoachList: 'coach-list',
   Add: 'add',
+  Count: 'count',
+  GetExtra: 'extra',
   SendNewsletter: 'send-workouts',
   Notifications: 'notifications',
   Requests: 'requests',

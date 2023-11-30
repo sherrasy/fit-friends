@@ -1,35 +1,50 @@
 import { UserRole } from '../../types/common/user-role.enum';
 import { User } from '../../types/user/user.interface';
-import { LocationToName, WorkoutTypeToName } from '../../utils/constant';
+import {
+  LocationToName,
+  ReadyToTrainText,
+  RequestWorkoutText,
+  WorkoutTypeToName,
+} from '../../utils/constant';
 
 type FriendCardProps = {
   friend: User;
+  currentUser: User;
 };
 
-function FriendCard({ friend }: FriendCardProps): JSX.Element {
-  const { name, avatarPath, location, role, workoutType, coachInfo, sportsmanInfo } = friend;
-  const readyStatus = role === UserRole.Sportsman ? sportsmanInfo?.isReady : coachInfo?.isPersonal;
+function FriendCard({ friend, currentUser }: FriendCardProps): JSX.Element {
+  const {
+    name,
+    avatarPath,
+    location,
+    role,
+    workoutType,
+    coachInfo,
+    sportsmanInfo,
+  } = friend;
+  const {
+    role: currentUserRole,
+    sportsmanInfo: currentSportsman,
+    coachInfo: currentCoach,
+  } = currentUser;
+  const isUser = role === UserRole.Sportsman;
+  const readyStatus = isUser ? sportsmanInfo?.isReady : coachInfo?.isPersonal;
+  const isReadyTexts = isUser ? ReadyToTrainText.User : ReadyToTrainText.Coach;
+  const currentUserReady =
+    currentUserRole === UserRole.Sportsman
+      ? currentSportsman?.isReady
+      : currentCoach?.isPersonal;
   return (
     <div className="thumbnail-friend">
       <div
         className={`thumbnail-friend__info thumbnail-friend__info--theme-${
-          role === UserRole.Sportsman ? 'light' : 'dark'
+          isUser ? 'light' : 'dark'
         }`}
       >
         <div className="thumbnail-friend__image-status">
           <div className="thumbnail-friend__image">
             <picture>
-              <source
-                type="image/webp"
-                srcSet="img/content/thumbnails/friend-21.webp, img/content/thumbnails/friend-21@2x.webp 2x"
-              />
-              <img
-                src="img/content/thumbnails/friend-21.jpg"
-                srcSet="img/content/thumbnails/friend-21@2x.jpg 2x"
-                width="78"
-                height="78"
-                alt=""
-              />
+              <img src={avatarPath } width="78" height="78" alt="" />
             </picture>
           </div>
         </div>
@@ -54,39 +69,50 @@ function FriendCard({ friend }: FriendCardProps): JSX.Element {
           ))}
         </ul>
         <div className="thumbnail-friend__activity-bar">
-          <div className={`thumbnail-friend__ready-status thumbnail-friend__ready-status--is-${readyStatus ? 'ready' : 'not-ready'}`}>
-            <span>Не&nbsp;готов к&nbsp;тренировке</span>
+          <div
+            className={`thumbnail-friend__ready-status thumbnail-friend__ready-status--is-${
+              readyStatus ? 'ready' : 'not-ready'
+            }`}
+          >
+            <span>{readyStatus ? isReadyTexts[0] : isReadyTexts[1]}</span>
           </div>
-          {/* <div className="thumbnail-friend__ready-status thumbnail-friend__ready-status--is-ready">
-        <span>Готов к&nbsp;тренировке</span>
-      </div>
-                            <button class="thumbnail-friend__invite-button" type="button">
-                        <svg width="43" height="46" aria-hidden="true" focusable="false">
-                          <use xlink:href="#icon-invite"></use>
-                        </svg><span class="visually-hidden">Пригласить друга на совместную тренировку</span>
-                      </button>
-      */}
+          {readyStatus && (
+            <button className="thumbnail-friend__invite-button" type="button">
+              <svg width="43" height="46" aria-hidden="true" focusable="false">
+                <use xlinkHref="#icon-invite"></use>
+              </svg>
+              <span className="visually-hidden">
+                Пригласить друга{' '}
+                {isUser ? RequestWorkoutText.User : RequestWorkoutText.Coach}
+              </span>
+            </button>
+          )}
         </div>
       </div>
-      {/* <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
-    <p className="thumbnail-friend__request-text">
-      Запрос на&nbsp;персональную тренировку
-    </p>
-    <div className="thumbnail-friend__button-wrapper">
-      <button
-        className="btn btn--medium btn--dark-bg thumbnail-friend__button"
-        type="button"
-      >
-        Принять
-      </button>
-      <button
-        className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
-        type="button"
-      >
-        Отклонить
-      </button>
-    </div>
-  </div> */}
+      {currentUserReady && (
+        <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
+          <p className="thumbnail-friend__request-text">
+            Запрос{' '}
+            {currentUserRole === UserRole.Sportsman
+              ? RequestWorkoutText.User
+              : RequestWorkoutText.Coach}
+          </p>
+          <div className="thumbnail-friend__button-wrapper">
+            <button
+              className="btn btn--medium btn--dark-bg thumbnail-friend__button"
+              type="button"
+            >
+              Принять
+            </button>
+            <button
+              className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
+              type="button"
+            >
+              Отклонить
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

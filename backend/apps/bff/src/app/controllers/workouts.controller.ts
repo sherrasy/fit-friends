@@ -58,6 +58,18 @@ export class WorkoutsController {
     return data;
   }
 
+  @UseGuards(CheckAuthGuard)
+  @Get(`${AppPath.Orders}/${AppPath.CoachList}/${AppPath.Count}`)
+  public async countCoachOrders(@Req() req: Request) {
+    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.OrdersList}/${AppPath.CoachList}`,
+    {
+      headers: {
+        Authorization: req.headers['authorization'],
+      },
+    });
+    return data.length;
+  }
+
   @ApiResponse({
     status: HttpStatus.OK,
     description: WorkoutMessages.ShowAll,
@@ -99,7 +111,7 @@ export class WorkoutsController {
     }
 
     @UseGuards(CheckAuthGuard)
-    @Get(`${AppPath.CoachList}/extra`)
+    @Get(`${AppPath.CoachList}/${AppPath.GetExtra}`)
     public async showExtraWorkoutsCoach(@Req() req: Request ) {
       const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.WorkoutsList}/${AppPath.CoachList}`,
       {
@@ -114,7 +126,7 @@ export class WorkoutsController {
     }
 
   @UseGuards(CheckAuthGuard)
-  @Get(`${AppPath.Show}/extra`)
+  @Get(`${AppPath.Show}/${AppPath.GetExtra}`)
   public async showExtraWorkoutsUser(@Req() req: Request ) {
     const { data } = await this.httpService.axiosRef.get(ApplicationServiceURL.WorkoutsList,
     {
