@@ -44,7 +44,7 @@ function LookForCompany(): JSX.Element {
   return (
     <section className="look-for-company">
       <div className="container">
-        <div className="look-for-company__wrapper slider-main-reverse">
+        <div className="look-for-company__wrapper">
           {(!userList || !userList.length) && <AdvertisementThumbnail />}
           {userList && userList.length !== 0 && (
             <Slider

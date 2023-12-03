@@ -1,14 +1,17 @@
-import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile, Get, Param, UseGuards, Query } from '@nestjs/common';
+import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile, Get, Param, UseGuards, Query, Body } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
-import { AppPath, ControllerName, WorkoutMessages} from '../app.constant';
+import { AppPath, ControllerName, FileType, WorkoutMessages} from '../app.constant';
 import 'multer';
+import FormData from 'form-data';
 import {  ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
 import{CoachOrderQuery, WorkoutListQuery} from"@backend/shared-quieries";
 import { getSpecialPrice } from '@backend/util/util-core';
 import { Workout } from '@backend/shared/shared-types';
+import { CreateWorkoutDto } from '@backend/shared/shared-dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags(ControllerName.Workouts)
 @Controller(ControllerName.Workouts)
@@ -175,6 +178,62 @@ export class WorkoutsController {
         Authorization: req.headers['authorization'],
       },
     });
+    return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: WorkoutMessages.AddWorkout,
+  })
+  @Post(AppPath.Add)
+  public async createWorkout(@Body() dto: CreateWorkoutDto, @Req() req: Request) {
+    const { data } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.WorkoutInfo}/${AppPath.Add}`,
+      dto,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: WorkoutMessages.AddVideo,
+  })
+  @UseGuards(CheckAuthGuard)
+  @Post(`${AppPath.Id}/${AppPath.Upload}-${FileType.Video}`)
+  @UseInterceptors(FileInterceptor(FileType.Video))
+  public async updateVideo(
+    @Req() req: Request,
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id') id: number
+  ) {
+    const formData = new FormData();
+    formData.append(FileType.Video, Buffer.from(file.buffer), {
+      filename: file.originalname,
+      contentType: file.mimetype,
+    });
+    const { data: videoData } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Video}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+    const { data } = await this.httpService.axiosRef.patch(
+      `${ApplicationServiceURL.WorkoutInfo}/${id}`,
+      { video: videoData.id },
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
     return data;
   }
 

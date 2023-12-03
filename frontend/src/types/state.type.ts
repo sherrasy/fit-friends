@@ -52,7 +52,9 @@ export type WorkoutState = {
   totalAmount:number;
   maxPrice:number;
   specialUserWorkouts: Workout[]|null;
+  fullWorkouts: Workout[]|null;
   isWorkoutsLoading:boolean;
   isWorkoutLoading:boolean;
+  isWorkoutPosting:boolean;
   isReviewsLoading:boolean;
  }

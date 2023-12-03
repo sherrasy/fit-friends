@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { checkValidity } from '../../utils/helpers';
-import { UserFormError, UserFormFieldName } from '../../utils/constant';
+import { UserFormError, FormFieldName } from '../../utils/constant';
 import { AuthData } from '../../types/user/auth-data.type';
 import { login } from '../../store/user-data/api-actions';
 import InputErrorField from '../../components/input-error-field/input-error-field';
@@ -81,14 +81,14 @@ function LoginPage(): JSX.Element {
                         <span className="custom-input__wrapper">
                           <input
                             type="email"
-                            id={UserFormFieldName.Email}
-                            name={UserFormFieldName.Email}
+                            id={FormFieldName.Email}
+                            name={FormFieldName.Email}
                             onChange={handleInputChange}
                             required
                           />
                         </span>
                       </label>
-                      {isEmptyShown && formData[UserFormFieldName.Email] === '' && <InputErrorField/>}
+                      {isEmptyShown && formData[FormFieldName.Email] === '' && <InputErrorField/>}
                     </div>
                     <div className="custom-input sign-in__input">
                       <label>
@@ -96,8 +96,8 @@ function LoginPage(): JSX.Element {
                         <span className="custom-input__wrapper">
                           <input
                             type="password"
-                            id={UserFormFieldName.Password}
-                            name={UserFormFieldName.Password}
+                            id={FormFieldName.Password}
+                            name={FormFieldName.Password}
                             minLength={PasswordLength.Min}
                             maxLength={PasswordLength.Max}
                             onChange={handleInputChange}
@@ -105,7 +105,7 @@ function LoginPage(): JSX.Element {
                           />
                         </span>
                       </label>
-                      {isEmptyShown && formData[UserFormFieldName.Password] === '' && <InputErrorField/>}
+                      {isEmptyShown && formData[FormFieldName.Password] === '' && <InputErrorField/>}
                     </div>
                     <button className="btn sign-in__button" type="submit">
                       Продолжить

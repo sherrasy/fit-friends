@@ -7,7 +7,7 @@ import {
   DefaultParam,
   FitnessLevelToName,
   UserFormError,
-  UserFormFieldName,
+  FormFieldName,
   WorkoutTypeToName,
 } from '../../utils/constant';
 import { capitalizeFirstLetter } from '../../utils/helpers';
@@ -137,7 +137,7 @@ function QuestionnaireUser({
                           <label>
                             <input
                               type="radio"
-                              name={UserFormFieldName.WorkoutTime}
+                              name={FormFieldName.WorkoutTime}
                               value={item}
                               checked={sportsmanInfo.workoutTime === item}
                               onChange={handleInputChange}
@@ -161,7 +161,7 @@ function QuestionnaireUser({
                           <label>
                             <input
                               type="radio"
-                              name={UserFormFieldName.FitnessLevel}
+                              name={FormFieldName.FitnessLevel}
                               value={item}
                               checked={fitnessLevel === item}
                               onChange={handleFitnessLevelChange}
@@ -185,7 +185,7 @@ function QuestionnaireUser({
                           <span className="custom-input__wrapper">
                             <input
                               type="number"
-                              name={UserFormFieldName.CaloriesTotal}
+                              name={FormFieldName.CaloriesTotal}
                               min={CaloriesAmount.Min}
                               max={CaloriesAmount.Max}
                               onChange={handleInputChange}
@@ -195,7 +195,7 @@ function QuestionnaireUser({
                           </span>
                         </label>
                       </div>
-                      {isEmptyShown && !sportsmanInfo[UserFormFieldName.CaloriesTotal] && (
+                      {isEmptyShown && !sportsmanInfo[FormFieldName.CaloriesTotal] && (
                         <InputErrorField />
                       )}
                     </div>
@@ -208,7 +208,7 @@ function QuestionnaireUser({
                           <span className="custom-input__wrapper">
                             <input
                               type="number"
-                              name={UserFormFieldName.CaloriesPerDay}
+                              name={FormFieldName.CaloriesPerDay}
                               min={CaloriesAmount.Min}
                               max={CaloriesAmount.Max}
                               required
@@ -220,7 +220,7 @@ function QuestionnaireUser({
                       </div>
                     </div>
                   </div>
-                  {isEmptyShown && !sportsmanInfo[UserFormFieldName.CaloriesPerDay] && (
+                  {isEmptyShown && !sportsmanInfo[FormFieldName.CaloriesPerDay] && (
                     <InputErrorField />
                   )}
                 </div>

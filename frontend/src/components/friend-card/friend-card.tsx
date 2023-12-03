@@ -1,11 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
 import { UserRole } from '../../types/common/user-role.enum';
 import { User } from '../../types/user/user.interface';
 import {
+  AppRoute,
   LocationToName,
   ReadyToTrainText,
   RequestWorkoutText,
   WorkoutTypeToName,
 } from '../../utils/constant';
+import { fetchUser } from '../../store/user-data/api-actions';
 
 type FriendCardProps = {
   friend: User;
@@ -14,6 +18,7 @@ type FriendCardProps = {
 
 function FriendCard({ friend, currentUser }: FriendCardProps): JSX.Element {
   const {
+    id,
     name,
     avatarPath,
     location,
@@ -34,12 +39,19 @@ function FriendCard({ friend, currentUser }: FriendCardProps): JSX.Element {
     currentUserRole === UserRole.Sportsman
       ? currentSportsman?.isReady
       : currentCoach?.isPersonal;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const handleRouteChange = () => {
+    dispatch(fetchUser(id));
+    navigate(`${AppRoute.UserInfo}/${id}`);
+  };
   return (
     <div className="thumbnail-friend">
       <div
         className={`thumbnail-friend__info thumbnail-friend__info--theme-${
           isUser ? 'light' : 'dark'
-        }`}
+        }` }
+        onClick={handleRouteChange}
       >
         <div className="thumbnail-friend__image-status">
           <div className="thumbnail-friend__image">

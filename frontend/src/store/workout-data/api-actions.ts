@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../../types/state.type';
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import {
   ActionName,
   ApiRoute,
+  AppRoute,
   CardsLimit,
   DefaultParam,
   ReducerName,
@@ -20,6 +21,10 @@ import { toast } from 'react-toastify';
 import { Review } from '../../types/reaction/review.interface';
 import { getWorkoutQueryString, getSpecialPrice } from '../../utils/helpers';
 import { UserRole } from '../../types/common/user-role.enum';
+import { CreateWorkoutDto } from '../../dto/workout/create-workout.dto';
+import { FileType } from '../../types/reaction/file.type';
+import { adaptVideoToServer } from '../../utils/adapters/adaptersToServer';
+import { redirectToRoute } from '../action';
 
 export const fetchWorkouts = createAsyncThunk<
   Workout[],
@@ -89,7 +94,7 @@ export const fetchExtraWorkouts = createAsyncThunk<
       const popularWorkouts = [...workoutsData]
         .sort((workoutA, workoutB) => workoutB.rating - workoutA.rating)
         .slice(DefaultParam.Amount, CardsLimit.Default);
-      return { specialWorkouts, popularWorkouts, totalWorkouts, maxPrice };
+      return { specialWorkouts, popularWorkouts, totalWorkouts, maxPrice, fullWorkouts:workoutsData };
     } catch (error) {
       return Promise.reject(error);
     }
@@ -185,6 +190,7 @@ export const fetchWorkout = createAsyncThunk<
     }
   }
 );
+
 export const fetchReviews = createAsyncThunk<
   Review[],
   number,
@@ -200,6 +206,33 @@ export const fetchReviews = createAsyncThunk<
       const { data } = await api.get<Review[]>(`${ApiRoute.ReviewsShow}/${id}`);
       return data;
     } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const createWorkout = createAsyncThunk<
+  Workout,
+  CreateWorkoutDto & FileType,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${ReducerName.Workout}/${ActionName.CreateWorkout}`,
+  async (dto, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<Workout>(`${ApiRoute.CreateWorkout}`, dto);
+      if (data && dto.videoFile?.name) {
+        const {data:workoutWithVideo} = await api.post<Workout>(`${ApiRoute.WorkoutsMain}/${data.id}${ApiRoute.UploadVideo}`, adaptVideoToServer(dto.videoFile) );
+        return workoutWithVideo;
+      }
+      dispatch(redirectToRoute(AppRoute.CoachAccount));
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message, {toastId:ActionName.CreateWorkout});
       return Promise.reject(error);
     }
   }

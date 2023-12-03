@@ -8,6 +8,7 @@ type SliderProps = {
   isOutsideButtons?: boolean;
   isShowDots?: boolean;
   currentButtons?: JSX.Element;
+  additionalClassName?: string;
 };
 
 function Slider({
@@ -16,6 +17,7 @@ function Slider({
   isOutsideButtons = DefaultParam.Status,
   isShowDots = DefaultParam.Status,
   currentButtons,
+  additionalClassName
 }: SliderProps): JSX.Element {
   const responsiveParams = {
     desktop: {
@@ -26,21 +28,23 @@ function Slider({
       items,
     },
   };
-
+  const className = additionalClassName ? `container ${additionalClassName}` : 'container';
   return (
-    <Carousel
-      responsive={responsiveParams}
-      arrows={false}
-      containerClass="container"
-      focusOnSelect
-      pauseOnHover
-      renderButtonGroupOutside={isOutsideButtons}
-      customButtonGroup={currentButtons }
-      showDots={isShowDots}
-      slidesToSlide={1}
-    >
-      {children}
-    </Carousel>
+    <div className='slider-main-reverse'>
+      <Carousel
+        responsive={responsiveParams}
+        arrows={false}
+        containerClass={className}
+        focusOnSelect
+        pauseOnHover
+        renderButtonGroupOutside={isOutsideButtons}
+        customButtonGroup={currentButtons }
+        showDots={isShowDots}
+        slidesToSlide={1}
+      >
+        {children}
+      </Carousel>
+    </div>
   );
 }
 

@@ -43,7 +43,7 @@ function PopularTrainings(): JSX.Element {
   return (
     <section className="popular-trainings">
       <div className="container">
-        <div className="popular-trainings__wrapper slider-main-reverse">
+        <div className="popular-trainings__wrapper">
           {(!workouts || !workouts.length) && <AdvertisementThumbnail/>}
           {workouts && workouts.length && (
             <Slider

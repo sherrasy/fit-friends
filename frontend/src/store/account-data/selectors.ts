@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { Order, OrderCoach } from '../../types/reaction/order.interface';
 import { State } from '../../types/state.type';
 import { User } from '../../types/user/user.interface';
-import { CardsLimit, ReducerName } from '../../utils/constant';
+import { CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
 import { UserNotification } from '../../types/reaction/user-notification.interface';
 
 export const getFriendsLoadingStatus = (state: State): boolean => state[ReducerName.Account].isFriendsLoading;
@@ -20,4 +20,9 @@ export const getNotificationsError = (state: State): boolean => state[ReducerNam
 export const getActiveOrders = createSelector(
   [getOrders],
   (orders): Order[] | null => orders ? orders.filter((order)=> order.amount !== order.amountDone) : null
+);
+
+export const getUserFriendStatus = (friendId:number)=> createSelector(
+  [getFriends],
+  (friends):boolean => friends ? friends.some((friend)=> friend.id !== friendId ) : DefaultParam.Status
 );

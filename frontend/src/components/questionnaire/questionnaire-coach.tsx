@@ -148,7 +148,7 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
                     <div className="drag-and-drop questionnaire-coach__drag-and-drop">
                       <label>
                         <span className="drag-and-drop__label">
-                          Загрузите сюда файлы формата PDF, JPG или PNG
+                          Загрузите сюда файл формата PDF
                           <svg width="20" height="20" aria-hidden="true">
                             <use xlinkHref="#icon-import"></use>
                           </svg>
@@ -156,7 +156,7 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
                         <input
                           type="file"
                           name="import"
-                          accept=".pdf, .jpg, .png"
+                          accept=".pdf"
                         />
                       </label>
                     </div>

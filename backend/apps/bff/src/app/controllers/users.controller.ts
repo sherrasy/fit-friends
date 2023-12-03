@@ -96,7 +96,7 @@ export class UsersController {
     description: UserMessages.Refresh,
   })
   @Post(AppPath.Refresh)
-  public async refreshtoken(@Req() req: Request) {
+  public async refreshToken(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/${AppPath.Refresh}`,
       null,

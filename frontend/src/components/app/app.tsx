@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import AddWorkoutPage from '../../pages/add-workout-page/add-workout-page';
@@ -6,28 +7,44 @@ import CoachOrdersPage from '../../pages/coach-orders-page/coach-orders-page';
 import CoachWorkoutsPage from '../../pages/coach-workouts-page/coach-workouts-page';
 import EditWorkoutPage from '../../pages/edit-workout-page/edit-workout-page';
 import ErrorPage from '../../pages/error-page/error-page';
+import FriendsPage from '../../pages/friends-page/friends-page';
 import IntroPage from '../../pages/intro-page/intro-page';
 import LoginPage from '../../pages/login-page/login-page';
 import MainPage from '../../pages/main-page/main-page';
 import SignUpPage from '../../pages/sign-up-page/sign-up-page';
 import UserAccountPage from '../../pages/user-account-page/user-account-page';
-import FriendsPage from '../../pages/friends-page/friends-page';
 import UserInfoPage from '../../pages/user-info-page/user-info-page';
 import UserPurchasesPage from '../../pages/user-purchases-page/user-purchases-page';
 import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
-import { getAuthCheckedStatus, getCurrentUserData, getUserRole } from '../../store/user-data/selectors';
+import {
+  fetchCoachOrders,
+  fetchFriends,
+  fetchNotifications,
+  fetchUserOrders,
+} from '../../store/account-data/api-actions';
+import {
+  fetchReadyUserList,
+  fetchUserList,
+} from '../../store/user-data/api-actions';
+import {
+  getAuthCheckedStatus,
+  getCurrentUserData,
+  getUserRole,
+} from '../../store/user-data/selectors';
+import {
+  fetchCoachWorkouts,
+  fetchExtraWorkouts,
+  fetchUserSpecialWorkouts,
+  fetchWorkouts,
+} from '../../store/workout-data/api-actions';
 import { UserRole } from '../../types/common/user-role.enum';
 import { AppRoute } from '../../utils/constant';
 import Loader from '../loader/loader';
-import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';
-import { useEffect } from 'react';
-import { fetchReadyUserList, fetchUserList } from '../../store/user-data/api-actions';
-import { fetchCoachWorkouts, fetchExtraWorkouts, fetchUserSpecialWorkouts, fetchWorkouts } from '../../store/workout-data/api-actions';
-import { fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders } from '../../store/account-data/api-actions';
 import PrivateRoleRoute from '../private-route/private-role-route';
 import PrivateRoute from '../private-route/private-route';
+import UnauthorizedRoute from '../unauthorized-route/unauthorized-route';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,8 +52,8 @@ function App(): JSX.Element {
   const userRole = useAppSelector(getUserRole);
   const userInfo = useAppSelector(getCurrentUserData);
 
-  useEffect(()=>{
-    if(userRole === UserRole.Sportsman && userInfo){
+  useEffect(() => {
+    if (userRole === UserRole.Sportsman && userInfo) {
       dispatch(fetchUserList());
       dispatch(fetchReadyUserList());
       dispatch(fetchWorkouts());
@@ -45,14 +62,14 @@ function App(): JSX.Element {
       dispatch(fetchUserOrders());
       dispatch(fetchNotifications());
     }
-    if(userRole === UserRole.Coach && userInfo){
+    if (userRole === UserRole.Coach && userInfo) {
       dispatch(fetchCoachWorkouts());
       dispatch(fetchCoachOrders());
       dispatch(fetchExtraWorkouts(userRole));
       dispatch(fetchFriends());
       dispatch(fetchNotifications());
     }
-  },[dispatch, userRole, userInfo]);
+  }, [dispatch, userRole, userInfo]);
 
   if (!isAuthChecked) {
     return <Loader />;
@@ -87,7 +104,17 @@ function App(): JSX.Element {
           </UnauthorizedRoute>
         }
       />
-      <Route path={AppRoute.AddWorkout} element={<AddWorkoutPage />} />
+      <Route
+        path={AppRoute.AddWorkout}
+        element={
+          <PrivateRoleRoute
+            restrictedFor={UserRole.Sportsman}
+            redirectTo={AppRoute.Main}
+          >
+            <AddWorkoutPage />
+          </PrivateRoleRoute>
+        }
+      />
       <Route
         path={AppRoute.CoachAccount}
         element={
@@ -146,14 +173,19 @@ function App(): JSX.Element {
       <Route
         path={AppRoute.Friends}
         element={
-          <PrivateRoute
-            redirectTo={AppRoute.Error}
-          >
+          <PrivateRoute redirectTo={AppRoute.Error}>
             <FriendsPage />
           </PrivateRoute>
         }
       />
-      <Route path={`${AppRoute.UserInfo}/:id`} element={<UserInfoPage />} />
+      <Route
+        path={`${AppRoute.UserInfo}/:id`}
+        element={
+          <PrivateRoute redirectTo={AppRoute.Error}>
+            <UserInfoPage />
+          </PrivateRoute>
+        }
+      />
       <Route
         path={AppRoute.Purchases}
         element={
@@ -176,7 +208,14 @@ function App(): JSX.Element {
           </PrivateRoleRoute>
         }
       />
-      <Route path={`${AppRoute.WorkoutInfo}/:id`} element={<WorkoutInfoPage />} />
+      <Route
+        path={`${AppRoute.WorkoutInfo}/:id`}
+        element={
+          <PrivateRoute redirectTo={AppRoute.Error}>
+            <WorkoutInfoPage />
+          </PrivateRoute>
+        }
+      />
       <Route
         path={AppRoute.WorkoutsList}
         element={

@@ -1,28 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { DefaultParam, ReducerName } from '../../utils/constant';
 import { WorkoutState } from '../../types/state.type';
-import { fetchCoachWorkouts, fetchExtraWorkouts, fetchReviews, fetchUserSpecialWorkouts, fetchWorkout, fetchWorkouts } from './api-actions';
+import {
+  createWorkout,
+  fetchCoachWorkouts,
+  fetchExtraWorkouts,
+  fetchReviews,
+  fetchUserSpecialWorkouts,
+  fetchWorkout,
+  fetchWorkouts,
+} from './api-actions';
 
-const initialState:WorkoutState = {
-  workouts:null,
-  specialOfferWorkouts:null,
-  popularWorkouts:null,
-  workout:null,
-  reviews:null,
-  totalAmount:DefaultParam.Amount,
-  maxPrice:DefaultParam.Amount,
-  specialUserWorkouts:null,
-  isWorkoutsLoading:false,
-  isWorkoutLoading:false,
-  isReviewsLoading:false,
+const initialState: WorkoutState = {
+  workouts: null,
+  specialOfferWorkouts: null,
+  popularWorkouts: null,
+  workout: null,
+  reviews: null,
+  totalAmount: DefaultParam.Amount,
+  maxPrice: DefaultParam.Amount,
+  specialUserWorkouts: null,
+  fullWorkouts: null,
+  isWorkoutsLoading: false,
+  isWorkoutLoading: false,
+  isWorkoutPosting: false,
+  isReviewsLoading: false,
 };
-
 
 export const workoutData = createSlice({
   name: ReducerName.Workout,
   initialState,
-  reducers:{ },
-  extraReducers(builder){
+  reducers: {},
+  extraReducers(builder) {
     builder
       .addCase(fetchWorkouts.pending, (state) => {
         state.isWorkoutsLoading = true;
@@ -42,6 +51,7 @@ export const workoutData = createSlice({
         state.specialOfferWorkouts = action.payload.specialWorkouts ?? null;
         state.totalAmount = action.payload.totalWorkouts;
         state.maxPrice = action.payload.maxPrice;
+        state.fullWorkouts = action.payload.fullWorkouts ?? null;
         state.isWorkoutsLoading = false;
       })
       .addCase(fetchCoachWorkouts.pending, (state) => {
@@ -83,7 +93,16 @@ export const workoutData = createSlice({
       })
       .addCase(fetchUserSpecialWorkouts.rejected, (state) => {
         state.isWorkoutsLoading = false;
+      })
+      .addCase(createWorkout.pending, (state) => {
+        state.isWorkoutPosting = true;
+      })
+      .addCase(createWorkout.fulfilled, (state, action) => {
+        state.workouts?.push(action.payload);
+        state.isWorkoutPosting = false;
+      })
+      .addCase(createWorkout.rejected, (state) => {
+        state.isWorkoutPosting = false;
       });
-  }
+  },
 });
-

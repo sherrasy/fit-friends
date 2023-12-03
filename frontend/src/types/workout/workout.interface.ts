@@ -31,6 +31,7 @@ export interface WorkoutsData {
 }
 export interface ExtraWorkoutsData {
   specialWorkouts?: Workout[] | null;
+  fullWorkouts?: Workout[] | null;
   popularWorkouts?: Workout[] | null;
   totalWorkouts:number;
   maxPrice:number;

@@ -7,7 +7,7 @@ import {
   LocationToName,
   ReadyToTrainText,
   UserFormError,
-  UserFormFieldName,
+  FormFieldName,
   UserSexToName,
   WorkoutTypeToName,
 } from '../../utils/constant';
@@ -241,7 +241,7 @@ function UserInfo(): JSX.Element {
               <span className="custom-input__wrapper">
                 <input
                   type="text"
-                  name={UserFormFieldName.Name}
+                  name={FormFieldName.Name}
                   defaultValue={formData.name}
                   onChange={handleTextFieldChange}
                   disabled={!isEditing}
@@ -253,7 +253,7 @@ function UserInfo(): JSX.Element {
             <label>
               <span className="custom-textarea__label">Описание</span>
               <textarea
-                name={UserFormFieldName.Description}
+                name={FormFieldName.Description}
                 onBlur={handleTextFieldChange}
                 placeholder=" "
                 disabled={!isEditing}
@@ -317,7 +317,7 @@ function UserInfo(): JSX.Element {
             !isEditing ? 'custom-select--readonly' : ''
           } custom-select
         ${
-    isOpened === UserFormFieldName.Location
+    isOpened === FormFieldName.Location
       ? 'is-open'
       : 'custom-select--not-selected'
     }
@@ -331,7 +331,7 @@ function UserInfo(): JSX.Element {
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            onClick={() => handleToggleButtonClick(UserFormFieldName.Location)}
+            onClick={() => handleToggleButtonClick(FormFieldName.Location)}
             disabled={!isEditing}
           >
             <span className="custom-select__text">
@@ -353,7 +353,7 @@ function UserInfo(): JSX.Element {
                 aria-selected={item === formData.location}
                 value={item}
                 onClick={() =>
-                  handleSelectChange(item, UserFormFieldName.Location)}
+                  handleSelectChange(item, FormFieldName.Location)}
               >
                 {LocationToName[item]}
               </li>
@@ -365,7 +365,7 @@ function UserInfo(): JSX.Element {
             !isEditing ? 'custom-select--readonly' : ''
           } custom-select
         ${
-    isOpened === UserFormFieldName.Sex
+    isOpened === FormFieldName.Sex
       ? 'is-open'
       : 'custom-select--not-selected'
     }
@@ -379,7 +379,7 @@ function UserInfo(): JSX.Element {
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            onClick={() => handleToggleButtonClick(UserFormFieldName.Sex)}
+            onClick={() => handleToggleButtonClick(FormFieldName.Sex)}
             disabled={!isEditing}
           >
             <span className="custom-select__text"></span>
@@ -398,7 +398,7 @@ function UserInfo(): JSX.Element {
                 className="custom-select__item"
                 aria-selected={item === formData.sex}
                 value={item}
-                onClick={() => handleSelectChange(item, UserFormFieldName.Sex)}
+                onClick={() => handleSelectChange(item, FormFieldName.Sex)}
               >
                 {UserSexToName[item]}
               </li>
@@ -410,7 +410,7 @@ function UserInfo(): JSX.Element {
             !isEditing ? 'custom-select--readonly' : ''
           } custom-select
         ${
-    isOpened === UserFormFieldName.FitnessLevel
+    isOpened === FormFieldName.FitnessLevel
       ? 'is-open'
       : 'custom-select--not-selected'
     }
@@ -425,7 +425,7 @@ function UserInfo(): JSX.Element {
             type="button"
             aria-label="Выберите одну из опций"
             onClick={() =>
-              handleToggleButtonClick(UserFormFieldName.FitnessLevel)}
+              handleToggleButtonClick(FormFieldName.FitnessLevel)}
             disabled={!isEditing}
           >
             <span className="custom-select__text"></span>
@@ -445,7 +445,7 @@ function UserInfo(): JSX.Element {
                 aria-selected={item === formData.fitnessLevel}
                 value={item}
                 onClick={() =>
-                  handleSelectChange(item, UserFormFieldName.FitnessLevel)}
+                  handleSelectChange(item, FormFieldName.FitnessLevel)}
               >
                 {FitnessLevelToName[item]}
               </li>

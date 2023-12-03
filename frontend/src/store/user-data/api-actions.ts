@@ -1,9 +1,16 @@
-import {AxiosInstance, AxiosError} from 'axios';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {dropToken, saveToken} from '../../services/token';
+import { AxiosInstance, AxiosError } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { dropToken, saveToken } from '../../services/token';
 import { toast } from 'react-toastify';
 import { AppDispatch, State } from '../../types/state.type';
-import { ActionName, ApiRoute, AppRoute, CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
+import {
+  ActionName,
+  ApiRoute,
+  AppRoute,
+  CardsLimit,
+  DefaultParam,
+  ReducerName,
+} from '../../utils/constant';
 import { redirectToRoute } from '../action';
 import { AuthData } from '../../types/user/auth-data.type';
 import { CreateUserDto } from '../../dto/user/create/create-user.dto';
@@ -15,32 +22,37 @@ import { UserRole } from '../../types/common/user-role.enum';
 import { setUserData } from './user-data';
 import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { FileType } from '../../types/reaction/file.type';
-import { adaptAvatarToServer } from '../../utils/adapters/adaptersToServer';
+import { adaptAvatarToServer, adaptCertificateToServer } from '../../utils/adapters/adaptersToServer';
 import { File } from '../../types/reaction/file.interface';
 import { Query } from '../../types/query.type';
 import { getUserQueryString } from '../../utils/helpers';
 
-
-export const checkAuth = createAsyncThunk<User, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const checkAuth = createAsyncThunk<
+  User,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.CheckAuth}`,
-  async (_arg, {extra: api}) => {
-    try{
-      const {data} = await api.get<User>(ApiRoute.CheckLogin);
+  async (_arg, { extra: api }) => {
+    try {
+      const { data } = await api.get<User>(ApiRoute.CheckLogin);
       const userPhotos = {
         avatarPath: '',
       };
-      if(data.avatar){
-        const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
+      if (data.avatar) {
+        const { data: avatar } = await api.get<File>(
+          `${ApiRoute.File}/${data.avatar}`
+        );
         userPhotos.avatarPath = avatar ? avatar.path : '';
       }
-      return {...data, ...userPhotos};
-    }catch(error){
+      return { ...data, ...userPhotos };
+    } catch (error) {
       const axiosError = error as AxiosError;
-      if(axiosError.response?.status === StatusCodes.UNAUTHORIZED){
+      if (axiosError.response?.status === StatusCodes.UNAUTHORIZED) {
         dropToken();
       }
       return Promise.reject(error);
@@ -48,217 +60,290 @@ export const checkAuth = createAsyncThunk<User, undefined, {
   }
 );
 
-export const checkEmail = createAsyncThunk<boolean, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const checkEmail = createAsyncThunk<
+  boolean,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.CheckEmail}`,
-  async (email, {extra: api}) => {
-    const {data} = await api.post<User>(ApiRoute.CheckEmail, {email});
+  async (email, { extra: api }) => {
+    const { data } = await api.post<User>(ApiRoute.CheckEmail, { email });
     return !!data;
   }
 );
 
-
-export const login = createAsyncThunk<TokenPayloadData|void, AuthData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const login = createAsyncThunk<
+  TokenPayloadData | void,
+  AuthData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.Login}`,
-  async (authData, { dispatch, extra: api}) => {
-    try{
-      const {data :  { accessToken }} = await api.post<TokenData>(ApiRoute.Login, authData);
+  async (authData, { dispatch, extra: api }) => {
+    try {
+      const {
+        data: { accessToken },
+      } = await api.post<TokenData>(ApiRoute.Login, authData);
       saveToken(accessToken);
-      const userInfo:TokenPayloadData = jwtDecode(accessToken);
+      const userInfo: TokenPayloadData = jwtDecode(accessToken);
       dispatch(fetchCurrentUser(userInfo.sub));
-      if(userInfo.role === UserRole.Coach) {
+      if (userInfo.role === UserRole.Coach) {
         dispatch(redirectToRoute(AppRoute.CoachAccount));
-      }
-      else {
+      } else {
         dispatch(redirectToRoute(AppRoute.Main));
       }
       return userInfo;
-    }
-    catch(error){
+    } catch (error) {
       const axiosError = error as AxiosError;
-      toast.error(axiosError.response?.statusText, {toastId:ActionName.Login});
+      toast.error(axiosError.response?.statusText, {
+        toastId: ActionName.Login,
+      });
     }
-  },
+  }
 );
 
-export const register = createAsyncThunk<void, CreateUserDto & FileType, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const register = createAsyncThunk<
+  void,
+  CreateUserDto & FileType,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.Register}`,
-  async (userData, { dispatch, extra: api}) => {
-    try{
-      const {data:newUser} = await api.post<User>(ApiRoute.Register, userData);
-      const {data: {accessToken}} = await api.post<TokenData>(ApiRoute.Login, {email: userData.email, password: userData.password});
+  async (userData, { dispatch, extra: api }) => {
+    try {
+      const { data: newUser } = await api.post<User>(
+        ApiRoute.Register,
+        userData
+      );
+      const {
+        data: { accessToken },
+      } = await api.post<TokenData>(ApiRoute.Login, {
+        email: userData.email,
+        password: userData.password,
+      });
       saveToken(accessToken);
-      const authInfo:TokenPayloadData = jwtDecode(accessToken);
-      if(newUser && userData.avatarFile?.name){
-        const {data} = await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(userData.avatarFile) );
-        dispatch(setUserData({...data, id:authInfo.sub}));
-      } else {
-        dispatch(setUserData({...newUser, id:authInfo.sub}));
+      // const authInfo:TokenPayloadData = jwtDecode(accessToken);
+
+      if (newUser && userData.avatarFile?.name) {
+        await api.post<User>(
+          ApiRoute.UploadAvatar,
+          adaptAvatarToServer(userData.avatarFile)
+        );
       }
 
-      if(newUser.role === UserRole.Coach) {
-        dispatch(redirectToRoute(AppRoute.CoachAccount));
+      if (newUser.role === UserRole.Coach && userData.certificateFile?.name) {
+        await api.post<User>(
+          `${ApiRoute.UploadCertificate}`,
+          adaptCertificateToServer(userData.certificateFile)
+        );
       }
-      else {
+      const { data: userInfo } = await api.get<User>(
+        `${ApiRoute.UsersMain}/${newUser.id}`
+      );
+      dispatch(setUserData(userInfo));
+
+      if (newUser.role === UserRole.Coach) {
+        dispatch(redirectToRoute(AppRoute.CoachAccount));
+      } else {
         dispatch(redirectToRoute(AppRoute.Main));
       }
-    }
-    catch(error){
+    } catch (error) {
       const axiosError = error as AxiosError;
-      toast.error(axiosError.message, {toastId:ActionName.Register});
+      toast.error(axiosError.message, { toastId: ActionName.Register });
     }
-  },
+  }
 );
 
-export const fetchUser = createAsyncThunk<User, number, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchUser = createAsyncThunk<
+  User,
+  number,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.FetchUser}`,
-  async (id, { dispatch, extra: api}) => {
-    try{
-      const {data} = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
+  async (id, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
       const userPhotos = {
         avatarPath: '',
-        photoPath:'',
       };
-      if(data.avatar){
-        const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
+      if (data.avatar) {
+        const { data: avatar } = await api.get<File>(
+          `${ApiRoute.File}/${data.avatar}`
+        );
         userPhotos.avatarPath = avatar ? avatar.path : '';
       }
-      return {...data, ...userPhotos};
-    }
-    catch(error){
+      return { ...data, ...userPhotos };
+    } catch (error) {
       const axiosError = error as AxiosError;
-      toast.error(axiosError.response?.statusText, {toastId:ActionName.FetchUser});
+      toast.error(axiosError.response?.statusText, {
+        toastId: ActionName.FetchUser,
+      });
       return Promise.reject(error);
-
     }
-  },
+  }
 );
-export const fetchCurrentUser = createAsyncThunk<User, number, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchCurrentUser = createAsyncThunk<
+  User,
+  number,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.FetchCurrentUser}`,
-  async (id, { dispatch, extra: api}) => {
-    try{
-      const {data} = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
+  async (id, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
       const userPhotos = {
         avatarPath: '',
-        photoPath:'',
       };
-      if(data.avatar){
-        const {data:avatar} = await api.get<File>(`${ApiRoute.File}/${data.avatar}`);
+      if (data.avatar) {
+        const { data: avatar } = await api.get<File>(
+          `${ApiRoute.File}/${data.avatar}`
+        );
         userPhotos.avatarPath = avatar ? avatar.path : '';
       }
-      return {...data, ...userPhotos};
-    }
-    catch(error){
+      return { ...data, ...userPhotos };
+    } catch (error) {
       const axiosError = error as AxiosError;
-      toast.error(axiosError.response?.statusText, {toastId:ActionName.FetchUser});
+      toast.error(axiosError.response?.statusText, {
+        toastId: ActionName.FetchUser,
+      });
       return Promise.reject(error);
-
     }
-  },
+  }
 );
 
-export const fetchReadyUserList = createAsyncThunk<User[], Query|undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchReadyUserList = createAsyncThunk<
+  User[],
+  Query | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.FetchReadyUserList}`,
-  async (query, { dispatch, extra: api}) => {
-    try{
+  async (query, { dispatch, extra: api }) => {
+    try {
       const queryString = `?role=${UserRole.Sportsman}`;
-      const {data} = await api.get<User[]>(`${ApiRoute.UsersShow}/${queryString}`);
-      await Promise.all(data.filter((item)=>item.sportsmanInfo && item.sportsmanInfo.isReady).slice(CardsLimit.ReadyUsers).map(async(item)=>{
-        if(item.avatar){
-          const {data:{path}} = await api.get<File>(`${ApiRoute.File}/${item.avatar}`);
-          item.avatarPath = path || '';
-        }
-      }));
+      const { data } = await api.get<User[]>(
+        `${ApiRoute.UsersShow}/${queryString}`
+      );
+      await Promise.all(
+        data
+          .filter((item) => item.sportsmanInfo && item.sportsmanInfo.isReady)
+          .slice(CardsLimit.ReadyUsers)
+          .map(async (item) => {
+            if (item.avatar) {
+              const {
+                data: { path },
+              } = await api.get<File>(`${ApiRoute.File}/${item.avatar}`);
+              item.avatarPath = path || '';
+            }
+          })
+      );
       dispatch(fetchUserListAmount());
       return data;
-    }
-    catch(error){
+    } catch (error) {
       return Promise.reject(error);
-
     }
-  },
+  }
 );
 
-export const fetchUserList = createAsyncThunk<User[], Query|undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchUserList = createAsyncThunk<
+  User[],
+  Query | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.FetchUserList}`,
-  async (query, { dispatch, extra: api}) => {
-    try{
-      const queryString = query ? getUserQueryString(query) : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}`;
-      const {data} = await api.get<User[]>(`${ApiRoute.UsersShow}/${queryString}`);
-      await Promise.all(data.map(async(item)=>{
-        if(item.avatar){
-          const {data:{path}} = await api.get<File>(`${ApiRoute.File}/${item.avatar}`);
-          item.avatarPath = path || '';
-        }
-      }));
+  async (query, { dispatch, extra: api }) => {
+    try {
+      const queryString = query
+        ? getUserQueryString(query)
+        : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}`;
+      const { data } = await api.get<User[]>(
+        `${ApiRoute.UsersShow}/${queryString}`
+      );
+      await Promise.all(
+        data.map(async (item) => {
+          if (item.avatar) {
+            const {
+              data: { path },
+            } = await api.get<File>(`${ApiRoute.File}/${item.avatar}`);
+            item.avatarPath = path || '';
+          }
+        })
+      );
       dispatch(fetchUserListAmount());
       return data;
-    }
-    catch(error){
+    } catch (error) {
       return Promise.reject(error);
-
     }
-  },
+  }
 );
 
-
-export const fetchUserListAmount = createAsyncThunk<number, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const fetchUserListAmount = createAsyncThunk<
+  number,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.FetchUserListAmount}`,
-  async (query, { dispatch, extra: api}) => {
-    const {data} = await api.get<number>(`${ApiRoute.UsersShow}/count`);
+  async (query, { dispatch, extra: api }) => {
+    const { data } = await api.get<number>(`${ApiRoute.UsersShow}/count`);
     return data;
-  },
+  }
 );
 
-export const updateUser = createAsyncThunk<void, UpdateUserDto & FileType, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
+export const updateUser = createAsyncThunk<
+  void,
+  UpdateUserDto & FileType,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
   `${ReducerName.User}/${ActionName.UpdateUser}`,
-  async (dto, { dispatch, extra: api}) => {
-    try{
-      const {data} = await api.patch<User>(ApiRoute.UpdateUser, dto);
-      if( dto.avatarFile?.name){
-        await api.post<User>(ApiRoute.UploadAvatar, adaptAvatarToServer(dto.avatarFile) );
+  async (dto, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.patch<User>(ApiRoute.UpdateUser, dto);
+      if (dto.avatarFile?.name) {
+        await api.post<User>(
+          ApiRoute.UploadAvatar,
+          adaptAvatarToServer(dto.avatarFile)
+        );
       }
       dispatch(fetchCurrentUser(data.id));
-    }
-    catch(error){
+    } catch (error) {
       const axiosError = error as AxiosError;
-      toast.error(axiosError.response?.statusText, {toastId:ActionName.UpdateUser});
+      toast.error(axiosError.response?.statusText, {
+        toastId: ActionName.UpdateUser,
+      });
       return Promise.reject(error);
     }
-  },
+  }
 );

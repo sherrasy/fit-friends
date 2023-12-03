@@ -50,6 +50,7 @@ export const ActionName = {
   FetchUserSpecialWorkouts: 'fetch-special-workouts',
   FetchCoachWorkouts: 'fetch-coach-workouts',
   FetchWorkout: 'fetch-workout',
+  CreateWorkout: 'create-workout',
   FetchReviews: 'fetch-reviews',
   FetchNotifications: 'fetch-notifications',
   UpdateUser: 'update-user',
@@ -59,6 +60,7 @@ export const ActionName = {
 export const ApiRoute = {
   UsersMain: '/users',
   WorkoutsMain: '/workouts',
+  CreateWorkout: '/workouts/add',
   Login: '/users/login',
   CheckLogin: '/users/check-login',
   CheckEmail: '/users/check-email',
@@ -73,6 +75,8 @@ export const ApiRoute = {
   UpdateUser: '/users/update',
   Friends: '/users/friends',
   UploadAvatar: '/users/upload-avatar',
+  UploadCertificate: '/users/upload-certificate',
+  UploadVideo: '/upload-video',
   File: '/uploads/file',
 } as const;
 
@@ -86,7 +90,7 @@ export const ApiErrorsMessage = {
   FetchPagesError:'Can`t get pages data'
 } as const;
 
-export const UserFormFieldName = {
+export const FormFieldName = {
   Name:'name',
   Email:'email',
   BirthDate:'birthDate',
@@ -94,6 +98,8 @@ export const UserFormFieldName = {
   Password:'password',
   Sex:'sex',
   Role:'role',
+  Price:'price',
+  WorkoutType:'workoutType',
   WorkoutTime:'workoutTime',
   FitnessLevel:'fitnessLevel',
   CaloriesTotal: 'caloriesTotal',
@@ -109,15 +115,15 @@ export const WorkoutFilterName = {
   CaloriesMax:'caloriesMax',
 } as const;
 
-export const UserFilterName = {
-  FitnessLevel:'fitnessLevel',
-  Role:'role',
-} as const;
-
 export const WorkoutFilterSortName = {
   Cheap:'cheap',
   Expensive:'expensive',
   Free:'free',
+} as const;
+
+export const PostWorkoutButtonText = {
+  Default:'Опубликовать',
+  Posting:'Отправка...',
 } as const;
 
 export const UserFormError = {
@@ -147,6 +153,12 @@ export const UserSexToName = {
   male : 'Мужской',
   female : 'Женский',
   any : 'Неважно',
+};
+
+export const UserSexToFormName = {
+  male : 'Мужчинам',
+  female : 'Женщинам',
+  any : 'Всем',
 };
 
 export const UserSexToHashtagName = {

@@ -12,8 +12,8 @@ import {
   CardsLimit,
   DefaultParam,
   FitnessLevelToName,
+  FormFieldName,
   LocationToName,
-  UserFilterName,
   WorkoutTypeToName,
 } from '../../utils/constant';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
@@ -207,7 +207,7 @@ function UsersListPage(): JSX.Element {
                               <label>
                                 <input
                                   type="radio"
-                                  name={UserFilterName.FitnessLevel}
+                                  name={FormFieldName.FitnessLevel}
                                   value={key}
                                   onChange={handleFilterChange}
                                   checked={query?.fitnessLevel === key}
@@ -230,7 +230,7 @@ function UsersListPage(): JSX.Element {
                         <label>
                           <input
                             type="radio"
-                            name={UserFilterName.Role}
+                            name={FormFieldName.Role}
                             value={UserRole.Coach}
                             onChange={handleFilterChange}
                             checked={query?.role === UserRole.Coach}
@@ -240,7 +240,7 @@ function UsersListPage(): JSX.Element {
                         <label>
                           <input
                             type="radio"
-                            name={UserFilterName.Role}
+                            name={FormFieldName.Role}
                             value={UserRole.Sportsman}
                             onChange={handleFilterChange}
                             checked={query?.role === UserRole.Sportsman}

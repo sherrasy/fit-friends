@@ -191,6 +191,40 @@ Authorization: Bearer {{AToken}}
 
 ###
 
+@workoutId={{createWorkout.response.body.id}}
+# Создание тренировки
+# @name createWorkout
+POST http://localhost:4000/api/workouts/add HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{AToken}}
+
+{
+      "name": "Name of workout",
+      "sex": "any",
+      "price": 1200,
+      "calories": 1000,
+      "description":" First workout description",
+      "workoutTime": "10-30 мин",
+      "workoutType": ["crossfit"],
+      "fitnessLevel": "beginner",
+      "isSpecialOffer":false
+    }
+
+###
+
+# Редактирование тренировки
+PATCH http://localhost:4000/api/workouts/{{workoutId}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{AToken}}
+
+{
+      "name": "Long name",
+      "sex": "male"
+}
+
+###
+
+
 # Получить отзывы о тренировке
 GET http://localhost:4000/api/workouts/show-reviews/1 HTTP/1.1
 Authorization: Bearer {{AToken}}
@@ -198,7 +232,7 @@ Authorization: Bearer {{AToken}}
 ###
 
 # Детальная информация о тренировке
-GET http://localhost:4000/api/workouts/2 HTTP/1.1
+GET http://localhost:4000/api/workouts/{{workoutId}} HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###
