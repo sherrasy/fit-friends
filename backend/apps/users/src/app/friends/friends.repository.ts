@@ -12,6 +12,7 @@ export class FriendsRepository {
 
   public async create(item: FriendsEntity): Promise<Friend> {
     const data = { ...item.toObject() };
+    delete data.id;
     return await this.prisma.friend.create({ data });
   }
 

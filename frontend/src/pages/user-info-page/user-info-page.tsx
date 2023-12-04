@@ -52,6 +52,7 @@ function UserInfoPage(): JSX.Element {
   if (isUserLoading) {
     return <Loader />;
   }
+
   return (
     <div className="wrapper">
       <Header />
@@ -66,7 +67,7 @@ function UserInfoPage(): JSX.Element {
                     Карточка пользователя роль тренер
                   </h1>
                   <div className="user-card-coach__wrapper">
-                    <UserCard user={user} />
+                    <UserCard user={user}/>
                     {isCoach && (
                       <div className="user-card-coach__training">
                         {workouts && workouts.length && (

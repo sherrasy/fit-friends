@@ -132,8 +132,6 @@ export const register = createAsyncThunk<
         password: userData.password,
       });
       saveToken(accessToken);
-      // const authInfo:TokenPayloadData = jwtDecode(accessToken);
-
       if (newUser && userData.avatarFile?.name) {
         await api.post<User>(
           ApiRoute.UploadAvatar,

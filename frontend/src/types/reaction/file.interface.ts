@@ -6,3 +6,8 @@ export interface File {
   hashName: string;
   path: string;
 }
+
+export interface Certificate{
+  id: string;
+  path: string;
+}

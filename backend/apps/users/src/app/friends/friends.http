@@ -7,16 +7,16 @@ Content-Type: application/json
 Authorization: Bearer {{AToken}} {{RToken}}
 
 ## Sportsman
-{
-  "email": "user@test.local",
-  "password": "123456"
-}
+# {
+#   "email": "user@test.local",
+#   "password": "123456"
+# }
 
 ## Coach
-# {
-#   "email": "first-coach@test.ru",
-#   "password": "test123"
-# }
+{
+  "email": "first-coach@test.ru",
+  "password": "test123"
+}
 
 ###
 
@@ -34,8 +34,8 @@ Authorization: Bearer {{AToken}}
 
 ###
 
-# Удалить из друзей (только пользователь)
-DELETE  http://localhost:3001/api/friends/25 HTTP/1.1
+# Удалить из друзей
+DELETE  http://localhost:3001/api/friends/45 HTTP/1.1
 Authorization: Bearer {{AToken}}
 
 ###

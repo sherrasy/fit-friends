@@ -29,10 +29,12 @@ export class FriendsService {
     return friendInfo;
   }
 
-  public async removeFriend(friendId: number, userId: number) {
+  public async removeFriend(friendId: number, userId: number, role:UserRole) {
+    const currentFriendId = role === UserRole.Sportsman ? friendId : userId;
+    const currentUserId = role === UserRole.Sportsman ? userId : friendId;
     const friendData = await this.friendsRepository.findSingleById(
-      friendId,
-      userId
+      currentFriendId,
+      currentUserId
     );
     if (!friendData) {
       throw new BadRequestException(FriendsError.NotFound);

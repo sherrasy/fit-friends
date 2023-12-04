@@ -19,6 +19,7 @@ import UsersListPage from '../../pages/users-list-page/users-list-page';
 import WorkoutInfoPage from '../../pages/workout-info-page/workout-info-page';
 import WorkoutsListPage from '../../pages/workouts-list-page/workouts-list-page';
 import {
+  fetchCoachCertificates,
   fetchCoachOrders,
   fetchFriends,
   fetchNotifications,
@@ -67,6 +68,9 @@ function App(): JSX.Element {
       dispatch(fetchCoachOrders());
       dispatch(fetchExtraWorkouts(userRole));
       dispatch(fetchFriends());
+      if(userInfo.coachInfo?.certificate){
+        dispatch(fetchCoachCertificates(userInfo.coachInfo?.certificate));
+      }
       dispatch(fetchNotifications());
     }
   }, [dispatch, userRole, userInfo]);

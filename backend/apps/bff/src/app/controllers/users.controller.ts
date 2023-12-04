@@ -162,6 +162,42 @@ export class UsersController {
     return data;
   }
 
+  @UseGuards(CheckAuthGuard)
+  @Post(`${AppPath.Upload}-${FileType.Certificate}`)
+  @UseInterceptors(FileInterceptor(FileType.Certificate))
+  public async postCerificate(
+    @Req() req: Request,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    const formData = new FormData();
+    formData.append(
+      FileType.Certificate,
+      Buffer.from(file.buffer),
+      file.originalname
+    );
+    const { data: certificateData } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Certificate}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': req.headers['content-type'],
+          ...formData.getHeaders(),
+        },
+      }
+    );
+    console.log(certificateData)
+    const { data } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Certificate}`,
+      { certificateId: certificateData.id },
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
   @ApiResponse({
     status: HttpStatus.OK,
     description: UserMessages.PhotoAdded,
@@ -225,6 +261,38 @@ export class UsersController {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/${AppPath.CheckEmail}`,
       email
+    );
+    return data;
+  }
+
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(UserIdInterceptor)
+  @Post(`${AppPath.Friends}/:id`)
+  public async addFriend(@Req() req: Request, @Param('id') id:number) {
+    const { data } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.UserFriends}/${id}`,
+      null,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(UserIdInterceptor)
+  @Delete(`${AppPath.Friends}/:id`)
+  public async deleteFriend(@Req() req: Request, @Param('id') id:number) {
+    const { data } = await this.httpService.axiosRef.delete(
+      `${ApplicationServiceURL.UserFriends}/${id}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
     );
     return data;
   }

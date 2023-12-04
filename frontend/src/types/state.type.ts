@@ -6,6 +6,7 @@ import { UserRole } from './common/user-role.enum.js';
 import { User, NewUserGeneral } from './user/user.interface.js';
 import { Workout } from './workout/workout.interface.js';
 import { UserNotification } from './reaction/user-notification.interface.js';
+import { Certificate } from './reaction/file.interface.js';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -33,11 +34,13 @@ export type AccountState = {
   friends: User[]|null;
   friendsAmount:number;
   orders: Order[]|null;
+  certificates: Certificate[]|null;
   ordersAmount:number;
   notifications: UserNotification[]|null;
   coachOrders: OrderCoach[]|null;
   isFriendsLoading:boolean;
   isOrdersLoading:boolean;
+  isFriendStatusChanging:boolean;
   isNotificationsLoading:boolean;
   isNotificationDeleting:boolean;
   hasNotificationsError:boolean;

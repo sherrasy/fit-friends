@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { DefaultParam, ReducerName } from '../../utils/constant';
 import { AccountState } from '../../types/state.type';
-import { fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeNotification } from './api-actions';
+import { addFriend, fetchCoachCertificates, fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeFriend, removeNotification } from './api-actions';
 
 const initialState:AccountState = {
   friends:null,
@@ -9,9 +9,11 @@ const initialState:AccountState = {
   orders:null,
   notifications:null,
   coachOrders:null,
+  certificates:null,
   ordersAmount:DefaultParam.Amount,
   isFriendsLoading:false,
   isOrdersLoading:false,
+  isFriendStatusChanging:false,
   isNotificationsLoading:false,
   isNotificationDeleting:false,
   hasNotificationsError:false,
@@ -63,6 +65,9 @@ export const accountData = createSlice({
         state.notifications = action.payload;
         state.isNotificationsLoading = false;
       })
+      .addCase(fetchCoachCertificates.fulfilled, (state, action) => {
+        state.certificates = action.payload;
+      })
       .addCase(fetchNotifications.rejected, (state) => {
         state.isNotificationsLoading = false;
       })
@@ -77,6 +82,24 @@ export const accountData = createSlice({
       .addCase(removeNotification.rejected, (state) => {
         state.isNotificationDeleting = false;
         state.hasNotificationsError = true;
+      })
+      .addCase(addFriend.pending, (state) => {
+        state.isFriendStatusChanging = true;
+      })
+      .addCase(addFriend.fulfilled, (state) => {
+        state.isFriendStatusChanging = false;
+      })
+      .addCase(addFriend.rejected, (state) => {
+        state.isFriendStatusChanging = false;
+      })
+      .addCase(removeFriend.pending, (state) => {
+        state.isFriendStatusChanging = true;
+      })
+      .addCase(removeFriend.fulfilled, (state) => {
+        state.isFriendStatusChanging = false;
+      })
+      .addCase(removeFriend.rejected, (state) => {
+        state.isFriendStatusChanging = false;
       });
   }
 });

@@ -3,11 +3,13 @@ import { AppDispatch, State } from '../../types/state.type';
 import { AxiosInstance } from 'axios';
 import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
 import { FriendData, User } from '../../types/user/user.interface';
-import { File } from '../../types/reaction/file.interface';
+import { Certificate, File } from '../../types/reaction/file.interface';
 import { Order, OrderCoach, OrderCoachData } from '../../types/reaction/order.interface';
 import { UserNotification } from '../../types/reaction/user-notification.interface';
 import { Query } from '../../types/query.type';
 import { getFriendsQueryString, getOrdersQueryString } from '../../utils/helpers';
+import { FileType } from '../../types/reaction/file.type';
+import { adaptCertificateToServer } from '../../utils/adapters/adaptersToServer';
 
 export const fetchFriends = createAsyncThunk<
   FriendData,
@@ -40,6 +42,46 @@ export const fetchFriends = createAsyncThunk<
     }
   }
 );
+export const addFriend = createAsyncThunk<
+  void,
+  number,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${ReducerName.Account}/${ActionName.AddFriend}`,
+  async (id, { dispatch, extra: api }) => {
+    try {
+      await api.post<User>(`${ApiRoute.Friends}/${id}`);
+      dispatch(fetchFriends());
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const removeFriend = createAsyncThunk<
+  void,
+  number,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${ReducerName.Account}/${ActionName.RemoveFriend}`,
+  async (id, { dispatch, extra: api }) => {
+    try {
+      await api.delete(`${ApiRoute.Friends}/${id}`);
+      dispatch(fetchFriends());
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
 
 export const fetchUserOrders = createAsyncThunk<
   Order[],
@@ -82,6 +124,49 @@ export const fetchCoachOrders = createAsyncThunk<
     }
   }
 );
+
+export const fetchCoachCertificates = createAsyncThunk<
+  Certificate[]|null,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${ReducerName.Account}/${ActionName.FetchCertificates}`,
+  async (certificates, { dispatch, extra: api }) => {
+    try {
+      if(!certificates){
+        return null;
+      }
+      const certificatesData = certificates.split(',');
+      const certificatePaths = await Promise.all(certificatesData.map(async(item)=> {
+        const { data: { path } } = await api.get<File>(`${ApiRoute.File}/${item}`);
+        return {path, id:item};
+      } ));
+      return certificatePaths;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const postCertificate = createAsyncThunk<void, FileType, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+ }>(
+   `${ReducerName.Account}/${ActionName.PostCertificate}`,
+   async ({certificateFile}: FileType, { dispatch, extra: api }) => {
+     if (certificateFile) {
+       const {data} = await api.post<User>(ApiRoute.UploadCertificate, adaptCertificateToServer(certificateFile));
+       if(data.coachInfo?.certificate){
+         dispatch(fetchCoachCertificates(data.coachInfo?.certificate));
+       }
+     }
+   });
+
 
 export const fetchNotifications = createAsyncThunk<
   UserNotification[],

@@ -2,15 +2,65 @@ import { Link } from 'react-router-dom';
 import AdvertisementThumbnail from '../../components/advertisement-thumbnail/advertisement-thumbnail';
 import Header from '../../components/header/header';
 import UserInfo from '../../components/user-info/user-info';
-import { AppRoute } from '../../utils/constant';
+import { AppRoute, SliderLimit } from '../../utils/constant';
 import { getCurrentUserLoadingStatus } from '../../store/user-data/selectors';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Loader from '../../components/loader/loader';
+import SliderButtons from '../../components/slider-buttons/slider-buttons';
+import CertificateCard from '../../components/certificate-card/certificate-card';
+import Slider from '../../components/slider/slider';
+import { getCertificates } from '../../store/account-data/selectors';
+import { ChangeEvent, useRef } from 'react';
+import { postCertificate } from '../../store/account-data/api-actions';
+
+type ButtonGroupProp = {
+  next?: () => void;
+  previous?: () => void;
+};
+
+const ButtonGroup = ({ next, previous }: ButtonGroupProp) => {
+  const dispatch = useAppDispatch();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const handlePDFUpload = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) {
+      return;
+    }
+    const certificateFile = evt.target.files[0];
+    dispatch(postCertificate({certificateFile}));
+  };
+
+  const handleOpenInput = ()=> inputRef.current?.click();
+
+  return(
+    <div className="personal-account-coach__label-wrapper">
+      <h2 className="personal-account-coach__label">Дипломы и сертификаты</h2>
+      <input
+        className="visually-hidden"
+        type="file"
+        name="import"
+        accept=".pdf"
+        ref={inputRef}
+        onChange={handlePDFUpload}
+      />
+      <button
+        className="btn-flat btn-flat--underlined personal-account-coach__button"
+        type="button"
+        onClick={handleOpenInput}
+      >
+        <svg width="14" height="14" aria-hidden="true">
+          <use xlinkHref="#icon-import"></use>
+        </svg>
+        <span>Загрузить</span>
+      </button>
+      <SliderButtons next={next} previous={previous} />
+    </div>
+  );};
 
 function CoachAccountPage(): JSX.Element {
   const isLoading = useAppSelector(getCurrentUserLoadingStatus);
-  if(isLoading){
-    return <Loader/>;
+  const certificates = useAppSelector(getCertificates);
+  if (isLoading) {
+    return <Loader />;
   }
   return (
     <div className="wrapper">
@@ -73,105 +123,22 @@ function CoachAccountPage(): JSX.Element {
                       <span className="thumbnail-link__text">Мои заказы</span>
                     </Link>
                     <div className="personal-account-coach__calendar">
-                      <AdvertisementThumbnail/>
+                      <AdvertisementThumbnail />
                     </div>
                   </div>
                   <div className="personal-account-coach__additional-info">
-                    <div className="personal-account-coach__label-wrapper">
-                      <h2 className="personal-account-coach__label">
-                        Дипломы и сертификаты
-                      </h2>
-                      <button
-                        className="btn-flat btn-flat--underlined personal-account-coach__button"
-                        type="button"
+                    {certificates && certificates.length !== 0 && (
+                      <Slider
+                        items={SliderLimit.SpecialForUser}
+                        currentButtons={<ButtonGroup />}
+                        isOutsideButtons
+                        additionalClassName="personal-account-coach__list"
                       >
-                        <svg width="14" height="14" aria-hidden="true">
-                          <use xlinkHref="#icon-import"></use>
-                        </svg>
-                        <span>Загрузить</span>
-                      </button>
-                      <div className="personal-account-coach__controls">
-                        <button
-                          className="btn-icon personal-account-coach__control"
-                          type="button"
-                          aria-label="previous"
-                        >
-                          <svg width="16" height="14" aria-hidden="true">
-                            <use xlinkHref="#arrow-left"></use>
-                          </svg>
-                        </button>
-                        <button
-                          className="btn-icon personal-account-coach__control"
-                          type="button"
-                          aria-label="next"
-                        >
-                          <svg width="16" height="14" aria-hidden="true">
-                            <use xlinkHref="#arrow-right"></use>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                    <ul className="personal-account-coach__list">
-                      <li className="personal-account-coach__item">
-                        <div className="certificate-card certificate-card--edit">
-                          <div className="certificate-card__image">
-                            <picture>
-                              <source
-                                type="image/webp"
-                                srcSet="img/content/certificates-and-diplomas/certificate-1.webp, img/content/certificates-and-diplomas/certificate-1@2x.webp 2x"
-                              />
-                              <img
-                                src="img/content/certificates-and-diplomas/certificate-1.jpg"
-                                srcSet="img/content/certificates-and-diplomas/certificate-1@2x.jpg 2x"
-                                width="294"
-                                height="360"
-                                alt="Сертификат - Биомеханика ударов в боксе"
-                              />
-                            </picture>
-                          </div>
-                          <div className="certificate-card__buttons">
-                            <button
-                              className="btn-flat btn-flat--underlined certificate-card__button certificate-card__button--edit"
-                              type="button"
-                            >
-                              <svg width="12" height="12" aria-hidden="true">
-                                <use xlinkHref="#icon-edit"></use>
-                              </svg>
-                              <span>Изменить</span>
-                            </button>
-                            <button
-                              className="btn-flat btn-flat--underlined certificate-card__button certificate-card__button--save"
-                              type="button"
-                            >
-                              <svg width="12" height="12" aria-hidden="true">
-                                <use xlinkHref="#icon-edit"></use>
-                              </svg>
-                              <span>Сохранить</span>
-                            </button>
-                            <div className="certificate-card__controls">
-                              <button
-                                className="btn-icon certificate-card__control"
-                                type="button"
-                                aria-label="next"
-                              >
-                                <svg width="16" height="16" aria-hidden="true">
-                                  <use xlinkHref="#icon-change"></use>
-                                </svg>
-                              </button>
-                              <button
-                                className="btn-icon certificate-card__control"
-                                type="button"
-                                aria-label="next"
-                              >
-                                <svg width="14" height="16" aria-hidden="true">
-                                  <use xlinkHref="#icon-trash"></use>
-                                </svg>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                        {certificates.map((item) => (
+                          <CertificateCard key={item.id} certificate={item}/>
+                        ))}
+                      </Slider>
+                    )}
                   </div>
                 </div>
               </div>

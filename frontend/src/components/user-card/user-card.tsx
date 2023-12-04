@@ -1,3 +1,7 @@
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { addFriend, removeFriend } from '../../store/account-data/api-actions';
+import { getFriendChanging, getUserFriendStatus } from '../../store/account-data/selectors';
+import { getUserRole } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/common/user-role.enum';
 import { User } from '../../types/user/user.interface';
 import {
@@ -20,6 +24,11 @@ function UserCard({ user }: UserCardProps): JSX.Element {
     sportsmanInfo,
     coachInfo,
   } = user;
+  const dispatch = useAppDispatch();
+  const isBefriended = useAppSelector(getUserFriendStatus(id));
+  const currentRole = useAppSelector(getUserRole);
+  const isUpdating = useAppSelector(getFriendChanging);
+  const isCurrentCoach = currentRole === UserRole.Coach;
   const isCoach = role === UserRole.Coach;
   const isReady = isCoach ? coachInfo?.isPersonal : sportsmanInfo?.isReady;
   const isReadyTexts = isCoach ? ReadyToTrainText.Coach : ReadyToTrainText.User;
@@ -33,6 +42,10 @@ function UserCard({ user }: UserCardProps): JSX.Element {
       '/img/content/user-coach-photo2.jpg',
     ],
   };
+  const handleAddFriend = ()=>{ dispatch(addFriend(id));};
+
+  const handleRemoveFriend = ()=>{ dispatch(removeFriend(id));};
+
   return (
     <div className="user-card-coach__card">
       <div className="user-card-coach__content">
@@ -67,9 +80,7 @@ function UserCard({ user }: UserCardProps): JSX.Element {
             </div>
           )}
           <div
-            className={`user-card-coach${
-              !isReady ? '-2' : ''
-            }__status user-card-coach${!isReady ? '-2' : ''}__status--check`}
+            className={`user-card-coach${!isReady ? '-2' : ''}__status user-card-coach${!isReady ? '-2' : ''}__status--check`}
           >
             <span>{isReady ? isReadyTexts[0] : isReadyTexts[1]}</span>
           </div>
@@ -95,10 +106,16 @@ function UserCard({ user }: UserCardProps): JSX.Element {
             </li>
           ))}
         </ul>
-        <button className="btn user-card-coach__btn" type="button">
-          Добавить в друзья
-        </button>
-        {/* <button class="btn btn--outlined user-card-coach-2__btn" type="button">Удалить из друзей</button> */}
+        {!isBefriended && !isCurrentCoach && (
+          <button className="btn user-card-coach__btn" type="button" disabled={isUpdating} onClick={handleAddFriend}>
+            Добавить в друзья
+          </button>
+        )}
+        {isBefriended && (
+          <button className="btn btn--outlined user-card-coach-2__btn" type="button" disabled={isUpdating} onClick={handleRemoveFriend}>
+            Удалить из друзей
+          </button>
+        )}
       </div>
       <div className="user-card-coach__gallary">
         <ul className="user-card-coach__gallary-list">

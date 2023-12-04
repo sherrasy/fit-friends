@@ -63,7 +63,7 @@ export class FriendsController {
     @Param('id') id: number,
     @Req() { user }: RequestWithUserPayload
   ) {
-    const userId = user.sub;
-    return await this.friendsService.removeFriend(id, userId);
+    const {sub:userId, role} = user;
+    return await this.friendsService.removeFriend(id, userId, role);
   }
 }
