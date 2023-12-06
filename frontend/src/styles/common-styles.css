@@ -57,3 +57,9 @@ align-items: center
   display: flex;
   flex-direction: column-reverse;
 }
+
+.visible-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}

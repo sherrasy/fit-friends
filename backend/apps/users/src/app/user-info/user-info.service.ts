@@ -52,4 +52,20 @@ export class UserInfoService {
     const userEntity = new UserInfoEntity({...user, photo:photoId});
     return this.userInfoRepository.update(id, userEntity);
   }
+
+  public async updateCertificate (id:number, certificateId:string){
+    const user = await this.findById(id);
+    const certificateInfo = user.coachInfo.certificate;
+    if(!certificateInfo){
+      const userEntity = new UserInfoEntity({...user, coachInfo:{certificate:certificateId}});
+      return this.userInfoRepository.update(id, userEntity);
+    }
+    const certificates =  user.coachInfo.certificate.split(',')
+    const isExists = certificates.includes(certificateId);
+    const updatedCertificate = isExists
+      ? certificates.filter((item) => item !== certificateId).toString()
+      : certificates.concat(certificateId).toString();
+    const userEntity = new UserInfoEntity({...user, coachInfo:{certificate:updatedCertificate}});
+    return this.userInfoRepository.update(id, userEntity);
+  }
 }

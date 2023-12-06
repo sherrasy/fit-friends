@@ -1,29 +1,29 @@
+import { ChangeEvent, useEffect, useState } from 'react';
+import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import UserCardSmall from '../../components/user-card/user-card-small';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchUserList } from '../../store/user-data/api-actions';
 import {
   getUserList,
   getUserListLoadingStatus,
   getUserPages,
 } from '../../store/user-data/selectors';
-import Loader from '../../components/loader/loader';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { Location } from '../../types/common/location.enum';
+import { UserRole } from '../../types/common/user-role.enum';
+import { WorkoutType } from '../../types/common/workout-type.enum';
+import { Query } from '../../types/query.type';
 import {
   CardsLimit,
   DefaultParam,
   FitnessLevelToName,
+  FormFieldName,
   LocationToName,
-  UserFilterName,
   WorkoutTypeToName,
 } from '../../utils/constant';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import BackButton from '../../components/back-button/back-button';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { UserRole } from '../../types/common/user-role.enum';
-import { fetchUserList } from '../../store/user-data/api-actions';
-import { WorkoutType } from '../../types/common/workout-type.enum';
-import { Query } from '../../types/query.type';
-import { Location } from '../../types/common/location.enum';
 
 function UsersListPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -40,7 +40,7 @@ function UsersListPage(): JSX.Element {
     pagesAmount > DefaultParam.Amount &&
     userList?.length === CardsLimit.Default;
   const isReturnVisible =
-    isLastPage && !(userList && userList.length <= CardsLimit.Default);
+    isLastPage && !!(userList && userList.length <= CardsLimit.Default);
 
   const handleShowClick = () => {
     if (currentPage !== pagesAmount) {
@@ -207,7 +207,7 @@ function UsersListPage(): JSX.Element {
                               <label>
                                 <input
                                   type="radio"
-                                  name={UserFilterName.FitnessLevel}
+                                  name={FormFieldName.FitnessLevel}
                                   value={key}
                                   onChange={handleFilterChange}
                                   checked={query?.fitnessLevel === key}
@@ -230,7 +230,7 @@ function UsersListPage(): JSX.Element {
                         <label>
                           <input
                             type="radio"
-                            name={UserFilterName.Role}
+                            name={FormFieldName.Role}
                             value={UserRole.Coach}
                             onChange={handleFilterChange}
                             checked={query?.role === UserRole.Coach}
@@ -240,7 +240,7 @@ function UsersListPage(): JSX.Element {
                         <label>
                           <input
                             type="radio"
-                            name={UserFilterName.Role}
+                            name={FormFieldName.Role}
                             value={UserRole.Sportsman}
                             onChange={handleFilterChange}
                             checked={query?.role === UserRole.Sportsman}

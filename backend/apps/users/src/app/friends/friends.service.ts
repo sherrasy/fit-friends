@@ -4,6 +4,7 @@ import { UserNotificationsRepository } from '../user-notifications/user-notifica
 import { FriendsError } from './friends.constant';
 import { FriendsEntity } from './friends.entity';
 import { FriendsRepository } from './friends.repository';
+import { DefaultQuery } from '@backend/shared-quieries';
 
 @Injectable()
 export class FriendsService {
@@ -28,10 +29,12 @@ export class FriendsService {
     return friendInfo;
   }
 
-  public async removeFriend(friendId: number, userId: number) {
+  public async removeFriend(friendId: number, userId: number, role:UserRole) {
+    const currentFriendId = role === UserRole.Sportsman ? friendId : userId;
+    const currentUserId = role === UserRole.Sportsman ? userId : friendId;
     const friendData = await this.friendsRepository.findSingleById(
-      friendId,
-      userId
+      currentFriendId,
+      currentUserId
     );
     if (!friendData) {
       throw new BadRequestException(FriendsError.NotFound);
@@ -39,11 +42,11 @@ export class FriendsService {
     return this.friendsRepository.destroy(friendData.id);
   }
 
-  public async showFriends(userId: number, role: string) {
+  public async showFriends(userId: number, role: string, query: DefaultQuery) {
     const friendsList =
       role === UserRole.Sportsman
-        ? await this.friendsRepository.findAllByUserId(userId)
-        : await this.friendsRepository.findAllByCoachId(userId);
+        ? await this.friendsRepository.findAllByUserId(userId, query)
+        : await this.friendsRepository.findAllByCoachId(userId, query);
     return friendsList;
   }
 }

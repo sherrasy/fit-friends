@@ -24,4 +24,5 @@ export const UserInfoPath = {
   Update: 'update',
   UpdateAvatar: 'upload-avatar',
   UpdatePhoto: 'upload-user-photo',
+  UpdateCertificate: 'upload-certificate',
 } as const;

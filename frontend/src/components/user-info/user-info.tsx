@@ -1,30 +1,30 @@
 import { ChangeEvent, FormEvent, useLayoutEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateUser } from '../../store/user-data/api-actions';
 import { getCurrentUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
+import { FitnessLevel } from '../../types/common/fitness-level.enum';
+import { Location } from '../../types/common/location.enum';
+import { UserRole } from '../../types/common/user-role.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { WorkoutType } from '../../types/common/workout-type.enum';
+import { Coach } from '../../types/user/coach.interface';
+import { Sportsman } from '../../types/user/sportsman.interface';
+import { UserInfoInterface } from '../../types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
+  FormFieldName,
   LocationToName,
   ReadyToTrainText,
   UserFormError,
-  UserFormFieldName,
   UserSexToName,
   WorkoutTypeToName,
 } from '../../utils/constant';
-import { WorkoutType } from '../../types/common/workout-type.enum';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { UserRole } from '../../types/common/user-role.enum';
+import { DescriptionLength, NameLength, WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
 import Loader from '../loader/loader';
-import { UserInfoInterface } from '../../types/user/user.interface';
-import { Location } from '../../types/common/location.enum';
-import { UserSex } from '../../types/common/user-sex.enum';
-import { FitnessLevel } from '../../types/common/fitness-level.enum';
-import { WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
-import { toast } from 'react-toastify';
-import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
-import { updateUser } from '../../store/user-data/api-actions';
-import { Coach } from '../../types/user/coach.interface';
-import { Sportsman } from '../../types/user/sportsman.interface';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -54,7 +54,7 @@ function UserInfo(): JSX.Element {
   if (!userInfo || !formData) {
     return <Loader />;
   }
-  const handleSubmitData = (data: UpdateUserDto) => dispatch(updateUser({...data, avatarFile:avatar}));
+  const handleDataSubmit = (data: UpdateUserDto) => dispatch(updateUser({...data, avatarFile:avatar}));
 
   const handleFormButtonClick = () => {
     setIsEditing((prev) => !prev);
@@ -137,7 +137,7 @@ function UserInfo(): JSX.Element {
     const isValid =
       formData.name !== '' && formData.workoutType.length > DefaultParam.Amount;
     if (isValid) {
-      handleSubmitData(formData);
+      handleDataSubmit(formData);
       setIsEditing(false);
     }
   };
@@ -241,8 +241,10 @@ function UserInfo(): JSX.Element {
               <span className="custom-input__wrapper">
                 <input
                   type="text"
-                  name={UserFormFieldName.Name}
+                  name={FormFieldName.Name}
                   defaultValue={formData.name}
+                  minLength={NameLength.Min}
+                  maxLength={NameLength.Max}
                   onChange={handleTextFieldChange}
                   disabled={!isEditing}
                 />
@@ -253,8 +255,10 @@ function UserInfo(): JSX.Element {
             <label>
               <span className="custom-textarea__label">Описание</span>
               <textarea
-                name={UserFormFieldName.Description}
+                name={FormFieldName.Description}
                 onBlur={handleTextFieldChange}
+                minLength={DescriptionLength.Min}
+                maxLength={DescriptionLength.Max}
                 placeholder=" "
                 disabled={!isEditing}
                 defaultValue={formData.description}
@@ -317,7 +321,7 @@ function UserInfo(): JSX.Element {
             !isEditing ? 'custom-select--readonly' : ''
           } custom-select
         ${
-    isOpened === UserFormFieldName.Location
+    isOpened === FormFieldName.Location
       ? 'is-open'
       : 'custom-select--not-selected'
     }
@@ -331,7 +335,7 @@ function UserInfo(): JSX.Element {
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            onClick={() => handleToggleButtonClick(UserFormFieldName.Location)}
+            onClick={() => handleToggleButtonClick(FormFieldName.Location)}
             disabled={!isEditing}
           >
             <span className="custom-select__text">
@@ -353,7 +357,7 @@ function UserInfo(): JSX.Element {
                 aria-selected={item === formData.location}
                 value={item}
                 onClick={() =>
-                  handleSelectChange(item, UserFormFieldName.Location)}
+                  handleSelectChange(item, FormFieldName.Location)}
               >
                 {LocationToName[item]}
               </li>
@@ -365,7 +369,7 @@ function UserInfo(): JSX.Element {
             !isEditing ? 'custom-select--readonly' : ''
           } custom-select
         ${
-    isOpened === UserFormFieldName.Sex
+    isOpened === FormFieldName.Sex
       ? 'is-open'
       : 'custom-select--not-selected'
     }
@@ -379,7 +383,7 @@ function UserInfo(): JSX.Element {
             className="custom-select__button"
             type="button"
             aria-label="Выберите одну из опций"
-            onClick={() => handleToggleButtonClick(UserFormFieldName.Sex)}
+            onClick={() => handleToggleButtonClick(FormFieldName.Sex)}
             disabled={!isEditing}
           >
             <span className="custom-select__text"></span>
@@ -398,7 +402,7 @@ function UserInfo(): JSX.Element {
                 className="custom-select__item"
                 aria-selected={item === formData.sex}
                 value={item}
-                onClick={() => handleSelectChange(item, UserFormFieldName.Sex)}
+                onClick={() => handleSelectChange(item, FormFieldName.Sex)}
               >
                 {UserSexToName[item]}
               </li>
@@ -410,7 +414,7 @@ function UserInfo(): JSX.Element {
             !isEditing ? 'custom-select--readonly' : ''
           } custom-select
         ${
-    isOpened === UserFormFieldName.FitnessLevel
+    isOpened === FormFieldName.FitnessLevel
       ? 'is-open'
       : 'custom-select--not-selected'
     }
@@ -425,7 +429,7 @@ function UserInfo(): JSX.Element {
             type="button"
             aria-label="Выберите одну из опций"
             onClick={() =>
-              handleToggleButtonClick(UserFormFieldName.FitnessLevel)}
+              handleToggleButtonClick(FormFieldName.FitnessLevel)}
             disabled={!isEditing}
           >
             <span className="custom-select__text"></span>
@@ -445,7 +449,7 @@ function UserInfo(): JSX.Element {
                 aria-selected={item === formData.fitnessLevel}
                 value={item}
                 onClick={() =>
-                  handleSelectChange(item, UserFormFieldName.FitnessLevel)}
+                  handleSelectChange(item, FormFieldName.FitnessLevel)}
               >
                 {FitnessLevelToName[item]}
               </li>

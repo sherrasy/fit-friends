@@ -70,3 +70,7 @@ export interface NewUserCoach {
 };
 }
 
+export interface FriendData {
+  friends: User[];
+  friendsAmount: number;
+}

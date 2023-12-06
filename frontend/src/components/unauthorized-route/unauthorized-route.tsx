@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute } from '../../utils/constant';
-import { UserRole } from '../../types/common/user-role.enum';
-import { getIsAuthorized, getUserRole } from '../../store/user-data/selectors';
 import { useAppSelector } from '../../hooks';
+import { getIsAuthorized, getUserRole } from '../../store/user-data/selectors';
+import { UserRole } from '../../types/common/user-role.enum';
+import { AppRoute } from '../../utils/constant';
 
 
 type NotAuthRouteProps = {

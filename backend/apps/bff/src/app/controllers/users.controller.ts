@@ -12,6 +12,7 @@ import {
   UploadedFile,
   Patch,
   Query,
+  Delete,
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
@@ -35,7 +36,7 @@ import { CheckJwtAuthGuard } from '../guards/check-jwt-auth.guard';
 import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { UserIdInterceptor } from '../interceptors/user-id.interceptor';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UserQuery } from '@backend/shared-quieries';
+import { DefaultQuery, UserQuery } from '@backend/shared-quieries';
 
 @ApiTags(ControllerName.User)
 @Controller(ControllerName.User)
@@ -95,7 +96,7 @@ export class UsersController {
     description: UserMessages.Refresh,
   })
   @Post(AppPath.Refresh)
-  public async refreshtoken(@Req() req: Request) {
+  public async refreshToken(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.Users}/${AppPath.Refresh}`,
       null,
@@ -152,6 +153,41 @@ export class UsersController {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Avatar}`,
       { avatarId: avatarData.id },
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+  @UseGuards(CheckAuthGuard)
+  @Post(`${AppPath.Upload}-${FileType.Certificate}`)
+  @UseInterceptors(FileInterceptor(FileType.Certificate))
+  public async postCerificate(
+    @Req() req: Request,
+    @UploadedFile() file: Express.Multer.File
+  ) {
+    const formData = new FormData();
+    formData.append(
+      FileType.Certificate,
+      Buffer.from(file.buffer),
+      file.originalname
+    );
+    const { data: certificateData } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Certificate}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': req.headers['content-type'],
+          ...formData.getHeaders(),
+        },
+      }
+    );
+    const { data } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Certificate}`,
+      { certificateId: certificateData.id },
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -228,6 +264,38 @@ export class UsersController {
     return data;
   }
 
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(UserIdInterceptor)
+  @Post(`${AppPath.Friends}/:id`)
+  public async addFriend(@Req() req: Request, @Param('id') id:number) {
+    const { data } = await this.httpService.axiosRef.post(
+      `${ApplicationServiceURL.UserFriends}/${id}`,
+      null,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+
+  @UseGuards(CheckAuthGuard)
+  @UseInterceptors(UserIdInterceptor)
+  @Delete(`${AppPath.Friends}/:id`)
+  public async deleteFriend(@Req() req: Request, @Param('id') id:number) {
+    const { data } = await this.httpService.axiosRef.delete(
+      `${ApplicationServiceURL.UserFriends}/${id}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
   @ApiResponse({
     status: HttpStatus.OK,
     description: UserMessages.ShowFriends,
@@ -235,7 +303,22 @@ export class UsersController {
   @UseGuards(CheckAuthGuard)
   @UseInterceptors(UserIdInterceptor)
   @Get(AppPath.Friends)
-  public async getFriends(@Req() req: Request) {
+  public async getFriends(@Req() req: Request, @Query() query:DefaultQuery) {
+    const { data } = await this.httpService.axiosRef.get(
+      `${ApplicationServiceURL.UserFriends}`,
+      {
+          params:query,
+
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+  @Get(`${AppPath.Friends}/${AppPath.Count}`)
+  public async showFriendsAmount(@Req() req: Request ) {
     const { data } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.UserFriends}`,
       {
@@ -244,7 +327,7 @@ export class UsersController {
         },
       }
     );
-    return data;
+    return data.length;
   }
 
   @ApiResponse({
@@ -268,8 +351,8 @@ export class UsersController {
     return data;
   }
 
-  @Get(`${AppPath.Show}/count`)
-  public async showAmount(@Req() req: Request, ) {
+  @Get(`${AppPath.Show}/${AppPath.Count}`)
+  public async showUserAmount(@Req() req: Request, ) {
     const { data } = await this.httpService.axiosRef.get(
       `${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
       {
@@ -279,6 +362,40 @@ export class UsersController {
       }
     );
     return data.length;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: UserMessages.UserList,
+  })
+  @Get(AppPath.Notifications)
+  public async showNotifications(@Req() req: Request) {
+    const { data } = await this.httpService.axiosRef.get(
+      ApplicationServiceURL.UserNotifications,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: UserMessages.UserList,
+  })
+  @Delete(`${AppPath.Notifications}/${AppPath.Id}`)
+  public async deleteNotification(@Req() req: Request,  @Param('id') id:number) {
+    const { data } = await this.httpService.axiosRef.delete(
+      `${ApplicationServiceURL.UserNotifications}/${id}`,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
   }
 
    @ApiResponse({

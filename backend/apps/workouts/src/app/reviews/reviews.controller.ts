@@ -1,5 +1,5 @@
 import { UserRoleInterceptor } from '@backend/shared-interceptors';
-import { ReviewsQuery } from '@backend/shared-quieries';
+import { DefaultQuery } from '@backend/shared-quieries';
 import { CreateReviewDto } from '@backend/shared/shared-dto';
 import { RequestWithUserPayload, Review } from '@backend/shared/shared-types';
 import { JwtAuthGuard, fillObject } from '@backend/util/util-core';
@@ -54,7 +54,7 @@ export class ReviewsController {
   @Get(ReviewsPath.Id)
   public async showReviews(
     @Param('id') workoutId: number,
-    @Query() query: ReviewsQuery
+    @Query() query: DefaultQuery
   ) {
     const reviewsInfo = await this.reviewsService.showReviews(workoutId, query);
     return reviewsInfo.map((item: Review) => fillObject(ReviewsRdo, item));

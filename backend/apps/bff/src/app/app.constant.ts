@@ -20,6 +20,8 @@ export const AppPath = {
   Upload: 'upload',
   CoachList: 'coach-list',
   Add: 'add',
+  Count: 'count',
+  GetExtra: 'extra',
   SendNewsletter: 'send-workouts',
   Notifications: 'notifications',
   Requests: 'requests',
@@ -38,26 +40,31 @@ export const FileType = {
 } as const;
 
 export const UserMessages = {
-  NotFound : 'User is not found',
-  UserUpdate : 'User updated',
+  NotFound: 'User is not found',
+  UserUpdate: 'User updated',
   InvalidData: 'Data is invalid',
-  Register : "User registered successfully",
-  Login: "Login successfull",
-  UserFound: "User data found",
+  Register: 'User registered successfully',
+  Login: 'Login successfull',
+  UserFound: 'User data found',
   Refresh: 'Get a new access/refresh tokens',
-  AvatarAdded: "Avatar added successfully",
-  PhotoAdded: "Photo added successfully",
+  AvatarAdded: 'Avatar added successfully',
+  PhotoAdded: 'Photo added successfully',
+  CertificateAdded: 'Certificate added successfully',
   AddFriend: 'Friend added successfully',
   ShowFriends: 'Friend list is showing',
   RemoveFriend: 'Friend removed',
   UserList: 'User list is showing',
-EmptyList: 'User list is empty',
+  EmptyList: 'User list is empty',
+  ShowNotifications: 'Notification list is showing',
+  RemoveNotification: 'Notification removed',
 } as const;
 
 export const WorkoutMessages = {
   OrderNotFound: 'Order is not found',
   EmptyOrders: 'There are no orders that can be loaded',
   AddOrder: 'Order added',
+  AddVideo: 'video added',
+  AddWorkout: 'Workout created successfully',
   ShowOrders: 'Orders of workouts is showing',
   WorkoutNotFound: 'Workout is not found',
   EmptyList: 'There are no workouts that can be loaded',
@@ -65,5 +72,3 @@ export const WorkoutMessages = {
   ShowAll: 'List of workouts is showing',
   ShowReviews: 'List of reviews is showing',
 } as const;
-
-

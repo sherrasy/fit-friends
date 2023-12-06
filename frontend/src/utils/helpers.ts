@@ -9,6 +9,13 @@ export const capitalizeFirstLetter = (string: string) =>
 
 export const getSpecialPrice = (price: number) => price - price * 0.1;
 
+export const formatNotificationDate = (date: Date) => new Date(date).toLocaleString('ru-RU', {
+  day: '2-digit',
+  month: 'long',
+  hour:'2-digit',
+  minute:'2-digit'
+});
+
 export const generateRandomNumber = () => {
   const number =
     Math.floor(
@@ -51,6 +58,38 @@ export const getWorkoutQueryString = (query: Query) => {
     ? `sortDirection=${query.sortDirection}`
     : `sortDirection=${sortDirections[1]}`;
   return `?${limitQuery}${pageQuery}${workoutTypeQuery}${workoutTimeQuery}${priceMinQuery}${priceMaxQuery}${caloriesMinQuery}${caloriesMaxQuery}${ratingMinQuery}${ratingMaxQuery}${sortByQuery}${sortDirectionQuery}`;
+};
+
+export const getOrdersQueryString = (query?: Query) => {
+  const limitQuery = query?.limit
+    ? `limit=${query.limit}&`
+    : `limit=${CardsLimit.CoachOrders}&`;
+  const pageQuery = query?.page
+    ? `page=${query?.page}&`
+    : `page=${DefaultParam.Step}&`;
+  const sortByQuery = query?.sortBy
+    ? `sortBy=${query?.sortBy}&`
+    : `sortBy=${SortingFieldName.AmountOrdered}&`;
+  const sortDirectionQuery = query?.sortDirection
+    ? `sortDirection=${query.sortDirection}`
+    : `sortDirection=${sortDirections[1]}`;
+  return `?${limitQuery}${pageQuery}${sortByQuery}${sortDirectionQuery}`;
+};
+
+export const getFriendsQueryString = (query?: Query) => {
+  const limitQuery = query?.limit
+    ? `limit=${query.limit}&`
+    : `limit=${CardsLimit.Default}&`;
+  const pageQuery = query?.page
+    ? `page=${query?.page}&`
+    : `page=${DefaultParam.Step}&`;
+  const sortByQuery = query?.sortBy
+    ? `sortBy=${query?.sortBy}&`
+    : `sortBy=${SortingFieldName.Date}&`;
+  const sortDirectionQuery = query?.sortDirection
+    ? `sortDirection=${query?.sortDirection}`
+    : `sortDirection=${sortDirections[1]}`;
+  return `?${limitQuery}${pageQuery}${sortByQuery}${sortDirectionQuery}`;
 };
 
 export const getUserQueryString = (query: Query) => {

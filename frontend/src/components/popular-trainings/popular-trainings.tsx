@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import WorkoutListCard from '../workout-card/workout-list-card';
-import { AppRoute, SliderLimit } from '../../utils/constant';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchWorkouts } from '../../store/workout-data/api-actions';
 import { getPopularWorkouts } from '../../store/workout-data/selectors';
+import { AppRoute, SliderLimit } from '../../utils/constant';
 import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
-import Slider from '../slider/slider';
 import SliderButtons from '../slider-buttons/slider-buttons';
+import Slider from '../slider/slider';
+import WorkoutListCard from '../workout-card/workout-list-card';
 
 type ButtonGroupProp = {
   next?: () => void;
@@ -43,7 +43,7 @@ function PopularTrainings(): JSX.Element {
   return (
     <section className="popular-trainings">
       <div className="container">
-        <div className="popular-trainings__wrapper slider-main-reverse">
+        <div className="popular-trainings__wrapper">
           {(!workouts || !workouts.length) && <AdvertisementThumbnail/>}
           {workouts && workouts.length && (
             <Slider

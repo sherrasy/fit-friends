@@ -15,6 +15,7 @@ export interface Workout {
   description: string;
   sex: UserSex;
   video?: string;
+  videoPath?: string|null;
   rating: number;
   coachId: number;
   isSpecialOffer: boolean;
@@ -31,6 +32,7 @@ export interface WorkoutsData {
 }
 export interface ExtraWorkoutsData {
   specialWorkouts?: Workout[] | null;
+  fullWorkouts?: Workout[] | null;
   popularWorkouts?: Workout[] | null;
   totalWorkouts:number;
   maxPrice:number;

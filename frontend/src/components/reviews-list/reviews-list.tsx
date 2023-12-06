@@ -6,9 +6,10 @@ import ReviewCard from '../review-card/review-card';
 
 type ReviewsListProps ={
   reviews: Review[] | null;
+  isAddReviewActive:boolean;
 }
 
-function ReviewsList({reviews}:ReviewsListProps):JSX.Element{
+function ReviewsList({reviews, isAddReviewActive}:ReviewsListProps):JSX.Element{
   const users = useAppSelector(getUserList);
   const fullReviews = reviews?.map((review)=>{
     const userInfo = users?.find((user)=>user.id === review.userId);
@@ -27,7 +28,7 @@ function ReviewsList({reviews}:ReviewsListProps):JSX.Element{
             <ReviewCard review={review}/>
           </li>))}
       </ul>
-      <button className="btn btn--medium reviews-side-bar__button" type="button">Оставить отзыв</button>
+      <button className="btn btn--medium reviews-side-bar__button" type="button" disabled={!isAddReviewActive}>Оставить отзыв</button>
     </aside>
   );
 }

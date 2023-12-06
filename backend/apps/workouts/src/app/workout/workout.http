@@ -37,7 +37,7 @@ Authorization: Bearer {{AToken}}
       "workoutTime": "10-30 мин",
       "workoutType": ["crossfit"],
       "fitnessLevel": "beginner",
-      "isSpecialOffer":false
+      "isSpecialOffer":false,
     }
 
 ###

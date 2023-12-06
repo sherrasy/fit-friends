@@ -8,6 +8,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
   Req,
   UseGuards,
   UseInterceptors,
@@ -17,6 +18,7 @@ import { UserRdo } from '../user-info/rdo/user.rdo';
 import { API_TAG_NAME, FriendsMessage, FriendsPath } from './friends.constant';
 import { FriendsService } from './friends.service';
 import { FriendRdo } from './rdo/friend.rdo';
+import { DefaultQuery } from '@backend/shared-quieries';
 
 @ApiTags(API_TAG_NAME)
 @Controller(FriendsPath.Main)
@@ -45,9 +47,9 @@ export class FriendsController {
   })
   @UseGuards(JwtAuthGuard)
   @Get()
-  public async showFriends(@Req() { user }: RequestWithUserPayload) {
+  public async showFriends(@Req() { user }: RequestWithUserPayload, @Query() query:DefaultQuery) {
     const { sub, role } = user;
-    const friendsInfo = await this.friendsService.showFriends(sub, role);
+    const friendsInfo = await this.friendsService.showFriends(sub, role, query);
     return friendsInfo.map((item: User) => fillObject(UserRdo, item));
   }
 
@@ -61,7 +63,7 @@ export class FriendsController {
     @Param('id') id: number,
     @Req() { user }: RequestWithUserPayload
   ) {
-    const userId = user.sub;
-    return await this.friendsService.removeFriend(id, userId);
+    const {sub:userId, role} = user;
+    return await this.friendsService.removeFriend(id, userId, role);
   }
 }

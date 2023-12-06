@@ -1,26 +1,26 @@
 /* eslint-disable indent */
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { checkEmail } from '../../store/user-data/api-actions';
+import { getEmailExistsStatus } from '../../store/user-data/selectors';
 import { Location } from '../../types/common/location.enum';
+import { UserRole } from '../../types/common/user-role.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import {
+  FormFieldName,
   LocationToName,
   UserFormError,
-  UserFormFieldName,
   UserSexToName,
 } from '../../utils/constant';
-import { UserSex } from '../../types/common/user-sex.enum';
-import { UserRole } from '../../types/common/user-role.enum';
+import { checkValidity } from '../../utils/helpers';
 import {
   NameLength,
   PasswordLength,
   ValidationPattern,
 } from '../../utils/validation.constant';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import InputErrorField from '../input-error-field/input-error-field';
-import { checkValidity } from '../../utils/helpers';
-import { checkEmail } from '../../store/user-data/api-actions';
-import { getEmailExistsStatus } from '../../store/user-data/selectors';
-import { toast } from 'react-toastify';
-import { NewUserGeneral } from '../../types/user/user.interface';
 
 
 type SignUpFormProps = {
@@ -52,7 +52,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
     setIsAgreed((prev) => !prev);
   };
 
-  const handleCheckEmail = () => {
+  const handleEmailCheck = () => {
     dispatch(checkEmail(formData.email));
   };
 
@@ -164,7 +164,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       <span className="custom-input__wrapper">
                         <input
                           type="text"
-                          name={UserFormFieldName.Name}
+                          name={FormFieldName.Name}
                           minLength={NameLength.Min}
                           maxLength={NameLength.Max}
                           onChange={handleInputChange}
@@ -173,7 +173,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       </span>
                     </label>
                     {isEmptyShown &&
-                      formData[UserFormFieldName.Name] === '' && (
+                      formData[FormFieldName.Name] === '' && (
                         <InputErrorField />
                       )}
                   </div>
@@ -183,15 +183,15 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       <span className="custom-input__wrapper">
                         <input
                           type="email"
-                          name={UserFormFieldName.Email}
+                          name={FormFieldName.Email}
                           onChange={handleInputChange}
-                          onBlur={handleCheckEmail}
+                          onBlur={handleEmailCheck}
                           required
                         />
                       </span>
                     </label>
                     {isEmptyShown &&
-                      formData[UserFormFieldName.Email] === '' && (
+                      formData[FormFieldName.Email] === '' && (
                         <InputErrorField />
                       )}
                   </div>
@@ -201,7 +201,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       <span className="custom-input__wrapper">
                         <input
                           type="date"
-                          name={UserFormFieldName.BirthDate}
+                          name={FormFieldName.BirthDate}
                           max="2099-12-31"
                           onChange={handleInputChange}
                           required
@@ -209,7 +209,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       </span>
                     </label>
                     {isEmptyShown &&
-                      formData[UserFormFieldName.BirthDate] === '' && (
+                      formData[FormFieldName.BirthDate] === '' && (
                         <InputErrorField />
                       )}
                   </div>
@@ -253,7 +253,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       ))}
                     </ul>
                     {isEmptyShown &&
-                      formData[UserFormFieldName.Location] === '' && (
+                      formData[FormFieldName.Location] === '' && (
                         <InputErrorField />
                       )}
                   </div>
@@ -263,7 +263,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       <span className="custom-input__wrapper">
                         <input
                           type="password"
-                          name={UserFormFieldName.Password}
+                          name={FormFieldName.Password}
                           minLength={PasswordLength.Min}
                           maxLength={PasswordLength.Max}
                           onChange={handleInputChange}
@@ -272,7 +272,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                       </span>
                     </label>
                     {isEmptyShown &&
-                      formData[UserFormFieldName.Password] === '' && (
+                      formData[FormFieldName.Password] === '' && (
                         <InputErrorField />
                       )}
                   </div>
@@ -284,7 +284,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                           <label>
                             <input
                               type="radio"
-                              name={UserFormFieldName.Sex}
+                              name={FormFieldName.Sex}
                               value={value}
                               checked={formData.sex === value}
                               onChange={handleInputChange}
@@ -307,7 +307,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                         <input
                           className="visually-hidden"
                           type="radio"
-                          name={UserFormFieldName.Role}
+                          name={FormFieldName.Role}
                           value={UserRole.Coach}
                           checked={formData.role === UserRole.Coach}
                           onChange={handleInputChange}
@@ -327,7 +327,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                         <input
                           className="visually-hidden"
                           type="radio"
-                          name={UserFormFieldName.Role}
+                          name={FormFieldName.Role}
                           value={UserRole.Sportsman}
                           checked={formData.role === UserRole.Sportsman}
                           onChange={handleInputChange}

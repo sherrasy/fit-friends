@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../../types/state.type';
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import {
   ActionName,
   ApiRoute,
+  AppRoute,
   CardsLimit,
   DefaultParam,
   ReducerName,
@@ -20,6 +21,12 @@ import { toast } from 'react-toastify';
 import { Review } from '../../types/reaction/review.interface';
 import { getWorkoutQueryString, getSpecialPrice } from '../../utils/helpers';
 import { UserRole } from '../../types/common/user-role.enum';
+import { CreateWorkoutDto } from '../../dto/workout/create-workout.dto';
+import { adaptVideoToServer } from '../../utils/adapters/adaptersToServer';
+import { redirectToRoute } from '../action';
+import { UpdateWorkoutDto } from '../../dto/workout/update-workout.dto';
+import { File } from '../../types/reaction/file.interface';
+import { FileType } from '../../types/reaction/file.type';
 
 export const fetchWorkouts = createAsyncThunk<
   Workout[],
@@ -89,7 +96,7 @@ export const fetchExtraWorkouts = createAsyncThunk<
       const popularWorkouts = [...workoutsData]
         .sort((workoutA, workoutB) => workoutB.rating - workoutA.rating)
         .slice(DefaultParam.Amount, CardsLimit.Default);
-      return { specialWorkouts, popularWorkouts, totalWorkouts, maxPrice };
+      return { specialWorkouts, popularWorkouts, totalWorkouts, maxPrice, fullWorkouts:workoutsData };
     } catch (error) {
       return Promise.reject(error);
     }
@@ -179,12 +186,20 @@ export const fetchWorkout = createAsyncThunk<
         ...data,
         specialPrice: data.isSpecialOffer ? getSpecialPrice(data.price) : null,
       };
+      if (data.video) {
+        const { data: video } = await api.get<File>(
+          `${ApiRoute.File}/${data.video}`
+        );
+        const videoPath = video ? video.path : null;
+        return{...workout, videoPath };
+      }
       return workout;
     } catch (error) {
       return Promise.reject(error);
     }
   }
 );
+
 export const fetchReviews = createAsyncThunk<
   Review[],
   number,
@@ -200,6 +215,58 @@ export const fetchReviews = createAsyncThunk<
       const { data } = await api.get<Review[]>(`${ApiRoute.ReviewsShow}/${id}`);
       return data;
     } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+);
+
+export const createWorkout = createAsyncThunk<
+  Workout,
+  CreateWorkoutDto & FileType,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${ReducerName.Workout}/${ActionName.CreateWorkout}`,
+  async (dto, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<Workout>(`${ApiRoute.CreateWorkout}`, dto);
+      if (data && dto.videoFile?.name) {
+        const {data:workoutWithVideo} = await api.post<Workout>(`${ApiRoute.WorkoutsMain}/${data.id}${ApiRoute.UploadVideo}`, adaptVideoToServer(dto.videoFile) );
+        dispatch(redirectToRoute(AppRoute.CoachAccount));
+        return workoutWithVideo;
+      }
+      dispatch(redirectToRoute(AppRoute.CoachAccount));
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message, {toastId:ActionName.CreateWorkout});
+      return Promise.reject(error);
+    }
+  }
+);
+export const updateWorkout = createAsyncThunk<
+  void,
+  UpdateWorkoutDto & FileType,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${ReducerName.Workout}/${ActionName.UpdateWorkout}`,
+  async (dto, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.patch<Workout>(`${ApiRoute.WorkoutsMain}/${dto.id}`, dto);
+      if (data && dto.videoFile?.name) {
+        await api.post<Workout>(`${ApiRoute.WorkoutsMain}/${data.id}${ApiRoute.UploadVideo}`, adaptVideoToServer(dto.videoFile) );
+      }
+      dispatch(fetchWorkout(data.id));
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message, {toastId:ActionName.UpdateWorkout});
       return Promise.reject(error);
     }
   }

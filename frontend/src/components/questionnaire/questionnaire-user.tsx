@@ -1,20 +1,20 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
+import { CreateUserDto } from '../../dto/user/create/create-user.dto';
 import { useAppDispatch } from '../../hooks';
+import { register } from '../../store/user-data/api-actions';
 import { FitnessLevel } from '../../types/common/fitness-level.enum';
 import { WorkoutTime } from '../../types/common/workout-time.enum';
 import { WorkoutType } from '../../types/common/workout-type.enum';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
+  FormFieldName,
   UserFormError,
-  UserFormFieldName,
   WorkoutTypeToName,
 } from '../../utils/constant';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { NewUserGeneral } from '../../types/user/user.interface';
-import { toast } from 'react-toastify';
-import { CreateUserDto } from '../../dto/user/create/create-user.dto';
-import { register } from '../../store/user-data/api-actions';
 import {
   CaloriesAmount,
   WORKOUT_TYPE_AMOUNT,
@@ -41,7 +41,7 @@ function QuestionnaireUser({
   const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);
   const [isEmptyShown, SetIsEmptyShown] = useState(DefaultParam.Status);
 
-  const handleSubmitData = (data: CreateUserDto) => dispatch(register({...data, avatarFile}));
+  const handleDataSubmit = (data: CreateUserDto) => dispatch(register(data));
 
   const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value as WorkoutType;
@@ -77,10 +77,11 @@ function QuestionnaireUser({
       workoutType: workoutTypes,
       fitnessLevel,
       sportsmanInfo,
+      avatarFile
     };
     const isValid = workoutTypes.length > DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesPerDay !== DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesTotal !== DefaultParam.Amount;
     if (isValid){
-      handleSubmitData(sportsmanData);
+      handleDataSubmit(sportsmanData);
       SetIsEmptyShown(DefaultParam.Status);
     } else {
       SetIsEmptyShown(true);
@@ -137,7 +138,7 @@ function QuestionnaireUser({
                           <label>
                             <input
                               type="radio"
-                              name={UserFormFieldName.WorkoutTime}
+                              name={FormFieldName.WorkoutTime}
                               value={item}
                               checked={sportsmanInfo.workoutTime === item}
                               onChange={handleInputChange}
@@ -161,7 +162,7 @@ function QuestionnaireUser({
                           <label>
                             <input
                               type="radio"
-                              name={UserFormFieldName.FitnessLevel}
+                              name={FormFieldName.FitnessLevel}
                               value={item}
                               checked={fitnessLevel === item}
                               onChange={handleFitnessLevelChange}
@@ -185,7 +186,7 @@ function QuestionnaireUser({
                           <span className="custom-input__wrapper">
                             <input
                               type="number"
-                              name={UserFormFieldName.CaloriesTotal}
+                              name={FormFieldName.CaloriesTotal}
                               min={CaloriesAmount.Min}
                               max={CaloriesAmount.Max}
                               onChange={handleInputChange}
@@ -195,7 +196,7 @@ function QuestionnaireUser({
                           </span>
                         </label>
                       </div>
-                      {isEmptyShown && !sportsmanInfo[UserFormFieldName.CaloriesTotal] && (
+                      {isEmptyShown && !sportsmanInfo[FormFieldName.CaloriesTotal] && (
                         <InputErrorField />
                       )}
                     </div>
@@ -208,7 +209,7 @@ function QuestionnaireUser({
                           <span className="custom-input__wrapper">
                             <input
                               type="number"
-                              name={UserFormFieldName.CaloriesPerDay}
+                              name={FormFieldName.CaloriesPerDay}
                               min={CaloriesAmount.Min}
                               max={CaloriesAmount.Max}
                               required
@@ -220,7 +221,7 @@ function QuestionnaireUser({
                       </div>
                     </div>
                   </div>
-                  {isEmptyShown && !sportsmanInfo[UserFormFieldName.CaloriesPerDay] && (
+                  {isEmptyShown && !sportsmanInfo[FormFieldName.CaloriesPerDay] && (
                     <InputErrorField />
                   )}
                 </div>

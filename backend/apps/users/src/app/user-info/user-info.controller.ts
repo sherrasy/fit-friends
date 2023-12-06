@@ -113,4 +113,10 @@ export class UserInfoController {
     return this.userInfoService.updatePhoto(user.sub, photoId);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post(UserInfoPath.UpdateCertificate)
+  public async updateCertificate(@Req() { user }: RequestWithUserPayload, @Body('certificateId') certificateId:string) {
+    return this.userInfoService.updateCertificate(user.sub, certificateId);
+  }
+
 }

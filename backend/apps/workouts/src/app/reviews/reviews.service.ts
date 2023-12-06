@@ -1,4 +1,4 @@
-import { ReviewsQuery } from '@backend/shared-quieries';
+import { DefaultQuery } from '@backend/shared-quieries';
 import { CreateReviewDto } from '@backend/shared/shared-dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { WorkoutRepository } from '../workout/workout.repository';
@@ -33,7 +33,7 @@ export class ReviewsService {
     return reviewInfo;
   }
 
-  public async showReviews(workoutId: number, query: ReviewsQuery) {
+  public async showReviews(workoutId: number, query: DefaultQuery) {
     const workout = await this.workoutRepository.findById(workoutId);
     if (!workout) {
       throw new NotFoundException(REVIEWS_ERROR);

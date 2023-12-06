@@ -13,7 +13,6 @@ export const AppRoute = {
   Orders: '/orders',
   Purchases: '/purchases',
   CoachWorkouts: '/coach-workouts',
-  Questionnaire: '/questionnaire',
   UserList:'/user-list',
   WorkoutsList:'/workouts-list',
   Error: '*',
@@ -40,22 +39,32 @@ export const ActionName = {
   FetchUser: 'fetch-user',
   FetchCurrentUser: 'fetch-current-user',
   FetchUserList: 'fetch-user-list',
+  FetchReadyUserList: 'fetch-ready-user-list',
   FetchUserListAmount: 'fetch-user-list-amount',
   FetchFriends: 'fetch-friends',
+  AddFriend: 'add-friend',
+  RemoveFriend: 'remove-friend',
   FetchUserOrders: 'fetch-user-orders',
   FetchCoachOrders: 'fetch-coach-orders',
+  FetchCertificates: 'fetch-coach-certificates',
+  PostCertificate: 'post-certificate',
   FetchWorkouts: 'fetch-workouts',
   FetchExtraWorkouts: 'fetch-extra-workouts',
   FetchUserSpecialWorkouts: 'fetch-special-workouts',
   FetchCoachWorkouts: 'fetch-coach-workouts',
   FetchWorkout: 'fetch-workout',
+  CreateWorkout: 'create-workout',
+  UpdateWorkout: 'update-workout',
   FetchReviews: 'fetch-reviews',
+  FetchNotifications: 'fetch-notifications',
   UpdateUser: 'update-user',
+  RemoveNotification: 'remove-notification',
 } as const;
 
 export const ApiRoute = {
   UsersMain: '/users',
   WorkoutsMain: '/workouts',
+  CreateWorkout: '/workouts/add',
   Login: '/users/login',
   CheckLogin: '/users/check-login',
   CheckEmail: '/users/check-email',
@@ -65,10 +74,13 @@ export const ApiRoute = {
   PurchasesShow: '/workouts/orders',
   OrdersShow: '/workouts/orders/coach-list',
   ReviewsShow: '/workouts/show-reviews',
+  Notifications: '/users/notifications',
   CoachWorkoutsShow: '/workouts/coach-list',
   UpdateUser: '/users/update',
   Friends: '/users/friends',
   UploadAvatar: '/users/upload-avatar',
+  UploadCertificate: '/users/upload-certificate',
+  UploadVideo: '/upload-video',
   File: '/uploads/file',
 } as const;
 
@@ -82,7 +94,7 @@ export const ApiErrorsMessage = {
   FetchPagesError:'Can`t get pages data'
 } as const;
 
-export const UserFormFieldName = {
+export const FormFieldName = {
   Name:'name',
   Email:'email',
   BirthDate:'birthDate',
@@ -90,11 +102,12 @@ export const UserFormFieldName = {
   Password:'password',
   Sex:'sex',
   Role:'role',
+  Price:'price',
+  WorkoutType:'workoutType',
   WorkoutTime:'workoutTime',
   FitnessLevel:'fitnessLevel',
   CaloriesTotal: 'caloriesTotal',
   CaloriesPerDay:'caloriesPerDay',
-  SuccessInfo:'successInfo',
   Description:'description',
 } as const;
 
@@ -105,15 +118,15 @@ export const WorkoutFilterName = {
   CaloriesMax:'caloriesMax',
 } as const;
 
-export const UserFilterName = {
-  FitnessLevel:'fitnessLevel',
-  Role:'role',
-} as const;
-
 export const WorkoutFilterSortName = {
   Cheap:'cheap',
   Expensive:'expensive',
   Free:'free',
+} as const;
+
+export const PostWorkoutButtonText = {
+  Default:'Опубликовать',
+  Posting:'Отправка...',
 } as const;
 
 export const UserFormError = {
@@ -128,6 +141,11 @@ export const ReadyToTrainText = {
   User:['Готов к тренировке', 'Не готов тренироваться'],
 } as const;
 
+export const RequestWorkoutText = {
+  Coach:'на персональную тренировку',
+  User:'на совместную тренировку',
+} as const;
+
 export const HeaderTab = {
   Main:'main',
   Account:'account',
@@ -138,6 +156,12 @@ export const UserSexToName = {
   male : 'Мужской',
   female : 'Женский',
   any : 'Неважно',
+};
+
+export const UserSexToFormName = {
+  male : 'Мужчинам',
+  female : 'Женщинам',
+  any : 'Всем',
 };
 
 export const UserSexToHashtagName = {
@@ -177,11 +201,8 @@ export const DefaultParam = {
   Status: false,
 };
 
-
 export const FileTypeName = {
   Avatar: 'avatar',
-  UserPhoto: 'user-photo',
-  WorkoutPhoto: 'workout-photo',
   Certificate: 'certificate',
   Video: 'video',
 } as const;
@@ -215,4 +236,6 @@ export const sortDirections = ['asc', 'desc'];
 export const SortingFieldName = {
   Date: 'createdDate',
   Price: 'price',
+  AmountOrdered: 'amountOrdered',
+  PriceOrdered: 'priceOrdered',
 };

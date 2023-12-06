@@ -23,7 +23,7 @@ function WorkoutsForUser(): JSX.Element {
   return (
     <section className="special-for-you">
       <div className="container">
-        <div className="special-for-you__wrapper slider-main-reverse">
+        <div className="special-for-you__wrapper">
           {(!workouts || !workouts.length) && <AdvertisementThumbnail/>}
           {workouts && workouts.length !== 0 && (
             <Slider

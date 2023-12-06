@@ -1,7 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
+import { CreateUserDto } from '../../dto/user/create/create-user.dto';
+import { useAppDispatch } from '../../hooks';
+import { register } from '../../store/user-data/api-actions';
 import { FitnessLevel } from '../../types/common/fitness-level.enum';
 import { WorkoutType } from '../../types/common/workout-type.enum';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -9,27 +13,30 @@ import {
   WorkoutTypeToName,
 } from '../../utils/constant';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { DescriptionLength, WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
-import { NewUserGeneral } from '../../types/user/user.interface';
-import { register } from '../../store/user-data/api-actions';
-import { CreateUserDto } from '../../dto/user/create/create-user.dto';
-import { useAppDispatch } from '../../hooks';
+import {
+  DescriptionLength,
+  WORKOUT_TYPE_AMOUNT,
+} from '../../utils/validation.constant';
 import InputErrorField from '../input-error-field/input-error-field';
 
 type QuestionnaireCoachProps = {
-  newUserData:NewUserGeneral;
+  newUserData: NewUserGeneral;
   avatarFile: File | undefined;
-}
+};
 
-function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): JSX.Element {
+function QuestionnaireCoach({
+  newUserData,
+  avatarFile,
+}: QuestionnaireCoachProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [workoutTypes, setWorkoutTypes] = useState<WorkoutType[]>([]);
   const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);
   const [successInfo, setSuccessInfo] = useState('');
   const [isPersonal, setIsPersonal] = useState(DefaultParam.Status);
-  const [isEmptyShown, SetIsEmptyShown] = useState(DefaultParam.Status);
+  const [isEmptyShown, setIsEmptyShown] = useState(DefaultParam.Status);
+  const [certificateFile, setCertificateFile] = useState<File | undefined>();
 
-  const handleSubmitData = (data: CreateUserDto) => dispatch(register(data));
+  const handleDataSubmit = (data: CreateUserDto) => dispatch(register(data));
 
   const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value as WorkoutType;
@@ -68,19 +75,31 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
     evt.preventDefault();
     const coachData = {
       ...newUserData,
-      workoutType:workoutTypes,
+      workoutType: workoutTypes,
       fitnessLevel,
-      coachInfo:{
+      coachInfo: {
         successInfo,
-        isPersonal
-      }
+        isPersonal,
+      },
+      certificateFile,
+      avatarFile
     };
-    if (coachData.workoutType.length > DefaultParam.Amount || coachData.coachInfo.successInfo !== '') {
-      handleSubmitData(coachData);
-      SetIsEmptyShown(DefaultParam.Status);
-    }else{
-      SetIsEmptyShown(true);
+    if (
+      coachData.workoutType.length > DefaultParam.Amount ||
+      coachData.coachInfo.successInfo !== ''
+    ) {
+      handleDataSubmit(coachData);
+      setIsEmptyShown(DefaultParam.Status);
+    } else {
+      setIsEmptyShown(true);
     }
+  };
+
+  const handlePDFUpload = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) {
+      return;
+    }
+    setCertificateFile(evt.target.files[0]);
   };
 
   return (
@@ -106,7 +125,11 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
                               name="specialisation"
                               value={item}
                               onChange={handleWorkoutTypesChange}
-                              checked={workoutTypes ? workoutTypes.includes(item) : false}
+                              checked={
+                                workoutTypes
+                                  ? workoutTypes.includes(item)
+                                  : false
+                              }
                             />
                             <span className="btn-checkbox__btn">
                               {capitalizeFirstLetter(WorkoutTypeToName[item])}
@@ -115,7 +138,10 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
                         </div>
                       ))}
                     </div>
-                    {isEmptyShown && workoutTypes.length === DefaultParam.Amount && <InputErrorField/>}
+                    {isEmptyShown &&
+                      workoutTypes.length === DefaultParam.Amount && (
+                      <InputErrorField />
+                    )}
                   </div>
                   <div className="questionnaire-coach__block">
                     <span className="questionnaire-coach__legend">
@@ -148,7 +174,9 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
                     <div className="drag-and-drop questionnaire-coach__drag-and-drop">
                       <label>
                         <span className="drag-and-drop__label">
-                          Загрузите сюда файлы формата PDF, JPG или PNG
+                          {certificateFile
+                            ? certificateFile.name
+                            : 'Загрузите сюда файл формата PDF'}
                           <svg width="20" height="20" aria-hidden="true">
                             <use xlinkHref="#icon-import"></use>
                           </svg>
@@ -156,7 +184,9 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
                         <input
                           type="file"
                           name="import"
-                          accept=".pdf, .jpg, .png"
+                          accept=".pdf"
+                          onChange={handlePDFUpload}
+                          required
                         />
                       </label>
                     </div>
@@ -177,7 +207,9 @@ function QuestionnaireCoach({newUserData, avatarFile}:QuestionnaireCoachProps): 
                         >
                         </textarea>
                       </label>
-                      {isEmptyShown && successInfo === '' && <InputErrorField/>}
+                      {isEmptyShown && successInfo === '' && (
+                        <InputErrorField />
+                      )}
                     </div>
                     <div className="questionnaire-coach__checkbox">
                       <label>
