@@ -1,30 +1,30 @@
 import { ChangeEvent, FormEvent, useLayoutEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateUser } from '../../store/user-data/api-actions';
 import { getCurrentUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
+import { FitnessLevel } from '../../types/common/fitness-level.enum';
+import { Location } from '../../types/common/location.enum';
+import { UserRole } from '../../types/common/user-role.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { WorkoutType } from '../../types/common/workout-type.enum';
+import { Coach } from '../../types/user/coach.interface';
+import { Sportsman } from '../../types/user/sportsman.interface';
+import { UserInfoInterface } from '../../types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
+  FormFieldName,
   LocationToName,
   ReadyToTrainText,
   UserFormError,
-  FormFieldName,
   UserSexToName,
   WorkoutTypeToName,
 } from '../../utils/constant';
-import { WorkoutType } from '../../types/common/workout-type.enum';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { UserRole } from '../../types/common/user-role.enum';
+import { DescriptionLength, NameLength, WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
 import Loader from '../loader/loader';
-import { UserInfoInterface } from '../../types/user/user.interface';
-import { Location } from '../../types/common/location.enum';
-import { UserSex } from '../../types/common/user-sex.enum';
-import { FitnessLevel } from '../../types/common/fitness-level.enum';
-import { WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
-import { toast } from 'react-toastify';
-import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
-import { updateUser } from '../../store/user-data/api-actions';
-import { Coach } from '../../types/user/coach.interface';
-import { Sportsman } from '../../types/user/sportsman.interface';
 
 function UserInfo(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -54,7 +54,7 @@ function UserInfo(): JSX.Element {
   if (!userInfo || !formData) {
     return <Loader />;
   }
-  const handleSubmitData = (data: UpdateUserDto) => dispatch(updateUser({...data, avatarFile:avatar}));
+  const handleDataSubmit = (data: UpdateUserDto) => dispatch(updateUser({...data, avatarFile:avatar}));
 
   const handleFormButtonClick = () => {
     setIsEditing((prev) => !prev);
@@ -137,7 +137,7 @@ function UserInfo(): JSX.Element {
     const isValid =
       formData.name !== '' && formData.workoutType.length > DefaultParam.Amount;
     if (isValid) {
-      handleSubmitData(formData);
+      handleDataSubmit(formData);
       setIsEditing(false);
     }
   };
@@ -243,6 +243,8 @@ function UserInfo(): JSX.Element {
                   type="text"
                   name={FormFieldName.Name}
                   defaultValue={formData.name}
+                  minLength={NameLength.Min}
+                  maxLength={NameLength.Max}
                   onChange={handleTextFieldChange}
                   disabled={!isEditing}
                 />
@@ -255,6 +257,8 @@ function UserInfo(): JSX.Element {
               <textarea
                 name={FormFieldName.Description}
                 onBlur={handleTextFieldChange}
+                minLength={DescriptionLength.Min}
+                maxLength={DescriptionLength.Max}
                 placeholder=" "
                 disabled={!isEditing}
                 defaultValue={formData.description}

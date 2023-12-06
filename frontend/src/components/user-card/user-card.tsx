@@ -42,9 +42,9 @@ function UserCard({ user }: UserCardProps): JSX.Element {
       '/img/content/user-coach-photo2.jpg',
     ],
   };
-  const handleAddFriend = ()=>{ dispatch(addFriend(id));};
+  const handleFriendAdd = ()=>{ dispatch(addFriend(id));};
 
-  const handleRemoveFriend = ()=>{ dispatch(removeFriend(id));};
+  const handleFriendRemove = ()=>{ dispatch(removeFriend(id));};
 
   return (
     <div className="user-card-coach__card">
@@ -107,12 +107,12 @@ function UserCard({ user }: UserCardProps): JSX.Element {
           ))}
         </ul>
         {!isBefriended && !isCurrentCoach && (
-          <button className="btn user-card-coach__btn" type="button" disabled={isUpdating} onClick={handleAddFriend}>
+          <button className="btn user-card-coach__btn" type="button" disabled={isUpdating} onClick={handleFriendAdd}>
             Добавить в друзья
           </button>
         )}
         {isBefriended && (
-          <button className="btn btn--outlined user-card-coach-2__btn" type="button" disabled={isUpdating} onClick={handleRemoveFriend}>
+          <button className="btn btn--outlined user-card-coach-2__btn" type="button" disabled={isUpdating} onClick={handleFriendRemove}>
             Удалить из друзей
           </button>
         )}

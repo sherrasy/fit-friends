@@ -22,9 +22,11 @@ import { Review } from '../../types/reaction/review.interface';
 import { getWorkoutQueryString, getSpecialPrice } from '../../utils/helpers';
 import { UserRole } from '../../types/common/user-role.enum';
 import { CreateWorkoutDto } from '../../dto/workout/create-workout.dto';
-import { FileType } from '../../types/reaction/file.type';
 import { adaptVideoToServer } from '../../utils/adapters/adaptersToServer';
 import { redirectToRoute } from '../action';
+import { UpdateWorkoutDto } from '../../dto/workout/update-workout.dto';
+import { File } from '../../types/reaction/file.interface';
+import { FileType } from '../../types/reaction/file.type';
 
 export const fetchWorkouts = createAsyncThunk<
   Workout[],
@@ -184,6 +186,13 @@ export const fetchWorkout = createAsyncThunk<
         ...data,
         specialPrice: data.isSpecialOffer ? getSpecialPrice(data.price) : null,
       };
+      if (data.video) {
+        const { data: video } = await api.get<File>(
+          `${ApiRoute.File}/${data.video}`
+        );
+        const videoPath = video ? video.path : null;
+        return{...workout, videoPath };
+      }
       return workout;
     } catch (error) {
       return Promise.reject(error);
@@ -233,6 +242,30 @@ export const createWorkout = createAsyncThunk<
     } catch (error) {
       const axiosError = error as AxiosError;
       toast.error(axiosError.message, {toastId:ActionName.CreateWorkout});
+      return Promise.reject(error);
+    }
+  }
+);
+export const updateWorkout = createAsyncThunk<
+  void,
+  UpdateWorkoutDto & FileType,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${ReducerName.Workout}/${ActionName.UpdateWorkout}`,
+  async (dto, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.patch<Workout>(`${ApiRoute.WorkoutsMain}/${dto.id}`, dto);
+      if (data && dto.videoFile?.name) {
+        await api.post<Workout>(`${ApiRoute.WorkoutsMain}/${data.id}${ApiRoute.UploadVideo}`, adaptVideoToServer(dto.videoFile) );
+      }
+      dispatch(fetchWorkout(data.id));
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      toast.error(axiosError.message, {toastId:ActionName.UpdateWorkout});
       return Promise.reject(error);
     }
   }

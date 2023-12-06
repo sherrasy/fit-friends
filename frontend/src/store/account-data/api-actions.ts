@@ -1,15 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../../types/state.type';
 import { AxiosInstance } from 'axios';
-import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
-import { FriendData, User } from '../../types/user/user.interface';
+import { Query } from '../../types/query.type';
 import { Certificate, File } from '../../types/reaction/file.interface';
+import { FileType } from '../../types/reaction/file.type';
 import { Order, OrderCoach, OrderCoachData } from '../../types/reaction/order.interface';
 import { UserNotification } from '../../types/reaction/user-notification.interface';
-import { Query } from '../../types/query.type';
-import { getFriendsQueryString, getOrdersQueryString } from '../../utils/helpers';
-import { FileType } from '../../types/reaction/file.type';
+import { AppDispatch, State } from '../../types/state.type';
+import { FriendData, User } from '../../types/user/user.interface';
 import { adaptCertificateToServer } from '../../utils/adapters/adaptersToServer';
+import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
+import { getFriendsQueryString, getOrdersQueryString } from '../../utils/helpers';
 
 export const fetchFriends = createAsyncThunk<
   FriendData,

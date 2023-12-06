@@ -4,6 +4,8 @@ import { WorkoutTime } from '../../types/common/workout-time.enum';
 import { WorkoutType } from '../../types/common/workout-type.enum';
 
 export class UpdateWorkoutDto {
+  public id!: number;
+
   public name?: string;
 
   public fitnessLevel?: FitnessLevel;

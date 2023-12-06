@@ -3,28 +3,28 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import WorkoutListCard from '../../components/workout-card/workout-list-card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  fetchCoachWorkouts,
+  fetchExtraWorkouts,
+} from '../../store/workout-data/api-actions';
 import {
   getMaxPrice,
   getPages,
   getWorkouts,
   getWorkoutsLoadingStatus,
 } from '../../store/workout-data/selectors';
-import { Query } from '../../types/query.type';
+import { UserRole } from '../../types/common/user-role.enum';
 import { WorkoutTime } from '../../types/common/workout-time.enum';
+import { Query } from '../../types/query.type';
 import {
   CardsLimit,
   DefaultParam,
   WorkoutFilterName,
 } from '../../utils/constant';
 import { CaloriesAmount, RaitingCount } from '../../utils/validation.constant';
-import {
-  fetchCoachWorkouts,
-  fetchExtraWorkouts,
-} from '../../store/workout-data/api-actions';
-import { UserRole } from '../../types/common/user-role.enum';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
 function CoachWorkoutsPage(): JSX.Element {
   const dispatch = useAppDispatch();

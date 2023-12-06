@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DefaultParam, ReducerName } from '../../utils/constant';
 import { WorkoutState } from '../../types/state.type';
+import { DefaultParam, ReducerName } from '../../utils/constant';
 import {
   createWorkout,
   fetchCoachWorkouts,
@@ -9,6 +9,7 @@ import {
   fetchUserSpecialWorkouts,
   fetchWorkout,
   fetchWorkouts,
+  updateWorkout,
 } from './api-actions';
 
 const initialState: WorkoutState = {
@@ -102,6 +103,15 @@ export const workoutData = createSlice({
         state.isWorkoutPosting = false;
       })
       .addCase(createWorkout.rejected, (state) => {
+        state.isWorkoutPosting = false;
+      })
+      .addCase(updateWorkout.pending, (state) => {
+        state.isWorkoutPosting = true;
+      })
+      .addCase(updateWorkout.fulfilled, (state) => {
+        state.isWorkoutPosting = false;
+      })
+      .addCase(updateWorkout.rejected, (state) => {
         state.isWorkoutPosting = false;
       });
   },

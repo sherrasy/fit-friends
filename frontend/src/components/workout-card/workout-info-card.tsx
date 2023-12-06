@@ -1,19 +1,57 @@
+import { useRef, useState } from 'react';
 import { Order } from '../../types/reaction/order.interface';
 import { User } from '../../types/user/user.interface';
 import { Workout } from '../../types/workout/workout.interface';
-import { UserSexToHashtagName, WorkoutTypeToName } from '../../utils/constant';
+import {
+  DefaultParam,
+  UserSexToHashtagName,
+  WorkoutTypeToName,
+} from '../../utils/constant';
 
 type WorkoutInfoCardProps = {
   workout: Workout;
-  coach:User;
-  order:Order|undefined;
+  coach: User;
+  order: Order | undefined;
 };
 
-function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.Element {
-  const {name:coachName, avatarPath} = coach;
-  const { id, name, description, rating, workoutType, calories, workoutTime, sex, price, specialPrice } = workout;
+function WorkoutInfoCard({
+  workout,
+  coach,
+  order,
+}: WorkoutInfoCardProps): JSX.Element {
+  const { name: coachName, avatarPath } = coach;
+  const {
+    id,
+    name,
+    description,
+    rating,
+    workoutType,
+    calories,
+    workoutTime,
+    sex,
+    price,
+    specialPrice,
+    videoPath,
+  } = workout;
   const isBought = !!order;
   const currentPrice = specialPrice ? specialPrice : price;
+  const [isPlaying, setIsPlaying] = useState(DefaultParam.Status);
+  const [isVideoActive, setIsVideoActive] = useState(DefaultParam.Status);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const handleVideoActiveChange = () => setIsVideoActive((prev) => !prev);
+
+  const handlePlayingClick = () => {
+    setIsPlaying((prev) => !prev);
+    if (videoRef.current === null) {
+      return;
+    }
+    if (isPlaying) {
+      videoRef.current.play();
+      return;
+    }
+    videoRef.current.pause();
+  };
   return (
     <div className="training-card">
       <div className="training-info">
@@ -42,9 +80,7 @@ function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.E
               <div className="training-info__info-wrapper">
                 <div className="training-info__input training-info__input--training">
                   <label>
-                    <span className="training-info__label">
-                      {name}
-                    </span>
+                    <span className="training-info__label">{name}</span>
                     <input
                       type="text"
                       name="training"
@@ -56,9 +92,13 @@ function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.E
                 <div className="training-info__textarea">
                   <label>
                     <span className="training-info__label">
-                    Описание тренировки
+                      Описание тренировки
                     </span>
-                    <textarea name="description" defaultValue={description} disabled>
+                    <textarea
+                      name="description"
+                      defaultValue={description}
+                      disabled
+                    >
                     </textarea>
                   </label>
                 </div>
@@ -66,9 +106,7 @@ function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.E
               <div className="training-info__rating-wrapper">
                 <div className="training-info__input training-info__input--rating">
                   <label>
-                    <span className="training-info__label">
-                    Рейтинг
-                    </span>
+                    <span className="training-info__label">Рейтинг</span>
                     <span className="training-info__rating-icon">
                       <svg width="18" height="18" aria-hidden="true">
                         <use xlinkHref="#icon-star"></use>
@@ -83,7 +121,7 @@ function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.E
                   </label>
                 </div>
                 <ul className="training-info__list">
-                  { workoutType.map((item)=>(
+                  {workoutType.map((item) => (
                     <li className="training-info__item" key={`${item}-${id}`}>
                       <div className="hashtag hashtag--white">
                         <span>#{WorkoutTypeToName[item]}</span>
@@ -110,9 +148,7 @@ function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.E
               <div className="training-info__price-wrapper">
                 <div className="training-info__input training-info__input--price">
                   <label>
-                    <span className="training-info__label">
-                    Стоимость
-                    </span>
+                    <span className="training-info__label">Стоимость</span>
                     <input
                       type="text"
                       name="price"
@@ -120,16 +156,14 @@ function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.E
                       disabled
                     />
                   </label>
-                  <div className="training-info__error">
-                  Введите число
-                  </div>
+                  <div className="training-info__error">Введите число</div>
                 </div>
                 <button
                   className="btn training-info__buy"
                   type="button"
                   disabled={isBought}
                 >
-                Купить
+                  Купить
                 </button>
               </div>
             </div>
@@ -138,36 +172,41 @@ function WorkoutInfoCard({ workout, coach, order }: WorkoutInfoCardProps): JSX.E
       </div>
       <div className="training-video">
         <h2 className="training-video__title">Видео</h2>
-        <div className="training-video__video">
-          <div className="training-video__thumbnail">
-            <picture>
-              <img
-                src="/img/content/training-video/video-thumbnail.png"
+        {videoPath && (
+          <div className="training-video__video">
+            <div className="training-video__thumbnail">
+              <video
+                src={videoPath}
+                poster="/img/content/training-video/video-thumbnail.png"
                 width="922"
                 height="566"
-                alt="Обложка видео"
+                ref={videoRef}
+                controls={isPlaying}
               />
-            </picture>
+            </div>
+
+            {!isPlaying && (
+              <button
+                className="training-video__play-button btn-reset"
+                onClick={handlePlayingClick}
+                disabled={!isVideoActive}
+              >
+                <svg width="18" height="30" aria-hidden="true">
+                  <use xlinkHref="#icon-arrow"></use>
+                </svg>
+              </button>
+            )}
           </div>
-          <button className="training-video__play-button btn-reset">
-            <svg width="18" height="30" aria-hidden="true">
-              <use xlinkHref="#icon-arrow"></use>
-            </svg>
-          </button>
-        </div>
+        )}
+        {!videoPath && <span> Видео недоступно</span>}
         <div className="training-video__buttons-wrapper">
           <button
             className="btn training-video__button training-video__button--start"
             type="button"
-            disabled={!isBought}
+            disabled={!isBought || !videoPath}
+            onClick={handleVideoActiveChange}
           >
-          Приступить
-          </button>
-          <button
-            className="btn training-video__button training-video__button--stop"
-            type="button"
-          >
-          Закончить
+            {!isVideoActive ? 'Приступить' : 'Закончить'}
           </button>
         </div>
       </div>

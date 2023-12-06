@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
+import { fetchUser } from '../../store/user-data/api-actions';
 import { UserRole } from '../../types/common/user-role.enum';
 import { User } from '../../types/user/user.interface';
 import {
@@ -9,7 +10,6 @@ import {
   RequestWorkoutText,
   WorkoutTypeToName,
 } from '../../utils/constant';
-import { fetchUser } from '../../store/user-data/api-actions';
 import FriendRequestStatus from './friend-request-status';
 
 type FriendCardProps = {

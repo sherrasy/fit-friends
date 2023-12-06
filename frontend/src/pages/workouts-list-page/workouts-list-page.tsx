@@ -1,20 +1,20 @@
+import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 import { ChangeEvent, useEffect, useState } from 'react';
+import BackButton from '../../components/back-button/back-button';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import WorkoutListCard from '../../components/workout-card/workout-list-card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getMaxPrice, getPages, getWorkouts, getWorkoutsLoadingStatus, } from '../../store/workout-data/selectors';
-import { CardsLimit, DefaultParam, SortingFieldName, WorkoutFilterName, WorkoutFilterSortName, WorkoutTypeToName, sortDirections, } from '../../utils/constant';
 import {
   fetchExtraWorkouts, fetchWorkouts,
 } from '../../store/workout-data/api-actions';
-import { Query } from '../../types/query.type';
+import { getMaxPrice, getPages, getWorkouts, getWorkoutsLoadingStatus, } from '../../store/workout-data/selectors';
 import { UserRole } from '../../types/common/user-role.enum';
-import { CaloriesAmount, RaitingCount } from '../../utils/validation.constant';
-import BackButton from '../../components/back-button/back-button';
-import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 import { WorkoutType } from '../../types/common/workout-type.enum';
+import { Query } from '../../types/query.type';
+import { CardsLimit, DefaultParam, SortingFieldName, WorkoutFilterName, WorkoutFilterSortName, WorkoutTypeToName, sortDirections, } from '../../utils/constant';
+import { CaloriesAmount, RaitingCount } from '../../utils/validation.constant';
 
 function WorkoutsListPage(): JSX.Element {
   const dispatch = useAppDispatch();

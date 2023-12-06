@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DefaultParam, ReducerName } from '../../utils/constant';
 import { AccountState } from '../../types/state.type';
+import { DefaultParam, ReducerName } from '../../utils/constant';
 import { addFriend, fetchCoachCertificates, fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeFriend, removeNotification } from './api-actions';
 
 const initialState:AccountState = {

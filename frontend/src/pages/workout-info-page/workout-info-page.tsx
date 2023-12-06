@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import Loader from '../../components/loader/loader';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import WorkoutInfoCard from '../../components/workout-card/workout-info-card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getIsBought } from '../../store/account-data/selectors';
 import { fetchUser } from '../../store/user-data/api-actions';
 import { getUserData, getUserError } from '../../store/user-data/selectors';
+import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
 import { getReviews, getReviewsLoadingStatus, getWorkout, getWorkoutLoadingStatus } from '../../store/workout-data/selectors';
 import ErrorPage from '../error-page/error-page';
-import { useParams } from 'react-router-dom';
-import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
-import { getIsBought } from '../../store/account-data/selectors';
 
 function WorkoutInfoPage(): JSX.Element {
   const dispatch = useAppDispatch();

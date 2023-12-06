@@ -1,4 +1,4 @@
-import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile, Get, Param, UseGuards, Query, Body } from '@nestjs/common';
+import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile, Get, Param, UseGuards, Query, Body, Patch } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
@@ -189,6 +189,21 @@ export class WorkoutsController {
   public async createWorkout(@Body() dto: CreateWorkoutDto, @Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.WorkoutInfo}/${AppPath.Add}`,
+      dto,
+      {
+        headers: {
+          Authorization: req.headers['authorization'],
+        },
+      }
+    );
+    return data;
+  }
+
+
+  @Patch(AppPath.Id)
+  public async updateWorkout(@Body() dto: CreateWorkoutDto, @Req() req: Request, @Param('id') id: number) {
+    const { data } = await this.httpService.axiosRef.patch(
+      `${ApplicationServiceURL.WorkoutInfo}/${id}`,
       dto,
       {
         headers: {

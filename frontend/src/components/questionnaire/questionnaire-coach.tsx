@@ -1,7 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
+import { CreateUserDto } from '../../dto/user/create/create-user.dto';
+import { useAppDispatch } from '../../hooks';
+import { register } from '../../store/user-data/api-actions';
 import { FitnessLevel } from '../../types/common/fitness-level.enum';
 import { WorkoutType } from '../../types/common/workout-type.enum';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -13,10 +17,6 @@ import {
   DescriptionLength,
   WORKOUT_TYPE_AMOUNT,
 } from '../../utils/validation.constant';
-import { NewUserGeneral } from '../../types/user/user.interface';
-import { register } from '../../store/user-data/api-actions';
-import { CreateUserDto } from '../../dto/user/create/create-user.dto';
-import { useAppDispatch } from '../../hooks';
 import InputErrorField from '../input-error-field/input-error-field';
 
 type QuestionnaireCoachProps = {
@@ -36,7 +36,7 @@ function QuestionnaireCoach({
   const [isEmptyShown, setIsEmptyShown] = useState(DefaultParam.Status);
   const [certificateFile, setCertificateFile] = useState<File | undefined>();
 
-  const handleSubmitData = (data: CreateUserDto) => dispatch(register(data));
+  const handleDataSubmit = (data: CreateUserDto) => dispatch(register(data));
 
   const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value as WorkoutType;
@@ -88,7 +88,7 @@ function QuestionnaireCoach({
       coachData.workoutType.length > DefaultParam.Amount ||
       coachData.coachInfo.successInfo !== ''
     ) {
-      handleSubmitData(coachData);
+      handleDataSubmit(coachData);
       setIsEmptyShown(DefaultParam.Status);
     } else {
       setIsEmptyShown(true);

@@ -55,6 +55,8 @@ export const ActionName = {
   FetchCoachWorkouts: 'fetch-coach-workouts',
   FetchWorkout: 'fetch-workout',
   CreateWorkout: 'create-workout',
+  UpdateWorkout: 'update-workout',
+  UpdateVideo: 'update-video',
   FetchReviews: 'fetch-reviews',
   FetchNotifications: 'fetch-notifications',
   UpdateUser: 'update-user',

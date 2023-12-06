@@ -1,10 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { Certificate } from '../../types/reaction/file.interface';
 import { Order, OrderCoach } from '../../types/reaction/order.interface';
+import { UserNotification } from '../../types/reaction/user-notification.interface';
 import { State } from '../../types/state.type';
 import { User } from '../../types/user/user.interface';
 import { CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
-import { UserNotification } from '../../types/reaction/user-notification.interface';
-import { Certificate } from '../../types/reaction/file.interface';
 
 export const getFriendsLoadingStatus = (state: State): boolean => state[ReducerName.Account].isFriendsLoading;
 export const getOrdersLoadingStatus = (state: State): boolean => state[ReducerName.Account].isOrdersLoading;

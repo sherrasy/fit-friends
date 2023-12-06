@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import BackButton from '../../components/back-button/back-button';
 import FriendCard from '../../components/friend-card/friend-card';
 import Header from '../../components/header/header';
+import Loader from '../../components/loader/loader';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFriends } from '../../store/account-data/api-actions';
-import Loader from '../../components/loader/loader';
 import {
   getFriends,
   getFriendsLoadingStatus,
   getFriendsPages,
 } from '../../store/account-data/selectors';
-import { CardsLimit, DefaultParam } from '../../utils/constant';
 import { getCurrentUserData } from '../../store/user-data/selectors';
+import { CardsLimit, DefaultParam } from '../../utils/constant';
 import ErrorPage from '../error-page/error-page';
 
 function FriendsPage(): JSX.Element {

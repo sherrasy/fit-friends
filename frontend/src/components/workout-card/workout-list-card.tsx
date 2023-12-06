@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { Workout } from '../../types/workout/workout.interface';
-import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getUserRole } from '../../store/user-data/selectors';
 import {
   fetchReviews,
   fetchWorkout,
 } from '../../store/workout-data/api-actions';
-import { generateRandomNumber } from '../../utils/helpers';
-import { getUserRole } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/common/user-role.enum';
+import { Workout } from '../../types/workout/workout.interface';
+import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
+import { generateRandomNumber } from '../../utils/helpers';
 
 type WorkoutListCardProps = {
   workout: Workout;

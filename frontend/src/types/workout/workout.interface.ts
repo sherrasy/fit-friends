@@ -15,6 +15,7 @@ export interface Workout {
   description: string;
   sex: UserSex;
   video?: string;
+  videoPath?: string|null;
   rating: number;
   coachId: number;
   isSpecialOffer: boolean;

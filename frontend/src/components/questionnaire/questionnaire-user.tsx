@@ -1,20 +1,20 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
+import { CreateUserDto } from '../../dto/user/create/create-user.dto';
 import { useAppDispatch } from '../../hooks';
+import { register } from '../../store/user-data/api-actions';
 import { FitnessLevel } from '../../types/common/fitness-level.enum';
 import { WorkoutTime } from '../../types/common/workout-time.enum';
 import { WorkoutType } from '../../types/common/workout-type.enum';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
-  UserFormError,
   FormFieldName,
+  UserFormError,
   WorkoutTypeToName,
 } from '../../utils/constant';
 import { capitalizeFirstLetter } from '../../utils/helpers';
-import { NewUserGeneral } from '../../types/user/user.interface';
-import { toast } from 'react-toastify';
-import { CreateUserDto } from '../../dto/user/create/create-user.dto';
-import { register } from '../../store/user-data/api-actions';
 import {
   CaloriesAmount,
   WORKOUT_TYPE_AMOUNT,
@@ -41,7 +41,7 @@ function QuestionnaireUser({
   const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);
   const [isEmptyShown, SetIsEmptyShown] = useState(DefaultParam.Status);
 
-  const handleSubmitData = (data: CreateUserDto) => dispatch(register(data));
+  const handleDataSubmit = (data: CreateUserDto) => dispatch(register(data));
 
   const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value as WorkoutType;
@@ -81,7 +81,7 @@ function QuestionnaireUser({
     };
     const isValid = workoutTypes.length > DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesPerDay !== DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesTotal !== DefaultParam.Amount;
     if (isValid){
-      handleSubmitData(sportsmanData);
+      handleDataSubmit(sportsmanData);
       SetIsEmptyShown(DefaultParam.Status);
     } else {
       SetIsEmptyShown(true);

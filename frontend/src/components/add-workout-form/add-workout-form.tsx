@@ -1,5 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
+import { CreateWorkoutDto } from '../../dto/workout/create-workout.dto';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { createWorkout } from '../../store/workout-data/api-actions';
+import {
+  getWorkoutPostingStatus,
+} from '../../store/workout-data/selectors';
 import { FitnessLevel } from '../../types/common/fitness-level.enum';
 import { UserSex } from '../../types/common/user-sex.enum';
 import { WorkoutTime } from '../../types/common/workout-time.enum';
@@ -13,20 +19,14 @@ import {
   UserSexToFormName,
   WorkoutTypeToName,
 } from '../../utils/constant';
+import { generateRandomNumber } from '../../utils/helpers';
 import {
   CaloriesAmount,
   DescriptionLength,
   NameLength,
   WORKOUT_TYPE_AMOUNT,
 } from '../../utils/validation.constant';
-import { CreateWorkoutDto } from '../../dto/workout/create-workout.dto';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { createWorkout } from '../../store/workout-data/api-actions';
 import InputErrorField from '../input-error-field/input-error-field';
-import { generateRandomNumber } from '../../utils/helpers';
-import {
-  getWorkoutPostingStatus,
-} from '../../store/workout-data/selectors';
 
 function AddWorkoutForm(): JSX.Element {
   const workoutDataDefault = {
@@ -47,7 +47,7 @@ function AddWorkoutForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const isPosting = useAppSelector(getWorkoutPostingStatus);
 
-  const handleSubmitData = (data: CreateWorkoutDto, file: File) =>
+  const handleDataSubmit = (data: CreateWorkoutDto, file: File) =>
     dispatch(createWorkout({...data, videoFile:file}));
 
   const handleToggleButtonClick = (field: string) => {
@@ -98,11 +98,11 @@ function AddWorkoutForm(): JSX.Element {
     );
     SetIsEmptyShown(isMissingData);
     if (!isEmptyShown && videoFile) {
-      handleSubmitData(
+      handleDataSubmit(
         {
           ...workoutData,
           workoutType: workoutTypes,
-          photo: `img/content/thumbnails/training-${imageId}.jpg`,
+          photo: `/img/content/thumbnails/training-${imageId}.jpg`,
           isSpecialOffer: DefaultParam.Status
         },
         videoFile
@@ -349,6 +349,7 @@ function AddWorkoutForm(): JSX.Element {
                     onBlur={handleInputChange}
                     minLength={DescriptionLength.Min}
                     maxLength={DescriptionLength.Max}
+                    defaultValue={workoutData.description}
                   >
                   </textarea>
                 </label>

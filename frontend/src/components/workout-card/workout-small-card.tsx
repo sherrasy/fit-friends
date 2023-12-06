@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Workout } from '../../types/workout/workout.interface';
-import { AppRoute } from '../../utils/constant';
 import { useAppDispatch } from '../../hooks';
 import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
+import { Workout } from '../../types/workout/workout.interface';
+import { AppRoute } from '../../utils/constant';
 import { generateRandomNumber } from '../../utils/helpers';
 
 type WorkoutSmallCardProps = {

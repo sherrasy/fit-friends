@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute, SliderLimit } from '../../utils/constant';
 import { fetchUserList } from '../../store/user-data/api-actions';
 import { getReadyUsers } from '../../store/user-data/selectors';
-import UserCardSmall from '../user-card/user-card-small';
+import { AppRoute, SliderLimit } from '../../utils/constant';
+import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
 import SliderButtons from '../slider-buttons/slider-buttons';
 import Slider from '../slider/slider';
-import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
+import UserCardSmall from '../user-card/user-card-small';
 
 type ButtonGroupProp = {
   next?: () => void;

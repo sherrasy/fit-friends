@@ -1,11 +1,17 @@
+import { ChangeEvent, useRef, useState } from 'react';
+import { UpdateWorkoutDto } from '../../dto/workout/update-workout.dto';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { updateWorkout } from '../../store/workout-data/api-actions';
+import { getWorkoutPostingStatus } from '../../store/workout-data/selectors';
 import { User } from '../../types/user/user.interface';
 import { Workout } from '../../types/workout/workout.interface';
 import {
   DefaultParam,
+  FormFieldName,
   UserSexToHashtagName,
   WorkoutTypeToName,
 } from '../../utils/constant';
-import { useState, ChangeEvent } from 'react';
+import { DescriptionLength, NameLength } from '../../utils/validation.constant';
 
 type EditWorkoutFormProps = {
   workout: Workout;
@@ -25,19 +31,28 @@ function EditWorkoutForm({
     calories,
     workoutTime,
     sex,
-    price: workoutPrice,
-    specialPrice,
+    price,
     isSpecialOffer,
+    videoPath,
   } = workout;
   const { name: coachName, avatarPath } = coach;
-  const currentPrice = specialPrice ? specialPrice : workoutPrice;
   const [isEditing, setIsEditing] = useState(DefaultParam.Status);
   const [workoutData, setWorkoutData] = useState({
+    id,
     name,
     description,
-    price: currentPrice,
+    price,
     isSpecialOffer,
   });
+  const [videoFile, setVideoFile] = useState<File | undefined>();
+  const [isPlaying, setIsPlaying] = useState(DefaultParam.Status);
+  const [videoSource, setVideoSource] = useState(videoPath);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const dispatch = useAppDispatch();
+  const isPosting = useAppSelector(getWorkoutPostingStatus);
+  const handleDataSubmit = (dto: UpdateWorkoutDto) =>
+    dispatch(updateWorkout(dto));
 
   const handleIsEditing = () => setIsEditing((prev) => !prev);
 
@@ -47,6 +62,55 @@ function EditWorkoutForm({
     const { name: inputName, value, type } = evt.target;
     const fieldValue = type === 'number' ? +value : value;
     setWorkoutData({ ...workoutData, [inputName]: fieldValue });
+  };
+
+  const handleVideoUpload = (evt: ChangeEvent<HTMLInputElement>) => {
+    if (!evt.target.files) {
+      return;
+    }
+    setVideoFile(evt.target.files[0]);
+  };
+
+  const handleSpecialChange = () => {
+    setWorkoutData({
+      ...workoutData,
+      isSpecialOffer: !workoutData.isSpecialOffer,
+    });
+  };
+
+  const handleSubmitForm = () => {
+    const data = {
+      ...workoutData,
+      videoFile,
+    };
+    handleDataSubmit(data);
+  };
+  const handleVideoSubmit = () => {
+    const data = {
+      id,
+      videoFile,
+    };
+    handleDataSubmit(data);
+  };
+
+  const handleVideoDelete = () => {
+    if (inputRef.current) {
+      inputRef.current.value = '';
+      setVideoFile(undefined);
+      setVideoSource(undefined);
+    }
+  };
+
+  const handlePlayingClick = () =>{
+    setIsPlaying((prev) => !prev);
+    if (videoRef.current === null) {
+      return;
+    }
+    if(isPlaying){
+      videoRef.current.play();
+      return;
+    }
+    videoRef.current.pause();
   };
   return (
     <div className="training-card training-card--edit">
@@ -85,6 +149,8 @@ function EditWorkoutForm({
             <button
               className="btn-flat btn-flat--light btn-flat--underlined training-info__edit training-info__edit--save"
               type="button"
+              onClick={handleSubmitForm}
+              disabled={isPosting}
             >
               <svg width="12" height="12" aria-hidden="true">
                 <use xlinkHref="#icon-edit"></use>
@@ -104,7 +170,9 @@ function EditWorkoutForm({
                     </span>
                     <input
                       type="text"
-                      name="training"
+                      name={FormFieldName.Name}
+                      minLength={NameLength.Min}
+                      maxLength={NameLength.Max}
                       defaultValue={workoutData.name}
                       disabled={!isEditing}
                       onBlur={handleInputChange}
@@ -118,11 +186,13 @@ function EditWorkoutForm({
                       Описание тренировки
                     </span>
                     <textarea
-                      name="description"
                       onBlur={handleInputChange}
+                      name={FormFieldName.Description}
+                      minLength={DescriptionLength.Min}
+                      maxLength={DescriptionLength.Max}
                       disabled={!isEditing}
+                      defaultValue={workoutData.description}
                     >
-                      {workoutData.description}
                     </textarea>
                   </label>
                 </div>
@@ -174,9 +244,10 @@ function EditWorkoutForm({
                   <label>
                     <span className="training-info__label">Стоимость</span>
                     <input
-                      type="text"
-                      name="price"
+                      type="number"
+                      name={FormFieldName.Price}
                       defaultValue={workoutData.price}
+                      onBlur={handleInputChange}
                       disabled={!isEditing}
                     />
                   </label>
@@ -185,6 +256,8 @@ function EditWorkoutForm({
                 <button
                   className="btn-flat btn-flat--light btn-flat--underlined training-info__discount"
                   type="button"
+                  onClick={handleSpecialChange}
+                  disabled={!isEditing}
                 >
                   <svg width="14" height="14" aria-hidden="true">
                     <use xlinkHref="#icon-discount"></use>
@@ -204,56 +277,86 @@ function EditWorkoutForm({
         <h2 className="training-video__title">Видео</h2>
         <div className="training-video__video">
           <div className="training-video__thumbnail">
-            <picture>
-              <img
-                src="/img/content/training-video/video-thumbnail.png"
-                srcSet="img/content/training-video/video-thumbnail@2x.png 2x"
+            {!videoFile && videoSource && (
+              <video
+                src={videoSource}
+                poster="/img/content/training-video/video-thumbnail.png"
                 width="922"
                 height="566"
-                alt="Обложка видео"
+                ref={videoRef}
+                controls={isPlaying}
               />
-            </picture>
+            )}
+            {videoFile && (
+              <video
+                src={URL.createObjectURL(videoFile)}
+                poster="/img/content/training-video/video-thumbnail.png"
+                width="922"
+                height="566"
+                ref={videoRef}
+                controls={isPlaying}
+              />
+            )}
           </div>
-          <button className="training-video__play-button btn-reset">
-            <svg width="18" height="30" aria-hidden="true">
-              <use xlinkHref="#icon-arrow"></use>
-            </svg>
-          </button>
+          {!isPlaying && (
+            <button
+              className="training-video__play-button btn-reset"
+              onClick={handlePlayingClick}
+            >
+              <svg width="18" height="30" aria-hidden="true">
+                <use xlinkHref="#icon-arrow"></use>
+              </svg>
+            </button>
+          )}
         </div>
-        <div className="training-video__drop-files">
+        <div className=" training-video__drop-files">
           <form action="#" method="post">
             <div className="training-video__form-wrapper">
               <div className="drag-and-drop">
                 <label>
                   <span className="drag-and-drop__label">
-                    Загрузите сюда файлы формата MOV, AVI или MP4
+                    {videoFile
+                      ? videoFile.name
+                      : 'Загрузите сюда файлы формата MOV, AVI или MP4'}
                     <svg width="20" height="20" aria-hidden="true">
                       <use xlinkHref="#icon-import-video"></use>
                     </svg>
                   </span>
-                  <input type="file" name="import" accept=".mov, .avi, .mp4" />
+                  <input
+                    type="file"
+                    name="import"
+                    accept=".mov, .avi, .mp4"
+                    ref={inputRef}
+                    required
+                    onChange={handleVideoUpload}
+                  />
                 </label>
               </div>
             </div>
           </form>
         </div>
-        <div className="training-video__buttons-wrapper">
-          <button
-            className="btn training-video__button training-video__button--start"
-            type="button"
-            disabled
-          >
-            Приступить
-          </button>
-          <div className="training-video__edit-buttons">
-            <button className="btn" type="button">
-              Сохранить
-            </button>
-            <button className="btn btn--outlined" type="button">
-              Удалить
-            </button>
+        {isEditing && (
+          <div className="training-video__buttons-wrapper">
+            <div className="training-video__edit-buttons">
+              <button
+                className="btn"
+                type="button"
+                onClick={handleVideoSubmit}
+                disabled={isPosting}
+              >
+                Сохранить
+              </button>
+              <button
+                className="btn btn--outlined"
+                type="button"
+                onClick={handleVideoDelete}
+                disabled={isPosting}
+              >
+                Удалить
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

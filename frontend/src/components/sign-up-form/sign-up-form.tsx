@@ -1,26 +1,26 @@
 /* eslint-disable indent */
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { checkEmail } from '../../store/user-data/api-actions';
+import { getEmailExistsStatus } from '../../store/user-data/selectors';
 import { Location } from '../../types/common/location.enum';
+import { UserRole } from '../../types/common/user-role.enum';
+import { UserSex } from '../../types/common/user-sex.enum';
+import { NewUserGeneral } from '../../types/user/user.interface';
 import {
+  FormFieldName,
   LocationToName,
   UserFormError,
-  FormFieldName,
   UserSexToName,
 } from '../../utils/constant';
-import { UserSex } from '../../types/common/user-sex.enum';
-import { UserRole } from '../../types/common/user-role.enum';
+import { checkValidity } from '../../utils/helpers';
 import {
   NameLength,
   PasswordLength,
   ValidationPattern,
 } from '../../utils/validation.constant';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import InputErrorField from '../input-error-field/input-error-field';
-import { checkValidity } from '../../utils/helpers';
-import { checkEmail } from '../../store/user-data/api-actions';
-import { getEmailExistsStatus } from '../../store/user-data/selectors';
-import { toast } from 'react-toastify';
-import { NewUserGeneral } from '../../types/user/user.interface';
 
 
 type SignUpFormProps = {
@@ -52,7 +52,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
     setIsAgreed((prev) => !prev);
   };
 
-  const handleCheckEmail = () => {
+  const handleEmailCheck = () => {
     dispatch(checkEmail(formData.email));
   };
 
@@ -185,7 +185,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                           type="email"
                           name={FormFieldName.Email}
                           onChange={handleInputChange}
-                          onBlur={handleCheckEmail}
+                          onBlur={handleEmailCheck}
                           required
                         />
                       </span>
