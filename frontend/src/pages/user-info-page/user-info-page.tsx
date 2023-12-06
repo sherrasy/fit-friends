@@ -10,13 +10,13 @@ import {
   getUserLoadingStatus,
 } from '../../store/user-data/selectors';
 import { UserRole } from '../../types/common/user-role.enum';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchUser } from '../../store/user-data/api-actions';
 import Loader from '../../components/loader/loader';
 import ErrorPage from '../error-page/error-page';
 import { getWorkoutsByCoach } from '../../store/workout-data/selectors';
 import Slider from '../../components/slider/slider';
-import { SliderLimit } from '../../utils/constant';
+import { DefaultParam, SliderLimit } from '../../utils/constant';
 import SliderButtons from '../../components/slider-buttons/slider-buttons';
 
 type ButtonGroupProp = {
@@ -33,12 +33,12 @@ const ButtonGroup = ({ next, previous }: ButtonGroupProp) => (
 
 function UserInfoPage(): JSX.Element {
   const { id: userId } = useParams();
+  const [isSubscribed, setIsSubscribed] = useState(DefaultParam.Status);
   const dispatch = useAppDispatch();
   const user = useAppSelector(getUserData);
   const userError = useAppSelector(getUserError);
   const isUserLoading = useAppSelector(getUserLoadingStatus);
   const workouts = useAppSelector(getWorkoutsByCoach(userId));
-  const isCoach = user?.role === UserRole.Coach;
   useEffect(() => {
     if (userId) {
       dispatch(fetchUser(+userId));
@@ -52,7 +52,11 @@ function UserInfoPage(): JSX.Element {
   if (isUserLoading) {
     return <Loader />;
   }
-
+  const isCoach = user.role === UserRole.Coach;
+  const isReady = user.coachInfo?.isPersonal;
+  const handleSubscribe = () => {
+    setIsSubscribed((prev) => !prev);
+  };
   return (
     <div className="wrapper">
       <Header />
@@ -67,7 +71,7 @@ function UserInfoPage(): JSX.Element {
                     Карточка пользователя роль тренер
                   </h1>
                   <div className="user-card-coach__wrapper">
-                    <UserCard user={user}/>
+                    <UserCard user={user} />
                     {isCoach && (
                       <div className="user-card-coach__training">
                         {workouts && workouts.length && (
@@ -83,12 +87,14 @@ function UserInfoPage(): JSX.Element {
                           </Slider>
                         )}
                         <form className="user-card-coach__training-form">
-                          <button
-                            className="btn user-card-coach__btn-training"
-                            type="button"
-                          >
-                            Хочу персональную тренировку
-                          </button>
+                          {isReady && (
+                            <button
+                              className="btn user-card-coach__btn-training"
+                              type="button"
+                            >
+                              Хочу персональную тренировку
+                            </button>
+                          )}
                           <div className="user-card-coach__training-check">
                             <div className="custom-toggle custom-toggle--checkbox">
                               <label>
@@ -96,7 +102,8 @@ function UserInfoPage(): JSX.Element {
                                   type="checkbox"
                                   value="user-agreement-1"
                                   name="user-agreement"
-                                  // checked
+                                  onChange={handleSubscribe}
+                                  checked={isSubscribed}
                                 />
                                 <span className="custom-toggle__icon">
                                   <svg width="9" height="6" aria-hidden="true">

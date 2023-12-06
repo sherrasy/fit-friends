@@ -116,7 +116,6 @@ export class UserInfoController {
   @UseGuards(JwtAuthGuard)
   @Post(UserInfoPath.UpdateCertificate)
   public async updateCertificate(@Req() { user }: RequestWithUserPayload, @Body('certificateId') certificateId:string) {
-    console.log(certificateId)
     return this.userInfoService.updateCertificate(user.sub, certificateId);
   }
 

@@ -40,7 +40,7 @@ function UsersListPage(): JSX.Element {
     pagesAmount > DefaultParam.Amount &&
     userList?.length === CardsLimit.Default;
   const isReturnVisible =
-    isLastPage && !(userList && userList.length <= CardsLimit.Default);
+    isLastPage && !!(userList && userList.length <= CardsLimit.Default);
 
   const handleShowClick = () => {
     if (currentPage !== pagesAmount) {

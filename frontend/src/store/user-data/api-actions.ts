@@ -138,17 +138,14 @@ export const register = createAsyncThunk<
           adaptAvatarToServer(userData.avatarFile)
         );
       }
-
       if (newUser.role === UserRole.Coach && userData.certificateFile?.name) {
         await api.post<User>(
           `${ApiRoute.UploadCertificate}`,
           adaptCertificateToServer(userData.certificateFile)
         );
       }
-      const { data: userInfo } = await api.get<User>(
-        `${ApiRoute.UsersMain}/${newUser.id}`
-      );
-      dispatch(setUserData(userInfo));
+      dispatch(setUserData(newUser));
+      dispatch(fetchCurrentUser(newUser.id));
 
       if (newUser.role === UserRole.Coach) {
         dispatch(redirectToRoute(AppRoute.CoachAccount));

@@ -185,7 +185,6 @@ export class UsersController {
         },
       }
     );
-    console.log(certificateData)
     const { data } = await this.httpService.axiosRef.post(
       `${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Certificate}`,
       { certificateId: certificateData.id },

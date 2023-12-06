@@ -25,11 +25,10 @@ function FriendsPage(): JSX.Element {
   const isLastPage = currentPage === pagesAmount;
   const isMoreVisible =
     !isLastPage &&
-    pagesAmount > DefaultParam.Amount &&
+    pagesAmount > DefaultParam.Step &&
     friends?.length === CardsLimit.Default;
   const isReturnVisible =
-    isLastPage && !(friends && friends.length < CardsLimit.Default);
-
+    isLastPage && !!(friends && friends.length < CardsLimit.Default);
   const handleShowClick = () => {
     if (currentPage !== pagesAmount) {
       setCurrentPage((prev) => prev + DefaultParam.Step);

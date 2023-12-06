@@ -10,6 +10,7 @@ import { getReviews, getReviewsLoadingStatus, getWorkout, getWorkoutLoadingStatu
 import ErrorPage from '../error-page/error-page';
 import { useParams } from 'react-router-dom';
 import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
+import { getIsBought } from '../../store/account-data/selectors';
 
 function WorkoutInfoPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,7 +21,8 @@ function WorkoutInfoPage(): JSX.Element {
   const reviews = useAppSelector(getReviews);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const isWorkoutLoading = useAppSelector(getWorkoutLoadingStatus);
-
+  const order = useAppSelector(getIsBought(id));
+  const isAddReviewActive = !!order;
   useEffect(()=>{
     if (workout) {
       dispatch(fetchUser(workout.coachId));
@@ -49,8 +51,8 @@ function WorkoutInfoPage(): JSX.Element {
           <div className="container">
             <div className="inner-page__wrapper">
               <h1 className="visually-hidden">Карточка тренировки</h1>
-              <ReviewsList reviews={reviews}/>
-              <WorkoutInfoCard workout={workout} coach={coach}/>
+              <ReviewsList reviews={reviews} isAddReviewActive={isAddReviewActive}/>
+              <WorkoutInfoCard workout={workout} coach={coach} order={order}/>
             </div>
           </div>
         </section>

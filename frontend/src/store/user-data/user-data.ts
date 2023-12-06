@@ -31,7 +31,6 @@ export const userData = createSlice({
       state.newUserData = actions.payload;
     },
     setUserData: (state, actions: PayloadAction<User>) => {
-      state.currentUserData = actions.payload;
       state.role = actions.payload.role;
       state.userId = actions.payload.id;
       state.authStatus = AuthorizationStatus.Auth;

@@ -41,7 +41,7 @@ function QuestionnaireUser({
   const [fitnessLevel, setFitnessLevel] = useState(FitnessLevel.Pro);
   const [isEmptyShown, SetIsEmptyShown] = useState(DefaultParam.Status);
 
-  const handleSubmitData = (data: CreateUserDto) => dispatch(register({...data, avatarFile}));
+  const handleSubmitData = (data: CreateUserDto) => dispatch(register(data));
 
   const handleWorkoutTypesChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value as WorkoutType;
@@ -77,6 +77,7 @@ function QuestionnaireUser({
       workoutType: workoutTypes,
       fitnessLevel,
       sportsmanInfo,
+      avatarFile
     };
     const isValid = workoutTypes.length > DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesPerDay !== DefaultParam.Amount && sportsmanData.sportsmanInfo.caloriesTotal !== DefaultParam.Amount;
     if (isValid){

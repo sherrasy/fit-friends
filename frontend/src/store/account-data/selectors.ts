@@ -25,6 +25,11 @@ export const getActiveOrders = createSelector(
   (orders): Order[] | null => orders ? orders.filter((order)=> order.amount !== order.amountDone) : null
 );
 
+export const getIsBought = (id?:string)=> createSelector(
+  [getOrders],
+  (orders): Order | undefined => (id && orders) ? orders.find((order)=> order.workoutId === +id) : undefined
+);
+
 export const getUserFriendStatus = (friendId:number)=> createSelector(
   [getFriends],
   (friends):boolean => friends ? friends.some((friend)=> friend.id === friendId ) : DefaultParam.Status

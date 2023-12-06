@@ -21,3 +21,4 @@ export const getWorkoutsByCoach = (coachId?:string)=> createSelector(
   [getAllWorkouts],
   (workouts): Workout[] | null => (coachId && workouts) ? workouts.filter((item)=> item.coachId === +coachId) : null
 );
+

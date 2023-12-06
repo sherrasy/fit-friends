@@ -1,24 +1,43 @@
 import { useNavigate } from 'react-router-dom';
 import { Workout } from '../../types/workout/workout.interface';
 import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
-import { useAppDispatch } from '../../hooks';
-import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  fetchReviews,
+  fetchWorkout,
+} from '../../store/workout-data/api-actions';
 import { generateRandomNumber } from '../../utils/helpers';
+import { getUserRole } from '../../store/user-data/selectors';
+import { UserRole } from '../../types/common/user-role.enum';
 
 type WorkoutListCardProps = {
   workout: Workout;
 };
 
 function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
-  const { id, price, name, workoutType, calories, rating, description, specialPrice, photo } = workout;
+  const {
+    id,
+    price,
+    name,
+    workoutType,
+    calories,
+    rating,
+    description,
+    specialPrice,
+    photo,
+  } = workout;
   const currentPrice = specialPrice ? specialPrice : price;
-
+  const userRole = useAppSelector(getUserRole);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleRouteChange = ()=>{
+  const handleRouteChange = () => {
     dispatch(fetchWorkout(id));
     dispatch(fetchReviews(id));
-    navigate(`${AppRoute.WorkoutInfo}/${id}`);
+    const route =
+      userRole === UserRole.Coach
+        ? `${AppRoute.EditWorkout}/${id}`
+        : `${AppRoute.WorkoutInfo}/${id}`;
+    navigate(route);
   };
 
   const randomPhotoId = generateRandomNumber();
@@ -29,7 +48,11 @@ function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
         <div className="thumbnail-training__image">
           <picture>
             <img
-              src={photo ? photo : `/img/content/thumbnails/training-${randomPhotoId}.jpg`}
+              src={
+                photo
+                  ? photo
+                  : `/img/content/thumbnails/training-${randomPhotoId}.jpg`
+              }
               width="330"
               height="190"
               alt=""
@@ -73,12 +96,12 @@ function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
           >
             Подробнее
           </button>
-          <a
+          <button
             className="btn btn--small btn--outlined thumbnail-training__button-catalog"
-            href="/"
+            onClick={handleRouteChange}
           >
             Отзывы
-          </a>
+          </button>
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ function CoachWorkoutsPage(): JSX.Element {
     pagesAmount > DefaultParam.Amount &&
     workouts?.length === CardsLimit.Default;
   const isReturnVisible =
-    isLastPage && !(workouts && workouts.length < CardsLimit.Default);
+    isLastPage && !!(workouts && workouts.length < CardsLimit.Default);
   const defaultSliderStep = 100;
   const valuesByType = {
     price: [DefaultParam.Amount, maxPrice],

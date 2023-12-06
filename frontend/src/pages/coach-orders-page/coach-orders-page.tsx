@@ -34,7 +34,7 @@ function CoachOrdersPage(): JSX.Element {
     pagesAmount > DefaultParam.Amount &&
     orders?.length === CardsLimit.CoachOrders;
   const isReturnVisible =
-    isLastPage && !(orders && orders.length < CardsLimit.CoachOrders);
+    isLastPage && !!(orders && orders.length < CardsLimit.CoachOrders);
 
   const handleShowClick = () => {
     if (currentPage !== pagesAmount) {

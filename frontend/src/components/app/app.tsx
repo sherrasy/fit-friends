@@ -68,7 +68,7 @@ function App(): JSX.Element {
       dispatch(fetchCoachOrders());
       dispatch(fetchExtraWorkouts(userRole));
       dispatch(fetchFriends());
-      if(userInfo.coachInfo?.certificate){
+      if (userInfo.coachInfo?.certificate) {
         dispatch(fetchCoachCertificates(userInfo.coachInfo?.certificate));
       }
       dispatch(fetchNotifications());
@@ -215,9 +215,12 @@ function App(): JSX.Element {
       <Route
         path={`${AppRoute.WorkoutInfo}/:id`}
         element={
-          <PrivateRoute redirectTo={AppRoute.Error}>
+          <PrivateRoleRoute
+            restrictedFor={UserRole.Coach}
+            redirectTo={AppRoute.Error}
+          >
             <WorkoutInfoPage />
-          </PrivateRoute>
+          </PrivateRoleRoute>
         }
       />
       <Route

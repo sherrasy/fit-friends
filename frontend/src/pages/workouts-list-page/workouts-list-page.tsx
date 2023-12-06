@@ -30,7 +30,7 @@ function WorkoutsListPage(): JSX.Element {
   });
   const isLastPage = currentPage === pagesAmount;
   const isMoreVisible = !isLastPage && pagesAmount > DefaultParam.Amount && workoutsList?.length === CardsLimit.Default;
-  const isReturnVisible = isLastPage && !(workoutsList && workoutsList.length < CardsLimit.Default);
+  const isReturnVisible = isLastPage && !!(workoutsList && workoutsList.length < CardsLimit.Default);
   const defaultSliderStep = 100;
   const valuesByType = {
     price: [DefaultParam.Amount, maxPrice],

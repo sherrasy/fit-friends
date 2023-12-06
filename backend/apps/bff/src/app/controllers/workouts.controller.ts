@@ -123,8 +123,8 @@ export class WorkoutsController {
         },
       });
       const totalWorkouts = data.length;
-      const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price) ;
-      const maxPrice = prices.reduce((prev:number, current:number) => (prev > current) ? prev : current);
+      const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price);
+      const maxPrice = prices.length ? prices.reduce((prev:number, current:number) => (prev > current) ? prev : current):0;
       return {workouts:data, totalWorkouts, maxPrice};
     }
 
@@ -138,8 +138,8 @@ export class WorkoutsController {
       },
     });
     const totalWorkouts = data.length;
-    const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price) || 0;
-    const maxPrice = prices.reduce((prev:number, current:number) => (prev > current) ? prev : current);
+    const prices = data.map((item:Workout) => item.isSpecialOffer? getSpecialPrice(item.price) : item.price);
+    const maxPrice =prices.length ? prices.reduce((prev:number, current:number) => (prev > current) ? prev : current):0;
     return {workouts:data, totalWorkouts, maxPrice};
     }
 

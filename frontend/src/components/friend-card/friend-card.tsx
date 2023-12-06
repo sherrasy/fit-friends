@@ -10,6 +10,7 @@ import {
   WorkoutTypeToName,
 } from '../../utils/constant';
 import { fetchUser } from '../../store/user-data/api-actions';
+import FriendRequestStatus from './friend-request-status';
 
 type FriendCardProps = {
   friend: User;
@@ -101,30 +102,7 @@ function FriendCard({ friend, currentUser }: FriendCardProps): JSX.Element {
           )}
         </div>
       </div>
-      {currentUserReady && (
-        <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
-          <p className="thumbnail-friend__request-text">
-            Запрос{' '}
-            {currentUserRole === UserRole.Sportsman
-              ? RequestWorkoutText.User
-              : RequestWorkoutText.Coach}
-          </p>
-          <div className="thumbnail-friend__button-wrapper">
-            <button
-              className="btn btn--medium btn--dark-bg thumbnail-friend__button"
-              type="button"
-            >
-              Принять
-            </button>
-            <button
-              className="btn btn--medium btn--outlined btn--dark-bg thumbnail-friend__button"
-              type="button"
-            >
-              Отклонить
-            </button>
-          </div>
-        </div>
-      )}
+      {currentUserReady && <FriendRequestStatus initiatorRole={role} recieverRole={currentUserRole}/> }
     </div>
   );
 }

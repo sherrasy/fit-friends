@@ -81,6 +81,8 @@ function QuestionnaireCoach({
         successInfo,
         isPersonal,
       },
+      certificateFile,
+      avatarFile
     };
     if (
       coachData.workoutType.length > DefaultParam.Amount ||

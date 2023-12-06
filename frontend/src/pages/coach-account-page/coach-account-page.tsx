@@ -127,18 +127,17 @@ function CoachAccountPage(): JSX.Element {
                     </div>
                   </div>
                   <div className="personal-account-coach__additional-info">
-                    {certificates && certificates.length !== 0 && (
-                      <Slider
-                        items={SliderLimit.SpecialForUser}
-                        currentButtons={<ButtonGroup />}
-                        isOutsideButtons
-                        additionalClassName="personal-account-coach__list"
-                      >
-                        {certificates.map((item) => (
-                          <CertificateCard key={item.id} certificate={item}/>
-                        ))}
-                      </Slider>
-                    )}
+
+                    <Slider
+                      items={SliderLimit.SpecialForUser}
+                      currentButtons={<ButtonGroup />}
+                      isOutsideButtons
+                      additionalClassName="personal-account-coach__list"
+                    >
+                      {( certificates && certificates.length !== 0) ? certificates.map((item) => (
+                        <CertificateCard key={item.id} certificate={item}/>
+                      )) : []}
+                    </Slider>
                   </div>
                 </div>
               </div>
