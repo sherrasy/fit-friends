@@ -28,5 +28,5 @@ export const FileType = {
 export const AllowedMimetype = {
   Image: ['jpeg', 'jpg', 'png'],
   File: ['pdf'],
-  Video: ['mov', 'avi', 'mp4'],
+  Video: ['qt', 'mov', 'avi', 'mp4'],
 };

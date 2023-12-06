@@ -235,6 +235,7 @@ export const createWorkout = createAsyncThunk<
       const { data } = await api.post<Workout>(`${ApiRoute.CreateWorkout}`, dto);
       if (data && dto.videoFile?.name) {
         const {data:workoutWithVideo} = await api.post<Workout>(`${ApiRoute.WorkoutsMain}/${data.id}${ApiRoute.UploadVideo}`, adaptVideoToServer(dto.videoFile) );
+        dispatch(redirectToRoute(AppRoute.CoachAccount));
         return workoutWithVideo;
       }
       dispatch(redirectToRoute(AppRoute.CoachAccount));

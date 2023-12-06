@@ -298,7 +298,7 @@ function EditWorkoutForm({
               />
             )}
           </div>
-          {!isPlaying && (
+          {!isPlaying && (videoFile || videoSource) && (
             <button
               className="training-video__play-button btn-reset"
               onClick={handlePlayingClick}
@@ -309,7 +309,7 @@ function EditWorkoutForm({
             </button>
           )}
         </div>
-        <div className=" training-video__drop-files">
+        <div className={`training-video__drop-files ${!videoSource && !videoFile ? 'visible-input' : ''}`}>
           <form action="#" method="post">
             <div className="training-video__form-wrapper">
               <div className="drag-and-drop">
@@ -329,6 +329,7 @@ function EditWorkoutForm({
                     ref={inputRef}
                     required
                     onChange={handleVideoUpload}
+                    disabled={!isEditing}
                   />
                 </label>
               </div>

@@ -13,7 +13,6 @@ export const AppRoute = {
   Orders: '/orders',
   Purchases: '/purchases',
   CoachWorkouts: '/coach-workouts',
-  Questionnaire: '/questionnaire',
   UserList:'/user-list',
   WorkoutsList:'/workouts-list',
   Error: '*',
@@ -56,7 +55,6 @@ export const ActionName = {
   FetchWorkout: 'fetch-workout',
   CreateWorkout: 'create-workout',
   UpdateWorkout: 'update-workout',
-  UpdateVideo: 'update-video',
   FetchReviews: 'fetch-reviews',
   FetchNotifications: 'fetch-notifications',
   UpdateUser: 'update-user',
@@ -110,7 +108,6 @@ export const FormFieldName = {
   FitnessLevel:'fitnessLevel',
   CaloriesTotal: 'caloriesTotal',
   CaloriesPerDay:'caloriesPerDay',
-  SuccessInfo:'successInfo',
   Description:'description',
 } as const;
 
@@ -204,11 +201,8 @@ export const DefaultParam = {
   Status: false,
 };
 
-
 export const FileTypeName = {
   Avatar: 'avatar',
-  UserPhoto: 'user-photo',
-  WorkoutPhoto: 'workout-photo',
   Certificate: 'certificate',
   Video: 'video',
 } as const;
