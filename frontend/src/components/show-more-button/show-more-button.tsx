@@ -18,6 +18,7 @@ function ShowMoreButton({
           className="btn show-more__button show-more__button--more"
           type="button"
           onClick={onShown}
+          data-testid="show-more"
         >
           Показать еще
         </button>
@@ -27,6 +28,7 @@ function ShowMoreButton({
           className="btn show-more__button"
           type="button"
           onClick={onReturn}
+          data-testid="return-to-start"
         >
           Вернуться в начало
         </button>
