@@ -99,7 +99,7 @@ export const workoutData = createSlice({
         state.isWorkoutPosting = true;
       })
       .addCase(createWorkout.fulfilled, (state, action) => {
-        state.workouts?.push(action.payload);
+        state.workouts ? state.workouts.push(action.payload) : state.workouts = [action.payload];
         state.isWorkoutPosting = false;
       })
       .addCase(createWorkout.rejected, (state) => {
