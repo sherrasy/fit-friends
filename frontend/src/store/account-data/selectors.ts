@@ -6,19 +6,19 @@ import { State } from '../../types/state.type';
 import { User } from '../../types/user/user.interface';
 import { CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
 
-export const getFriendsLoadingStatus = (state: State): boolean => state[ReducerName.Account].isFriendsLoading;
-export const getOrdersLoadingStatus = (state: State): boolean => state[ReducerName.Account].isOrdersLoading;
-export const getFriends = (state: State): User[]|null => state[ReducerName.Account].friends;
-export const getFriendChanging = (state: State): boolean => state[ReducerName.Account].isFriendStatusChanging;
-export const getFriendsPages = (state: State): number => Math.ceil(state[ReducerName.Account].friendsAmount / CardsLimit.Default);
-export const getOrders = (state: State): Order[]|null => state[ReducerName.Account].orders;
-export const getCertificates = (state: State): Certificate[]|null => state[ReducerName.Account].certificates;
-export const getOrdersPages = (state: State): number => Math.ceil(state[ReducerName.Account].ordersAmount / CardsLimit.CoachOrders);
-export const getCoachOrders = (state: State): OrderCoach[]|null => state[ReducerName.Account].coachOrders;
-export const getNotifications = (state: State): UserNotification[]|null => state[ReducerName.Account].notifications;
-export const getNotificationsLoading = (state: State): boolean => state[ReducerName.Account].isNotificationsLoading;
-export const getNotificationDeleting = (state: State): boolean => state[ReducerName.Account].isNotificationDeleting;
-export const getNotificationsError = (state: State): boolean => state[ReducerName.Account].hasNotificationsError;
+export const getFriendsLoadingStatus = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isFriendsLoading;
+export const getOrdersLoadingStatus = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isOrdersLoading;
+export const getFriends = (state: Pick<State, ReducerName.Account>): User[]|null => state[ReducerName.Account].friends;
+export const getFriendChanging = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isFriendStatusChanging;
+export const getFriendsPages = (state: Pick<State, ReducerName.Account>): number => Math.ceil(state[ReducerName.Account].friendsAmount / CardsLimit.Default);
+export const getOrders = (state: Pick<State, ReducerName.Account>): Order[]|null => state[ReducerName.Account].orders;
+export const getCertificates = (state: Pick<State, ReducerName.Account>): Certificate[]|null => state[ReducerName.Account].certificates;
+export const getOrdersPages = (state: Pick<State, ReducerName.Account>): number => Math.ceil(state[ReducerName.Account].ordersAmount / CardsLimit.CoachOrders);
+export const getCoachOrders = (state: Pick<State, ReducerName.Account>): OrderCoach[]|null => state[ReducerName.Account].coachOrders;
+export const getNotifications = (state: Pick<State, ReducerName.Account>): UserNotification[]|null => state[ReducerName.Account].notifications;
+export const getNotificationsLoading = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isNotificationsLoading;
+export const getNotificationDeleting = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isNotificationDeleting;
+export const getNotificationsError = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].hasNotificationsError;
 
 export const getActiveOrders = createSelector(
   [getOrders],

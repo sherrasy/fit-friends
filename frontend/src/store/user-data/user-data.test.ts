@@ -20,12 +20,12 @@ describe(`Reducer: ${ReducerName.User}`, () => {
       userListData:null,
       readyUsers:null,
       newUserData:null,
-      isCurrentUserLoading:false,
-      isUserLoading:false,
-      isUserListLoading:false,
-      isUserUpdating:false,
-      isEmailExists:false,
-      hasUserError:false,
+      isCurrentUserLoading:DefaultParam.Status,
+      isUserLoading:DefaultParam.Status,
+      isUserListLoading:DefaultParam.Status,
+      isUserUpdating:DefaultParam.Status,
+      isEmailExists:DefaultParam.Status,
+      hasUserError:DefaultParam.Status,
       totalAmount:DefaultParam.Amount,
     };
   });

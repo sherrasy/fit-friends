@@ -37,10 +37,10 @@ describe(`Reducer: ${ReducerName.Workout}`, () => {
       maxPrice: DefaultParam.Amount,
       specialUserWorkouts: null,
       fullWorkouts: null,
-      isWorkoutsLoading: false,
-      isWorkoutLoading: false,
-      isWorkoutPosting: false,
-      isReviewsLoading: false,
+      isWorkoutsLoading: DefaultParam.Status,
+      isWorkoutLoading: DefaultParam.Status,
+      isWorkoutPosting: DefaultParam.Status,
+      isReviewsLoading: DefaultParam.Status,
     };
   });
   it('without additional parameters should return initial state', () => {

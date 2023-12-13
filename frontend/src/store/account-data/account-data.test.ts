@@ -2,7 +2,7 @@ import { AccountState } from '../../types/state.type';
 import { ActionName, DefaultParam, ReducerName } from '../../utils/constant';
 import { makeFakeCertificates, makeFakeCoachOrders, makeFakeNotifications, makeFakeOrders, makeFakeUsers } from '../../utils/mocks';
 import { accountData } from './account-data';
-import { addFriend, fetchCoachCertificates, fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeFriend } from './api-actions';
+import { addFriend, fetchCoachCertificates, fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeFriend, removeNotification } from './api-actions';
 
 const fakeFriends = makeFakeUsers();
 const fakeOrders = makeFakeOrders();
@@ -21,12 +21,12 @@ describe(`Reducer: ${ReducerName.Account}`, () => {
       coachOrders:null,
       certificates:null,
       ordersAmount:DefaultParam.Amount,
-      isFriendsLoading:false,
-      isOrdersLoading:false,
-      isFriendStatusChanging:false,
-      isNotificationsLoading:false,
-      isNotificationDeleting:false,
-      hasNotificationsError:false,
+      isFriendsLoading:DefaultParam.Status,
+      isOrdersLoading:DefaultParam.Status,
+      isFriendStatusChanging:DefaultParam.Status,
+      isNotificationsLoading:DefaultParam.Status,
+      isNotificationDeleting:DefaultParam.Status,
+      hasNotificationsError:DefaultParam.Status,
     };
   });
   it('without additional parameters should return initial state', () => {
@@ -132,6 +132,17 @@ describe(`Reducer: ${ReducerName.Account}`, () => {
     });
   });
 
+  describe(`Api action: ${ActionName.RemoveNotification}`, () => {
+    it('should update notification status if is pending', () => {
+      expect(accountData.reducer(state, { type: removeNotification.pending.type })).toEqual({ ...state, isNotificationDeleting: true });
+    });
+    it('should update notification status changed', () => {
+      expect(accountData.reducer(state, { type: removeNotification.fulfilled.type })).toEqual(state);
+    });
+    it('should not update notification status if an error occured', () => {
+      expect(accountData.reducer(state, { type: removeNotification.rejected.type })).toEqual({ ...state, hasNotificationsError: true });
+    });
+  });
   describe(`Api action: ${ActionName.AddFriend}`, () => {
     it('should update friend status if is pending', () => {
       expect(accountData.reducer(state, { type: addFriend.pending.type })).toEqual({ ...state, isFriendStatusChanging: true });

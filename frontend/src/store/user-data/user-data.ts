@@ -13,12 +13,12 @@ const initialState:UserState = {
   userListData:null,
   readyUsers:null,
   newUserData:null,
-  isCurrentUserLoading:false,
-  isUserLoading:false,
-  isUserListLoading:false,
-  isUserUpdating:false,
-  isEmailExists:false,
-  hasUserError:false,
+  isCurrentUserLoading:DefaultParam.Status,
+  isUserLoading:DefaultParam.Status,
+  isUserListLoading:DefaultParam.Status,
+  isUserUpdating:DefaultParam.Status,
+  isEmailExists:DefaultParam.Status,
+  hasUserError:DefaultParam.Status,
   totalAmount:DefaultParam.Amount,
 };
 
@@ -60,31 +60,31 @@ export const userData = createSlice({
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         state.currentUserData = action.payload;
-        state.isCurrentUserLoading = false;
+        state.isCurrentUserLoading = DefaultParam.Status;
       })
       .addCase(fetchCurrentUser.rejected, (state) => {
-        state.isCurrentUserLoading = false;
+        state.isCurrentUserLoading = DefaultParam.Status;
       })
       .addCase(fetchUser.pending, (state) => {
         state.isUserLoading = true;
-        state.hasUserError = false;
+        state.hasUserError = DefaultParam.Status;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.userData = action.payload;
-        state.isUserLoading = false;
+        state.isUserLoading = DefaultParam.Status;
       })
       .addCase(fetchUser.rejected, (state) => {
-        state.isUserLoading = false;
+        state.isUserLoading = DefaultParam.Status;
         state.hasUserError = true;
       })
       .addCase(updateUser.pending, (state) => {
         state.isUserUpdating = true;
       })
       .addCase(updateUser.fulfilled, (state) => {
-        state.isUserUpdating = false;
+        state.isUserUpdating = DefaultParam.Status;
       })
       .addCase(updateUser.rejected, (state) => {
-        state.isUserUpdating = false;
+        state.isUserUpdating = DefaultParam.Status;
       })
       .addCase(checkEmail.fulfilled, (state, action) => {
         state.isEmailExists = action.payload;
@@ -97,7 +97,7 @@ export const userData = createSlice({
       })
       .addCase(fetchUserList.fulfilled, (state, action) => {
         state.userListData = action.payload;
-        state.isUserListLoading = false;
+        state.isUserListLoading = DefaultParam.Status;
       })
       .addCase(fetchReadyUserList.fulfilled, (state, action) => {
         state.readyUsers = action.payload;
@@ -106,7 +106,7 @@ export const userData = createSlice({
         state.totalAmount = action.payload;
       })
       .addCase(fetchUserList.rejected, (state) => {
-        state.isUserListLoading = false;
+        state.isUserListLoading = DefaultParam.Status;
       });
   }
 });

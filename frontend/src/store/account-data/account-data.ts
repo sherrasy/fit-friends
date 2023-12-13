@@ -11,12 +11,12 @@ const initialState:AccountState = {
   coachOrders:null,
   certificates:null,
   ordersAmount:DefaultParam.Amount,
-  isFriendsLoading:false,
-  isOrdersLoading:false,
-  isFriendStatusChanging:false,
-  isNotificationsLoading:false,
-  isNotificationDeleting:false,
-  hasNotificationsError:false,
+  isFriendsLoading:DefaultParam.Status,
+  isOrdersLoading:DefaultParam.Status,
+  isFriendStatusChanging:DefaultParam.Status,
+  isNotificationsLoading:DefaultParam.Status,
+  isNotificationDeleting:DefaultParam.Status,
+  hasNotificationsError:DefaultParam.Status,
 };
 
 
@@ -32,20 +32,20 @@ export const accountData = createSlice({
       .addCase(fetchFriends.fulfilled, (state, action) => {
         state.friends = action.payload.friends;
         state.friendsAmount = action.payload.friendsAmount;
-        state.isFriendsLoading = false;
+        state.isFriendsLoading = DefaultParam.Status;
       })
       .addCase(fetchFriends.rejected, (state) => {
-        state.isFriendsLoading = false;
+        state.isFriendsLoading = DefaultParam.Status;
       })
       .addCase(fetchUserOrders.pending, (state) => {
         state.isOrdersLoading = true;
       })
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
         state.orders = action.payload;
-        state.isOrdersLoading = false;
+        state.isOrdersLoading = DefaultParam.Status;
       })
       .addCase(fetchUserOrders.rejected, (state) => {
-        state.isOrdersLoading = false;
+        state.isOrdersLoading = DefaultParam.Status;
       })
       .addCase(fetchCoachOrders.pending, (state) => {
         state.isOrdersLoading = true;
@@ -53,53 +53,53 @@ export const accountData = createSlice({
       .addCase(fetchCoachOrders.fulfilled, (state, action) => {
         state.coachOrders = action.payload.orders;
         state.ordersAmount = action.payload.ordersAmount;
-        state.isOrdersLoading = false;
+        state.isOrdersLoading = DefaultParam.Status;
       })
       .addCase(fetchCoachOrders.rejected, (state) => {
-        state.isOrdersLoading = false;
+        state.isOrdersLoading = DefaultParam.Status;
       })
       .addCase(fetchNotifications.pending, (state) => {
         state.isNotificationsLoading = true;
       })
       .addCase(fetchNotifications.fulfilled, (state, action) => {
         state.notifications = action.payload;
-        state.isNotificationsLoading = false;
+        state.isNotificationsLoading = DefaultParam.Status;
       })
       .addCase(fetchCoachCertificates.fulfilled, (state, action) => {
         state.certificates = action.payload;
       })
       .addCase(fetchNotifications.rejected, (state) => {
-        state.isNotificationsLoading = false;
+        state.isNotificationsLoading = DefaultParam.Status;
       })
       .addCase(removeNotification.pending, (state) => {
         state.isNotificationDeleting = true;
-        state.hasNotificationsError = false;
+        state.hasNotificationsError = DefaultParam.Status;
       })
       .addCase(removeNotification.fulfilled, (state) => {
-        state.isNotificationDeleting = false;
-        state.hasNotificationsError = false;
+        state.isNotificationDeleting = DefaultParam.Status;
+        state.hasNotificationsError = DefaultParam.Status;
       })
       .addCase(removeNotification.rejected, (state) => {
-        state.isNotificationDeleting = false;
+        state.isNotificationDeleting = DefaultParam.Status;
         state.hasNotificationsError = true;
       })
       .addCase(addFriend.pending, (state) => {
         state.isFriendStatusChanging = true;
       })
       .addCase(addFriend.fulfilled, (state) => {
-        state.isFriendStatusChanging = false;
+        state.isFriendStatusChanging = DefaultParam.Status;
       })
       .addCase(addFriend.rejected, (state) => {
-        state.isFriendStatusChanging = false;
+        state.isFriendStatusChanging = DefaultParam.Status;
       })
       .addCase(removeFriend.pending, (state) => {
         state.isFriendStatusChanging = true;
       })
       .addCase(removeFriend.fulfilled, (state) => {
-        state.isFriendStatusChanging = false;
+        state.isFriendStatusChanging = DefaultParam.Status;
       })
       .addCase(removeFriend.rejected, (state) => {
-        state.isFriendStatusChanging = false;
+        state.isFriendStatusChanging = DefaultParam.Status;
       });
   }
 });
