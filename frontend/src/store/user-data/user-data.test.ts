@@ -1,12 +1,8 @@
 import { UserState } from '../../types/state.type';
 import { ActionName, AuthorizationStatus, DefaultParam, ReducerName } from '../../utils/constant';
-import { makeFakeNewUserGeneral, makeFakeUser, makeFakeUsers } from '../../utils/mocks';
 import { checkAuth, checkEmail, fetchCurrentUser, fetchReadyUserList, fetchUser, fetchUserList, fetchUserListAmount, login, updateUser } from './api-actions';
+import { fakeUser, fakeUserGeneral, fakeUsers } from './test-mocks';
 import { createNewUser, setUserData, userData } from './user-data';
-
-const fakeUser = makeFakeUser();
-const fakeUserGeneral = makeFakeNewUserGeneral();
-const fakeUsers = makeFakeUsers();
 
 describe(`Reducer: ${ReducerName.User}`, () => {
   let state: UserState;

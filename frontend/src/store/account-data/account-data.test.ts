@@ -1,14 +1,8 @@
 import { AccountState } from '../../types/state.type';
 import { ActionName, DefaultParam, ReducerName } from '../../utils/constant';
-import { makeFakeCertificates, makeFakeCoachOrders, makeFakeNotifications, makeFakeOrders, makeFakeUsers } from '../../utils/mocks';
+import { fakeFriends, fakeOrders, fakeCoachOrders, fakeNotifications, fakeCertificates } from './test-mocks';
 import { accountData } from './account-data';
 import { addFriend, fetchCoachCertificates, fetchCoachOrders, fetchFriends, fetchNotifications, fetchUserOrders, removeFriend, removeNotification } from './api-actions';
-
-const fakeFriends = makeFakeUsers();
-const fakeOrders = makeFakeOrders();
-const fakeCoachOrders = makeFakeCoachOrders();
-const fakeNotifications = makeFakeNotifications();
-const fakeCertificates = makeFakeCertificates();
 
 describe(`Reducer: ${ReducerName.Account}`, () => {
   let state: AccountState;

@@ -1,13 +1,8 @@
 import { CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
-import { makeFakeCertificates, makeFakeCoachOrders, makeFakeNotifications, makeFakeOrders, makeFakeUsers } from '../../utils/mocks';
 import { getCertificates, getCoachOrders, getFriendChanging, getFriends, getFriendsLoadingStatus, getFriendsPages, getNotificationDeleting, getNotifications, getNotificationsError, getNotificationsLoading, getOrders, getOrdersLoadingStatus, getOrdersPages } from './selectors';
+import { fakeFriends, fakeOrders, fakeCoachOrders, fakeNotifications, fakeCertificates } from './test-mocks';
 
 describe(`${ReducerName.Account} selectors`, () => {
-  const fakeFriends = makeFakeUsers();
-  const fakeOrders = makeFakeOrders();
-  const fakeCoachOrders = makeFakeCoachOrders();
-  const fakeNotifications = makeFakeNotifications();
-  const fakeCertificates = makeFakeCertificates();
   const state = {
     [ReducerName.Account]: {
       friends:fakeFriends,

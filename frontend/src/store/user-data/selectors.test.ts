@@ -1,11 +1,9 @@
 import { AuthorizationStatus, CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
-import { makeFakeNewUserGeneral, makeFakeUser, makeFakeUsers } from '../../utils/mocks';
 import { getAuthCheckedStatus, getCurrentUserData, getCurrentUserLoadingStatus, getEmailExistsStatus, getIsAuthorized, getNewUserData, getReadyUsers, getUserData, getUserError, getUserId, getUserList, getUserListLoadingStatus, getUserLoadingStatus, getUserPages, getUserRole, getUserUpdatingStatus } from './selectors';
+import { fakeUser, fakeUserGeneral, fakeUsers } from './test-mocks';
 
 describe(`${ReducerName.User} selectors`, () => {
-  const fakeUser = makeFakeUser();
-  const fakeUserGeneral = makeFakeNewUserGeneral();
-  const fakeUsers = makeFakeUsers();
+
   const state = {
     [ReducerName.User]: {
       authStatus:AuthorizationStatus.Unknown,

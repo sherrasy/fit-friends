@@ -232,7 +232,7 @@ export const createWorkout = createAsyncThunk<
   `${ReducerName.Workout}/${ActionName.CreateWorkout}`,
   async (dto, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.post<Workout>(`${ApiRoute.CreateWorkout}`, dto);
+      const { data } = await api.post<Workout>(ApiRoute.CreateWorkout, dto);
       if (data && dto.videoFile?.name) {
         const {data:workoutWithVideo} = await api.post<Workout>(`${ApiRoute.WorkoutsMain}/${data.id}${ApiRoute.UploadVideo}`, adaptVideoToServer(dto.videoFile) );
         dispatch(redirectToRoute(AppRoute.CoachAccount));

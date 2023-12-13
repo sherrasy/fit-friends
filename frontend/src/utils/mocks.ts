@@ -62,6 +62,7 @@ export const makeFakeUser = (): User => {
       isReady: datatype.boolean(),
     },
     coachInfo: null,
+    token:lorem.sentence(DefaultParam.Step)
   } as User;
 };
 
@@ -90,6 +91,7 @@ export const makeFakeCoach = (): User => {
       successInfo: lorem.words(DescriptionLength.Min),
       isPersonal: datatype.boolean(),
     },
+    token:lorem.sentence(DefaultParam.Step)
   } as User;
 };
 

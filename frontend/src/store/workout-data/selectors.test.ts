@@ -1,11 +1,9 @@
 import { CardsLimit, DefaultParam, ReducerName } from '../../utils/constant';
-import { makeFakeReviews, makeFakeWorkout, makeFakeWorkouts } from '../../utils/mocks';
 import { getAllWorkouts, getMaxPrice, getPages, getPopularWorkouts, getReviews, getReviewsLoadingStatus, getSpecialUserWorkouts, getSpecialWorkouts, getWorkout, getWorkoutLoadingStatus, getWorkoutPostingStatus, getWorkouts, getWorkoutsLoadingStatus } from './selectors';
+import { fakeReviews, fakeWorkout, fakeWorkouts } from './test-mocks';
 
 describe(`${ReducerName.Workout} selectors`, () => {
-  const fakeWorkout = makeFakeWorkout();
-  const fakeWorkouts = makeFakeWorkouts();
-  const fakeReviews = makeFakeReviews();
+
   const state = {
     [ReducerName.Workout]: {
       workouts: fakeWorkouts,

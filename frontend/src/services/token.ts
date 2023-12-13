@@ -1,6 +1,6 @@
 import { Token } from '../types/user/token.type';
 
-const AUTH_TOKEN_KEY_NAME = 'fit-friends-token';
+export const AUTH_TOKEN_KEY_NAME = 'fit-friends-token';
 
 export const getToken = (): Token => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);

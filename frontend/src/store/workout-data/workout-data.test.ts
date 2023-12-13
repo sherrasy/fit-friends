@@ -1,6 +1,5 @@
 import { WorkoutState } from '../../types/state.type';
 import { ActionName, DefaultParam, ReducerName } from '../../utils/constant';
-import { makeFakeReviews, makeFakeWorkout, makeFakeWorkouts } from '../../utils/mocks';
 import {
   createWorkout,
   fetchCoachWorkouts,
@@ -12,17 +11,8 @@ import {
   updateWorkout,
 } from './api-actions';
 import { workoutData } from './workout-data';
+import { fakeReviews, fakeWorkout, fakeWorkouts, fakeExtraWorkouts } from './test-mocks';
 
-const fakeWorkout = makeFakeWorkout();
-const fakeWorkouts = makeFakeWorkouts();
-const fakeExtraWorkouts = {
-  specialWorkouts: fakeWorkouts,
-  fullWorkouts: fakeWorkouts,
-  popularWorkouts: fakeWorkouts,
-  totalWorkouts: fakeWorkouts.length,
-  maxPrice: DefaultParam.Amount,
-};
-const fakeReviews = makeFakeReviews();
 
 describe(`Reducer: ${ReducerName.Workout}`, () => {
   let state: WorkoutState;
