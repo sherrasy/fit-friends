@@ -73,7 +73,7 @@ function CoachAccountPage(): JSX.Element {
               <UserInfo />
               <div className="inner-page__content">
                 <div className="personal-account-coach">
-                  <div className="personal-account-coach__navigation">
+                  <div className="personal-account-coach__navigation" data-testid='coach-navigation'>
                     <Link
                       className="thumbnail-link thumbnail-link--theme-light"
                       to={AppRoute.CoachWorkouts}

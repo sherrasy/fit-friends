@@ -93,7 +93,7 @@ function QuestionnaireUser({
       <div className="popup-form__wrapper">
         <div className="popup-form__content">
           <div className="popup-form__form">
-            <form method="post" action="/" onSubmit={handleFormSubmit}>
+            <form method="post" action="/" onSubmit={handleFormSubmit} data-testid="user-questionaire">
               <div className="questionnaire-user">
                 <h1 className="visually-hidden">Опросник</h1>
                 <div className="questionnaire-user__wrapper">
@@ -191,6 +191,7 @@ function QuestionnaireUser({
                               max={CaloriesAmount.Max}
                               onChange={handleInputChange}
                               required
+                              data-testid={FormFieldName.CaloriesTotal}
                             />
                             <span className="custom-input__text">ккал</span>
                           </span>

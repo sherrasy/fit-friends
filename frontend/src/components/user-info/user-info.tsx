@@ -142,7 +142,7 @@ function UserInfo(): JSX.Element {
     }
   };
   return (
-    <section className="user-info">
+    <section className="user-info" data-testid="user-info">
       <div className="user-info__header">
         <div className="input-load-avatar">
           <label>

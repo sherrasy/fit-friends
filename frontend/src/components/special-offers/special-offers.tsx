@@ -8,7 +8,7 @@ import WorkoutPromoCard from '../workout-card/workout-promo-card';
 function SpecialOffers(): JSX.Element {
   const specialOffers = useAppSelector(getSpecialWorkouts);
   return (
-    <section className="special-offers">
+    <section className="special-offers" data-testid="special-offers">
       <div className="container">
         <div className="special-offers__wrapper">
           <h2 className="visually-hidden">Специальные предложения</h2>

@@ -223,7 +223,7 @@ function CoachWorkoutsPage(): JSX.Element {
                 <div className="my-training-form__wrapper">
                   <BackButton />
                   <h3 className="my-training-form__title">фильтры</h3>
-                  <form className="my-training-form__form">
+                  <form className="my-training-form__form" data-testid='coach-workouts-filter'>
                     <div className="my-training-form__block my-training-form__block--price">
                       <h4 className="my-training-form__block-title">Цена, ₽</h4>
                       <div className="filter-price">

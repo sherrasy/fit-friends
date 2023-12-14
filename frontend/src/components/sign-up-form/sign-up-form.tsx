@@ -123,7 +123,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
             <h1 className="popup-form__title">Регистрация</h1>
           </div>
           <div className="popup-form__form">
-            <form method="post" action="/" onSubmit={handleFormSubmit}>
+            <form method="post" action="/" onSubmit={handleFormSubmit} data-testid='sign-up-form'>
               <div className="sign-up">
                 <div className="sign-up__load-photo">
                   <div className="input-load-avatar">
@@ -169,6 +169,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                           maxLength={NameLength.Max}
                           onChange={handleInputChange}
                           required
+                          data-testid={`new-${FormFieldName.Name}`}
                         />
                       </span>
                     </label>
@@ -187,6 +188,7 @@ function SignUpForm({onSubmit}:SignUpFormProps): JSX.Element {
                           onChange={handleInputChange}
                           onBlur={handleEmailCheck}
                           required
+                          data-testid={`new-${FormFieldName.Email}`}
                         />
                       </span>
                     </label>

@@ -20,7 +20,6 @@ import {
 } from './validation.constant';
 import { Certificate } from '../types/reaction/file.interface';
 
-const roles = Object.values(UserRole);
 const genders = Object.values(UserSex);
 const locations = Object.values(Location);
 const fitnessLevels = Object.values(FitnessLevel);
@@ -40,7 +39,7 @@ export const makeFakeUser = (): User => {
     avatarPath: image.avatar(),
     sex: random.arrayElement(genders),
     birthDate: mockDate,
-    role: random.arrayElement(roles),
+    role: UserRole.Sportsman,
     description: lorem.words(DescriptionLength.Min),
     location: random.arrayElement(locations),
     photo: datatype.uuid(),
@@ -76,7 +75,7 @@ export const makeFakeCoach = (): User => {
     avatarPath: image.avatar(),
     sex: random.arrayElement(genders),
     birthDate: mockDate,
-    role: random.arrayElement(roles),
+    role: UserRole.Coach,
     description: lorem.words(DescriptionLength.Min),
     location: random.arrayElement(locations),
     photo: datatype.uuid(),
@@ -132,7 +131,7 @@ export const makeFakeNewUserGeneral = (): NewUserGeneral =>
     password: internet.password(),
     sex: random.arrayElement(genders),
     birthDate: mockDate,
-    role: random.arrayElement(roles),
+    role:UserRole.Sportsman,
     location: random.arrayElement(locations),
   } as NewUserGeneral);
 

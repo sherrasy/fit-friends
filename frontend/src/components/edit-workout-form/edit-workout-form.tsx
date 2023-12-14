@@ -160,7 +160,7 @@ function EditWorkoutForm({
           )}
         </div>
         <div className="training-info__main-content">
-          <form action="#" method="get">
+          <form action="#" method="get" data-testid="update-training">
             <div className="training-info__form-wrapper">
               <div className="training-info__info-wrapper">
                 <div className="training-info__input training-info__input--training">
@@ -192,6 +192,7 @@ function EditWorkoutForm({
                       maxLength={DescriptionLength.Max}
                       disabled={!isEditing}
                       defaultValue={workoutData.description}
+                      data-testid="update-description-training"
                     >
                     </textarea>
                   </label>
