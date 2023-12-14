@@ -5,17 +5,12 @@ import { AppRoute } from '../../utils/constant';
 
 type PrivateRouteProps = {
   children:JSX.Element;
-  redirectTo: string;
 }
-function PrivateRoute({children, redirectTo}:PrivateRouteProps): JSX.Element {
+function PrivateRoute({children }:PrivateRouteProps): JSX.Element {
   const isAuthorized = useAppSelector(getIsAuthorized);
 
-  if(!isAuthorized){
-    return <Navigate to={AppRoute.Intro}/>;
-  }
-
   return (
-    isAuthorized ? children : <Navigate to={redirectTo}/>
+    isAuthorized ? children : <Navigate to={AppRoute.Intro}/>
   );
 }
 
