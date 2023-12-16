@@ -41,6 +41,12 @@ describe('Component: MainPage', () => {
     history.push(AppRoute.Main);
   });
   it('should render correctly', () => {
+    const DataTestId = {
+      SpecialForUser:'special-for-you',
+      SpecialOffer:'special-offers',
+      Popular:'popular-trainings',
+      Company:'look-for-company',
+    };
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -49,10 +55,10 @@ describe('Component: MainPage', () => {
       </Provider>
     );
 
-    const specialForUserElement = screen.getByTestId('special-for-you');
-    const specialOfferElement = screen.getByTestId('special-offers');
-    const popularElement = screen.getByTestId('popular-trainings');
-    const lookForCompanyElement = screen.getByTestId('look-for-company');
+    const specialForUserElement = screen.getByTestId(DataTestId.SpecialForUser);
+    const specialOfferElement = screen.getByTestId(DataTestId.SpecialOffer);
+    const popularElement = screen.getByTestId(DataTestId.Popular);
+    const lookForCompanyElement = screen.getByTestId(DataTestId.Company);
 
     expect(specialForUserElement).toBeInTheDocument();
     expect(specialOfferElement).toBeInTheDocument();

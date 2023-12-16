@@ -3,37 +3,31 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { ReducerName } from '../../utils/constant';
-import { makeFakeCertificate } from '../../utils/mocks';
+import { makeFakeWorkouts } from '../../utils/mocks';
 import HistoryRouter from '../history-router/history-router';
-import CertificateCard from './certificate-card';
-import { UserRole } from '../../types/common/user-role.enum';
+import WorkoutsForUser from './workouts-for-user';
 
 const mockStore = configureMockStore();
+const fakeWorkouts = makeFakeWorkouts();
 const history = createMemoryHistory();
-
-const fakeCertificate = makeFakeCertificate();
 const store = mockStore({
-  [ReducerName.User]: {
-    role: UserRole.Coach,
-  },
-  [ReducerName.Account]: {
-    notifications: null,
-    certificares:[fakeCertificate]
+  [ReducerName.Workout]: {
+    specialUserWorkouts: fakeWorkouts,
   },
 });
-describe('Component: CertificateCard', () => {
+describe('Component: WorkoutsForUser', () => {
 
   it('component should render correctly', () => {
-    const certificateId = 'certificate-card';
+    const specialBlockId = 'special-for-you';
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <CertificateCard certificate={fakeCertificate}/>
+          <WorkoutsForUser />
         </HistoryRouter>
       </Provider>
     );
-    const certificateElement = screen.getByTestId(certificateId);
+    const specialElement = screen.getByTestId(specialBlockId);
 
-    expect(certificateElement).toBeInTheDocument();
+    expect(specialElement).toBeInTheDocument();
   });
 });

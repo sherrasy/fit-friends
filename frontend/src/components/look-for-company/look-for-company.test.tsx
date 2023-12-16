@@ -3,37 +3,31 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { ReducerName } from '../../utils/constant';
-import { makeFakeCertificate } from '../../utils/mocks';
+import { makeFakeUsers } from '../../utils/mocks';
 import HistoryRouter from '../history-router/history-router';
-import CertificateCard from './certificate-card';
-import { UserRole } from '../../types/common/user-role.enum';
+import LookForCompany from './look-for-company';
 
 const mockStore = configureMockStore();
+const fakeUsers = makeFakeUsers();
 const history = createMemoryHistory();
-
-const fakeCertificate = makeFakeCertificate();
 const store = mockStore({
   [ReducerName.User]: {
-    role: UserRole.Coach,
-  },
-  [ReducerName.Account]: {
-    notifications: null,
-    certificares:[fakeCertificate]
+    readyUsers: fakeUsers,
   },
 });
-describe('Component: CertificateCard', () => {
+describe('Component: LookForCompany', () => {
 
   it('component should render correctly', () => {
-    const certificateId = 'certificate-card';
+    const companyBlockId = 'look-for-company';
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <CertificateCard certificate={fakeCertificate}/>
+          <LookForCompany />
         </HistoryRouter>
       </Provider>
     );
-    const certificateElement = screen.getByTestId(certificateId);
+    const lookForCompanyElement = screen.getByTestId(companyBlockId);
 
-    expect(certificateElement).toBeInTheDocument();
+    expect(lookForCompanyElement).toBeInTheDocument();
   });
 });

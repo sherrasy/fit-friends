@@ -6,15 +6,14 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import HistoryRouter from '../../components/history-router/history-router';
 import { AppRoute, DefaultParam, ReducerName } from '../../utils/constant';
-import { makeFakeCoach } from '../../utils/mocks';
 import AddWorkoutPage from './add-workout-page';
+import { UserRole } from '../../types/common/user-role.enum';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const fakeUser = makeFakeCoach();
 const store = mockStore({
   [ReducerName.User]: {
-    role: fakeUser.role,
+    role: UserRole.Coach,
   },
   [ReducerName.Account]: {
     notifications: null,

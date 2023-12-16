@@ -5,16 +5,15 @@ import { Provider } from 'react-redux';
 import HistoryRouter from '../history-router/history-router';
 import AddWorkoutForm from './add-workout-form';
 import userEvent from '@testing-library/user-event';
-import { makeFakeCoach } from '../../utils/mocks';
 import { DefaultParam, ReducerName } from '../../utils/constant';
+import { UserRole } from '../../types/common/user-role.enum';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
-const fakeUser = makeFakeCoach();
 const store = mockStore({
   [ReducerName.User]: {
-    role: fakeUser.role,
+    role: UserRole.Coach,
   },
   [ReducerName.Account]: {
     notifications: null,
