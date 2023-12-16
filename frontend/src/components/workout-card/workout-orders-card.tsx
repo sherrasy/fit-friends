@@ -33,7 +33,7 @@ function WorkoutOrdersCard({ order }: WorkoutOrdersCardProps): JSX.Element {
   };
   const randomPhotoId = generateRandomNumber();
   return (
-    <div className="thumbnail-training">
+    <div className="thumbnail-training" data-testid='workout-order-coach'>
       <div className="thumbnail-training__inner">
         <div className="thumbnail-training__image">
           <picture>

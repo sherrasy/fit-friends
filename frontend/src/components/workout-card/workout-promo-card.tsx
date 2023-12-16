@@ -8,7 +8,7 @@ type WorkoutPromoCardProps = {
 function WorkoutPromoCard({ workout, photoNumber }: WorkoutPromoCardProps): JSX.Element {
   const { name, description, price, specialPrice} = workout;
   return (
-    <aside className="promo-slider">
+    <aside className="promo-slider" data-testid='workout-card-promo'>
       <div className="promo-slider__overlay"></div>
       <div className="promo-slider__image">
         <img src={`img/content/promo-${photoNumber}.png`} width="1040" height="469"

@@ -3,30 +3,21 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../components/history-router/history-router';
-import { UserRole } from '../../types/common/user-role.enum';
-import { DefaultParam, ReducerName } from '../../utils/constant';
 import { makeFakeUser } from '../../utils/mocks';
-import UserCard from './user-card';
+import UserCardSmall from './user-card-small';
 
 const mockStore = configureMockStore();
 const fakeUser = makeFakeUser();
-const store = mockStore({
-  [ReducerName.User]: {
-    role: UserRole.Sportsman,
-  },
-  [ReducerName.Account]: {
-    isFriendStatusChanging: DefaultParam.Status,
-  },
-});
+const store = mockStore();
 const history = createMemoryHistory();
-describe('Component: UserCard', () => {
+describe('Component: UserCardSmall', () => {
 
   it('should render correctly', () => {
-    const userCardId = 'user-card';
+    const userCardId = 'user-card-small';
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <UserCard user={fakeUser} />
+          <UserCardSmall user={fakeUser} />
         </HistoryRouter>
       </Provider>
     );

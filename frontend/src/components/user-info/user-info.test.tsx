@@ -3,38 +3,37 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../components/history-router/history-router';
-import { UserRole } from '../../types/common/user-role.enum';
 import { DefaultParam, ReducerName } from '../../utils/constant';
 import { makeFakeUser } from '../../utils/mocks';
-import UserCard from './user-card';
+import UserInfo from './user-info';
+
 
 const mockStore = configureMockStore();
 const fakeUser = makeFakeUser();
 const store = mockStore({
   [ReducerName.User]: {
-    role: UserRole.Sportsman,
-  },
-  [ReducerName.Account]: {
-    isFriendStatusChanging: DefaultParam.Status,
-  },
+    currentUserData: fakeUser,
+    isUserUpdating: DefaultParam.Status,
+
+  }
 });
 const history = createMemoryHistory();
-describe('Component: UserCard', () => {
+describe('Component: UserInfo', () => {
 
   it('should render correctly', () => {
-    const userCardId = 'user-card';
+    const userInfoId = 'user-info';
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <UserCard user={fakeUser} />
+          <UserInfo />
         </HistoryRouter>
       </Provider>
     );
 
-    const cardElement = screen.getByTestId(userCardId);
-    const nameElement = screen.getByText(fakeUser.name);
+    const infoElement = screen.getByTestId(userInfoId);
+    const nameElement = screen.getByDisplayValue(fakeUser.name);
 
-    expect(cardElement).toBeInTheDocument();
     expect(nameElement).toBeInTheDocument();
+    expect(infoElement).toBeInTheDocument();
   });
 });
