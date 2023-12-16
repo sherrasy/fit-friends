@@ -12,7 +12,7 @@ const fakeUsers = makeFakeUsers();
 const history = createMemoryHistory();
 const store = mockStore({
   [ReducerName.User]: {
-    readyUsers: fakeUsers,
+    readyUsers: null,
   },
 });
 describe('Component: LookForCompany', () => {
@@ -29,5 +29,36 @@ describe('Component: LookForCompany', () => {
     const lookForCompanyElement = screen.getByTestId(companyBlockId);
 
     expect(lookForCompanyElement).toBeInTheDocument();
+  });
+  it('component should render slider if there are ready users', () => {
+    const storeWithData = mockStore({
+      [ReducerName.User]: {
+        readyUsers: fakeUsers,
+      },
+    });
+    const sliderId = 'slider';
+    render(
+      <Provider store={storeWithData}>
+        <HistoryRouter history={history}>
+          <LookForCompany />
+        </HistoryRouter>
+      </Provider>
+    );
+    const sliderElement = screen.getByTestId(sliderId);
+
+    expect(sliderElement).toBeInTheDocument();
+  });
+  it('component should render advertisement if there are no ready users', () => {
+    const advertisementId = 'advertisement-thumbnail';
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <LookForCompany />
+        </HistoryRouter>
+      </Provider>
+    );
+    const advertisementElement = screen.getByTestId(advertisementId);
+
+    expect(advertisementElement).toBeInTheDocument();
   });
 });

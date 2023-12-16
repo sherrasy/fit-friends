@@ -206,14 +206,14 @@ export const makeFakeCertificate = (): Certificate =>
     path: image.imageUrl(),
   } as Certificate);
 
-export const makeFakeWorkouts = (amount = CardsLimit.Default): Workout[] =>
-  Array.from({ length: amount }, () => makeFakeWorkout());
+export const makeFakeWorkouts = (): Workout[] =>
+  Array.from({ length: CardsLimit.Default }, () => makeFakeWorkout());
 
 export const makeFakeReviews = (): Review[] =>
   Array.from({ length: CardsLimit.Default }, () => makeFakeReview());
 
-export const makeFakeUsers = (amount = CardsLimit.Default): User[] =>
-  Array.from({ length: amount }, () => makeFakeUser());
+export const makeFakeUsers = (): User[] =>
+  Array.from({ length: CardsLimit.Default }, () => makeFakeUser());
 
 export const makeFakeOrders = (): Order[] =>
   Array.from({ length: CardsLimit.Default }, () => makeFakeOrder());

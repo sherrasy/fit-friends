@@ -12,7 +12,7 @@ const fakeWorkouts = makeFakeWorkouts();
 const history = createMemoryHistory();
 const store = mockStore({
   [ReducerName.Workout]: {
-    specialOfferWorkouts: fakeWorkouts,
+    specialOfferWorkouts: null,
   },
 });
 describe('Component: SpecialOffers', () => {
@@ -29,5 +29,37 @@ describe('Component: SpecialOffers', () => {
     const specialOffersElement = screen.getByTestId(specialOffersBlockId);
 
     expect(specialOffersElement).toBeInTheDocument();
+  });
+
+  it('component should render slider if there are special offers', () => {
+    const storeWithData = mockStore({
+      [ReducerName.Workout]: {
+        specialOfferWorkouts: fakeWorkouts,
+      },
+    });
+    const sliderId = 'slider';
+    render(
+      <Provider store={storeWithData}>
+        <HistoryRouter history={history}>
+          <SpecialOffers />
+        </HistoryRouter>
+      </Provider>
+    );
+    const sliderElement = screen.getByTestId(sliderId);
+
+    expect(sliderElement).toBeInTheDocument();
+  });
+  it('component should render advertisement if there are no special offers', () => {
+    const advertisementId = 'advertisement-thumbnail';
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <SpecialOffers />
+        </HistoryRouter>
+      </Provider>
+    );
+    const advertisementElement = screen.getByTestId(advertisementId);
+
+    expect(advertisementElement).toBeInTheDocument();
   });
 });

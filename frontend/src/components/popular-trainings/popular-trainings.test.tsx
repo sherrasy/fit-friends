@@ -12,7 +12,7 @@ const fakeWorkouts = makeFakeWorkouts();
 const history = createMemoryHistory();
 const store = mockStore({
   [ReducerName.Workout]: {
-    popularWorkouts: fakeWorkouts,
+    popularWorkouts: null,
   },
 });
 describe('Component: PopularTrainings', () => {
@@ -29,5 +29,36 @@ describe('Component: PopularTrainings', () => {
     const popularElement = screen.getByTestId(popularBlockId);
 
     expect(popularElement).toBeInTheDocument();
+  });
+  it('component should render slider if there are popular trainings', () => {
+    const storeWithData = mockStore({
+      [ReducerName.Workout]: {
+        popularWorkouts: fakeWorkouts,
+      },
+    });
+    const sliderId = 'slider';
+    render(
+      <Provider store={storeWithData}>
+        <HistoryRouter history={history}>
+          <PopularTrainings />
+        </HistoryRouter>
+      </Provider>
+    );
+    const sliderElement = screen.getByTestId(sliderId);
+
+    expect(sliderElement).toBeInTheDocument();
+  });
+  it('component should render advertisement if there are no popular trainings', () => {
+    const advertisementId = 'advertisement-thumbnail';
+    render(
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <PopularTrainings />
+        </HistoryRouter>
+      </Provider>
+    );
+    const advertisementElement = screen.getByTestId(advertisementId);
+
+    expect(advertisementElement).toBeInTheDocument();
   });
 });

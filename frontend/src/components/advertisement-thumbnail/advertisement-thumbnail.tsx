@@ -2,7 +2,7 @@ import '../../styles/common-styles.css';
 
 function AdvertisementThumbnail():JSX.Element{
   return(
-    <div className="thumbnail-spec-gym">
+    <div className="thumbnail-spec-gym" data-testid="advertisement-thumbnail">
       <div className="thumbnail-spec-gym__image">
         <picture>
           <source
