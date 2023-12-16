@@ -9,6 +9,7 @@ import { NewUserGeneral } from '../../types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
+  FormFieldName,
   UserFormError,
   WorkoutTypeToName,
 } from '../../utils/constant';
@@ -107,7 +108,7 @@ function QuestionnaireCoach({
       <div className="popup-form__wrapper">
         <div className="popup-form__content">
           <div className="popup-form__form">
-            <form method="post" action="/" onSubmit={handleFormSubmit}>
+            <form method="post" action="/" onSubmit={handleFormSubmit} data-testid="coach-questionaire">
               <div className="questionnaire-coach">
                 <h1 className="visually-hidden">Опросник</h1>
                 <div className="questionnaire-coach__wrapper">
@@ -198,12 +199,13 @@ function QuestionnaireCoach({
                     <div className="custom-textarea questionnaire-coach__textarea">
                       <label>
                         <textarea
-                          name="description"
+                          name={FormFieldName.Description}
                           placeholder=" "
                           onBlur={handleSuccessInfoChange}
                           minLength={DescriptionLength.Min}
                           maxLength={DescriptionLength.Max}
                           required
+                          data-testid={FormFieldName.Description}
                         >
                         </textarea>
                       </label>
