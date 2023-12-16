@@ -13,7 +13,7 @@ function FriendRequestStatus({initiatorRole, recieverRole}:FriendRequestStatusPr
   const requestText = recieverRole === UserRole.Sportsman && initiatorRole === UserRole.Sportsman ? RequestWorkoutText.User : RequestWorkoutText.Coach;
   const statusText = !isIncoming && status === 'pending' ? 'отправлен' : '';
   return (
-    <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user">
+    <div className="thumbnail-friend__request-status thumbnail-friend__request-status--role-user" data-testid="request-status">
       <p className="thumbnail-friend__request-text">
         Запрос {`${requestText} ${statusText}`}
       </p>

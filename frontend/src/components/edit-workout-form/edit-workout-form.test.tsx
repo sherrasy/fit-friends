@@ -2,14 +2,14 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import HistoryRouter from '../../components/history-router/history-router';
-import { AppRoute, DefaultParam, FormFieldName, ReducerName } from '../../utils/constant';
+import HistoryRouter from '../history-router/history-router';
 import { makeFakeCoach, makeFakeWorkout } from '../../utils/mocks';
-import EditWorkoutPage from './edit-workout-page';
+import { DefaultParam, FormFieldName, ReducerName } from '../../utils/constant';
+import EditWorkoutForm from './edit-workout-form';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const mockStore = configureMockStore();
+const history = createMemoryHistory();
+
 const fakeUser = makeFakeCoach();
 const fakeWorkout = makeFakeWorkout();
 const store = mockStore({
@@ -25,34 +25,26 @@ const store = mockStore({
     workout: fakeWorkout,
     isWorkoutPosting: DefaultParam.Status,
     reviews: null,
-  },
-});
-const history = createMemoryHistory();
+  },});
+describe('Component: EditWorkoutForm', () => {
 
-describe('Component: EditWorkoutPage', () => {
-  beforeAll(() => {
-    history.push(`${AppRoute.EditWorkout}/${fakeWorkout.id}`);
-  });
-  it('should render correctly', () => {
+  it('component should render correctly', () => {
     const DataTestId = {
       Form:'update-training',
-      Description:'update-description-training',
+      Name:'update-name-training',
     };
-
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <EditWorkoutPage />
+          <EditWorkoutForm workout={fakeWorkout} coach={fakeUser}/>
         </HistoryRouter>
       </Provider>
     );
-
     const formElement = screen.getByTestId(DataTestId.Form);
-    const descriptionElement = screen.getByTestId(DataTestId.Description);
+    const nameElement = screen.getByTestId(DataTestId.Name);
 
     expect(formElement).toBeInTheDocument();
-    expect(descriptionElement).toBeInTheDocument();
-    expect(descriptionElement).toHaveAttribute('name', FormFieldName.Description);
-    expect(history.location.pathname).toBe(`${AppRoute.EditWorkout}/${fakeWorkout.id}`);
+    expect(nameElement).toBeInTheDocument();
+    expect(nameElement).toHaveAttribute('name', FormFieldName.Name);
   });
 });

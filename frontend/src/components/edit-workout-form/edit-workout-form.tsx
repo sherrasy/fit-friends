@@ -176,6 +176,7 @@ function EditWorkoutForm({
                       defaultValue={workoutData.name}
                       disabled={!isEditing}
                       onBlur={handleInputChange}
+                      data-testid="update-name-training"
                     />
                   </label>
                   <div className="training-info__error">Обязательное поле</div>

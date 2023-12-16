@@ -1,16 +1,16 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import HistoryRouter from '../../components/history-router/history-router';
-import { AppRoute, DefaultParam, ReducerName } from '../../utils/constant';
+import HistoryRouter from '../history-router/history-router';
+import AddWorkoutForm from './add-workout-form';
+import userEvent from '@testing-library/user-event';
 import { makeFakeCoach } from '../../utils/mocks';
-import AddWorkoutPage from './add-workout-page';
+import { DefaultParam, ReducerName } from '../../utils/constant';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const mockStore = configureMockStore();
+const history = createMemoryHistory();
+
 const fakeUser = makeFakeCoach();
 const store = mockStore({
   [ReducerName.User]: {
@@ -23,32 +23,27 @@ const store = mockStore({
     isWorkoutPosting: DefaultParam.Status,
   },
 });
-const history = createMemoryHistory();
-describe('Component: AddWorkoutPage', () => {
-  beforeAll(() => {
-    history.push(AppRoute.AddWorkout);
-  });
-  it('should render correctly', async () => {
+describe('Component: AddWorkoutForm', () => {
+
+  it('component should render correctly', async() => {
     const DataTestId = {
       Form:'create-training',
-      Name:'name-training',
+      Description:'description-training',
     };
-    const mockText = 'New training';
+    const mockText = 'New training description';
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <AddWorkoutPage />
+          <AddWorkoutForm/>
         </HistoryRouter>
       </Provider>
     );
-
     const formElement = screen.getByTestId(DataTestId.Form);
-    const nameElement = screen.getByTestId(DataTestId.Name);
-    await userEvent.type(nameElement, mockText);
+    const descriptionElement = screen.getByTestId(DataTestId.Description);
+    await userEvent.type(descriptionElement, mockText);
 
     expect(formElement).toBeInTheDocument();
-    expect(nameElement).toBeInTheDocument();
+    expect(descriptionElement).toBeInTheDocument();
     expect(screen.getByDisplayValue(mockText)).toBeInTheDocument();
-    expect(history.location.pathname).toBe(`${AppRoute.AddWorkout}`);
   });
 });

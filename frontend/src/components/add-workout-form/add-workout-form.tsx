@@ -351,6 +351,7 @@ function AddWorkoutForm(): JSX.Element {
                     minLength={DescriptionLength.Min}
                     maxLength={DescriptionLength.Max}
                     defaultValue={workoutData.description}
+                    data-testid="description-training"
                   >
                   </textarea>
                 </label>
