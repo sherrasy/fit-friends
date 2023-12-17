@@ -14,6 +14,7 @@ function SliderButtons({next, previous, isDark = DefaultParam.Status}:SliderButt
         className={`btn-icon popular-trainings__control ${isDark ? 'btn-icon--outlined' : ''}`}
         type="button"
         aria-label="previous"
+        data-testid="slider-show-previous"
         onClick={() => previous?.()}
       >
         <svg width="16" height="14" aria-hidden="true">
@@ -24,6 +25,7 @@ function SliderButtons({next, previous, isDark = DefaultParam.Status}:SliderButt
         className={`btn-icon popular-trainings__control ${isDark ? 'btn-icon--outlined' : ''}`}
         type="button"
         aria-label="next"
+        data-testid="slider-show-next"
         onClick={() => next?.()}
       >
         <svg width="16" height="14" aria-hidden="true">

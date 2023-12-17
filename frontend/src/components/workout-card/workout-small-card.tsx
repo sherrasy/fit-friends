@@ -21,7 +21,7 @@ function WorkoutSmallCard({ workout }: WorkoutSmallCardProps): JSX.Element {
   const randomPhotoId = generateRandomNumber();
 
   return (
-    <div className="thumbnail-preview">
+    <div className="thumbnail-preview" data-testid='workout-card-small'>
       <div className="thumbnail-preview__image">
         <picture>
           <img src={photo ? photo : `/img/content/thumbnails/training-${randomPhotoId}@2x.jpg`} alt=''/>

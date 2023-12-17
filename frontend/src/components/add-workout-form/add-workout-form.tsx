@@ -111,7 +111,7 @@ function AddWorkoutForm(): JSX.Element {
   };
   return (
     <div className="popup-form__form">
-      <form method="post" action="/" onSubmit={handleFormSubmit}>
+      <form method="post" action="/" onSubmit={handleFormSubmit} data-testid="create-training">
         <div className="create-training">
           <div className="create-training__wrapper">
             <div className="create-training__block">
@@ -126,6 +126,7 @@ function AddWorkoutForm(): JSX.Element {
                       maxLength={NameLength.Max}
                       onBlur={handleInputChange}
                       required
+                      data-testid="name-training"
                     />
                   </span>
                 </label>
@@ -350,6 +351,7 @@ function AddWorkoutForm(): JSX.Element {
                     minLength={DescriptionLength.Min}
                     maxLength={DescriptionLength.Max}
                     defaultValue={workoutData.description}
+                    data-testid="description-training"
                   >
                   </textarea>
                 </label>

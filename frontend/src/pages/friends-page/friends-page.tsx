@@ -62,7 +62,7 @@ function FriendsPage(): JSX.Element {
               <div className="friends-list__title-wrapper">
                 <h1 className="friends-list__title">Мои друзья</h1>
               </div>
-              <ul className="friends-list__list">
+              <ul className="friends-list__list" data-testid='friends-list'>
                 {friends?.map((item) => (
                   <li className="friends-list__item" key={item.id}>
                     <FriendCard friend = {item} currentUser={currentUser}/>

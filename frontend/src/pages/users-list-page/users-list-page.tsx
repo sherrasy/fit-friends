@@ -110,7 +110,7 @@ function UsersListPage(): JSX.Element {
                 <div className="user-catalog-form__wrapper">
                   <BackButton />
                   <h3 className="user-catalog-form__title">Фильтры</h3>
-                  <form className="user-catalog-form__form">
+                  <form className="user-catalog-form__form" data-testid='users-list-filter'>
                     <div className="user-catalog-form__block user-catalog-form__block--location">
                       <h4 className="user-catalog-form__block-title">
                         Локация, станция метро

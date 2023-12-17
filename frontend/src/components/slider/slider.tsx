@@ -30,7 +30,7 @@ function Slider({
   };
   const className = additionalClassName ? `container ${additionalClassName}` : 'container';
   return (
-    <div className='slider-main-reverse'>
+    <div className='slider-main-reverse' data-testid='slider'>
       <Carousel
         responsive={responsiveParams}
         arrows={false}

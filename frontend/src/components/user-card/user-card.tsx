@@ -47,7 +47,7 @@ function UserCard({ user }: UserCardProps): JSX.Element {
   const handleFriendRemove = ()=>{ dispatch(removeFriend(id));};
 
   return (
-    <div className="user-card-coach__card">
+    <div className="user-card-coach__card" data-testid="user-card">
       <div className="user-card-coach__content">
         <div className="user-card-coach__head">
           <h2 className="user-card-coach__title">{name}</h2>

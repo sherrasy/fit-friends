@@ -15,6 +15,7 @@ function UserCardSmall({ user }: UserCardSmallProps): JSX.Element {
       className={`thumbnail-user thumbnail-user--role-${
         role === UserRole.Coach ? 'coach ' : 'user'
       } ${isReadyBlock ? 'thumbnail-user--dark' : ''}`}
+      data-testid='user-card-small'
     >
       <div className="thumbnail-user__image">
         <picture>

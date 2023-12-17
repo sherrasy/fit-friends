@@ -41,7 +41,7 @@ const ButtonGroup = ({ next, previous }: ButtonGroupProp) => {
 function PopularTrainings(): JSX.Element {
   const workouts = useAppSelector(getPopularWorkouts);
   return (
-    <section className="popular-trainings">
+    <section className="popular-trainings" data-testid="popular-trainings">
       <div className="container">
         <div className="popular-trainings__wrapper">
           {(!workouts || !workouts.length) && <AdvertisementThumbnail/>}

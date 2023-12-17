@@ -191,7 +191,7 @@ function WorkoutsListPage(): JSX.Element {
                 <div className="gym-catalog-form__wrapper">
                   <BackButton />
                   <h3 className="gym-catalog-form__title">Фильтры</h3>
-                  <form className="gym-catalog-form__form">
+                  <form className="gym-catalog-form__form" data-testid='workouts-list-filter'>
                     <div className="gym-catalog-form__block gym-catalog-form__block--price">
                       <h4 className="gym-catalog-form__block-title">Цена, ₽</h4>
                       <div className="filter-price">

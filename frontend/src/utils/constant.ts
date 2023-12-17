@@ -24,11 +24,11 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const ReducerName = {
-  User: 'USER',
-  Account: 'ACCOUNT',
-  Workout: 'WORKOUT',
-} as const;
+export enum ReducerName {
+  User= 'USER',
+  Account= 'ACCOUNT',
+  Workout= 'WORKOUT',
+}
 
 export const ActionName = {
   CheckAuth: 'checkAuth',

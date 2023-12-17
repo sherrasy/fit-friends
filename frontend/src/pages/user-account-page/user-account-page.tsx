@@ -53,7 +53,7 @@ function UserAccountPage(): JSX.Element {
                       </div>
                     </form>
                   </div>
-                  <div className="personal-account-user__additional-info">
+                  <div className="personal-account-user__additional-info" data-testid="user-additional-info">
                     <Link
                       className="thumbnail-link thumbnail-link--theme-light"
                       to={AppRoute.Friends}

@@ -53,7 +53,7 @@ function WorkoutInfoCard({
     videoRef.current.pause();
   };
   return (
-    <div className="training-card">
+    <div className="training-card" data-testid='training-info-card'>
       <div className="training-info">
         <h2 className="visually-hidden">Информация о тренировке</h2>
         <div className="training-info__header">

@@ -10,7 +10,7 @@ function ReviewCard({review}:ReviewCardProps):JSX.Element{
     avatarPath:'/img/content/avatars/users/photo-1.png'
   };
   return(
-    <div className="review">
+    <div className="review" data-testid='review-card'>
       <div className="review__user-info">
         <div className="review__user-photo">
           <picture>

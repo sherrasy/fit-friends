@@ -21,8 +21,8 @@ const ButtonGroup = ({ next, previous }: ButtonGroupProp) => (
 function WorkoutsForUser(): JSX.Element {
   const workouts = useAppSelector(getSpecialUserWorkouts);
   return (
-    <section className="special-for-you">
-      <div className="container">
+    <section className="special-for-you" data-testid="special-for-you">
+      <div className="container" >
         <div className="special-for-you__wrapper">
           {(!workouts || !workouts.length) && <AdvertisementThumbnail/>}
           {workouts && workouts.length !== 0 && (

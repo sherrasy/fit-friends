@@ -16,6 +16,7 @@ function CertificateCard({ certificate }: CertificateCardProps): JSX.Element {
           width="294"
           height="360"
           title="Сертификат - Биомеханика ударов в боксе"
+          data-testid="certificate-card"
         />
       </div>
       <div className="certificate-card__buttons">

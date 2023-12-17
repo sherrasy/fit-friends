@@ -238,7 +238,7 @@ export const fetchReadyUserList = createAsyncThunk<
     try {
       const queryString = `?role=${UserRole.Sportsman}`;
       const { data } = await api.get<User[]>(
-        `${ApiRoute.UsersShow}/${queryString}`
+        `${ApiRoute.UsersShow}${queryString}`
       );
       await Promise.all(
         data
@@ -277,7 +277,7 @@ export const fetchUserList = createAsyncThunk<
         ? getUserQueryString(query)
         : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}`;
       const { data } = await api.get<User[]>(
-        `${ApiRoute.UsersShow}/${queryString}`
+        `${ApiRoute.UsersShow}${queryString}`
       );
       await Promise.all(
         data.map(async (item) => {

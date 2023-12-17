@@ -73,6 +73,7 @@ function Header(): JSX.Element {
                 }`}
                 to={mainPagePath}
                 aria-label="На главную"
+                data-testid="move-main"
               >
                 <svg width="18" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-home"></use>
@@ -86,6 +87,7 @@ function Header(): JSX.Element {
                 }`}
                 to={accountPagePath}
                 aria-label="Личный кабинет"
+                data-testid="move-account"
               >
                 <svg width="16" height="18" aria-hidden="true">
                   <use xlinkHref="#icon-user"></use>
@@ -99,6 +101,7 @@ function Header(): JSX.Element {
                 }`}
                 to={friendsListPath}
                 aria-label="Друзья"
+                data-testid="move-friends"
               >
                 <svg width="22" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-friends"></use>

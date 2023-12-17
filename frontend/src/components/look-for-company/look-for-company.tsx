@@ -42,7 +42,7 @@ function LookForCompany(): JSX.Element {
   const userList = useAppSelector(getReadyUsers);
 
   return (
-    <section className="look-for-company">
+    <section className="look-for-company" data-testid="look-for-company">
       <div className="container">
         <div className="look-for-company__wrapper">
           {(!userList || !userList.length) && <AdvertisementThumbnail />}

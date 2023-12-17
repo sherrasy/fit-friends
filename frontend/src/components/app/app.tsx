@@ -177,7 +177,7 @@ function App(): JSX.Element {
       <Route
         path={AppRoute.Friends}
         element={
-          <PrivateRoute redirectTo={AppRoute.Error}>
+          <PrivateRoute>
             <FriendsPage />
           </PrivateRoute>
         }
@@ -185,7 +185,7 @@ function App(): JSX.Element {
       <Route
         path={`${AppRoute.UserInfo}/:id`}
         element={
-          <PrivateRoute redirectTo={AppRoute.Error}>
+          <PrivateRoute>
             <UserInfoPage />
           </PrivateRoute>
         }

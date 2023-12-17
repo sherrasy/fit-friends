@@ -6,11 +6,10 @@ import { AppRoute } from '../../utils/constant';
 
 
 type NotAuthRouteProps = {
-  userRole?: UserRole;
   children: JSX.Element;
 }
 
-const UnauthorizedRoute = ({ children, userRole}: NotAuthRouteProps): JSX.Element => {
+const UnauthorizedRoute = ({ children}: NotAuthRouteProps): JSX.Element => {
   const isAuthorized = useAppSelector(getIsAuthorized);
   const role = useAppSelector(getUserRole);
 

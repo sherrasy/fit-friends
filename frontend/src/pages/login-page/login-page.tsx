@@ -73,7 +73,7 @@ function LoginPage(): JSX.Element {
                 <h1 className="popup-form__title">Вход</h1>
               </div>
               <div className="popup-form__form">
-                <form method="post" action="/" onSubmit={handleFormSubmit}>
+                <form method="post" action="/" onSubmit={handleFormSubmit} data-testid='login-form'>
                   <div className="sign-in">
                     <div className="custom-input sign-in__input">
                       <label>
@@ -85,6 +85,7 @@ function LoginPage(): JSX.Element {
                             name={FormFieldName.Email}
                             onChange={handleInputChange}
                             required
+                            data-testid={FormFieldName.Email}
                           />
                         </span>
                       </label>
@@ -102,6 +103,7 @@ function LoginPage(): JSX.Element {
                             maxLength={PasswordLength.Max}
                             onChange={handleInputChange}
                             required
+                            data-testid={FormFieldName.Password}
                           />
                         </span>
                       </label>

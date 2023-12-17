@@ -47,7 +47,7 @@ function FriendCard({ friend, currentUser }: FriendCardProps): JSX.Element {
     navigate(`${AppRoute.UserInfo}/${id}`);
   };
   return (
-    <div className="thumbnail-friend">
+    <div className="thumbnail-friend" data-testid="friend-card">
       <div
         className={`thumbnail-friend__info thumbnail-friend__info--theme-${
           isUser ? 'light' : 'dark'

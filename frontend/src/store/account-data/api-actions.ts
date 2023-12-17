@@ -24,7 +24,7 @@ export const fetchFriends = createAsyncThunk<
   async (query, { dispatch, extra: api }) => {
     try {
       const queryString = getFriendsQueryString(query);
-      const { data:friends } = await api.get<User[]>(`${ApiRoute.Friends}/${queryString}`);
+      const { data:friends } = await api.get<User[]>(`${ApiRoute.Friends}${queryString}`);
       const { data:friendsAmount } = await api.get<number>(`${ApiRoute.Friends}/count`);
       await Promise.all(
         friends.map(async (item) => {
@@ -116,7 +116,7 @@ export const fetchCoachOrders = createAsyncThunk<
   async (query, { dispatch, extra: api }) => {
     try {
       const queryString = getOrdersQueryString(query);
-      const { data:orders } = await api.get<OrderCoach[]>(`${ApiRoute.OrdersShow}/${queryString}`);
+      const { data:orders } = await api.get<OrderCoach[]>(`${ApiRoute.OrdersShow}${queryString}`);
       const { data:ordersAmount } = await api.get<number>(`${ApiRoute.OrdersShow}/count`);
       return {orders, ordersAmount};
     } catch (error) {

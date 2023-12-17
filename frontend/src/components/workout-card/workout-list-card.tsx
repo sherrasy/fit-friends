@@ -43,7 +43,7 @@ function WorkoutListCard({ workout }: WorkoutListCardProps): JSX.Element {
   const randomPhotoId = generateRandomNumber();
 
   return (
-    <div className="thumbnail-training">
+    <div className="thumbnail-training" data-testid='workout-list-card'>
       <div className="thumbnail-training__inner">
         <div className="thumbnail-training__image">
           <picture>
