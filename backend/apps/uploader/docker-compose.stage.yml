@@ -14,9 +14,6 @@ services:
     networks:
       - fit-friends.uploader.network
 
-    ports:
-      - 27018:27017
-
   fit-friends.uploader:
     container_name: fit-friends.uploader
     depends_on:
