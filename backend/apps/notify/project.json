@@ -15,6 +15,7 @@
         "main": "apps/notify/src/main.ts",
         "tsConfig": "apps/notify/tsconfig.app.json",
         "assets": ["apps/notify/src/assets"],
+        "generatePackageJson":true,
         "isolatedConfig": true,
         "webpackConfig": "apps/notify/webpack.config.js"
       },
@@ -57,6 +58,12 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "buildDockerImage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run notify:build && docker build --file apps/notify/Dockerfile --tag fit-friends.notify:latest ."
       }
     }
   },
