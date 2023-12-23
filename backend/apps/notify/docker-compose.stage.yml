@@ -23,6 +23,9 @@ services:
 
   fit-friends.notify.mongodb:
     image: mongo
+    command: mongod --port 27020
+    ports:
+      - 27020:27017
     container_name: fit-friends.notify.mongodb
     env_file:
       - .fit-friends.notify.mongo.env

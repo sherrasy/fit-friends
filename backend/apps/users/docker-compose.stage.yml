@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+  fit-friends.users.postgres:
+    image: postgres:14-alpine
+    container_name: fit-friends.users.postgres
+    env_file:
+      - .fit-friends.users.postgres.env
+    volumes:
+      - fit-friends.postgres.users:/var/lib/postgresql/data
+    networks:
+      - fit-friends.users.network
+
+  fit-friends.users:
+    container_name: fit-friends.users
+    depends_on:
+      - fit-friends.users.postgres
+    restart: always
+    image: fit-friends.users:latest
+    env_file:
+      - .fit-friends.users.env
+    networks:
+      - fit-friends.users.network
+    ports:
+      - 3001:3001
+
+volumes:
+  fit-friends.postgres.users:
+
+networks:
+  fit-friends.users.network:
+    driver: bridge

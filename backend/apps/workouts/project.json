@@ -15,6 +15,7 @@
         "main": "apps/workouts/src/main.ts",
         "tsConfig": "apps/workouts/tsconfig.app.json",
         "assets": ["apps/workouts/src/assets"],
+        "generatePackageJson":true,
         "isolatedConfig": true,
         "webpackConfig": "apps/workouts/webpack.config.js"
       },
@@ -93,6 +94,12 @@
         "command": "npx ts-node seed.ts",
         "cwd": "libs/models/workouts-models/src/prisma"
       }
+  },
+  "buildDockerImage": {
+    "executor": "nx:run-commands",
+    "options": {
+      "command": "nx run workouts:build && docker build --file apps/workouts/Dockerfile --tag fit-friends.workouts:latest ."
+    }
   }
 },
 "tags": []

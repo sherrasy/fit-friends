@@ -1,0 +1,33 @@
+version: '3.5'
+services:
+  fit-friends.workouts.postgres:
+    image: postgres:14-alpine
+    container_name: fit-friends.workouts.postgres
+    env_file:
+      - .fit-friends.workouts.postgres.env
+    ports:
+      - 5433:5432
+    volumes:
+      - fit-friends.postgres.workouts:/var/lib/postgresql/data
+    networks:
+      - fit-friends.workouts.network
+
+  fit-friends.workouts:
+    container_name: fit-friends.workouts
+    depends_on:
+      - fit-friends.workouts.postgres
+    restart: always
+    image: fit-friends.workouts:latest
+    env_file:
+      - .fit-friends.workouts.env
+    networks:
+      - fit-friends.workouts.network
+    ports:
+      - 3000:3000
+
+volumes:
+  fit-friends.postgres.workouts:
+
+networks:
+  fit-friends.workouts.network:
+    driver: bridge
