@@ -19,6 +19,7 @@
         "assets": [
           "apps/users/src/assets"
         ],
+        "generatePackageJson":true,
         "isolatedConfig": true,
         "webpackConfig": "apps/users/webpack.config.js"
       },
@@ -69,41 +70,47 @@
         }
       }
       },
-      "db:lint": {
+    "db:lint": {
         "executor": "nx:run-commands",
         "options": {
           "command": "npx prisma validate --schema ./schema.prisma",
           "cwd": "libs/models/users-models/src/prisma"
         }
       },
-      "db:migrate": {
+    "db:migrate": {
         "executor": "nx:run-commands",
         "options": {
           "command": "npx prisma migrate dev --name 'updated user model' --schema ./schema.prisma --skip-generate --skip-seed",
           "cwd": "libs/models/users-models/src/prisma"
         }
       },
-      "db:reset": {
+    "db:reset": {
         "executor": "nx:run-commands",
         "options": {
           "command": "npx prisma migrate dev --schema ./schema.prisma --skip-generate --skip-seed",
           "cwd": "libs/models/users-models/src/prisma"
         }
       },
-      "db:generate": {
+    "db:generate": {
         "executor": "nx:run-commands",
         "options": {
           "command": "npx prisma generate --schema ./schema.prisma",
           "cwd": "libs/models/users-models/src/prisma"
         }
       },
-      "db:seed": {
+    "db:seed": {
         "executor": "nx:run-commands",
         "options": {
           "command": "npx ts-node seed.ts",
           "cwd": "libs/models/users-models/src/prisma"
         }
+    },
+    "buildDockerImage":{
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run users:build && docker build --file ./apps/users/Dockerfile --tag fit-friends.users:latest ."
+      }
     }
-  },
+    },
   "tags": []
 }

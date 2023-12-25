@@ -1,4 +1,4 @@
-import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile, Get, Param, UseGuards, Query, Body, Patch } from '@nestjs/common';
+import {  Req, Controller, Post, UseFilters, UseInterceptors, HttpStatus, UploadedFile, Get, Param, UseGuards, Query, Body, Patch, Inject } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
 import { AxiosExceptionFilter } from '../filters/axios-exception.filter';
@@ -12,13 +12,17 @@ import { getSpecialPrice } from '@backend/util/util-core';
 import { Workout } from '@backend/shared/shared-types';
 import { CreateWorkoutDto } from '@backend/shared/shared-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { bffConfig } from '@backend/config-bff';
+import { ConfigType } from '@nestjs/config';
 
 @ApiTags(ControllerName.Workouts)
 @Controller(ControllerName.Workouts)
 @UseFilters(AxiosExceptionFilter)
 export class WorkoutsController {
   constructor(
-    private readonly httpService: HttpService
+    private readonly httpService: HttpService,
+    @Inject(bffConfig.KEY)
+    private readonly serviceConfig: ConfigType<typeof bffConfig>
   ) { }
 
   @ApiResponse({
@@ -32,7 +36,7 @@ export class WorkoutsController {
   @UseGuards(CheckAuthGuard)
   @Get(`${AppPath.Orders}`)
   public async showUserOrders(@Req() req: Request) {
-    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.OrdersList}`,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.OrdersList}`,
     {
       headers: {
         Authorization: req.headers['authorization'],
@@ -52,7 +56,7 @@ export class WorkoutsController {
   @UseGuards(CheckAuthGuard)
   @Get(`${AppPath.Orders}/${AppPath.CoachList}`)
   public async showCoachOrders(@Req() req: Request, @Query() query:CoachOrderQuery ) {
-    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.OrdersList}/${AppPath.CoachList}`,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.OrdersList}/${AppPath.CoachList}`,
     {params:query,
       headers: {
         Authorization: req.headers['authorization'],
@@ -64,7 +68,7 @@ export class WorkoutsController {
   @UseGuards(CheckAuthGuard)
   @Get(`${AppPath.Orders}/${AppPath.CoachList}/${AppPath.Count}`)
   public async countCoachOrders(@Req() req: Request) {
-    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.OrdersList}/${AppPath.CoachList}`,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.OrdersList}/${AppPath.CoachList}`,
     {
       headers: {
         Authorization: req.headers['authorization'],
@@ -84,7 +88,7 @@ export class WorkoutsController {
   @UseGuards(CheckAuthGuard)
   @Get(AppPath.CoachList)
   public async showWorkoutsCoach(@Req() req: Request, @Query() query:WorkoutListQuery ) {
-    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.WorkoutsList}/${AppPath.CoachList}`,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutsList}/${AppPath.CoachList}`,
     {params:query,
       headers: {
         Authorization: req.headers['authorization'],
@@ -104,7 +108,7 @@ export class WorkoutsController {
   @UseGuards(CheckAuthGuard)
   @Get(AppPath.Show)
   public async showWorkoutsUser(@Req() req: Request, @Query() query:WorkoutListQuery ) {
-    const { data } = await this.httpService.axiosRef.get(ApplicationServiceURL.WorkoutsList,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutsList}`,
     {params:query,
       headers: {
         Authorization: req.headers['authorization'],
@@ -116,7 +120,7 @@ export class WorkoutsController {
     @UseGuards(CheckAuthGuard)
     @Get(`${AppPath.CoachList}/${AppPath.GetExtra}`)
     public async showExtraWorkoutsCoach(@Req() req: Request ) {
-      const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.WorkoutsList}/${AppPath.CoachList}`,
+      const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutsList}/${AppPath.CoachList}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -131,7 +135,7 @@ export class WorkoutsController {
   @UseGuards(CheckAuthGuard)
   @Get(`${AppPath.Show}/${AppPath.GetExtra}`)
   public async showExtraWorkoutsUser(@Req() req: Request ) {
-    const { data } = await this.httpService.axiosRef.get(ApplicationServiceURL.WorkoutsList,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutsList}`,
     {
       headers: {
         Authorization: req.headers['authorization'],
@@ -152,7 +156,7 @@ export class WorkoutsController {
   public async showReviews(
     @Param('id') id: number,@Req() req: Request,
   ) {
-    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.ReviewsList}/${id}`,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.ReviewsList}/${id}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -172,7 +176,7 @@ export class WorkoutsController {
   @UseGuards(CheckAuthGuard)
   @Get(AppPath.Id)
   public async showSingleWorkout(@Req() req: Request, @Param('id') id: number ) {
-    const { data } = await this.httpService.axiosRef.get(`${ApplicationServiceURL.WorkoutsList}/${id}`,
+    const { data } = await this.httpService.axiosRef.get(`${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutsList}/${id}`,
     {
       headers: {
         Authorization: req.headers['authorization'],
@@ -188,7 +192,7 @@ export class WorkoutsController {
   @Post(AppPath.Add)
   public async createWorkout(@Body() dto: CreateWorkoutDto, @Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.WorkoutInfo}/${AppPath.Add}`,
+      `${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutInfo}/${AppPath.Add}`,
       dto,
       {
         headers: {
@@ -203,7 +207,7 @@ export class WorkoutsController {
   @Patch(AppPath.Id)
   public async updateWorkout(@Body() dto: CreateWorkoutDto, @Req() req: Request, @Param('id') id: number) {
     const { data } = await this.httpService.axiosRef.patch(
-      `${ApplicationServiceURL.WorkoutInfo}/${id}`,
+      `${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutInfo}/${id}`,
       dto,
       {
         headers: {
@@ -232,7 +236,7 @@ export class WorkoutsController {
       contentType: file.mimetype,
     });
     const { data: videoData } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Video}`,
+      `${this.serviceConfig.uploader}${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Video}`,
       formData,
       {
         headers: {
@@ -241,7 +245,7 @@ export class WorkoutsController {
       }
     );
     const { data } = await this.httpService.axiosRef.patch(
-      `${ApplicationServiceURL.WorkoutInfo}/${id}`,
+      `${this.serviceConfig.workouts}${ApplicationServiceURL.WorkoutInfo}/${id}`,
       { video: videoData.id },
       {
         headers: {

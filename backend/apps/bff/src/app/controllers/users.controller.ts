@@ -13,6 +13,7 @@ import {
   Patch,
   Query,
   Delete,
+  Inject,
 } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ApplicationServiceURL } from '../app.config';
@@ -37,12 +38,18 @@ import { CheckAuthGuard } from '../guards/check-auth.guard';
 import { UserIdInterceptor } from '../interceptors/user-id.interceptor';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { DefaultQuery, UserQuery } from '@backend/shared-quieries';
+import { bffConfig } from '@backend/config-bff';
+import { ConfigType } from '@nestjs/config';
 
 @ApiTags(ControllerName.User)
 @Controller(ControllerName.User)
 @UseFilters(AxiosExceptionFilter)
 export class UsersController {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    @Inject(bffConfig.KEY)
+    private readonly serviceConfig: ConfigType<typeof bffConfig>
+    ) {}
 
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -51,7 +58,7 @@ export class UsersController {
   @Post(AppPath.Register)
   public async register(@Body() createUserDto: CreateUserDto) {
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Users}/${AppPath.Register}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.Users}/${AppPath.Register}`,
       createUserDto
     );
     return data;
@@ -70,7 +77,7 @@ export class UsersController {
   @Post(AppPath.Login)
   public async login(@Body() loginUserDto: LoginUserDto) {
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Users}/${AppPath.Login}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.Users}/${AppPath.Login}`,
       loginUserDto
     );
     return data;
@@ -81,7 +88,7 @@ export class UsersController {
   @Get(AppPath.CheckLogin)
   public async loginUser(@Req() req: Request, @Body() body) {
     const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.UserInfo}/${body.userId}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${body.userId}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -98,7 +105,7 @@ export class UsersController {
   @Post(AppPath.Refresh)
   public async refreshToken(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Users}/${AppPath.Refresh}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.Users}/${AppPath.Refresh}`,
       null,
       {
         headers: {
@@ -113,7 +120,7 @@ export class UsersController {
   @Post(AppPath.Revoke)
   public async revokeToken(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Users}/${AppPath.Revoke}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.Users}/${AppPath.Revoke}`,
       null,
       {
         headers: {
@@ -142,7 +149,7 @@ export class UsersController {
       contentType: file.mimetype,
     });
     const { data: avatarData } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Avatar}`,
+      `${this.serviceConfig.uploader}${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Avatar}`,
       formData,
       {
         headers: {
@@ -151,7 +158,7 @@ export class UsersController {
       }
     );
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Avatar}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Avatar}`,
       { avatarId: avatarData.id },
       {
         headers: {
@@ -176,7 +183,7 @@ export class UsersController {
       file.originalname
     );
     const { data: certificateData } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Certificate}`,
+      `${this.serviceConfig.uploader}${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.Certificate}`,
       formData,
       {
         headers: {
@@ -186,7 +193,7 @@ export class UsersController {
       }
     );
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Certificate}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.Certificate}`,
       { certificateId: certificateData.id },
       {
         headers: {
@@ -215,7 +222,7 @@ export class UsersController {
       file.originalname
     );
     const { data: photoData } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.UserPhoto}`,
+      `${this.serviceConfig.uploader}${ApplicationServiceURL.Uploader}/${AppPath.Upload}/${FileType.UserPhoto}`,
       formData,
       {
         headers: {
@@ -225,7 +232,7 @@ export class UsersController {
       }
     );
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.UserPhoto}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${AppPath.Upload}-${FileType.UserPhoto}`,
       { photoId: photoData.id },
       {
         headers: {
@@ -244,7 +251,7 @@ export class UsersController {
   @Patch(AppPath.Update)
   public async updateUser(@Req() req: Request, @Body() dto: UpdateUserDto) {
     const { data } = await this.httpService.axiosRef.patch(
-      `${ApplicationServiceURL.UserInfo}/${AppPath.Update}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${AppPath.Update}`,
       dto,
       {
         headers: {
@@ -258,7 +265,7 @@ export class UsersController {
   @Post(AppPath.CheckEmail)
   public async checkEmail(@Body() email: string) {
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.Users}/${AppPath.CheckEmail}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.Users}/${AppPath.CheckEmail}`,
       email
     );
     return data;
@@ -269,7 +276,7 @@ export class UsersController {
   @Post(`${AppPath.Friends}/:id`)
   public async addFriend(@Req() req: Request, @Param('id') id:number) {
     const { data } = await this.httpService.axiosRef.post(
-      `${ApplicationServiceURL.UserFriends}/${id}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserFriends}/${id}`,
       null,
       {
         headers: {
@@ -286,7 +293,7 @@ export class UsersController {
   @Delete(`${AppPath.Friends}/:id`)
   public async deleteFriend(@Req() req: Request, @Param('id') id:number) {
     const { data } = await this.httpService.axiosRef.delete(
-      `${ApplicationServiceURL.UserFriends}/${id}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserFriends}/${id}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -305,7 +312,7 @@ export class UsersController {
   @Get(AppPath.Friends)
   public async getFriends(@Req() req: Request, @Query() query:DefaultQuery) {
     const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.UserFriends}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserFriends}`,
       {
           params:query,
 
@@ -320,7 +327,7 @@ export class UsersController {
   @Get(`${AppPath.Friends}/${AppPath.Count}`)
   public async showFriendsAmount(@Req() req: Request ) {
     const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.UserFriends}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserFriends}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -341,7 +348,7 @@ export class UsersController {
   @Get(AppPath.Show)
   public async show(@Req() req: Request,  @Query() query:UserQuery) {
     const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
       {params:query,
         headers: {
           Authorization: req.headers['authorization'],
@@ -354,7 +361,7 @@ export class UsersController {
   @Get(`${AppPath.Show}/${AppPath.Count}`)
   public async showUserAmount(@Req() req: Request, ) {
     const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${AppPath.Show}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -371,7 +378,7 @@ export class UsersController {
   @Get(AppPath.Notifications)
   public async showNotifications(@Req() req: Request) {
     const { data } = await this.httpService.axiosRef.get(
-      ApplicationServiceURL.UserNotifications,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserNotifications}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -388,7 +395,7 @@ export class UsersController {
   @Delete(`${AppPath.Notifications}/${AppPath.Id}`)
   public async deleteNotification(@Req() req: Request,  @Param('id') id:number) {
     const { data } = await this.httpService.axiosRef.delete(
-      `${ApplicationServiceURL.UserNotifications}/${id}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserNotifications}/${id}`,
       {
         headers: {
           Authorization: req.headers['authorization'],
@@ -409,7 +416,7 @@ export class UsersController {
   @Get(AppPath.Id)
   public async showSingle(@Req() req: Request, @Param('id') id: number) {
     const { data } = await this.httpService.axiosRef.get(
-      `${ApplicationServiceURL.UserInfo}/${id}`,
+      `${this.serviceConfig.users}${ApplicationServiceURL.UserInfo}/${id}`,
       {
         headers: {
           Authorization: req.headers['authorization'],

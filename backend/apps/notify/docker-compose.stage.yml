@@ -1,0 +1,62 @@
+version: '3.9'
+services:
+  fit-friends.notify.fakesmtp:
+    image: gessnerfl/fake-smtp-server
+    container_name: 'fit-friends.notify.fakesmtp'
+    hostname: 'fakesmtp'
+    networks:
+      - fit-friends.notify.network
+    ports:
+      - '8025:8025'
+      - '1083:8080'
+
+  fit-friends.notify.rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: fit-friends.notify.rabbitmq
+    ports:
+      - '1088:15672'
+      - '5672:5672'
+    env_file:
+      - .fit-friends.notify.rabbit.env
+    networks:
+      - fit-friends.notify.network
+      - fit-friends.rabbit
+
+  fit-friends.notify.mongodb:
+    image: mongo
+    command: mongod --port 27020
+    ports:
+      - 27020:27017
+    container_name: fit-friends.notify.mongodb
+    env_file:
+      - .fit-friends.notify.mongo.env
+    volumes:
+      - fit-friends.notify.volume:/data/db
+    networks:
+      - fit-friends.notify.network
+
+  fit-friends.notify:
+    container_name: fit-friends.notify
+    depends_on:
+      - fit-friends.notify.mongodb
+      - fit-friends.notify.rabbitmq
+    restart: always
+    image: fit-friends.notify:latest
+    env_file:
+      - .fit-friends.notify.env
+    networks:
+      - fit-friends.notify.network
+      - fit-friends.bff
+    ports:
+      - 6000:6000
+
+networks:
+  fit-friends.notify.network:
+    driver: bridge
+  fit-friends.rabbit:
+    external: true
+  fit-friends.bff:
+    external: true
+
+volumes:
+  fit-friends.notify.volume:

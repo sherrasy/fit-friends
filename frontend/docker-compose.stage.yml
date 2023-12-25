@@ -1,0 +1,16 @@
+version: "3.5"
+services:
+  fit-friends.frontend:
+    container_name: fit-friends.frontend
+    restart: always
+    image: fit-friends.frontend:latest
+    env_file:
+      - .fit-friends.frontend.env
+    ports:
+      - "4001:4001"
+    networks:
+      - fit-friends.bff
+
+networks:
+  fit-friends.bff:
+    external: true

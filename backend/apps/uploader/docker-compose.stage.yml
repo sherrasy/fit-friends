@@ -1,0 +1,42 @@
+version: '3.5'
+services:
+  fit-friends.uploader.mongodb:
+    image: mongo:latest
+    command: mongod --port 27018
+    container_name: fit-friends.uploader.mongodb
+    restart: always
+    env_file:
+      - .fit-friends.uploader.mongo.env
+    ports:
+      - 27018:27017
+    volumes:
+      - fit-friends.uploader.volume:/data/db
+    networks:
+      - fit-friends.uploader.network
+
+  fit-friends.uploader:
+    container_name: fit-friends.uploader
+    depends_on:
+      - fit-friends.uploader.mongodb
+    restart: always
+    image: fit-friends.uploader:latest
+    env_file:
+      - .fit-friends.uploader.env
+    networks:
+      - fit-friends.uploader.network
+      - fit-friends.bff
+    ports:
+      - 3002:3002
+    volumes:
+      - type: bind
+        source: ./uploads
+        target: /opt/fit-friends-uploader/uploads
+
+networks:
+  fit-friends.uploader.network:
+    driver: bridge
+  fit-friends.bff:
+    external: true
+
+volumes:
+  fit-friends.uploader.volume:
