@@ -45,7 +45,7 @@ async function fillDb() {
       photo: 'photo2.png',
       coachInfo: {
         create: {
-          certificate: 'certificate1.pdf',
+          certificate: null,
           successInfo: 'First coach success info',
           isPersonal: true,
         },
@@ -93,7 +93,7 @@ async function fillDb() {
       workoutType: ['yoga', 'stretching'],
       coachInfo: {
         create: {
-          certificate: 'certificate2.pdf',
+          certificate: null,
           successInfo: 'Second coach success info',
           isPersonal: false,
         },

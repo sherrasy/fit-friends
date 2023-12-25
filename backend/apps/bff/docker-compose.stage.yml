@@ -1,11 +1,11 @@
 version: '3.5'
 services:
   fit-friends.bff:
-    container_name: fit-friend.bff
+    container_name: fit-friends.bff
     restart: always
     image: fit-friends.bff:latest
     env_file:
-      - .bff.env
+      - .fit-friends.bff.env
     ports:
       - '4000:4000'
     networks:

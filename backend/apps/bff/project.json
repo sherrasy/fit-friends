@@ -63,10 +63,8 @@
     "buildDockerImage": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "nx run bff:build",
-          "docker build --file apps/bff/Dockerfile --tag fit-friends.bff:latest ."
-        ]
+        "command":
+          "nx run bff:build && docker build --file apps/bff/Dockerfile --tag fit-friends.bff:latest ."
       }
     }
   },

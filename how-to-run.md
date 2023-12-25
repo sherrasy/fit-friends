@@ -44,10 +44,17 @@ docker compose -f ./apps/bff/docker-compose.stage.yml up -d
 
 ```
 
+Для заполнения моковыми данными сервисов users и workouts необходимо выполнить команды миграции и заполнения из файлов seed.ts в соответствующих контейнерах
+
+```bash
+ npx prisma migrate dev --name 'updated model' --schema ./schema.prisma --skip-generate --skip-seed
+ npx ts-node ./assets/prisma/seed.ts
+```
+
 - В директории `frontend`
 
 ```bash
 docker compose -f docker-compose.stage.yml up -d
 ```
 
-5. Перейти по ссылке `http://localhost:4001/`
+5. После запуска всех контейнеров приложение будет доступно на `http://localhost:4001/`

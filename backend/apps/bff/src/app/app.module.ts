@@ -5,9 +5,11 @@ import { HttpCLientParam } from './app.config';
 import { CheckAuthGuard } from './guards/check-auth.guard';
 import { UploaderController } from './controllers/uploader.controller';
 import { WorkoutsController } from './controllers/workouts.controller';
+import {ConfigBffModule} from '@backend/config-bff';
 
 @Module({
   imports: [
+    ConfigBffModule,
     HttpModule.register({
       timeout:HttpCLientParam.Timeout,
       maxRedirects:HttpCLientParam.MaxRedirects
