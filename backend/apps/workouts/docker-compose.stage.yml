@@ -2,9 +2,10 @@ version: '3.5'
 services:
   fit-friends.workouts.postgres:
     image: postgres:14-alpine
+    command: -p 5433
     container_name: fit-friends.workouts.postgres
     env_file:
-      - .fit-friends.workouts.postgres.env
+      - .fit-friends.workouts.postgress.env
     ports:
       - 5433:5432
     volumes:
@@ -22,6 +23,8 @@ services:
       - .fit-friends.workouts.env
     networks:
       - fit-friends.workouts.network
+      - fit-friends.rabbit
+      - fit-friends.bff
     ports:
       - 3000:3000
 
@@ -31,3 +34,7 @@ volumes:
 networks:
   fit-friends.workouts.network:
     driver: bridge
+  fit-friends.rabbit:
+    external: true
+  fit-friends.bff:
+    external: true

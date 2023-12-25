@@ -5,12 +5,15 @@ services:
     restart: always
     image: fit-friends.bff:latest
     env_file:
-      - .fit-friends.bff.env
+      - .bff.env
     ports:
       - '4000:4000'
     networks:
-      - fit-friends.bff.network
+      - fit-friends.bff
+      - fit-friends.rabbit
 
 networks:
-  fit-friends.bff.network:
-    driver: bridge
+  fit-friends.bff:
+    external: true
+  fit-friends.rabbit:
+    external: true

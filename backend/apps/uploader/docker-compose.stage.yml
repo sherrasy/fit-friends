@@ -24,6 +24,7 @@ services:
       - .fit-friends.uploader.env
     networks:
       - fit-friends.uploader.network
+      - fit-friends.bff
     ports:
       - 3002:3002
     volumes:
@@ -34,6 +35,8 @@ services:
 networks:
   fit-friends.uploader.network:
     driver: bridge
+  fit-friends.bff:
+    external: true
 
 volumes:
   fit-friends.uploader.volume:

@@ -8,13 +8,9 @@
 
 ```bash
 nx run notify:buildDockerImage
-
 nx run uploader:buildDockerImage
-
 nx run users:buildDockerImage
-
 nx run workouts:buildDockerImage
-
 nx run bff:buildDockerImage
 ```
 
@@ -28,9 +24,16 @@ npm run buildDockerImage
 
 2. Создать env файлы. В каждой директории приложены необходимые `.fit-friends.<...>.env-example`.
 
-3. Поднять контейнеры:
+3. Создать внешнюю сеть
 
-- В директории backend
+```bash
+docker network create fit-friends.rabbit
+docker network create fit-friends.bff
+```
+
+4. Поднять контейнеры:
+
+- В директории `backend`
 
 ```bash
 docker compose -f ./apps/uploader/docker-compose.stage.yml up -d
@@ -41,9 +44,10 @@ docker compose -f ./apps/bff/docker-compose.stage.yml up -d
 
 ```
 
-- В директории frontend
+- В директории `frontend`
 
 ```bash
-docker compose -f ./apps/frontend/docker-compose.stage.yml up -d
-
+docker compose -f docker-compose.stage.yml up -d
 ```
+
+5. Перейти по ссылке `http://localhost:4001/`

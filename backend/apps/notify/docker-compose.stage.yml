@@ -20,6 +20,7 @@ services:
       - .fit-friends.notify.rabbit.env
     networks:
       - fit-friends.notify.network
+      - fit-friends.rabbit
 
   fit-friends.notify.mongodb:
     image: mongo
@@ -45,12 +46,17 @@ services:
       - .fit-friends.notify.env
     networks:
       - fit-friends.notify.network
+      - fit-friends.bff
     ports:
       - 6000:6000
 
 networks:
   fit-friends.notify.network:
     driver: bridge
+  fit-friends.rabbit:
+    external: true
+  fit-friends.bff:
+    external: true
 
 volumes:
   fit-friends.notify.volume:

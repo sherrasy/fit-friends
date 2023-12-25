@@ -108,9 +108,9 @@
     "buildDockerImage":{
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx run users:build && docker build --file ./apps/users/Dockerfile --tag fit-friends-users:latest ."
+        "command": "nx run users:build && docker build --file ./apps/users/Dockerfile --tag fit-friends.users:latest ."
       }
     }
-  },
+    },
   "tags": []
 }

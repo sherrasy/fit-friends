@@ -4,7 +4,7 @@ services:
     image: postgres:14-alpine
     container_name: fit-friends.users.postgres
     env_file:
-      - .fit-friends.users.postgres.env
+      - .fit-friends.users.postgress.env
     volumes:
       - fit-friends.postgres.users:/var/lib/postgresql/data
     networks:
@@ -20,6 +20,8 @@ services:
       - .fit-friends.users.env
     networks:
       - fit-friends.users.network
+      - fit-friends.rabbit
+      - fit-friends.bff
     ports:
       - 3001:3001
 
@@ -29,3 +31,7 @@ volumes:
 networks:
   fit-friends.users.network:
     driver: bridge
+  fit-friends.rabbit:
+    external: true
+  fit-friends.bff:
+    external: true
