@@ -73,7 +73,7 @@ describe(`Async actions ${ReducerName.User}`, () => {
       .reply(200, {accessToken: fakeUser.token});
 
     const store = mockStore();
-    Storage.prototype.setItem = jest.fn();
+    Storage.prototype.setItem = vi.fn();
 
     await store.dispatch(login({email:fakeUserGeneral.email, password:fakeUserGeneral.password}));
 
@@ -83,8 +83,8 @@ describe(`Async actions ${ReducerName.User}`, () => {
       login.fulfilled.type
     ]);
 
-    expect(Storage.prototype.setItem).toBeCalledTimes(1);
-    expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, fakeUser.token);
+    expect(Storage.prototype.setItem).toHaveBeenCalledTimes(1);
+    expect(Storage.prototype.setItem).toHaveBeenCalledWith(AUTH_TOKEN_KEY_NAME, fakeUser.token);
   });
 
   it(`should post user data when dispatched ${ActionName.Register}`, async () => {

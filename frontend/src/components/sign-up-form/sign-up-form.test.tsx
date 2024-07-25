@@ -29,7 +29,7 @@ describe('Component: SignUpForm', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <SignUpForm onSubmit={jest.fn()} />
+          <SignUpForm onSubmit={vi.fn()} />
         </HistoryRouter>
       </Provider>
     );
