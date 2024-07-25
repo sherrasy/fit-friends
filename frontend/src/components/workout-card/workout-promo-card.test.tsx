@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../../components/history-router/history-router';
+import HistoryRouter from '../history-router/history-router';
 import { DefaultParam } from '../../utils/constant';
 import { makeFakeWorkout } from '../../utils/mocks';
 import WorkoutPromoCard from './workout-promo-card';

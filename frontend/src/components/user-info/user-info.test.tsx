@@ -2,7 +2,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../../components/history-router/history-router';
+import HistoryRouter from '../history-router/history-router';
 import { DefaultParam, ReducerName } from '../../utils/constant';
 import { makeFakeUser } from '../../utils/mocks';
 import UserInfo from './user-info';
