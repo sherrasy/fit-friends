@@ -1,19 +1,19 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import {
   fetchNotifications,
   removeNotification,
-} from '../../store/account-data/api-actions';
+} from '@store/account-data/api-actions';
 import {
   getNotificationDeleting,
   getNotifications,
   getNotificationsError,
-} from '../../store/account-data/selectors';
-import { getUserRole } from '../../store/user-data/selectors';
-import { UserRole } from '../../types/common/user-role.enum';
-import { AppRoute, HeaderTab } from '../../utils/constant';
-import { formatNotificationDate } from '../../utils/helpers';
+} from '@store/account-data/selectors';
+import { getUserRole } from '@store/user-data/selectors';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { AppRoute, HeaderTab } from '@utils/constant';
+import { formatNotificationDate } from '@utils/helpers';
 
 function Header(): JSX.Element {
   const dispatch = useAppDispatch();

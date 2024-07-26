@@ -1,12 +1,12 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import InputErrorField from '../../components/input-error-field/input-error-field';
-import { useAppDispatch } from '../../hooks';
-import { login } from '../../store/user-data/api-actions';
-import '../../styles/common-styles.css';
-import { AuthData } from '../../types/user/auth-data.type';
-import { FormFieldName, UserFormError } from '../../utils/constant';
-import { checkValidity } from '../../utils/helpers';
-import { PasswordLength, ValidationPattern } from '../../utils/validation.constant';
+import InputErrorField from '@components/input-error-field/input-error-field';
+import { useAppDispatch } from '@/hooks';
+import { login } from '@store/user-data/api-actions';
+import '@styles/common-styles.css';
+import { AuthData } from '@frontend-types/user/auth-data.type';
+import { FormFieldName, UserFormError } from '@utils/constant';
+import { checkValidity } from '@utils/helpers';
+import { PasswordLength, ValidationPattern } from '@utils/validation.constant';
 
 function LoginPage(): JSX.Element {
   const loginDataDefault = {

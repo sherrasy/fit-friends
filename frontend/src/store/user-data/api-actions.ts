@@ -3,18 +3,18 @@ import { AxiosError, AxiosInstance } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
-import { CreateUserDto } from '../../dto/user/create/create-user.dto';
-import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
-import { dropToken, saveToken } from '../../services/token';
-import { UserRole } from '../../types/common/user-role.enum';
-import { Query } from '../../types/query.type';
-import { File } from '../../types/reaction/file.interface';
-import { FileType } from '../../types/reaction/file.type';
-import { AppDispatch, State } from '../../types/state.type';
-import { AuthData } from '../../types/user/auth-data.type';
-import { TokenData, TokenPayloadData } from '../../types/user/token-data.type';
-import { User } from '../../types/user/user.interface';
-import { adaptAvatarToServer, adaptCertificateToServer } from '../../utils/adapters/adaptersToServer';
+import { CreateUserDto } from '@dto/user/create/create-user.dto';
+import { UpdateUserDto } from '@dto/user/update/update-user.dto';
+import { dropToken, saveToken } from '@services/token';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { Query } from '@frontend-types/query.type';
+import { File } from '@frontend-types/reaction/file.interface';
+import { FileType } from '@frontend-types/reaction/file.type';
+import { AppDispatch, State } from '@frontend-types/state.type';
+import { AuthData } from '@frontend-types/user/auth-data.type';
+import { TokenData, TokenPayloadData } from '@frontend-types/user/token-data.type';
+import { User } from '@frontend-types/user/user.interface';
+import { adaptAvatarToServer, adaptCertificateToServer } from '@utils/adapters/adaptersToServer';
 import {
   ActionName,
   ApiRoute,
@@ -22,8 +22,8 @@ import {
   CardsLimit,
   DefaultParam,
   ReducerName,
-} from '../../utils/constant';
-import { getUserQueryString } from '../../utils/helpers';
+} from '@utils/constant';
+import { getUserQueryString } from '@utils/helpers';
 import { redirectToRoute } from '../action';
 import { setUserData } from './user-data';
 

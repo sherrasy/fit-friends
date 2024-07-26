@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import AdvertisementThumbnail from '../../components/advertisement-thumbnail/advertisement-thumbnail';
-import Header from '../../components/header/header';
-import UserInfo from '../../components/user-info/user-info';
-import { useAppSelector } from '../../hooks';
-import { getCurrentUserData } from '../../store/user-data/selectors';
-import { AppRoute } from '../../utils/constant';
+import AdvertisementThumbnail from '@components/advertisement-thumbnail/advertisement-thumbnail';
+import Header from '@components/header/header';
+import UserInfo from '@components/user-info/user-info';
+import { useAppSelector } from '@/hooks';
+import { getCurrentUserData } from '@store/user-data/selectors';
+import { AppRoute } from '@utils/constant';
 
 function UserAccountPage(): JSX.Element {
   const userInfo = useAppSelector(getCurrentUserData);

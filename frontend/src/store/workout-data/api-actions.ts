@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, State } from '../../types/state.type';
+import { AppDispatch, State } from '@frontend-types/state.type';
 import { AxiosError, AxiosInstance } from 'axios';
 import {
   ActionName,
@@ -9,24 +9,24 @@ import {
   DefaultParam,
   ReducerName,
   SortingFieldName,
-} from '../../utils/constant';
+} from '@utils/constant';
 import {
   ExtraWorkoutsData,
   Workout,
   WorkoutsData,
-} from '../../types/workout/workout.interface';
-import { Query } from '../../types/query.type';
-import { User } from '../../types/user/user.interface';
+} from '@frontend-types/workout/workout.interface';
+import { Query } from '@frontend-types/query.type';
+import { User } from '@frontend-types/user/user.interface';
 import { toast } from 'react-toastify';
-import { Review } from '../../types/reaction/review.interface';
-import { getWorkoutQueryString, getSpecialPrice } from '../../utils/helpers';
-import { UserRole } from '../../types/common/user-role.enum';
-import { CreateWorkoutDto } from '../../dto/workout/create-workout.dto';
-import { adaptVideoToServer } from '../../utils/adapters/adaptersToServer';
+import { Review } from '@frontend-types/reaction/review.interface';
+import { getWorkoutQueryString, getSpecialPrice } from '@utils/helpers';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { CreateWorkoutDto } from '@dto/workout/create-workout.dto';
+import { adaptVideoToServer } from '@utils/adapters/adaptersToServer';
 import { redirectToRoute } from '../action';
-import { UpdateWorkoutDto } from '../../dto/workout/update-workout.dto';
-import { File } from '../../types/reaction/file.interface';
-import { FileType } from '../../types/reaction/file.type';
+import { UpdateWorkoutDto } from '@dto/workout/update-workout.dto';
+import { File } from '@frontend-types/reaction/file.interface';
+import { FileType } from '@frontend-types/reaction/file.type';
 
 export const fetchWorkouts = createAsyncThunk<
   Workout[],

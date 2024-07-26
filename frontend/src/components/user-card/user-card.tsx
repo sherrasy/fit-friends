@@ -1,14 +1,14 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addFriend, removeFriend } from '../../store/account-data/api-actions';
-import { getFriendChanging, getUserFriendStatus } from '../../store/account-data/selectors';
-import { getUserRole } from '../../store/user-data/selectors';
-import { UserRole } from '../../types/common/user-role.enum';
-import { User } from '../../types/user/user.interface';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { addFriend, removeFriend } from '@store/account-data/api-actions';
+import { getFriendChanging, getUserFriendStatus } from '@store/account-data/selectors';
+import { getUserRole } from '@store/user-data/selectors';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { User } from '@frontend-types/user/user.interface';
 import {
   LocationToName,
   ReadyToTrainText,
   WorkoutTypeToName,
-} from '../../utils/constant';
+} from '@utils/constant';
 
 type UserCardProps = {
   user: User;

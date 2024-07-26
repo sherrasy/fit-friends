@@ -1,6 +1,6 @@
-import { useAppSelector } from '../../hooks';
-import { getSpecialWorkouts } from '../../store/workout-data/selectors';
-import { DefaultParam, SliderLimit } from '../../utils/constant';
+import { useAppSelector } from '@/hooks';
+import { getSpecialWorkouts } from '@store/workout-data/selectors';
+import { DefaultParam, SliderLimit } from '@utils/constant';
 import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
 import Slider from '../slider/slider';
 import WorkoutPromoCard from '../workout-card/workout-promo-card';

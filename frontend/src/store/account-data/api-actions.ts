@@ -1,15 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { Query } from '../../types/query.type';
-import { Certificate, File } from '../../types/reaction/file.interface';
-import { FileType } from '../../types/reaction/file.type';
-import { Order, OrderCoach, OrderCoachData } from '../../types/reaction/order.interface';
-import { UserNotification } from '../../types/reaction/user-notification.interface';
-import { AppDispatch, State } from '../../types/state.type';
-import { FriendData, User } from '../../types/user/user.interface';
-import { adaptCertificateToServer } from '../../utils/adapters/adaptersToServer';
-import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
-import { getFriendsQueryString, getOrdersQueryString } from '../../utils/helpers';
+import { Query } from '@frontend-types/query.type';
+import { Certificate, File } from '@frontend-types/reaction/file.interface';
+import { FileType } from '@frontend-types/reaction/file.type';
+import { Order, OrderCoach, OrderCoachData } from '@frontend-types/reaction/order.interface';
+import { UserNotification } from '@frontend-types/reaction/user-notification.interface';
+import { AppDispatch, State } from '@frontend-types/state.type';
+import { FriendData, User } from '@frontend-types/user/user.interface';
+import { adaptCertificateToServer } from '@utils/adapters/adaptersToServer';
+import { ActionName, ApiRoute, ReducerName } from '@utils/constant';
+import { getFriendsQueryString, getOrdersQueryString } from '@utils/helpers';
 
 export const fetchFriends = createAsyncThunk<
   FriendData,

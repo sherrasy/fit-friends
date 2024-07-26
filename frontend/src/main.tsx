@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import browserHistory from './browser-history';
-import App from './components/app/app';
-import HistoryRouter from './components/history-router/history-router';
-import { store } from './store';
+import App from '@components/app/app';
+import HistoryRouter from '@components/history-router/history-router';
+import { store } from '@/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

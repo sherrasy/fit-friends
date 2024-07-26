@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { WorkoutState } from '../../types/state.type';
-import { DefaultParam, ReducerName } from '../../utils/constant';
+import { WorkoutState } from '@frontend-types/state.type';
+import { DefaultParam, ReducerName } from '@utils/constant';
 import {
   createWorkout,
   fetchCoachWorkouts,

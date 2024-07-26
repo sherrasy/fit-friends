@@ -1,8 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { Review } from '../../types/reaction/review.interface';
-import { State } from '../../types/state.type';
-import { Workout } from '../../types/workout/workout.interface';
-import { CardsLimit, ReducerName } from '../../utils/constant';
+import { Review } from '@frontend-types/reaction/review.interface';
+import { State } from '@frontend-types/state.type';
+import { Workout } from '@frontend-types/workout/workout.interface';
+import { CardsLimit, ReducerName } from '@utils/constant';
 
 export const getWorkoutsLoadingStatus = (state: Pick<State, ReducerName.Workout>): boolean => state[ReducerName.Workout].isWorkoutsLoading;
 export const getWorkoutLoadingStatus = (state: Pick<State, ReducerName.Workout>): boolean => state[ReducerName.Workout].isWorkoutLoading;

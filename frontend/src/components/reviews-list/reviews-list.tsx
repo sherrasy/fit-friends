@@ -1,6 +1,6 @@
-import { useAppSelector } from '../../hooks';
-import { getUserList } from '../../store/user-data/selectors';
-import { Review } from '../../types/reaction/review.interface';
+import { useAppSelector } from '@/hooks';
+import { getUserList } from '@store/user-data/selectors';
+import { Review } from '@frontend-types/reaction/review.interface';
 import BackButton from '../back-button/back-button';
 import ReviewCard from '../review-card/review-card';
 

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { fetchReviews, fetchWorkout } from '../../store/workout-data/api-actions';
-import { OrderCoach } from '../../types/reaction/order.interface';
-import { AppRoute, WorkoutTypeToName } from '../../utils/constant';
-import { generateRandomNumber } from '../../utils/helpers';
+import { useAppDispatch } from '@/hooks';
+import { fetchReviews, fetchWorkout } from '@store/workout-data/api-actions';
+import { OrderCoach } from '@frontend-types/reaction/order.interface';
+import { AppRoute, WorkoutTypeToName } from '@utils/constant';
+import { generateRandomNumber } from '@utils/helpers';
 
 type WorkoutOrdersCardProps = {
   order: OrderCoach;

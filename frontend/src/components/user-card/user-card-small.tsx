@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import { UserRole } from '../../types/common/user-role.enum';
-import { User } from '../../types/user/user.interface';
-import { AppRoute, LocationToName, WorkoutTypeToName } from '../../utils/constant';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { User } from '@frontend-types/user/user.interface';
+import { AppRoute, LocationToName, WorkoutTypeToName } from '@utils/constant';
 
 type UserCardSmallProps = {
   user: User;

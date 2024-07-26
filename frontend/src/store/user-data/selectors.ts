@@ -1,7 +1,7 @@
-import { State } from '../../types/state.type';
-import { UserRole } from '../../types/common/user-role.enum';
-import { User, NewUserGeneral } from '../../types/user/user.interface';
-import { AuthorizationStatus, CardsLimit, ReducerName } from '../../utils/constant';
+import { State } from '@frontend-types/state.type';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { User, NewUserGeneral } from '@frontend-types/user/user.interface';
+import { AuthorizationStatus, CardsLimit, ReducerName } from '@utils/constant';
 
 export const getIsAuthorized = (state: Pick<State, ReducerName.User> ): boolean => state[ReducerName.User].authStatus === AuthorizationStatus.Auth;
 export const getAuthCheckedStatus = (state: Pick<State, ReducerName.User>): boolean => state[ReducerName.User].authStatus !== AuthorizationStatus.Unknown;

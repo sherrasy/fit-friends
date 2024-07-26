@@ -1,7 +1,7 @@
-import { FitnessLevel } from '../../../types/common/fitness-level.enum';
-import { Location } from '../../../types/common/location.enum';
-import { UserSex } from '../../../types/common/user-sex.enum';
-import { WorkoutType } from '../../../types/common/workout-type.enum';
+import { FitnessLevel } from '@frontend-types/common/fitness-level.enum';
+import { Location } from '@frontend-types/common/location.enum';
+import { UserSex } from '@frontend-types/common/user-sex.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
 import { UpdateCoachDto } from './update-coach.dto';
 import { UpdateSportsmanDto } from './update-sportsman.dto';
 

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../utils/constant';
+import { AppRoute } from '@utils/constant';
 
 function IntroPage(): JSX.Element {
   return (

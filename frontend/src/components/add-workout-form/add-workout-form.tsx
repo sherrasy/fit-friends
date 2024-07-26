@@ -1,15 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
-import { CreateWorkoutDto } from '../../dto/workout/create-workout.dto';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { createWorkout } from '../../store/workout-data/api-actions';
+import { CreateWorkoutDto } from '@dto/workout/create-workout.dto';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { createWorkout } from '@store/workout-data/api-actions';
 import {
   getWorkoutPostingStatus,
-} from '../../store/workout-data/selectors';
-import { FitnessLevel } from '../../types/common/fitness-level.enum';
-import { UserSex } from '../../types/common/user-sex.enum';
-import { WorkoutTime } from '../../types/common/workout-time.enum';
-import { WorkoutType } from '../../types/common/workout-type.enum';
+} from '@store/workout-data/selectors';
+import { FitnessLevel } from '@frontend-types/common/fitness-level.enum';
+import { UserSex } from '@frontend-types/common/user-sex.enum';
+import { WorkoutTime } from '@frontend-types/common/workout-time.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -18,14 +18,14 @@ import {
   UserFormError,
   UserSexToFormName,
   WorkoutTypeToName,
-} from '../../utils/constant';
-import { generateRandomNumber } from '../../utils/helpers';
+} from '@utils/constant';
+import { generateRandomNumber } from '@utils/helpers';
 import {
   CaloriesAmount,
   DescriptionLength,
   NameLength,
   WORKOUT_TYPE_AMOUNT,
-} from '../../utils/validation.constant';
+} from '@utils/validation.constant';
 import InputErrorField from '../input-error-field/input-error-field';
 
 function AddWorkoutForm(): JSX.Element {

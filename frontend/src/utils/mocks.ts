@@ -1,16 +1,16 @@
 import { datatype, image, internet, lorem, name, random } from 'faker';
-import { FitnessLevel } from '../types/common/fitness-level.enum';
-import { Location } from '../types/common/location.enum';
-import { PaymentOption } from '../types/common/payment-option.enum';
-import { UserRole } from '../types/common/user-role.enum';
-import { UserSex } from '../types/common/user-sex.enum';
-import { WorkoutTime } from '../types/common/workout-time.enum';
-import { WorkoutType } from '../types/common/workout-type.enum';
-import { Order, OrderCoach } from '../types/reaction/order.interface';
-import { Review } from '../types/reaction/review.interface';
-import { UserNotification } from '../types/reaction/user-notification.interface';
-import { NewUserGeneral, User } from '../types/user/user.interface';
-import { Workout } from '../types/workout/workout.interface';
+import { FitnessLevel } from '@frontend-types/common/fitness-level.enum';
+import { Location } from '@frontend-types/common/location.enum';
+import { PaymentOption } from '@frontend-types/common/payment-option.enum';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { UserSex } from '@frontend-types/common/user-sex.enum';
+import { WorkoutTime } from '@frontend-types/common/workout-time.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
+import { Order, OrderCoach } from '@frontend-types/reaction/order.interface';
+import { Review } from '@frontend-types/reaction/review.interface';
+import { UserNotification } from '@frontend-types/reaction/user-notification.interface';
+import { NewUserGeneral, User } from '@frontend-types/user/user.interface';
+import { Workout } from '@frontend-types/workout/workout.interface';
 import { CardsLimit, DefaultParam } from './constant';
 import {
   CaloriesAmount,
@@ -18,7 +18,7 @@ import {
   RaitingCount,
   ReviewTextLength,
 } from './validation.constant';
-import { Certificate } from '../types/reaction/file.interface';
+import { Certificate } from '@frontend-types/reaction/file.interface';
 
 const genders = Object.values(UserSex);
 const locations = Object.values(Location);

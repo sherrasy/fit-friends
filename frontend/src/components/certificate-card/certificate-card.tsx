@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Certificate } from '../../types/reaction/file.interface';
-import { DefaultParam } from '../../utils/constant';
+import { Certificate } from '@frontend-types/reaction/file.interface';
+import { DefaultParam } from '@utils/constant';
 
 type CertificateCardProps = {
   certificate: Certificate;

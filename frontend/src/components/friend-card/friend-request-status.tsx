@@ -1,5 +1,5 @@
-import { UserRole } from '../../types/common/user-role.enum';
-import { RequestWorkoutText } from '../../utils/constant';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { RequestWorkoutText } from '@utils/constant';
 
 type FriendRequestStatusProps = {
   initiatorRole: UserRole;

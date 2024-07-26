@@ -1,17 +1,17 @@
 import { ChangeEvent, FormEvent, useLayoutEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { UpdateUserDto } from '../../dto/user/update/update-user.dto';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { updateUser } from '../../store/user-data/api-actions';
-import { getCurrentUserData, getUserUpdatingStatus } from '../../store/user-data/selectors';
-import { FitnessLevel } from '../../types/common/fitness-level.enum';
-import { Location } from '../../types/common/location.enum';
-import { UserRole } from '../../types/common/user-role.enum';
-import { UserSex } from '../../types/common/user-sex.enum';
-import { WorkoutType } from '../../types/common/workout-type.enum';
-import { Coach } from '../../types/user/coach.interface';
-import { Sportsman } from '../../types/user/sportsman.interface';
-import { UserInfoInterface } from '../../types/user/user.interface';
+import { UpdateUserDto } from '@dto/user/update/update-user.dto';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { updateUser } from '@store/user-data/api-actions';
+import { getCurrentUserData, getUserUpdatingStatus } from '@store/user-data/selectors';
+import { FitnessLevel } from '@frontend-types/common/fitness-level.enum';
+import { Location } from '@frontend-types/common/location.enum';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { UserSex } from '@frontend-types/common/user-sex.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
+import { Coach } from '@frontend-types/user/coach.interface';
+import { Sportsman } from '@frontend-types/user/sportsman.interface';
+import { UserInfoInterface } from '@frontend-types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
@@ -21,9 +21,9 @@ import {
   UserFormError,
   UserSexToName,
   WorkoutTypeToName,
-} from '../../utils/constant';
-import { capitalizeFirstLetter } from '../../utils/helpers';
-import { DescriptionLength, NameLength, WORKOUT_TYPE_AMOUNT } from '../../utils/validation.constant';
+} from '@utils/constant';
+import { capitalizeFirstLetter } from '@utils/helpers';
+import { DescriptionLength, NameLength, WORKOUT_TYPE_AMOUNT } from '@utils/validation.constant';
 import Loader from '../loader/loader';
 
 function UserInfo(): JSX.Element {

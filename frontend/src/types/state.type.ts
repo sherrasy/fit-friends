@@ -1,4 +1,4 @@
-import {store} from '../store/index.js';
+import {store} from '@store/index.js';
 import { Order, OrderCoach } from './reaction/order.interface.js';
 import { Review } from './reaction/review.interface.js';
 import { UserAuthStatus } from './user/user-auth-status.type.js';

@@ -1,4 +1,4 @@
-import '../../styles/common-styles.css';
+import '@styles/common-styles.css';
 
 function AdvertisementThumbnail():JSX.Element{
   return(

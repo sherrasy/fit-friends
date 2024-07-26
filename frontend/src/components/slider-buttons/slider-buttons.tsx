@@ -1,4 +1,4 @@
-import { DefaultParam } from '../../utils/constant';
+import { DefaultParam } from '@utils/constant';
 
 type SliderButtonsProp = {
   next?: () => void;

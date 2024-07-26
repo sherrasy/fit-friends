@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { fetchUser } from '../../store/user-data/api-actions';
-import { UserRole } from '../../types/common/user-role.enum';
-import { User } from '../../types/user/user.interface';
+import { useAppDispatch } from '@/hooks';
+import { fetchUser } from '@store/user-data/api-actions';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { User } from '@frontend-types/user/user.interface';
 import {
   AppRoute,
   LocationToName,
   ReadyToTrainText,
   RequestWorkoutText,
   WorkoutTypeToName,
-} from '../../utils/constant';
+} from '@utils/constant';
 import FriendRequestStatus from './friend-request-status';
 
 type FriendCardProps = {

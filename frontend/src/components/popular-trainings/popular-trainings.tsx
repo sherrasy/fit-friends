@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchWorkouts } from '../../store/workout-data/api-actions';
-import { getPopularWorkouts } from '../../store/workout-data/selectors';
-import { AppRoute, SliderLimit } from '../../utils/constant';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { fetchWorkouts } from '@store/workout-data/api-actions';
+import { getPopularWorkouts } from '@store/workout-data/selectors';
+import { AppRoute, SliderLimit } from '@utils/constant';
 import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
 import SliderButtons from '../slider-buttons/slider-buttons';
 import Slider from '../slider/slider';
