@@ -10,15 +10,27 @@ export const getFriendsLoadingStatus = (state: Pick<State, ReducerName.Account>)
 export const getOrdersLoadingStatus = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isOrdersLoading;
 export const getFriends = (state: Pick<State, ReducerName.Account>): User[]|null => state[ReducerName.Account].friends;
 export const getFriendChanging = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isFriendStatusChanging;
-export const getFriendsPages = (state: Pick<State, ReducerName.Account>): number => Math.ceil(state[ReducerName.Account].friendsAmount / CardsLimit.Default);
 export const getOrders = (state: Pick<State, ReducerName.Account>): Order[]|null => state[ReducerName.Account].orders;
 export const getCertificates = (state: Pick<State, ReducerName.Account>): Certificate[]|null => state[ReducerName.Account].certificates;
-export const getOrdersPages = (state: Pick<State, ReducerName.Account>): number => Math.ceil(state[ReducerName.Account].ordersAmount / CardsLimit.CoachOrders);
 export const getCoachOrders = (state: Pick<State, ReducerName.Account>): OrderCoach[]|null => state[ReducerName.Account].coachOrders;
 export const getNotifications = (state: Pick<State, ReducerName.Account>): UserNotification[]|null => state[ReducerName.Account].notifications;
 export const getNotificationsLoading = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isNotificationsLoading;
 export const getNotificationDeleting = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].isNotificationDeleting;
 export const getNotificationsError = (state: Pick<State, ReducerName.Account>): boolean => state[ReducerName.Account].hasNotificationsError;
+
+const selectTotalFriendsAmount = (state: Pick<State, ReducerName.Account>) =>
+  state[ReducerName.Account].friendsAmount;
+export const getFriendsPages = createSelector(
+  [selectTotalFriendsAmount],
+  (totalAmount) => Math.ceil(totalAmount / CardsLimit.Default)
+);
+
+const selectTotalOrdersAmount = (state: Pick<State, ReducerName.Account>) =>
+  state[ReducerName.Account].ordersAmount;
+export const getOrdersPages = createSelector(
+  [selectTotalOrdersAmount],
+  (totalAmount) => Math.ceil(totalAmount / CardsLimit.CoachOrders)
+);
 
 export const getActiveOrders = createSelector(
   [getOrders],

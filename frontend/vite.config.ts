@@ -29,7 +29,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    root:'./frontend',
     setupFiles: [
       './src/setupTests.ts'
     ]

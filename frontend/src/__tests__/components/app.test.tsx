@@ -1,89 +1,29 @@
-import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import { Provider } from 'react-redux';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import App from '@components/app/app';
-import { createAPI } from '@services/api';
-import thunk from 'redux-thunk';
-import { AppRoute, AuthorizationStatus, DefaultParam, ReducerName } from '@utils/constant';
-import HistoryRouter from '@components/history-router/history-router';
-import { makeFakeUser, makeFakeWorkout } from '@utils/mocks';
-import { UserRole } from '@frontend-types/common/user-role.enum';
+import { render, screen } from '@testing-library/react';
+import { AppRoute, AuthorizationStatus } from '@utils/constant';
+import { createMemoryHistory, MemoryHistory } from 'history';
+import { withHistory, withStore } from '@utils/mock-component';
+import { makeFakeStore, makeFakeUser, makeFakeWorkout } from '@/utils/mocks';
 
-const api = createAPI();
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore(middlewares);
 const fakeUser = makeFakeUser();
 const fakeWorkout = makeFakeWorkout();
 
-const store = mockStore({
-  [ReducerName.User]: {
-    authStatus: AuthorizationStatus.Auth,
-    userId: fakeUser.id,
-    role: UserRole.Sportsman,
-    currentUserData: fakeUser,
-    userData: fakeUser,
-    userListData: null,
-    readyUsers: null,
-    newUserData: null,
-    isCurrentUserLoading: DefaultParam.Status,
-    isUserLoading: DefaultParam.Status,
-    isUserListLoading: DefaultParam.Status,
-    isUserUpdating: DefaultParam.Status,
-    isEmailExists: DefaultParam.Status,
-    hasUserError: DefaultParam.Status,
-    totalAmount: DefaultParam.Amount,
-  },
-  [ReducerName.Account]: {
-    friends: null,
-    friendsAmount: DefaultParam.Amount,
-    orders: null,
-    notifications: null,
-    coachOrders: null,
-    certificates: null,
-    ordersAmount: DefaultParam.Amount,
-    isFriendsLoading: DefaultParam.Status,
-    isOrdersLoading: DefaultParam.Status,
-    isFriendStatusChanging: DefaultParam.Status,
-    isNotificationsLoading: DefaultParam.Status,
-    isNotificationDeleting: DefaultParam.Status,
-    hasNotificationsError: DefaultParam.Status,
-  },
-  [ReducerName.Workout]: {
-    workouts: null,
-    specialOfferWorkouts: null,
-    popularWorkouts: null,
-    workout: fakeWorkout,
-    reviews: null,
-    totalAmount: DefaultParam.Amount,
-    maxPrice: DefaultParam.Amount,
-    specialUserWorkouts: null,
-    fullWorkouts: null,
-    isWorkoutsLoading: DefaultParam.Status,
-    isWorkoutLoading: DefaultParam.Status,
-    isWorkoutPosting: DefaultParam.Status,
-    isReviewsLoading: DefaultParam.Status,
-  },
-});
-
-const history = createMemoryHistory();
-
-const fakeApp = (
-  <Provider store={store}>
-    <HistoryRouter history={history}>
-      <App />
-    </HistoryRouter>
-  </Provider>
-);
-
 describe('Application Routing', () => {
+  let mockHistory: MemoryHistory;
+
+  beforeEach(() => {
+    mockHistory = createMemoryHistory();
+  });
+
   it('should render "Intro" when user navigate to "/"', () => {
     const NameInfoToText = {
       signIn:'Регистрация',
       login:'Вход',
     };
-    history.push(AppRoute.Intro);
-    render(fakeApp);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({}));
+    mockHistory.push(AppRoute.Intro);
+    render(withStoreComponent);
 
     const signInElement = screen.getByText(NameInfoToText.signIn);
     const loginElement = screen.getByText(NameInfoToText.login);
@@ -99,8 +39,10 @@ describe('Application Routing', () => {
       popular:'popular-trainings',
       lookForCompany:'look-for-company',
     };
-    history.push(AppRoute.Login);
-    render(fakeApp);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({status: AuthorizationStatus.Auth}));
+    mockHistory.push(AppRoute.Login);
+    render(withStoreComponent);
     const specialForUserElement = screen.getByTestId(ElementToTestId.specialForUser);
     const specialOfferElement = screen.getByTestId(ElementToTestId.specialOffer);
     const popularElement = screen.getByTestId(ElementToTestId.popular);
@@ -114,16 +56,20 @@ describe('Application Routing', () => {
 
   it('should render "UserAccount" when user navigate to "/user-account"', () => {
     const userInfoId = 'user-info';
-    history.push(AppRoute.UserAccount);
-    render(fakeApp);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({status: AuthorizationStatus.Auth}));
+    mockHistory.push(AppRoute.UserAccount);
+    render(withStoreComponent);
 
     expect(screen.getByTestId(userInfoId)).toBeInTheDocument();
   });
 
   it('should render "User" when user navigate to "/user-info/:id"', () => {
     const userCardId = 'user-card';
-    history.push(`${AppRoute.UserInfo}/${fakeUser.id}`);
-    render(fakeApp);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({status: AuthorizationStatus.Auth,user:fakeUser}));
+    mockHistory.push(`${AppRoute.UserInfo}/${fakeUser.id}`);
+    render(withStoreComponent);
 
     expect(screen.getByText(`${fakeUser.name}`)).toBeInTheDocument();
     expect(screen.getByTestId(userCardId)).toBeInTheDocument();
@@ -131,9 +77,10 @@ describe('Application Routing', () => {
 
   it('should render "Workout" when user navigate to "/workout-info/:id"', () => {
     const priceLabelText = 'Стоимость';
-    history.push(`${AppRoute.WorkoutInfo}/${fakeWorkout.id}`);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({status: AuthorizationStatus.Auth,workout:fakeWorkout}));    mockHistory.push(`${AppRoute.WorkoutInfo}/${fakeWorkout.id}`);
 
-    render(fakeApp);
+    render(withStoreComponent);
 
     expect(screen.getByLabelText(`${fakeWorkout.name}`)).toBeInTheDocument();
     expect(screen.getByLabelText(priceLabelText)).toBeInTheDocument();
@@ -143,9 +90,11 @@ describe('Application Routing', () => {
     const mockRoute = '/non-existent-route';
     const textData = 'Страница не найдена.';
     const subtextData = 'Возможно, страница была удалена или её вовсе не существовало.';
-    history.push(mockRoute);
+    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({}));
+    mockHistory.push(mockRoute);
 
-    render(fakeApp);
+    render(withStoreComponent);
 
     const textElement = screen.getByText(textData);
     const subtextElement = screen.getByText(subtextData);

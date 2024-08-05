@@ -9,7 +9,6 @@ export const getWorkoutLoadingStatus = (state: Pick<State, ReducerName.Workout>)
 export const getWorkoutPostingStatus = (state: Pick<State, ReducerName.Workout>): boolean => state[ReducerName.Workout].isWorkoutPosting;
 export const getReviewsLoadingStatus = (state: Pick<State, ReducerName.Workout>): boolean => state[ReducerName.Workout].isReviewsLoading;
 export const getWorkouts = (state: Pick<State, ReducerName.Workout>): Workout[]|null => state[ReducerName.Workout].workouts;
-export const getPages = (state: Pick<State, ReducerName.Workout>): number => Math.ceil(state[ReducerName.Workout].totalAmount / CardsLimit.Default);
 export const getWorkout = (state: Pick<State, ReducerName.Workout>): Workout|null => state[ReducerName.Workout].workout;
 export const getReviews = (state: Pick<State, ReducerName.Workout>): Review[]|null => state[ReducerName.Workout].reviews;
 export const getMaxPrice = (state: Pick<State, ReducerName.Workout>): number => state[ReducerName.Workout].maxPrice;
@@ -17,8 +16,15 @@ export const getSpecialUserWorkouts = (state: Pick<State, ReducerName.Workout>):
 export const getSpecialWorkouts = (state: Pick<State, ReducerName.Workout>): Workout[]|null => state[ReducerName.Workout].specialOfferWorkouts;
 export const getPopularWorkouts = (state: Pick<State, ReducerName.Workout>): Workout[]|null => state[ReducerName.Workout].popularWorkouts;
 export const getAllWorkouts = (state: Pick<State, ReducerName.Workout>): Workout[]|null => state[ReducerName.Workout].fullWorkouts;
+
 export const getWorkoutsByCoach = (coachId?:string)=> createSelector(
   [getAllWorkouts],
   (workouts): Workout[] | null => (coachId && workouts) ? workouts.filter((item)=> item.coachId === +coachId) : null
 );
 
+const selectTotalAmount = (state: Pick<State, ReducerName.Workout>) =>
+  state[ReducerName.Workout].totalAmount;
+export const getPages = createSelector(
+  [selectTotalAmount],
+  (totalAmount) => Math.ceil(totalAmount / CardsLimit.Default)
+);
