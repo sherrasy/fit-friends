@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { UserState } from '../../types/state.type';
-import { NewUserGeneral, User } from '../../types/user/user.interface';
-import { AuthorizationStatus, DefaultParam, ReducerName } from '../../utils/constant';
+import { UserState } from '@frontend-types/state.type';
+import { NewUserGeneral, User } from '@frontend-types/user/user.interface';
+import { AuthorizationStatus, DefaultParam, ReducerName } from '@utils/constant';
 import { checkAuth, checkEmail, fetchCurrentUser, fetchReadyUserList, fetchUser, fetchUserList, fetchUserListAmount, login, updateUser } from './api-actions';
 
 const initialState:UserState = {

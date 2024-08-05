@@ -2,7 +2,7 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig} from 'axios';
 import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
 import {toast} from 'react-toastify';
-import { ApiConnectParam, ApiErrorsMessage } from '../utils/constant';
+import { ApiConnectParam, ApiErrorsMessage } from '@utils/constant';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({

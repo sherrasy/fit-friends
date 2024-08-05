@@ -1,22 +1,22 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import EditWorkoutForm from '../../components/edit-workout-form/edit-workout-form';
-import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
-import ReviewsList from '../../components/reviews-list/reviews-list';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCurrentUserData } from '../../store/user-data/selectors';
+import EditWorkoutForm from '@components/edit-workout-form/edit-workout-form';
+import Header from '@components/header/header';
+import Loader from '@components/loader/loader';
+import ReviewsList from '@components/reviews-list/reviews-list';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { getCurrentUserData } from '@store/user-data/selectors';
 import {
   fetchReviews,
   fetchWorkout,
-} from '../../store/workout-data/api-actions';
+} from '@store/workout-data/api-actions';
 import {
   getReviews,
   getReviewsLoadingStatus,
   getWorkout,
   getWorkoutLoadingStatus,
-} from '../../store/workout-data/selectors';
-import { DefaultParam } from '../../utils/constant';
+} from '@store/workout-data/selectors';
+import { DefaultParam } from '@utils/constant';
 import ErrorPage from '../error-page/error-page';
 
 function EditWorkoutPage(): JSX.Element {

@@ -1,17 +1,17 @@
 import { ChangeEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import AdvertisementThumbnail from '../../components/advertisement-thumbnail/advertisement-thumbnail';
-import CertificateCard from '../../components/certificate-card/certificate-card';
-import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
-import SliderButtons from '../../components/slider-buttons/slider-buttons';
-import Slider from '../../components/slider/slider';
-import UserInfo from '../../components/user-info/user-info';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postCertificate } from '../../store/account-data/api-actions';
-import { getCertificates } from '../../store/account-data/selectors';
-import { getCurrentUserLoadingStatus } from '../../store/user-data/selectors';
-import { AppRoute, SliderLimit } from '../../utils/constant';
+import AdvertisementThumbnail from '@components/advertisement-thumbnail/advertisement-thumbnail';
+import CertificateCard from '@components/certificate-card/certificate-card';
+import Header from '@components/header/header';
+import Loader from '@components/loader/loader';
+import SliderButtons from '@components/slider-buttons/slider-buttons';
+import Slider from '@components/slider/slider';
+import UserInfo from '@components/user-info/user-info';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { postCertificate } from '@store/account-data/api-actions';
+import { getCertificates } from '@store/account-data/selectors';
+import { getCurrentUserLoadingStatus } from '@store/user-data/selectors';
+import { AppRoute, SliderLimit } from '@utils/constant';
 
 type ButtonGroupProp = {
   next?: () => void;

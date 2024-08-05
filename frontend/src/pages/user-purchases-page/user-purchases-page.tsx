@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import BackButton from '../../components/back-button/back-button';
-import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import WorkoutListCard from '../../components/workout-card/workout-list-card';
-import { useAppSelector } from '../../hooks';
+import BackButton from '@components/back-button/back-button';
+import Header from '@components/header/header';
+import Loader from '@components/loader/loader';
+import ShowMoreButton from '@components/show-more-button/show-more-button';
+import WorkoutListCard from '@components/workout-card/workout-list-card';
+import { useAppSelector } from '@/hooks';
 import {
   getActiveOrders,
   getOrders,
   getOrdersLoadingStatus,
-} from '../../store/account-data/selectors';
-import { CardsLimit, DefaultParam } from '../../utils/constant';
+} from '@store/account-data/selectors';
+import { CardsLimit, DefaultParam } from '@utils/constant';
 
 function UserPurchasesPage(): JSX.Element {
   const [isActiveShown, setIsActiveShown] = useState(DefaultParam.Status);

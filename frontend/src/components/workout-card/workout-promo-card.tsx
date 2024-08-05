@@ -1,4 +1,4 @@
-import { Workout } from '../../types/workout/workout.interface';
+import { Workout } from '@frontend-types/workout/workout.interface';
 
 type WorkoutPromoCardProps = {
   workout: Workout;

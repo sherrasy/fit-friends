@@ -1,6 +1,6 @@
-import { FitnessLevel } from '../../../types/common/fitness-level.enum';
-import { WorkoutTime } from '../../../types/common/workout-time.enum';
-import { WorkoutType } from '../../../types/common/workout-type.enum';
+import { FitnessLevel } from '@frontend-types/common/fitness-level.enum';
+import { WorkoutTime } from '@frontend-types/common/workout-time.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
 
 export class UpdateSportsmanDto {
   public fitnessLevel?: FitnessLevel;

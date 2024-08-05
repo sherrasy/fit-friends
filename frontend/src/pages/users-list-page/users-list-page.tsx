@@ -1,20 +1,20 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import BackButton from '../../components/back-button/back-button';
-import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import UserCardSmall from '../../components/user-card/user-card-small';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchUserList } from '../../store/user-data/api-actions';
+import BackButton from '@components/back-button/back-button';
+import Header from '@components/header/header';
+import Loader from '@components/loader/loader';
+import ShowMoreButton from '@components/show-more-button/show-more-button';
+import UserCardSmall from '@components/user-card/user-card-small';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { fetchUserList } from '@store/user-data/api-actions';
 import {
   getUserList,
   getUserListLoadingStatus,
   getUserPages,
-} from '../../store/user-data/selectors';
-import { Location } from '../../types/common/location.enum';
-import { UserRole } from '../../types/common/user-role.enum';
-import { WorkoutType } from '../../types/common/workout-type.enum';
-import { Query } from '../../types/query.type';
+} from '@store/user-data/selectors';
+import { Location } from '@frontend-types/common/location.enum';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
+import { Query } from '@frontend-types/query.type';
 import {
   CardsLimit,
   DefaultParam,
@@ -22,8 +22,8 @@ import {
   FormFieldName,
   LocationToName,
   WorkoutTypeToName,
-} from '../../utils/constant';
-import { capitalizeFirstLetter } from '../../utils/helpers';
+} from '@utils/constant';
+import { capitalizeFirstLetter } from '@utils/helpers';
 
 function UsersListPage(): JSX.Element {
   const dispatch = useAppDispatch();

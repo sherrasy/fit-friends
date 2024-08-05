@@ -1,5 +1,5 @@
-import AddWorkoutForm from '../../components/add-workout-form/add-workout-form';
-import Header from '../../components/header/header';
+import AddWorkoutForm from '@components/add-workout-form/add-workout-form';
+import Header from '@components/header/header';
 
 function AddWorkoutPage(): JSX.Element {
   return (

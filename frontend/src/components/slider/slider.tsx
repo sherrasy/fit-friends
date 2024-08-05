@@ -1,6 +1,6 @@
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { DefaultParam, SliderBreakpointLimit } from '../../utils/constant';
+import { DefaultParam, SliderBreakpointLimit } from '@utils/constant';
 
 type SliderProps = {
   children: JSX.Element[];

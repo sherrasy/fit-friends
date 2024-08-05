@@ -1,30 +1,30 @@
 import MultiRangeSlider, { ChangeResult } from 'multi-range-slider-react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import BackButton from '../../components/back-button/back-button';
-import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import WorkoutListCard from '../../components/workout-card/workout-list-card';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import BackButton from '@components/back-button/back-button';
+import Header from '@components/header/header';
+import Loader from '@components/loader/loader';
+import ShowMoreButton from '@components/show-more-button/show-more-button';
+import WorkoutListCard from '@components/workout-card/workout-list-card';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import {
   fetchCoachWorkouts,
   fetchExtraWorkouts,
-} from '../../store/workout-data/api-actions';
+} from '@store/workout-data/api-actions';
 import {
   getMaxPrice,
   getPages,
   getWorkouts,
   getWorkoutsLoadingStatus,
-} from '../../store/workout-data/selectors';
-import { UserRole } from '../../types/common/user-role.enum';
-import { WorkoutTime } from '../../types/common/workout-time.enum';
-import { Query } from '../../types/query.type';
+} from '@store/workout-data/selectors';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { WorkoutTime } from '@frontend-types/common/workout-time.enum';
+import { Query } from '@frontend-types/query.type';
 import {
   CardsLimit,
   DefaultParam,
   WorkoutFilterName,
-} from '../../utils/constant';
-import { CaloriesAmount, RaitingCount } from '../../utils/validation.constant';
+} from '@utils/constant';
+import { CaloriesAmount, RaitingCount } from '@utils/validation.constant';
 
 function CoachWorkoutsPage(): JSX.Element {
   const dispatch = useAppDispatch();

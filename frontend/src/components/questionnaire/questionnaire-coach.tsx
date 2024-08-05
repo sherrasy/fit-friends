@@ -1,23 +1,23 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
-import { CreateUserDto } from '../../dto/user/create/create-user.dto';
-import { useAppDispatch } from '../../hooks';
-import { register } from '../../store/user-data/api-actions';
-import { FitnessLevel } from '../../types/common/fitness-level.enum';
-import { WorkoutType } from '../../types/common/workout-type.enum';
-import { NewUserGeneral } from '../../types/user/user.interface';
+import { CreateUserDto } from '@dto/user/create/create-user.dto';
+import { useAppDispatch } from '@/hooks';
+import { register } from '@store/user-data/api-actions';
+import { FitnessLevel } from '@frontend-types/common/fitness-level.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
+import { NewUserGeneral } from '@frontend-types/user/user.interface';
 import {
   DefaultParam,
   FitnessLevelToName,
   FormFieldName,
   UserFormError,
   WorkoutTypeToName,
-} from '../../utils/constant';
-import { capitalizeFirstLetter } from '../../utils/helpers';
+} from '@utils/constant';
+import { capitalizeFirstLetter } from '@utils/helpers';
 import {
   DescriptionLength,
   WORKOUT_TYPE_AMOUNT,
-} from '../../utils/validation.constant';
+} from '@utils/validation.constant';
 import InputErrorField from '../input-error-field/input-error-field';
 
 type QuestionnaireCoachProps = {

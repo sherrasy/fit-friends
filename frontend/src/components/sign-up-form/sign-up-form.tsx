@@ -1,25 +1,25 @@
 /* eslint-disable indent */
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { checkEmail } from '../../store/user-data/api-actions';
-import { getEmailExistsStatus } from '../../store/user-data/selectors';
-import { Location } from '../../types/common/location.enum';
-import { UserRole } from '../../types/common/user-role.enum';
-import { UserSex } from '../../types/common/user-sex.enum';
-import { NewUserGeneral } from '../../types/user/user.interface';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { checkEmail } from '@store/user-data/api-actions';
+import { getEmailExistsStatus } from '@store/user-data/selectors';
+import { Location } from '@frontend-types/common/location.enum';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { UserSex } from '@frontend-types/common/user-sex.enum';
+import { NewUserGeneral } from '@frontend-types/user/user.interface';
 import {
   FormFieldName,
   LocationToName,
   UserFormError,
   UserSexToName,
-} from '../../utils/constant';
-import { checkValidity } from '../../utils/helpers';
+} from '@utils/constant';
+import { checkValidity } from '@utils/helpers';
 import {
   NameLength,
   PasswordLength,
   ValidationPattern,
-} from '../../utils/validation.constant';
+} from '@utils/validation.constant';
 import InputErrorField from '../input-error-field/input-error-field';
 
 

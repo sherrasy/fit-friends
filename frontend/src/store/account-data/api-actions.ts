@@ -1,15 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { Query } from '../../types/query.type';
-import { Certificate, File } from '../../types/reaction/file.interface';
-import { FileType } from '../../types/reaction/file.type';
-import { Order, OrderCoach, OrderCoachData } from '../../types/reaction/order.interface';
-import { UserNotification } from '../../types/reaction/user-notification.interface';
-import { AppDispatch, State } from '../../types/state.type';
-import { FriendData, User } from '../../types/user/user.interface';
-import { adaptCertificateToServer } from '../../utils/adapters/adaptersToServer';
-import { ActionName, ApiRoute, ReducerName } from '../../utils/constant';
-import { getFriendsQueryString, getOrdersQueryString } from '../../utils/helpers';
+import { Query } from '@frontend-types/query.type';
+import { Certificate, File } from '@frontend-types/reaction/file.interface';
+import { FileType } from '@frontend-types/reaction/file.type';
+import { Order, OrderCoach, OrderCoachData } from '@frontend-types/reaction/order.interface';
+import { UserNotification } from '@frontend-types/reaction/user-notification.interface';
+import { AppDispatch, State } from '@frontend-types/state.type';
+import { FriendData, User } from '@frontend-types/user/user.interface';
+import { adaptCertificateToServer } from '@utils/adapters/adaptersToServer';
+import { ActionName, ApiRoute, ReducerName } from '@utils/constant';
+import { getFriendsQueryString, getOrdersQueryString } from '@utils/helpers';
 
 export const fetchFriends = createAsyncThunk<
   FriendData,
@@ -21,7 +21,7 @@ export const fetchFriends = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.FetchFriends}`,
-  async (query, { dispatch, extra: api }) => {
+  async (query, { extra: api }) => {
     try {
       const queryString = getFriendsQueryString(query);
       const { data:friends } = await api.get<User[]>(`${ApiRoute.Friends}${queryString}`);
@@ -93,7 +93,7 @@ export const fetchUserOrders = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.FetchUserOrders}`,
-  async (_args, { dispatch, extra: api }) => {
+  async (_args, { extra: api }) => {
     try {
       const { data } = await api.get<Order[]>(ApiRoute.PurchasesShow);
       return data;
@@ -113,7 +113,7 @@ export const fetchCoachOrders = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.FetchCoachOrders}`,
-  async (query, { dispatch, extra: api }) => {
+  async (query, { extra: api }) => {
     try {
       const queryString = getOrdersQueryString(query);
       const { data:orders } = await api.get<OrderCoach[]>(`${ApiRoute.OrdersShow}${queryString}`);
@@ -135,7 +135,7 @@ export const fetchCoachCertificates = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.FetchCertificates}`,
-  async (certificates, { dispatch, extra: api }) => {
+  async (certificates, { extra: api }) => {
     try {
       if(!certificates){
         return null;
@@ -178,7 +178,7 @@ export const fetchNotifications = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.FetchNotifications}`,
-  async (_args, { dispatch, extra: api }) => {
+  async (_args, { extra: api }) => {
     try {
       const { data } = await api.get<UserNotification[]>(
         ApiRoute.Notifications
@@ -200,7 +200,7 @@ export const removeNotification = createAsyncThunk<
   }
 >(
   `${ReducerName.Account}/${ActionName.RemoveNotification}`,
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     try {
       await api.delete<UserNotification[]>(`${ApiRoute.Notifications}/${id}`);
     } catch (error) {

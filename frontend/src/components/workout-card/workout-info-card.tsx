@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
-import { Order } from '../../types/reaction/order.interface';
-import { User } from '../../types/user/user.interface';
-import { Workout } from '../../types/workout/workout.interface';
+import { Order } from '@frontend-types/reaction/order.interface';
+import { User } from '@frontend-types/user/user.interface';
+import { Workout } from '@frontend-types/workout/workout.interface';
 import {
   DefaultParam,
   UserSexToHashtagName,
   WorkoutTypeToName,
-} from '../../utils/constant';
+} from '@utils/constant';
 
 type WorkoutInfoCardProps = {
   workout: Workout;

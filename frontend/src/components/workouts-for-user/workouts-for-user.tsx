@@ -1,6 +1,6 @@
-import { useAppSelector } from '../../hooks';
-import { getSpecialUserWorkouts } from '../../store/workout-data/selectors';
-import { SliderLimit } from '../../utils/constant';
+import { useAppSelector } from '@/hooks';
+import { getSpecialUserWorkouts } from '@store/workout-data/selectors';
+import { SliderLimit } from '@utils/constant';
 import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
 import SliderButtons from '../slider-buttons/slider-buttons';
 import Slider from '../slider/slider';

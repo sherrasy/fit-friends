@@ -1,17 +1,17 @@
 import { ChangeEvent, useRef, useState } from 'react';
-import { UpdateWorkoutDto } from '../../dto/workout/update-workout.dto';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { updateWorkout } from '../../store/workout-data/api-actions';
-import { getWorkoutPostingStatus } from '../../store/workout-data/selectors';
-import { User } from '../../types/user/user.interface';
-import { Workout } from '../../types/workout/workout.interface';
+import { UpdateWorkoutDto } from '@dto/workout/update-workout.dto';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { updateWorkout } from '@store/workout-data/api-actions';
+import { getWorkoutPostingStatus } from '@store/workout-data/selectors';
+import { User } from '@frontend-types/user/user.interface';
+import { Workout } from '@frontend-types/workout/workout.interface';
 import {
   DefaultParam,
   FormFieldName,
   UserSexToHashtagName,
   WorkoutTypeToName,
-} from '../../utils/constant';
-import { DescriptionLength, NameLength } from '../../utils/validation.constant';
+} from '@utils/constant';
+import { DescriptionLength, NameLength } from '@utils/validation.constant';
 
 type EditWorkoutFormProps = {
   workout: Workout;

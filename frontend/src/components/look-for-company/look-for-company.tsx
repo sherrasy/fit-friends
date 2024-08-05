@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchUserList } from '../../store/user-data/api-actions';
-import { getReadyUsers } from '../../store/user-data/selectors';
-import { AppRoute, SliderLimit } from '../../utils/constant';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { fetchUserList } from '@store/user-data/api-actions';
+import { getReadyUsers } from '@store/user-data/selectors';
+import { AppRoute, SliderLimit } from '@utils/constant';
 import AdvertisementThumbnail from '../advertisement-thumbnail/advertisement-thumbnail';
 import SliderButtons from '../slider-buttons/slider-buttons';
 import Slider from '../slider/slider';

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { DefaultParam } from '../../utils/constant';
+import { DefaultParam } from '@utils/constant';
 
 function BackButton():JSX.Element{
   const navigate = useNavigate();

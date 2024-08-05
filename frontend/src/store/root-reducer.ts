@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { ReducerName } from '../utils/constant';
+import { ReducerName } from '@utils/constant';
 import { userData } from './user-data/user-data';
 import { accountData } from './account-data/account-data';
 import { workoutData } from './workout-data/workout-data';

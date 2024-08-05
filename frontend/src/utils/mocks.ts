@@ -1,24 +1,27 @@
+import { createAPI } from '@/services/api';
+import { FitnessLevel } from '@frontend-types/common/fitness-level.enum';
+import { Location } from '@frontend-types/common/location.enum';
+import { PaymentOption } from '@frontend-types/common/payment-option.enum';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { UserSex } from '@frontend-types/common/user-sex.enum';
+import { WorkoutTime } from '@frontend-types/common/workout-time.enum';
+import { WorkoutType } from '@frontend-types/common/workout-type.enum';
+import { Certificate } from '@frontend-types/reaction/file.interface';
+import { Order, OrderCoach } from '@frontend-types/reaction/order.interface';
+import { Review } from '@frontend-types/reaction/review.interface';
+import { UserNotification } from '@frontend-types/reaction/user-notification.interface';
+import { State } from '@frontend-types/state.type';
+import { NewUserGeneral, User } from '@frontend-types/user/user.interface';
+import { Workout } from '@frontend-types/workout/workout.interface';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { datatype, image, internet, lorem, name, random } from 'faker';
-import { FitnessLevel } from '../types/common/fitness-level.enum';
-import { Location } from '../types/common/location.enum';
-import { PaymentOption } from '../types/common/payment-option.enum';
-import { UserRole } from '../types/common/user-role.enum';
-import { UserSex } from '../types/common/user-sex.enum';
-import { WorkoutTime } from '../types/common/workout-time.enum';
-import { WorkoutType } from '../types/common/workout-type.enum';
-import { Order, OrderCoach } from '../types/reaction/order.interface';
-import { Review } from '../types/reaction/review.interface';
-import { UserNotification } from '../types/reaction/user-notification.interface';
-import { NewUserGeneral, User } from '../types/user/user.interface';
-import { Workout } from '../types/workout/workout.interface';
-import { CardsLimit, DefaultParam } from './constant';
+import { AuthorizationStatus, CardsLimit, DefaultParam, ReducerName } from './constant';
 import {
   CaloriesAmount,
   DescriptionLength,
   RaitingCount,
   ReviewTextLength,
 } from './validation.constant';
-import { Certificate } from '../types/reaction/file.interface';
 
 const genders = Object.values(UserSex);
 const locations = Object.values(Location);
@@ -28,6 +31,8 @@ const workoutTimes = Object.values(WorkoutTime);
 const paymentOptions = Object.values(PaymentOption);
 const mockDate = '1990-01-01T00:00:00.000Z';
 const orderType = 'абонемент';
+
+export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
 export const makeFakeUser = (): User => {
   const userId = datatype.number();
@@ -61,7 +66,7 @@ export const makeFakeUser = (): User => {
       isReady: datatype.boolean(),
     },
     coachInfo: null,
-    token:lorem.sentence(DefaultParam.Step)
+    token: lorem.sentence(DefaultParam.Step)
   } as User;
 };
 
@@ -90,7 +95,7 @@ export const makeFakeCoach = (): User => {
       successInfo: lorem.words(DescriptionLength.Min),
       isPersonal: datatype.boolean(),
     },
-    token:lorem.sentence(DefaultParam.Step)
+    token: lorem.sentence(DefaultParam.Step)
   } as User;
 };
 
@@ -124,16 +129,16 @@ export const makeFakeWorkout = (): Workout => {
 };
 
 export const makeFakeNewUserGeneral = (): NewUserGeneral =>
-  ({
-    name: name.firstName(),
-    email: internet.email(),
-    avatar: datatype.uuid(),
-    password: internet.password(),
-    sex: random.arrayElement(genders),
-    birthDate: mockDate,
-    role:UserRole.Sportsman,
-    location: random.arrayElement(locations),
-  } as NewUserGeneral);
+({
+  name: name.firstName(),
+  email: internet.email(),
+  avatar: datatype.uuid(),
+  password: internet.password(),
+  sex: random.arrayElement(genders),
+  birthDate: mockDate,
+  role: UserRole.Sportsman,
+  location: random.arrayElement(locations),
+} as NewUserGeneral);
 
 export const makeFakeOrder = (): Order => {
   const workout = makeFakeWorkout();
@@ -181,30 +186,30 @@ export const makeFakeOrderCoach = (): OrderCoach => {
 };
 
 export const makeFakeUserNotification = (): UserNotification =>
-  ({
-    id: datatype.number(),
-    userId: datatype.number(),
-    createdDate: datatype.datetime(),
-    text: lorem.words(DescriptionLength.Min),
-  } as UserNotification);
+({
+  id: datatype.number(),
+  userId: datatype.number(),
+  createdDate: datatype.datetime(),
+  text: lorem.words(DescriptionLength.Min),
+} as UserNotification);
 
 export const makeFakeReview = (): Review =>
-  ({
-    id: datatype.number(),
-    userId: datatype.number(),
-    name: name.firstName(),
-    avatarPath: image.avatar(),
-    workoutId: datatype.number(),
-    rating: datatype.number({ min: RaitingCount.Min, max: RaitingCount.Max }),
-    message: lorem.words(ReviewTextLength.Min),
-    createdDate: datatype.datetime(),
-  } as Review);
+({
+  id: datatype.number(),
+  userId: datatype.number(),
+  name: name.firstName(),
+  avatarPath: image.avatar(),
+  workoutId: datatype.number(),
+  rating: datatype.number({ min: RaitingCount.Min, max: RaitingCount.Max }),
+  message: lorem.words(ReviewTextLength.Min),
+  createdDate: datatype.datetime(),
+} as Review);
 
 export const makeFakeCertificate = (): Certificate =>
-  ({
-    id: datatype.uuid(),
-    path: image.imageUrl(),
-  } as Certificate);
+({
+  id: datatype.uuid(),
+  path: image.imageUrl(),
+} as Certificate);
 
 export const makeFakeWorkouts = (): Workout[] =>
   Array.from({ length: CardsLimit.Default }, () => makeFakeWorkout());
@@ -228,3 +233,59 @@ export const makeFakeNotifications = (): UserNotification[] =>
 
 export const makeFakeCertificates = (): Certificate[] =>
   Array.from({ length: CardsLimit.Default }, () => makeFakeCertificate());
+
+
+export const makeFakeStore = ({status, user, workout}:{ status?:AuthorizationStatus, user?: User, workout?: Workout}): State => {
+  const fakeUser = user ? user : makeFakeUser();
+  const fakeWorkout = workout ? workout : makeFakeWorkout();
+  return (
+    {
+      [ReducerName.User]: {
+        authStatus: status? status: AuthorizationStatus.NoAuth,
+        userId: fakeUser.id,
+        role: UserRole.Sportsman,
+        currentUserData: fakeUser,
+        userData: fakeUser,
+        userListData: null,
+        readyUsers: null,
+        newUserData: null,
+        isCurrentUserLoading: DefaultParam.Status,
+        isUserLoading: DefaultParam.Status,
+        isUserListLoading: DefaultParam.Status,
+        isUserUpdating: DefaultParam.Status,
+        isEmailExists: DefaultParam.Status,
+        hasUserError: DefaultParam.Status,
+        totalAmount: DefaultParam.Amount,
+      },
+      [ReducerName.Account]: {
+        friends: null,
+        friendsAmount: DefaultParam.Amount,
+        orders: null,
+        notifications: null,
+        coachOrders: null,
+        certificates: null,
+        ordersAmount: DefaultParam.Amount,
+        isFriendsLoading: DefaultParam.Status,
+        isOrdersLoading: DefaultParam.Status,
+        isFriendStatusChanging: DefaultParam.Status,
+        isNotificationsLoading: DefaultParam.Status,
+        isNotificationDeleting: DefaultParam.Status,
+        hasNotificationsError: DefaultParam.Status,
+      },
+      [ReducerName.Workout]: {
+        workouts: null,
+        specialOfferWorkouts: null,
+        popularWorkouts: null,
+        workout: fakeWorkout,
+        reviews: null,
+        totalAmount: DefaultParam.Amount,
+        maxPrice: DefaultParam.Amount,
+        specialUserWorkouts: null,
+        fullWorkouts: null,
+        isWorkoutsLoading: DefaultParam.Status,
+        isWorkoutLoading: DefaultParam.Status,
+        isWorkoutPosting: DefaultParam.Status,
+        isReviewsLoading: DefaultParam.Status,
+      },
+    })
+}

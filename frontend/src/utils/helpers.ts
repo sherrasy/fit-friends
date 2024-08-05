@@ -1,4 +1,4 @@
-import { Query } from '../types/query.type';
+import { Query } from '@frontend-types/query.type';
 import { CardsLimit, DefaultParam, RandomNumberLimit, SortingFieldName, sortDirections } from './constant';
 
 export const checkValidity = (value: string, pattern: RegExp) =>

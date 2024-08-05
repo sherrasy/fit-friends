@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import BackButton from '../../components/back-button/back-button';
-import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
-import ShowMoreButton from '../../components/show-more-button/show-more-button';
-import WorkoutOrdersCard from '../../components/workout-card/workout-orders-card';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import BackButton from '@components/back-button/back-button';
+import Header from '@components/header/header';
+import Loader from '@components/loader/loader';
+import ShowMoreButton from '@components/show-more-button/show-more-button';
+import WorkoutOrdersCard from '@components/workout-card/workout-orders-card';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import {
   getCoachOrders,
   getOrdersLoadingStatus,
   getOrdersPages,
-} from '../../store/account-data/selectors';
-import { Query } from '../../types/query.type';
-import { CardsLimit, DefaultParam, SortingFieldName, sortDirections } from '../../utils/constant';
-import { fetchCoachOrders } from '../../store/account-data/api-actions';
+} from '@store/account-data/selectors';
+import { Query } from '@frontend-types/query.type';
+import { CardsLimit, DefaultParam, SortingFieldName, sortDirections } from '@utils/constant';
+import { fetchCoachOrders } from '@store/account-data/api-actions';
 
 function CoachOrdersPage(): JSX.Element {
   const dispatch = useAppDispatch();

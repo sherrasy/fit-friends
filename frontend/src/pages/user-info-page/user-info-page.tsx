@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import BackButton from '../../components/back-button/back-button';
-import Header from '../../components/header/header';
-import Loader from '../../components/loader/loader';
-import SliderButtons from '../../components/slider-buttons/slider-buttons';
-import Slider from '../../components/slider/slider';
-import UserCard from '../../components/user-card/user-card';
-import WorkoutListCard from '../../components/workout-card/workout-list-card';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchUser } from '../../store/user-data/api-actions';
+import BackButton from '@components/back-button/back-button';
+import Header from '@components/header/header';
+import Loader from '@components/loader/loader';
+import SliderButtons from '@components/slider-buttons/slider-buttons';
+import Slider from '@components/slider/slider';
+import UserCard from '@components/user-card/user-card';
+import WorkoutListCard from '@components/workout-card/workout-list-card';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { fetchUser } from '@store/user-data/api-actions';
 import {
   getUserData,
   getUserError,
   getUserLoadingStatus,
-} from '../../store/user-data/selectors';
-import { getWorkoutsByCoach } from '../../store/workout-data/selectors';
-import { UserRole } from '../../types/common/user-role.enum';
-import { DefaultParam, SliderLimit } from '../../utils/constant';
+} from '@store/user-data/selectors';
+import { getWorkoutsByCoach } from '@store/workout-data/selectors';
+import { UserRole } from '@frontend-types/common/user-role.enum';
+import { DefaultParam, SliderLimit } from '@utils/constant';
 import ErrorPage from '../error-page/error-page';
 
 type ButtonGroupProp = {

@@ -1,4 +1,4 @@
-import { Token } from '../types/user/token.type';
+import { Token } from '@frontend-types/user/token.type';
 
 export const AUTH_TOKEN_KEY_NAME = 'fit-friends-token';
 
