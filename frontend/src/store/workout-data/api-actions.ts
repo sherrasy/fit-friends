@@ -38,7 +38,7 @@ export const fetchWorkouts = createAsyncThunk<
   }
 >(
   `${ReducerName.Workout}/${ActionName.FetchWorkouts}`,
-  async (query, { dispatch, extra: api }) => {
+  async (query, { extra: api }) => {
     try {
       const queryString = query ? getWorkoutQueryString(query) : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}&sortBy=${SortingFieldName.Date}`;
       const {
@@ -67,7 +67,7 @@ export const fetchExtraWorkouts = createAsyncThunk<
   }
 >(
   `${ReducerName.Workout}/${ActionName.FetchExtraWorkouts}`,
-  async (role, { dispatch, extra: api }) => {
+  async (role, { extra: api }) => {
     try {
       if(role === UserRole.Coach){
         const {
@@ -113,7 +113,7 @@ export const fetchUserSpecialWorkouts = createAsyncThunk<
   }
 >(
   `${ReducerName.Workout}/${ActionName.FetchUserSpecialWorkouts}`,
-  async (user, { dispatch, extra: api }) => {
+  async (user, { extra: api }) => {
     try {
       const { workoutType, sportsmanInfo } = user;
       if (!sportsmanInfo) {
@@ -150,7 +150,7 @@ Workout[],
   }
 >(
   `${ReducerName.Workout}/${ActionName.FetchCoachWorkouts}`,
-  async (query, { dispatch, extra: api }) => {
+  async (query, { extra: api }) => {
     try {
       const queryString = query ? getWorkoutQueryString(query) : `?limit=${CardsLimit.Default}&page=${DefaultParam.Step}&sortBy=${SortingFieldName.Date}`;
       const {
@@ -179,7 +179,7 @@ export const fetchWorkout = createAsyncThunk<
   }
 >(
   `${ReducerName.Workout}/${ActionName.FetchWorkout}`,
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     try {
       const { data } = await api.get<Workout>(`${ApiRoute.WorkoutsMain}/${id}`);
       const workout = {
@@ -210,7 +210,7 @@ export const fetchReviews = createAsyncThunk<
   }
 >(
   `${ReducerName.Workout}/${ActionName.FetchReviews}`,
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     try {
       const { data } = await api.get<Review[]>(`${ApiRoute.ReviewsShow}/${id}`);
       return data;

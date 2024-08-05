@@ -1,60 +1,36 @@
 Инструкция по запуску приложения
 
-1. Создать докер образы (команда - билд сервиса и затем образа)
+1. Установить зависимости в директории `backend` и `frontend`
 
-- Перейти в директорию backend `cd backend`
-
-- Выполнить команды
+2. Поднять контейнеры в директории `backend`
 
 ```bash
-nx run notify:buildDockerImage
-nx run uploader:buildDockerImage
-nx run users:buildDockerImage
-nx run workouts:buildDockerImage
-nx run bff:buildDockerImage
+docker compose -f ./apps/uploader/docker-compose.dev.yml --project-name "fit-friends-uploader" up -d
+docker compose -f ./apps/notify/docker-compose.dev.yml --project-name "fit-friends-notify" up -d
+docker compose -f ./apps/users/docker-compose.dev.yml --project-name "fit-friends-users" up -d
+docker compose -f ./apps/workouts/docker-compose.dev.yml --project-name "fit-friends-workouts" up -d
 ```
 
-- Перейти в директорию backend `cd frontend`
-
-- Выполнить команду
-
-```bash
-npm run buildDockerImage
-```
-
-2. Создать env файлы. В каждой директории приложены необходимые `.fit-friends.<...>.env-example`.
-
-3. Создать внешнюю сеть
-
-```bash
-docker network create fit-friends.rabbit
-docker network create fit-friends.bff
-```
-
-4. Поднять контейнеры:
+3. Запустить приложения
 
 - В директории `backend`
 
 ```bash
-docker compose -f ./apps/uploader/docker-compose.stage.yml up -d
-docker compose -f ./apps/notify/docker-compose.stage.yml up -d
-docker compose -f ./apps/users/docker-compose.stage.yml up -d
-docker compose -f ./apps/workouts/docker-compose.stage.yml up -d
-docker compose -f ./apps/bff/docker-compose.stage.yml up -d
-
+npx nx run-many --target=serve --all --maxParallel=5
 ```
 
 Для заполнения моковыми данными сервисов users и workouts необходимо выполнить команды миграции и заполнения из файлов seed.ts в соответствующих контейнерах
 
 ```bash
- npx prisma migrate dev --name 'updated model' --schema ./schema.prisma --skip-generate --skip-seed
- npx ts-node ./assets/prisma/seed.ts
+nx run workouts:fillDb
+nx run users:fillDb
+
 ```
 
 - В директории `frontend`
 
 ```bash
-docker compose -f docker-compose.stage.yml up -d
+npm start
 ```
 
 5. После запуска всех контейнеров приложение будет доступно на `http://localhost:4001/`

@@ -100,6 +100,12 @@
     "options": {
       "command": "nx run workouts:build && docker build --file apps/workouts/Dockerfile --tag fit-friends.workouts:latest ."
     }
+  },
+  "fillDb": {
+    "executor": "nx:run-commands",
+    "options": {
+      "command": "nx run workouts:db:generate && nx run workouts:db:migrate && nx run workouts:db:seed"
+    }
   }
 },
 "tags": []

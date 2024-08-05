@@ -110,6 +110,12 @@
       "options": {
         "command": "nx run users:build && docker build --file ./apps/users/Dockerfile --tag fit-friends.users:latest ."
       }
+    },
+    "fillDb": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run users:db:generate && nx run users:db:migrate && nx run users:db:seed"
+      }
     }
     },
   "tags": []

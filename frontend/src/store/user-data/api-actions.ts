@@ -169,7 +169,7 @@ export const fetchUser = createAsyncThunk<
   }
 >(
   `${ReducerName.User}/${ActionName.FetchUser}`,
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     try {
       const { data } = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
       const userPhotos = {
@@ -201,7 +201,7 @@ export const fetchCurrentUser = createAsyncThunk<
   }
 >(
   `${ReducerName.User}/${ActionName.FetchCurrentUser}`,
-  async (id, { dispatch, extra: api }) => {
+  async (id, { extra: api }) => {
     try {
       const { data } = await api.get<User>(`${ApiRoute.UsersMain}/${id}`);
       const userPhotos = {
@@ -234,7 +234,7 @@ export const fetchReadyUserList = createAsyncThunk<
   }
 >(
   `${ReducerName.User}/${ActionName.FetchReadyUserList}`,
-  async (query, { dispatch, extra: api }) => {
+  async (_query, { dispatch, extra: api }) => {
     try {
       const queryString = `?role=${UserRole.Sportsman}`;
       const { data } = await api.get<User[]>(
@@ -307,7 +307,7 @@ export const fetchUserListAmount = createAsyncThunk<
   }
 >(
   `${ReducerName.User}/${ActionName.FetchUserListAmount}`,
-  async (query, { dispatch, extra: api }) => {
+  async (_query, { extra: api }) => {
     const { data } = await api.get<number>(`${ApiRoute.UsersShow}/count`);
     return data;
   }
