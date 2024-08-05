@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import InputErrorField from '@components/input-error-field/input-error-field';
 import { useAppDispatch } from '@/hooks';
 import { login } from '@store/user-data/api-actions';
-import '@styles/common-styles.css';
 import { AuthData } from '@frontend-types/user/auth-data.type';
 import { FormFieldName, UserFormError } from '@utils/constant';
 import { checkValidity } from '@utils/helpers';

@@ -1,4 +1,3 @@
-import '@styles/common-styles.css';
 
 function Loader():JSX.Element{
   return(

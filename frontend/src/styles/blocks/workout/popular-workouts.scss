@@ -1,0 +1,66 @@
+.popular-trainings {
+  position: relative;
+  overflow: hidden;
+}
+
+.popular-trainings__wrapper {
+  padding-bottom: 60px;
+}
+
+.popular-trainings__title-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.popular-trainings__title {
+  margin: 0;
+  margin-right: 40px;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 34px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.popular-trainings__button {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 40px;
+}
+
+.popular-trainings__controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+}
+
+.popular-trainings__control {
+  margin-right: 15px;
+}
+
+.popular-trainings__control:last-child {
+  margin-right: 0;
+}
+
+.popular-trainings__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.popular-trainings__item {
+  margin-right: 20px;
+}
+
+.popular-trainings__item:last-child {
+  margin-right: 0;
+}

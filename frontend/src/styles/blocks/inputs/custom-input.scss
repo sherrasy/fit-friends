@@ -1,0 +1,190 @@
+.custom-input,
+.custom-textarea {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.custom-input label,
+.custom-textarea label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+}
+
+.custom-input label input,
+.custom-input label textarea,
+.custom-textarea label input,
+.custom-textarea label textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 14px 20px;
+  border: 1px solid rgba(24, 24, 24, 0.1);
+  border-radius: 8px;
+  outline: none;
+  -webkit-transition: border 0.3s ease, color 0.3s ease,
+    background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  transition: border 0.3s ease, color 0.3s ease, background-color 0.3s ease,
+    -webkit-box-shadow 0.3s ease;
+  -o-transition: border 0.3s ease, box-shadow 0.3s ease, color 0.3s ease,
+    background-color 0.3s ease;
+  transition: border 0.3s ease, box-shadow 0.3s ease, color 0.3s ease,
+    background-color 0.3s ease;
+  transition: border 0.3s ease, box-shadow 0.3s ease, color 0.3s ease,
+    background-color 0.3s ease, -webkit-box-shadow 0.3s ease;
+  background-color: rgba(174, 174, 174, 0.1);
+}
+
+.custom-input label input:-moz-placeholder-shown,
+.custom-input label textarea:-moz-placeholder-shown,
+.custom-textarea label input:-moz-placeholder-shown,
+.custom-textarea label textarea:-moz-placeholder-shown {
+  background-color: transparent;
+  border: 1px solid #cfcfcf;
+}
+
+.custom-input label input:-ms-input-placeholder,
+.custom-input label textarea:-ms-input-placeholder,
+.custom-textarea label input:-ms-input-placeholder,
+.custom-textarea label textarea:-ms-input-placeholder {
+  background-color: transparent;
+  border: 1px solid #cfcfcf;
+}
+
+.custom-input label input:placeholder-shown,
+.custom-input label textarea:placeholder-shown,
+.custom-textarea label input:placeholder-shown,
+.custom-textarea label textarea:placeholder-shown {
+  background-color: transparent;
+  border: 1px solid #cfcfcf;
+}
+
+.custom-input label input:hover,
+.custom-input label input:active,
+.custom-input label textarea:hover,
+.custom-input label textarea:active,
+.custom-textarea label input:hover,
+.custom-textarea label input:active,
+.custom-textarea label textarea:hover,
+.custom-textarea label textarea:active {
+  outline: none;
+  background-color: transparent;
+  border: 1px solid #333333;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.custom-input label input:focus,
+.custom-input label textarea:focus,
+.custom-textarea label input:focus,
+.custom-textarea label textarea:focus {
+  outline: none;
+  background-color: transparent;
+  border: 1px solid #333333;
+  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
+  box-shadow: 0 0 0 2px #c5ec2a;
+}
+
+.custom-input label input:disabled,
+.is-disabled .custom-input label input,
+.custom-input label textarea:disabled,
+.is-disabled .custom-input label textarea,
+.custom-textarea label input:disabled,
+.is-disabled .custom-textarea label input,
+.custom-textarea label textarea:disabled,
+.is-disabled .custom-textarea label textarea {
+  border: 1px solid #181818;
+  background-color: #aeaeae;
+  opacity: 0.08;
+}
+
+.custom-input label textarea,
+.custom-textarea label textarea {
+  min-height: 120px;
+  padding: 15px 20px;
+  font-size: 99%;
+  line-height: 1.2;
+}
+
+.custom-input--readonly label input:disabled,
+.custom-input--readonly label textarea:disabled,
+.custom-textarea--readonly label input:disabled,
+.custom-textarea--readonly label textarea:disabled {
+  color: #333333;
+  -webkit-text-fill-color: #333333;
+  border: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-opacity: 1;
+  pointer-events: none;
+}
+
+.custom-input--with-text-right label input,
+.custom-textarea--with-text-right label input {
+  padding: 14px 60px 14px 20px;
+}
+
+.custom-input--with-text-left label input,
+.custom-textarea--with-text-left label input {
+  padding: 14px 20px 14px 60px;
+}
+
+.custom-input--error label input,
+.custom-textarea--error label input {
+  border: 1px solid #e4001b;
+  background-color: transparent;
+}
+
+.custom-input__label,
+.custom-textarea__label {
+  color: #aeaeae;
+  margin-bottom: 9px;
+}
+
+.is-disabled .custom-input__label,
+.is-disabled .custom-textarea__label {
+  color: rgba(174, 174, 174, 0.5);
+}
+
+.custom-input__wrapper,
+.custom-textarea__wrapper {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.custom-input__text,
+.custom-textarea__text {
+  position: absolute;
+  top: 15px;
+  color: #aeaeae;
+  -webkit-transition: color 0.3s ease;
+  -o-transition: color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+.custom-input--with-text-right .custom-input__text,
+.custom-input--with-text-right .custom-textarea__text {
+  right: 20px;
+}
+
+.custom-input--with-text-left .custom-input__text,
+.custom-input--with-text-left .custom-textarea__text {
+  left: 19px;
+}
+
+input:hover + .custom-input__text,
+input:focus + .custom-input__text,
+input:active + .custom-input__text,
+input:hover + .custom-textarea__text,
+input:focus + .custom-textarea__text,
+input:active + .custom-textarea__text {
+  color: #333333;
+}

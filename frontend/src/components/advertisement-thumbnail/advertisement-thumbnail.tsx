@@ -1,4 +1,3 @@
-import '@styles/common-styles.css';
 
 function AdvertisementThumbnail():JSX.Element{
   return(

@@ -46,6 +46,7 @@ import Loader from '@components/loader/loader';
 import PrivateRoleRoute from '@components/private-route/private-role-route';
 import PrivateRoute from '@components/private-route/private-route';
 import UnauthorizedRoute from '@components/unauthorized-route/unauthorized-route';
+import '@styles/styles.scss';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

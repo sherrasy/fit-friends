@@ -1,0 +1,66 @@
+.look-for-company {
+  position: relative;
+  overflow: hidden;
+  background-color: #333333;
+}
+
+.look-for-company__wrapper {
+  padding: 70px 0 120px;
+}
+
+.look-for-company__title-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.look-for-company__title {
+  margin: 0;
+  margin-right: 90px;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 34px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.look-for-company__button {
+  margin-right: 40px;
+}
+
+.look-for-company__controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+}
+
+.look-for-company__control {
+  margin-right: 15px;
+}
+
+.look-for-company__control:last-child {
+  margin-right: 0;
+}
+
+.look-for-company__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.look-for-company__item {
+  margin-right: 20px;
+}
+
+.look-for-company__item:last-child {
+  margin-right: 0;
+}

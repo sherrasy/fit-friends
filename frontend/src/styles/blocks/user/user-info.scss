@@ -1,0 +1,190 @@
+.user-info {
+  width: 356px;
+  padding: 44px 21px;
+  background-color: #ffffff;
+  border: 1px solid #c5ec2a;
+  border-radius: 0 20px 20px 0;
+  -webkit-box-shadow: 0 10px 150px rgba(51, 51, 51, 0.15);
+  box-shadow: 0 10px 150px rgba(51, 51, 51, 0.15);
+}
+
+.user-info__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 29px;
+}
+
+.user-info__form {
+  position: relative;
+}
+
+.user-info__edit-button {
+  position: absolute;
+  top: 2px;
+  right: 0;
+}
+
+.user-info__save-button {
+  position: absolute;
+  top: 2px;
+  right: 31px;
+}
+
+.user-info__section {
+  margin-bottom: 37px;
+}
+
+.user-info__title {
+  margin: 0 0 23px;
+  font-weight: 500;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #181818;
+}
+
+.user-info__title--status {
+  margin: 0 0 20px;
+}
+
+.user-info__title--specialization {
+  margin: 0 0 24px;
+}
+
+.user-info__input {
+  margin-bottom: 19px;
+}
+
+.user-info__textarea textarea {
+  height: 147px;
+}
+
+.user-info__toggle {
+  padding: 0;
+}
+
+.user-info__specialization {
+  gap: 8px;
+}
+
+.user-info__specialization span {
+  padding: 5px 15px;
+  font-size: 14px;
+}
+
+.user-info__select:not(:last-child) {
+  margin-bottom: 18px;
+}
+
+.user-info-edit {
+  width: 356px;
+  padding: 44px 21px;
+  background-color: #ffffff;
+  border: 1px solid #c5ec2a;
+  border-radius: 0 20px 20px 0;
+  -webkit-box-shadow: 0 10px 150px rgba(51, 51, 51, 0.15);
+  box-shadow: 0 10px 150px rgba(51, 51, 51, 0.15);
+}
+
+.user-info-edit__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 29px;
+}
+
+.user-info-edit__controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 28px;
+}
+
+.user-info-edit__control-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  -webkit-transition: -webkit-box-shadow 0.3s ease;
+  transition: -webkit-box-shadow 0.3s ease;
+  -o-transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, -webkit-box-shadow 0.3s ease;
+}
+
+.user-info-edit__control-btn.focus-visible:focus {
+  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
+  box-shadow: 0 0 0 2px #c5ec2a;
+  outline: none;
+}
+
+.user-info-edit__form {
+  position: relative;
+}
+
+.user-info-edit__save-button {
+  position: absolute;
+  top: 2px;
+  right: 31px;
+}
+
+.user-info-edit__section {
+  margin-bottom: 37px;
+}
+
+.user-info-edit__title {
+  margin: 0 0 23px;
+  font-weight: 500;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #181818;
+}
+
+.user-info-edit__title--status {
+  margin: 0 0 20px;
+}
+
+.user-info-edit__title--specialization {
+  margin: 0 0 24px;
+}
+
+.user-info-edit__input {
+  margin-bottom: 19px;
+}
+
+.user-info-edit__textarea textarea {
+  height: 147px;
+}
+
+.user-info-edit__toggle {
+  padding: 0;
+}
+
+.user-info-edit__specialization {
+  gap: 8px;
+}
+
+.user-info-edit__specialization span {
+  padding: 5px 15px;
+  font-size: 14px;
+}
+
+.user-info-edit__select:not(:last-child) {
+  margin-bottom: 18px;
+}

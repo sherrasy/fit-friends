@@ -1,0 +1,18 @@
+.is-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.is-disabled input + .custom-toggle__icon::after {
+  background-color: #8e8e8e;
+}
+
+.is-disabled input:checked + .custom-toggle__icon::after {
+  background-color: #8e8e8e;
+  border-color: #8e8e8e;
+}
+
+.is-disabled input:checked + .custom-toggle__icon::before {
+  background-color: #cfcfcf;
+  opacity: 0.8;
+}

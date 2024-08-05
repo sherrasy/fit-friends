@@ -1,0 +1,138 @@
+.gym-card__wrapper {
+  display: -ms-grid;
+  display: grid;
+  background-color: #333333;
+  border-radius: 12px;
+  -ms-grid-columns: 1fr 59%;
+  grid-template-columns: 1fr 59%;
+}
+
+.gym-card__content {
+  padding: 88px 0 64px;
+}
+
+.gym-card__head {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr -webkit-min-content;
+  -ms-grid-columns: 1fr min-content;
+  grid-template-columns: 1fr -webkit-min-content;
+  grid-template-columns: 1fr min-content;
+  margin: 0 0 12px 0;
+  padding: 0 99px;
+}
+
+.gym-card__title {
+  margin: 0 10px 0 0;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 34px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.gym-card__icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: #c5ec2a;
+  border-radius: 100px;
+}
+
+.gym-card__verify-bold {
+  color: #333333;
+}
+
+.gym-card__address {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: -webkit-min-content 1fr;
+  -ms-grid-columns: min-content 1fr;
+  grid-template-columns: -webkit-min-content 1fr;
+  grid-template-columns: min-content 1fr;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0 0 29px 0;
+  padding: 0 99px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: #adadad;
+}
+
+.gym-card__address span {
+  padding: 0 0 0 8px;
+}
+
+.gym-card__hashtag-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 0 0 28px 0;
+  padding: 0 99px;
+  list-style: none;
+}
+
+.gym-card__hashtag-item {
+  margin: 0 8px 5px 0;
+}
+
+.gym-card__hashtag-item:last-child {
+  margin: 0;
+}
+
+.gym-card__text {
+  margin: 0 0 35px 0;
+  padding: 35px 99px 0;
+  border-top: 1px solid rgba(158, 158, 158, 0.1);
+}
+
+.gym-card__text p {
+  max-width: 354px;
+  margin: 0 0 15px 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #ffffff;
+}
+
+.gym-card__text p:last-of-type {
+  margin: 0;
+}
+
+.gym-card__rating-price {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  margin: 0 0 35px;
+  padding: 0 99px;
+}
+
+.gym-card__rating {
+  padding: 29px 32px;
+  margin: 0 18px 15px 0;
+  border: 1px solid rgba(158, 158, 158, 0.1);
+  border-radius: 8px;
+}
+
+.gym-card__button {
+  padding: 0 99px;
+  margin: 0 0 10px;
+}

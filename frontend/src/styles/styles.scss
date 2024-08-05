@@ -1,0 +1,73 @@
+// Global
+//-----------------
+
+@import './vendor/normalize';
+@import './variables';
+@import './mixins';
+@import './global/common';
+@import './global/disabled';
+@import './global/fonts';
+@import './global/hover';
+@import './global/resize';
+@import './global/visibility';
+
+// Blocks
+//-----------------
+
+@import './blocks/forms/create-workout';
+@import './blocks/forms/popup-form';
+@import './blocks/forms/questionnaire';
+@import './blocks/forms/sign-in';
+@import './blocks/forms/sign-up';
+//
+@import './blocks/header/header';
+@import './blocks/header/main-nav';
+@import './blocks/header/notifications';
+@import './blocks/header/search';
+//
+@import './blocks/inputs/custom-input';
+@import './blocks/inputs/custom-select';
+@import './blocks/inputs/custom-toggle';
+@import './blocks/inputs/inputs';
+//
+@import './blocks/user/certificate-card';
+@import './blocks/user/friends-list';
+@import './blocks/user/look-for-company';
+@import './blocks/user/my-orders';
+@import './blocks/user/my-purchases';
+@import './blocks/user/my-training-form';
+@import './blocks/user/my-workouts';
+@import './blocks/user/personal-account';
+@import './blocks/user/thumbnail-friend';
+@import './blocks/user/thumbnail-user';
+@import './blocks/user/user-card';
+@import './blocks/user/user-catalog';
+@import './blocks/user/user-info';
+@import './blocks/user/users-catalog';
+//
+@import './blocks/workout/gym-card';
+@import './blocks/workout/gym-catalog';
+@import './blocks/workout/popular-workouts';
+@import './blocks/workout/reviews';
+@import './blocks/workout/special-offers';
+@import './blocks/workout/thumbnail-gym';
+@import './blocks/workout/thumbnail-spec';
+@import './blocks/workout/thumbnail-workout';
+@import './blocks/workout/training-video';
+@import './blocks/workout/workout-card';
+@import './blocks/workout/workout-catalog';
+@import './blocks/workout/workout-info';
+//
+@import './blocks/buttons';
+@import './blocks/errors';
+@import './blocks/filter';
+@import './blocks/footer';
+@import './blocks/hashtag';
+@import './blocks/intro';
+@import './blocks/loader';
+@import './blocks/logo';
+@import './blocks/modal';
+@import './blocks/rating';
+@import './blocks/slider';
+@import './blocks/thumbnail';
+@import './blocks/wrapper';

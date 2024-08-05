@@ -1,0 +1,226 @@
+.sign-up {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.sign-up__load-photo {
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.sign-up__description {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.sign-up__legend {
+  margin: 0;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #181818;
+}
+
+.sign-up__text {
+  display: block;
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: #a8a8a8;
+}
+
+.sign-up__data {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  -webkit-column-gap: 20px;
+  -moz-column-gap: 20px;
+  column-gap: 20px;
+  row-gap: 30px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.sign-up__radio .custom-toggle-radio {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-column-gap: 15px;
+  -moz-column-gap: 15px;
+  column-gap: 15px;
+  row-gap: 5px;
+  padding: 0;
+}
+
+.sign-up__radio .custom-toggle-radio__block {
+  margin-bottom: 0;
+}
+
+.sign-up__label {
+  display: block;
+  margin-bottom: 25px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  color: #a8a8a8;
+}
+
+.sign-up__role {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.sign-up__role-selector {
+  margin-top: 15px;
+}
+
+.sign-up__checkbox {
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.sign-up__checkbox input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip: rect(0 0 0 0);
+}
+
+.sign-up__checkbox input:checked ~ .sign-up__checkbox-label {
+  font-weight: 500;
+}
+
+.sign-up__checkbox input:checked + .sign-up__checkbox-icon::before {
+  background-color: #333333;
+}
+
+.sign-up__checkbox input:checked + .sign-up__checkbox-icon svg {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  color: #c5ec2a;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.sign-up__checkbox input:focus-visible + .sign-up__checkbox-icon {
+  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
+  box-shadow: 0 0 1px 1px #c5ec2a;
+}
+
+.sign-up__checkbox input:active + .sign-up__checkbox-icon {
+  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
+  box-shadow: 0 0 1px 1px #c5ec2a;
+}
+
+.sign-up__checkbox label {
+  position: relative;
+  padding: 2px 0 3px 32px;
+  cursor: pointer;
+}
+
+.sign-up__checkbox label span {
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.sign-up__checkbox-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #333333;
+  border-radius: 2px;
+  -webkit-transition: border 0.3s ease;
+  -o-transition: border 0.3s ease;
+  transition: border 0.3s ease;
+}
+
+.sign-up__checkbox-icon svg {
+  display: none;
+}
+
+.sign-up__checkbox-icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.sign-up__checkbox-icon:hover {
+  background-color: #f2f2f2;
+}
+
+.sign-up__checkbox-icon:active {
+  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
+  box-shadow: 0 0 1px 1px #c5ec2a;
+}
+
+.sign-up__checkbox-label {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 12px;
+  color: #333333;
+}
+
+.sign-up__checkbox-label span {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.sign-up__button {
+  max-width: 256px;
+  margin-top: 20px;
+}

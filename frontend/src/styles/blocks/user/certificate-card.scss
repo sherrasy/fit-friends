@@ -1,0 +1,75 @@
+.certificate-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 334px;
+  padding: 29px 19px;
+  border: 1px solid #cfcfcf;
+  border-radius: 20px;
+}
+
+.certificate-card--edit .certificate-card__button--edit {
+  display: none;
+}
+
+.certificate-card--edit .certificate-card__button--save {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.certificate-card--edit .certificate-card__controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.certificate-card__image {
+  width: 294px;
+  height: 360px;
+  margin-bottom: 16px;
+}
+
+.certificate-card__image img {
+  width: 294px;
+  height: 360px;
+}
+
+.certificate-card__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: 36px;
+}
+
+.certificate-card__button {
+  margin-right: 20px;
+}
+
+.certificate-card__button--save {
+  display: none;
+}
+
+.certificate-card__controls {
+  display: none;
+}
+
+.certificate-card__control {
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+}
+
+.certificate-card__control:last-child {
+  margin-right: 0;
+}

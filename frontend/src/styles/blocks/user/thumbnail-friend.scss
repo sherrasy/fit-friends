@@ -1,0 +1,340 @@
+.thumbnail-friend {
+  min-width: 452px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  border: 1px solid #c5ec2a;
+  -webkit-box-shadow: 0 10px 30px rgba(51, 51, 51, 0.33);
+  box-shadow: 0 10px 30px rgba(51, 51, 51, 0.33);
+  border-radius: 20px;
+  overflow: hidden;
+  -webkit-transition: -webkit-box-shadow 0.6s ease-in-out;
+  transition: -webkit-box-shadow 0.6s ease-in-out;
+  -o-transition: box-shadow 0.6s ease-in-out;
+  transition: box-shadow 0.6s ease-in-out;
+  transition: box-shadow 0.6s ease-in-out, -webkit-box-shadow 0.6s ease-in-out;
+}
+
+.thumbnail-friend__info {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 78px 1fr -webkit-min-content;
+  -ms-grid-columns: 78px 1fr min-content;
+  grid-template-columns: 78px 1fr -webkit-min-content;
+  grid-template-columns: 78px 1fr min-content;
+  -ms-grid-rows: -webkit-min-content auto;
+  -ms-grid-rows: min-content auto;
+  grid-template-rows: -webkit-min-content auto;
+  grid-template-rows: min-content auto;
+  row-gap: 19px;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+  padding: 30px 18px 27px 20px;
+}
+
+.thumbnail-friend__info--theme-light {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.thumbnail-friend__info--theme-dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.thumbnail-friend__image-status {
+  position: relative;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1/2;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+  width: 78px;
+  height: 78px;
+}
+
+.thumbnail-friend__image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.thumbnail-friend__image img {
+  max-width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.thumbnail-friend__online-status {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.thumbnail-friend__online-status--is-online {
+  background-color: #c5ec2a;
+}
+
+.thumbnail-friend__online-status--is-offline {
+  background-color: #ee2a42;
+}
+
+.thumbnail-friend__header {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  row-gap: 4px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  margin-top: 18px;
+}
+
+.thumbnail-friend__name {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1/2;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.thumbnail-friend__location {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1/3;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1;
+  color: #adadad;
+}
+
+.thumbnail-friend__location svg {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 14px;
+  flex: 0 0 14px;
+  width: 14px;
+  height: 16px;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.thumbnail-friend__location-address {
+  margin-left: 7px;
+  font-style: normal;
+}
+
+.thumbnail-friend__training-types-list {
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 1;
+  grid-column: 3/4;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+  -ms-grid-column-align: end;
+  justify-self: end;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin-top: 15px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  -ms-flex-line-pack: start;
+  align-content: start;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: end;
+  row-gap: 6px;
+}
+
+.thumbnail-friend__hashtag {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1;
+  color: inherit;
+  border-color: #cfcfcf;
+}
+
+.thumbnail-friend__activity-bar {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1/4;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.thumbnail-friend__ready-status {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 15px 26px 15px 41px;
+  margin-bottom: 2px;
+  margin-right: 5px;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: inherit;
+  vertical-align: middle;
+  border-radius: 49px;
+}
+
+.thumbnail-friend__ready-status::before {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  -webkit-transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  content: '';
+}
+
+.thumbnail-friend__ready-status--is-ready {
+  border: 1px solid #c5ec2a;
+}
+
+.thumbnail-friend__ready-status--is-ready::before {
+  background-color: #c5ec2a;
+}
+
+.thumbnail-friend__ready-status--is-not-ready {
+  color: #adadad;
+  border: 1px solid #cfcfcf;
+}
+
+.thumbnail-friend__ready-status--is-not-ready::before {
+  background-color: #cfcfcf;
+}
+
+.thumbnail-friend__invite-button {
+  width: 43px;
+  height: 46px;
+  padding: 0;
+  margin-left: 10px;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  color: #333333;
+  -webkit-transition: color 0.4s ease-in-out;
+  -o-transition: color 0.4s ease-in-out;
+  transition: color 0.4s ease-in-out;
+}
+
+.thumbnail-friend__invite-button:first-of-type {
+  margin-left: auto;
+}
+
+.thumbnail-friend__invite-button.focus-visible:focus {
+  outline: 2px solid #c5ec2a;
+  outline-offset: 3px;
+}
+
+.thumbnail-friend__invite-button:active {
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+.thumbnail-friend__invite-button:disabled,
+.thumbnail-friend__invite-button.is-disabled {
+  color: #d0d0d0;
+  cursor: default;
+  pointer-events: none;
+}
+
+.thumbnail-friend__invite-button svg {
+  width: 100%;
+  height: 100%;
+}
+
+.thumbnail-friend__request-status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 25px 20px 24px;
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.thumbnail-friend__request-status--role-user {
+  border-top: 1px solid #c5ec2a;
+}
+
+.thumbnail-friend__request-status--role-coach {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.thumbnail-friend__request-text {
+  margin: 0;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.thumbnail-friend__request-text:last-child {
+  margin-bottom: 0;
+}
+
+.thumbnail-friend__button-wrapper {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.thumbnail-friend__button {
+  padding: 16px 15px;
+}

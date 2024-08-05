@@ -1,0 +1,71 @@
+.form-input__error {
+  color: $color-alzarin;
+  text-align: center;
+}
+
+.error-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px 20px 30px 18px;
+  background-color: $color-white;
+  color: $color-night-rider;
+  border: 1px solid $color-pear;
+  -webkit-box-shadow: 0 10px 30px $color-night-rider-low;
+  box-shadow: 0 10px 30px $color-night-rider-low;
+  border-radius: 20px;
+  -webkit-transition: -webkit-box-shadow 0.6s ease-in-out;
+  transition: -webkit-box-shadow 0.6s ease-in-out;
+  -o-transition: box-shadow 0.6s ease-in-out;
+  transition: box-shadow 0.6s ease-in-out;
+  transition: box-shadow 0.6s ease-in-out, -webkit-box-shadow 0.6s ease-in-out;
+}
+
+.error__text {
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  color: $color-pear;
+  background-color: $color-night-rider;
+  z-index: 2;
+}
+
+.error__subtext {
+  margin-left: 8px;
+  font-style: normal;
+}
+
+.custom-input__error,
+.custom-textarea__error {
+  margin-top: 6px;
+  color: #e4001b;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+
+.custom-input--error .custom-input__error,
+.custom-input--error .custom-textarea__error {
+  opacity: 1;
+}
+
+.custom-select__error {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  color: #e4001b;
+  opacity: 0;
+  -webkit-transition: opacity 0.1s ease;
+  -o-transition: opacity 0.1s ease;
+  transition: opacity 0.1s ease;
+}

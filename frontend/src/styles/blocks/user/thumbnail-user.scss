@@ -1,0 +1,201 @@
+.thumbnail-user {
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 82px 1fr;
+  grid-template-columns: 82px 1fr;
+  -ms-grid-rows: -webkit-min-content -webkit-min-content auto;
+  -ms-grid-rows: min-content min-content auto;
+  grid-template-rows: -webkit-min-content -webkit-min-content auto;
+  grid-template-rows: min-content min-content auto;
+  gap: 14px 16px;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
+  min-width: 334px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  height: 100%;
+  padding: 30px 20px 23px;
+  border: 1px solid #c5ec2a;
+  border-radius: 20px;
+  -webkit-transition: -webkit-box-shadow 0.6s ease-in-out;
+  transition: -webkit-box-shadow 0.6s ease-in-out;
+  -o-transition: box-shadow 0.6s ease-in-out;
+  transition: box-shadow 0.6s ease-in-out;
+  transition: box-shadow 0.6s ease-in-out, -webkit-box-shadow 0.6s ease-in-out;
+}
+
+.thumbnail-user--role-user {
+  -webkit-box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
+  box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.thumbnail-user--role-coach {
+  -webkit-box-shadow: 0 10px 30px rgba(51, 51, 51, 0.33);
+  box-shadow: 0 10px 30px rgba(51, 51, 51, 0.33);
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.thumbnail-user--dark {
+  border: 1px solid rgba(149, 149, 149, 0.2);
+  border-radius: 8px;
+  background-color: #3c3c3c;
+  color: #ffffff;
+}
+
+.thumbnail-user--dark .thumbnail-user__hashtag {
+  border: 1px solid #a8a8a8;
+}
+
+.thumbnail-user--dark .thumbnail-user__button {
+  margin-top: 16px;
+}
+
+.thumbnail-user__image {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1/2;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  grid-row: 1/3;
+  width: 82px;
+  height: 82px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.thumbnail-user__image img {
+  max-width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.thumbnail-user__top-status {
+  position: absolute;
+  left: 15px;
+  top: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.thumbnail-user__top-status--role-user {
+  background-color: #333333;
+  color: #c5ec2a;
+}
+
+.thumbnail-user__top-status--role-coach {
+  background-color: #c5ec2a;
+  color: #333333;
+}
+
+.thumbnail-user__top-status svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: 12px;
+  height: 12px;
+}
+
+.thumbnail-user__header {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.thumbnail-user__name {
+  margin: 0;
+  margin-bottom: 4px;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.thumbnail-user__location {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1;
+  color: #adadad;
+}
+
+.thumbnail-user__location svg {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 14px;
+  flex: 0 0 14px;
+  width: 14px;
+  height: 16px;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+
+.thumbnail-user__location-address {
+  margin-left: 6px;
+  font-style: normal;
+}
+
+.thumbnail-user__hashtags-list {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  grid-column: 2/3;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2/3;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.thumbnail-user__hashtags-item {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.thumbnail-user__hashtag {
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1;
+  color: inherit;
+  border-color: #cfcfcf;
+}
+
+.thumbnail-user__button {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-column: 1/3;
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 1;
+  grid-row: 3/4;
+  -ms-grid-row-align: end;
+  align-self: end;
+  margin-top: 8px;
+}
