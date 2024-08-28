@@ -3,7 +3,7 @@
   margin-bottom: 20px;
   padding: 38px 60px;
   border-radius: 12px;
-  background-color: #333333;
+  background-color: $color-night-rider;
 }
 
 .personal-account-user__schedule::before {
@@ -13,7 +13,7 @@
   left: 50%;
   width: 1px;
   height: 100%;
-  background-color: #ffffff;
+  background-color: $color-white;
   opacity: 0.2;
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
@@ -31,13 +31,8 @@
 }
 
 .personal-account-user__input {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
 }
 
 .personal-account-user__input input {
@@ -51,7 +46,7 @@
   border: 1px solid rgba(149, 149, 149, 0.1);
   border-radius: 8px;
   background-color: rgba(247, 247, 247, 0.02);
-  color: #ffffff;
+  color: $color-white;
   outline: 0;
   -webkit-transition: border 0.3s ease, -webkit-box-shadow 0.3s ease;
   transition: border 0.3s ease, -webkit-box-shadow 0.3s ease;
@@ -63,13 +58,13 @@
 
 .personal-account-user__input input:hover,
 .personal-account-user__input input:active {
-  border: 1px solid #ffffff;
+  border: 1px solid $color-white;
 }
 
 .personal-account-user__input input:focus {
-  border: 1px solid #ffffff;
-  -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
-  box-shadow: 0 0 2px 2px #c5ec2a;
+  border: 1px solid $color-white;
+  -webkit-box-shadow: 0 0 2px 2px $color-pear;
+  box-shadow: 0 0 2px 2px $color-pear;
 }
 
 .personal-account-user__input input:disabled {
@@ -85,7 +80,7 @@
   font-size: 18px;
   line-height: 18px;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .personal-account-user__info {
@@ -144,7 +139,7 @@
   width: 334px;
   height: 402px;
   border-radius: 16px;
-  background-color: #ffffff;
+  background-color: $color-white;
 }
 
 .personal-account-coach__navigation {
@@ -169,7 +164,7 @@
   width: 334px;
   height: 402px;
   border-radius: 16px;
-  background-color: #ffffff;
+  background-color: $color-white;
 }
 
 .personal-account-coach__additional-info {
@@ -177,12 +172,8 @@
 }
 
 .personal-account-coach__label-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
   margin-bottom: 30px;
 }
 
@@ -192,9 +183,7 @@
   font-weight: 500;
   font-size: 22px;
   line-height: 22px;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: #181818;
+  @include font-params;
 }
 
 .personal-account-coach__button {
@@ -202,9 +191,7 @@
 }
 
 .personal-account-coach__controls {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   margin-left: auto;
 }
 
@@ -217,12 +204,9 @@
 }
 
 .personal-account-coach__list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   max-width: 1042px;
-  margin: 0;
-  padding: 0;
+  @include zeroed-margin-padding;
   overflow: hidden;
   list-style: none;
 }

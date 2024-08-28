@@ -1,7 +1,7 @@
 .my-training-form__wrapper {
   border-radius: 0 20px 20px 0;
-  background-color: #ffffff;
-  border: 1px solid #c5ec2a;
+  background-color: $color-white;
+  border: 1px solid $color-pear;
   max-width: 356px;
   padding: 42px 22px 60px 22px;
   -webkit-box-shadow: 0 10px 30px rgba(51, 51, 51, 0.33);
@@ -23,23 +23,17 @@
   font-size: 18px;
   line-height: 18px;
   margin: 0 0 35px 0;
-  color: #181818;
+  color: $color-dark-nero;
   letter-spacing: 0.01em;
 }
 
 .my-training-form__form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
 }
 
 .my-training-form__check-list {
-  margin: 0;
-  padding: 0;
+  @include zeroed-margin-padding;
   list-style: none;
 }
 
@@ -61,7 +55,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 14px;
-  color: #333333;
+  color: $color-night-rider;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }

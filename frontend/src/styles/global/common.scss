@@ -7,8 +7,7 @@
 
 html,
 body {
-  margin: 0;
-  padding: 0;
+  @include zeroed-margin-padding;
   min-height: 100vh;
 }
 
@@ -18,7 +17,7 @@ html {
   font-size: 16px;
   line-height: 19px;
   font-family: 'Roboto', 'Arial', sans-serif;
-  color: #333333;
+  color: $color-night-rider;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -31,7 +30,7 @@ body {
 }
 
 a {
-  color: #333333;
+  color: $color-night-rider;
   text-decoration: none;
 }
 
@@ -64,13 +63,8 @@ video {
 }
 
 .inner-page--no-sidebar .inner-page__wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   padding: 18px 0 60px;
 }
 

@@ -1,18 +1,14 @@
 .rating {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
 }
 
 .rating__icon {
-  color: #c5ec2a;
+  color: $color-pear;
 }
 
 .rating__count {
-  color: #ffffff;
+  color: $color-white;
   margin: 0 0 0 6px;
   font-size: 18px;
   line-height: 18px;

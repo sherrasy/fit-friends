@@ -13,9 +13,7 @@
 }
 
 .visible-input {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
 }
 
 .scroll-lock-ios {

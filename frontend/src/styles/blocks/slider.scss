@@ -3,75 +3,14 @@
   flex-direction: column-reverse;
 }
 
-.slider-gyms {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.slider-gyms__list {
-  position: relative;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.slider-gyms__slide {
-  display: none;
-  border-radius: 0 12px 12px 0;
-  overflow: hidden;
-}
-
-.slider-gyms__slide--current {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.slider-gyms__img {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.slider-gyms__img img {
-  -o-object-fit: cover;
-  object-fit: cover;
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.slider-gyms__btn {
-  position: absolute;
-  bottom: 49%;
-}
-
-.slider-gyms__btn--prev {
-  left: 30px;
-}
-
-.slider-gyms__btn--next {
-  right: 30px;
-}
-
 .promo-slider {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   width: 1042px;
   min-height: 471px;
   padding: 21px 23px 24px 19px;
-  border: 1px solid #c5ec2a;
+  border: 1px solid $color-pear;
   border-radius: 20px;
   -webkit-transition: -webkit-box-shadow 0.3s ease;
   transition: -webkit-box-shadow 0.3s ease;
@@ -95,12 +34,12 @@
   height: 100%;
   background: -o-linear-gradient(
     167.69deg,
-    #181818 2.74%,
+    $color-dark-nero 2.74%,
     rgba(24, 24, 24, 0) 50.59%
   );
   background: linear-gradient(
     282.31deg,
-    #181818 2.74%,
+    $color-dark-nero 2.74%,
     rgba(24, 24, 24, 0) 50.59%
   );
   border-radius: 20px;
@@ -139,7 +78,7 @@
   left: 0;
   width: 924px;
   height: 1px;
-  background-color: #c5ec2a;
+  background-color: $color-pear;
 }
 
 .promo-slider__logo {
@@ -157,7 +96,7 @@
   font-size: 44px;
   line-height: 100%;
   text-transform: uppercase;
-  color: #c5ec2a;
+  color: $color-pear;
 }
 
 .promo-slider__text {
@@ -168,13 +107,11 @@
   font-size: 18px;
   line-height: 114%;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .promo-slider__bottom-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-align: end;
   -ms-flex-align: end;
   align-items: flex-end;
@@ -182,9 +119,7 @@
 }
 
 .promo-slider__slider-dots {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
@@ -207,26 +142,19 @@
 }
 
 .promo-slider__slider-dot.focus-visible:focus {
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
   outline: none;
 }
 
 .promo-slider__slider-dot--active {
-  background: #c5ec2a;
+  background: $color-pear;
 }
 
 .promo-slider__price-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
+  @include align-items-center;
 }
 
 .promo-slider__price {
@@ -236,7 +164,7 @@
   font-size: 44px;
   line-height: 100%;
   letter-spacing: 0.01em;
-  color: #c5ec2a;
+  color: $color-pear;
 }
 
 .promo-slider__sup {
@@ -247,7 +175,7 @@
   line-height: 100%;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #cfcfcf;
+  color: $color-very-light-grey;
 }
 
 .promo-slider__old-price {
@@ -258,7 +186,7 @@
   font-size: 28px;
   line-height: 100%;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .promo-slider__old-price::after {
@@ -269,5 +197,5 @@
   width: calc(100% + 12px);
   height: 2px;
   border-radius: 1px;
-  background-color: #c5ec2a;
+  background-color: $color-pear;
 }

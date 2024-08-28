@@ -1,7 +1,7 @@
 .gym-card__wrapper {
   display: -ms-grid;
   display: grid;
-  background-color: #333333;
+  background-color: $color-night-rider;
   border-radius: 12px;
   -ms-grid-columns: 1fr 59%;
   grid-template-columns: 1fr 59%;
@@ -27,21 +27,13 @@
   font-weight: 700;
   font-size: 34px;
   line-height: 34px;
-  color: #ffffff;
+  color: $color-white;
   text-transform: uppercase;
   letter-spacing: 0.01em;
 }
 
 .gym-card__icon {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include vertical-centered-block;
   width: 32px;
   height: 32px;
   background-color: #c5ec2a;
@@ -49,7 +41,7 @@
 }
 
 .gym-card__verify-bold {
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .gym-card__address {
@@ -59,15 +51,13 @@
   -ms-grid-columns: min-content 1fr;
   grid-template-columns: -webkit-min-content 1fr;
   grid-template-columns: min-content 1fr;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   margin: 0 0 29px 0;
   padding: 0 99px;
   font-weight: 400;
   font-size: 14px;
   line-height: 14px;
-  color: #adadad;
+  color: $color-dark-grey;
 }
 
 .gym-card__address span {
@@ -75,9 +65,7 @@
 }
 
 .gym-card__hashtag-list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 0 0 28px 0;
@@ -105,7 +93,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .gym-card__text p:last-of-type {
@@ -113,9 +101,7 @@
 }
 
 .gym-card__rating-price {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-pack: start;

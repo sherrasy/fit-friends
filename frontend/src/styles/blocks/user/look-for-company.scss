@@ -1,7 +1,7 @@
 .look-for-company {
   position: relative;
   overflow: hidden;
-  background-color: #333333;
+  background-color: $color-night-rider;
 }
 
 .look-for-company__wrapper {
@@ -9,12 +9,8 @@
 }
 
 .look-for-company__title-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
   margin-bottom: 30px;
 }
 
@@ -26,7 +22,7 @@
   line-height: 34px;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .look-for-company__button {
@@ -34,9 +30,7 @@
 }
 
 .look-for-company__controls {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   margin-left: auto;
 }
 
@@ -49,11 +43,8 @@
 }
 
 .look-for-company__list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0;
-  padding: 0;
+  @include default-positioning-desktop;
+  @include zeroed-margin-padding;
   list-style: none;
 }
 

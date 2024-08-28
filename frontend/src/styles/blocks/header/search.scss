@@ -20,7 +20,7 @@
   width: 236px;
   margin: 0;
   padding: 16px 50px 16px 16px;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0);
   outline: 0;
@@ -34,17 +34,17 @@
 
 .search input:hover,
 .search input:active {
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
 }
 
 .search input:focus {
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
-  box-shadow: 0 0 2px 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 2px 2px $color-pear;
+  box-shadow: 0 0 2px 2px $color-pear;
 }
 
 .search input:disabled {
-  border: 1px solid #181818;
+  border: 1px solid $color-dark-nero;
   background-color: #aeaeae;
   opacity: 0.08;
 }
@@ -59,7 +59,7 @@
   right: 20px;
   width: 20px;
   height: 20px;
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .search__list {
@@ -70,7 +70,7 @@
   margin: 0;
   margin-top: 22px;
   padding: 0 3px;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
   border-radius: 8px;
   background-color: #fafafa;
   list-style: none;
@@ -84,9 +84,9 @@
   font-size: 16px;
   line-height: 16px;
   border-radius: 8px;
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .search__link.is-active {
-  background-color: #c5ec2a;
+  background-color: $color-pear;
 }

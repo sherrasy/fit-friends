@@ -18,7 +18,7 @@
   width: min-content;
   height: 100%;
   padding: 30px 20px 23px;
-  border: 1px solid #c5ec2a;
+  border: 1px solid $color-pear;
   border-radius: 20px;
   -webkit-transition: -webkit-box-shadow 0.6s ease-in-out;
   transition: -webkit-box-shadow 0.6s ease-in-out;
@@ -28,24 +28,24 @@
 }
 
 .thumbnail-user--role-user {
-  -webkit-box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
-  box-shadow: 0 10px 30px rgba(51, 51, 51, 0.1);
-  background-color: #ffffff;
-  color: #333333;
+  -webkit-box-shadow: 0 10px 30px $color-night-rider-low;
+  box-shadow: 0 10px 30px $color-night-rider-low;
+  background-color: $color-white;
+  color: $color-night-rider;
 }
 
 .thumbnail-user--role-coach {
   -webkit-box-shadow: 0 10px 30px rgba(51, 51, 51, 0.33);
   box-shadow: 0 10px 30px rgba(51, 51, 51, 0.33);
-  background-color: #333333;
-  color: #ffffff;
+  background-color: $color-night-rider;
+  color: $color-white;
 }
 
 .thumbnail-user--dark {
   border: 1px solid rgba(149, 149, 149, 0.2);
   border-radius: 8px;
   background-color: #3c3c3c;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .thumbnail-user--dark .thumbnail-user__hashtag {
@@ -86,13 +86,13 @@
 }
 
 .thumbnail-user__top-status--role-user {
-  background-color: #333333;
-  color: #c5ec2a;
+  background-color: $color-night-rider;
+  color: $color-pear;
 }
 
 .thumbnail-user__top-status--role-coach {
-  background-color: #c5ec2a;
-  color: #333333;
+  background-color: $color-pear;
+  color: $color-night-rider;
 }
 
 .thumbnail-user__top-status svg {
@@ -112,13 +112,8 @@
   -ms-grid-row: 1;
   -ms-grid-row-span: 1;
   grid-row: 1/2;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
 }
 
 .thumbnail-user__name {
@@ -132,15 +127,11 @@
 }
 
 .thumbnail-user__location {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
   font-size: 12px;
   line-height: 1;
-  color: #adadad;
+  color: $color-dark-grey;
 }
 
 .thumbnail-user__location svg {
@@ -165,12 +156,9 @@
   -ms-grid-row: 2;
   -ms-grid-row-span: 1;
   grid-row: 2/3;
-  margin: 0;
-  padding: 0;
+  @include zeroed-margin-padding;
   list-style-type: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
@@ -185,7 +173,7 @@
   font-size: 12px;
   line-height: 1;
   color: inherit;
-  border-color: #cfcfcf;
+  border-color: $color-very-light-grey;
 }
 
 .thumbnail-user__button {

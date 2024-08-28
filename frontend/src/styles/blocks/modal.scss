@@ -1,17 +1,7 @@
 .modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include popup-position;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background-color: rgba(0, 0, 0, 0.8);
@@ -47,17 +37,11 @@
 
 .modal__wrapper {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include justify-content-center;
+  @include align-items-center;
   width: 100%;
   min-height: 100%;
   padding: 60px 40px;
@@ -76,7 +60,7 @@
   position: relative;
   width: 600px;
   padding: 40px;
-  background-color: #ffffff;
+  background-color: $color-white;
 }
 
 .modal__close-btn {

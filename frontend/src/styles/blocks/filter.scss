@@ -12,7 +12,7 @@
 .filter-price input {
   max-width: 151px;
   padding: 13px 45px;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
   border-radius: 8px;
   outline: none;
   -webkit-transition: 0.3s;
@@ -21,9 +21,9 @@
 }
 
 .filter-price input.focus-visible:focus {
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
-  box-shadow: 0 0 2px 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 2px 2px $color-pear;
+  box-shadow: 0 0 2px 2px $color-pear;
 }
 
 .filter-price label {
@@ -62,10 +62,7 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  @include default-horizontal-positioning-forms;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -74,7 +71,7 @@
 .filter-calories input {
   max-width: 151px;
   padding: 13px 45px;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
   border-radius: 8px;
   outline: none;
   -webkit-transition: 0.3s;
@@ -83,9 +80,9 @@
 }
 
 .filter-calories input.focus-visible:focus {
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
-  box-shadow: 0 0 2px 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 2px 2px $color-pear;
+  box-shadow: 0 0 2px 2px $color-pear;
 }
 
 .filter-calories label {
@@ -129,25 +126,20 @@
 .filter-range__bar {
   width: 208px;
   height: 1px;
-  background-color: #333333;
+  background-color: $color-night-rider;
 }
 
 .filter-range__control {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  @include default-positioning-desktop;
+  @include default-horizontal-positioning-forms;
 }
 
 .filter-range__min-toggle,
 .filter-range__max-toggle {
   width: 16px;
   height: 16px;
-  background-color: #333333;
+  background-color: $color-night-rider;
   border-radius: 50%;
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
@@ -176,18 +168,13 @@
 .filter-raiting__bar {
   width: 100%;
   height: 1px;
-  background-color: #333333;
+  background-color: $color-night-rider;
 }
 
 .filter-raiting__control {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  @include default-positioning-desktop;
+  @include default-horizontal-positioning-forms;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -199,14 +186,14 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 16px;
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .filter-raiting__min-toggle,
 .filter-raiting__max-toggle {
   width: 16px;
   height: 16px;
-  background-color: #333333;
+  background-color: $color-night-rider;
   border-radius: 50%;
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;

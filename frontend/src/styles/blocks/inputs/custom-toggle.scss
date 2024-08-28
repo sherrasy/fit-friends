@@ -1,7 +1,5 @@
 .custom-toggle {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   padding: 10px 0;
 }
 
@@ -9,20 +7,13 @@
   font-size: 16px;
   line-height: 16px;
   font-weight: 400;
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .custom-toggle label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-horizontal-positioning-forms;
+  @include align-items-center;
   cursor: pointer;
 }
 
@@ -64,7 +55,7 @@
   width: 20px;
   height: 20px;
   border-radius: 2px;
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
   background: rgba(255, 255, 255, 0);
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
@@ -72,7 +63,7 @@
 }
 
 .custom-toggle--checkbox input:checked + .custom-toggle__icon::before {
-  background: #333333;
+  background: $color-night-rider;
 }
 
 .custom-toggle--checkbox input:disabled + .custom-toggle__icon {
@@ -88,7 +79,7 @@
   position: absolute;
   top: 7px;
   left: 5px;
-  color: #c5ec2a;
+  color: $color-pear;
   width: 9px;
   height: 6px;
 }
@@ -100,9 +91,7 @@
 
 .custom-toggle--switch input + .custom-toggle__icon {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   cursor: pointer;
   padding: 0;
   -webkit-transition: 0.3s ease;
@@ -147,15 +136,15 @@
 }
 
 .custom-toggle--switch input:checked + .custom-toggle__icon::before {
-  background-color: #333333;
+  background-color: $color-night-rider;
 }
 
 .custom-toggle--switch input:checked + span::after {
   -webkit-transform: translateX(100%);
   -ms-transform: translateX(100%);
   transform: translateX(100%);
-  background-color: #c5ec2a;
-  border: 1px solid #c5ec2a;
+  background-color: $color-pear;
+  border: 1px solid $color-pear;
 }
 
 .custom-toggle.is-invalid label span {
@@ -173,7 +162,7 @@
 }
 
 .custom-toggle .input-message--valid {
-  color: #c5ec2a;
+  color: $color-pear;
 }
 
 .custom-toggle--switch-right label {
@@ -191,49 +180,40 @@
 .custom-toggle--checkbox
   input.focus-visible:focus
   + .custom-toggle__icon::before {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
+  @include shadow-pear;
   outline: none;
 }
 
 .custom-toggle--checkbox
   input:checked.focus-visible:focus
   + .custom-toggle__icon::before {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
+  @include shadow-pear;
   outline: none;
 }
 
 .custom-toggle--switch
   input.focus-visible:focus
   + .custom-toggle__icon::before {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
-  border-color: #333333;
+  @include shadow-pear;
+  border-color: $color-night-rider;
   outline: none;
 }
 
 .custom-toggle--switch
   input:checked.focus-visible:focus
   + .custom-toggle__icon::before {
-  -webkit-box-shadow: 0 0 1px 1px #333333;
-  box-shadow: 0 0 1px 1px #333333;
-  border-color: #c5ec2a;
+  -webkit-box-shadow: 0 0 1px 1px $color-night-rider;
+  box-shadow: 0 0 1px 1px $color-night-rider;
+  border-color: $color-pear;
   outline: none;
 }
-
 
 .custom-toggle-radio {
   font-size: 16px;
   line-height: 16px;
   font-weight: 400;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 10px 0;
@@ -251,13 +231,8 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-horizontal-positioning-forms;
+  @include align-items-center;
   cursor: pointer;
 }
 
@@ -269,9 +244,10 @@
   clip: rect(0 0 0 0);
 }
 
-.custom-toggle-radio input.focus-visible:focus + .custom-toggle-radio__icon::before {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
+.custom-toggle-radio
+  input.focus-visible:focus
+  + .custom-toggle-radio__icon::before {
+  @include shadow-pear;
   outline: none;
 }
 
@@ -305,12 +281,12 @@
 }
 
 .custom-toggle-radio input + .custom-toggle-radio__icon::before {
-  content: "";
+  content: '';
   display: inline-block;
   width: 20px;
   height: 20px;
   border-radius: 50px;
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
   background: rgba(255, 255, 255, 0);
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
@@ -318,14 +294,14 @@
 }
 
 .custom-toggle-radio input:checked + .custom-toggle-radio__icon::before {
-  background: #333333;
+  background: $color-night-rider;
 }
 
 .custom-toggle-radio input:checked + .custom-toggle-radio__icon::after {
-  background: #c5ec2a;
+  background: $color-pear;
   width: 6px;
   height: 6px;
-  content: "";
+  content: '';
   position: absolute;
   border-radius: 50px;
   top: 7px;

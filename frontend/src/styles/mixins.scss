@@ -1,0 +1,62 @@
+@mixin default-positioning-desktop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin default-verical-positioning-forms {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+@mixin default-horizontal-positioning-forms {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+@mixin align-items-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+@mixin justify-content-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@mixin vertical-centered-block {
+  @include default-positioning-desktop;
+  @include justify-content-center;
+  @include align-items-center;
+}
+
+@mixin popup-position {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+@mixin zeroed-margin-padding {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin shadow-pear {
+  -webkit-box-shadow: 0 0 1px 1px $color-pear;
+  box-shadow: 0 0 1px 1px $color-pear;
+}
+
+@mixin font-params {
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: $color-dark-nero;
+}

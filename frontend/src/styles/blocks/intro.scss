@@ -1,17 +1,7 @@
 .intro {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include popup-position;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -33,16 +23,9 @@
 
 .intro__wrapper {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
+  @include align-items-center;
   -ms-flex-negative: 0;
   flex-shrink: 0;
   width: 100%;
@@ -66,15 +49,7 @@
 }
 
 .intro__buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include vertical-centered-block;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   row-gap: 20px;
@@ -98,7 +73,7 @@
   line-height: 16px;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .intro__link {
@@ -106,12 +81,12 @@
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
   text-underline-offset: 2px;
-  color: #c5ec2a;
+  color: $color-pear;
   -webkit-transition: color 0.3s ease;
   -o-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
 
 .intro__link.focus-visible:focus {
-  color: #d5ff2d;
+  color: $color-light-pear;
 }

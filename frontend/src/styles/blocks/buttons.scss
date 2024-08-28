@@ -17,21 +17,17 @@ button,
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include justify-content-center;
+  @include align-items-center;
   row-gap: 20px;
   padding: 25px 20px;
   width: 100%;
-  color: #181818;
+  color: $color-dark-nero;
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
   line-height: 16px;
-  background-color: #c5ec2a;
+  background-color: $color-pear;
   border: 2px solid transparent;
   border-radius: 80px;
   cursor: pointer;
@@ -66,20 +62,20 @@ button,
 }
 
 .btn.focus-visible:focus {
-  border: 2px solid #333333;
+  border: 2px solid $color-night-rider;
   outline: none;
 }
 
 .btn--outlined {
   background-color: transparent;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
 }
 
 .btn--outlined.focus-visible:focus {
   background-color: transparent;
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
   outline: none;
 }
 
@@ -97,23 +93,23 @@ button,
 }
 
 .btn--dark-bg.focus-visible:focus {
-  border: 2px solid #181818;
+  border: 2px solid $color-dark-nero;
   outline: none;
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
 }
 
 .btn--dark-bg.btn--outlined {
-  color: #c5ec2a;
+  color: $color-pear;
   background-color: transparent;
-  border: 1px solid #c5ec2a;
+  border: 1px solid $color-pear;
 }
 
 .btn--dark-bg.btn--outlined.focus-visible:focus {
-  color: #cfcfcf;
+  color: $color-very-light-grey;
   border: 1px solid #f2f2f2;
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
 }
 
 .btn--dark-bg.btn--outlined:disabled,
@@ -128,12 +124,10 @@ button,
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   gap: 7px;
   padding: 0 0 1px;
-  color: #333333;
+  color: $color-night-rider;
   font-size: 14px;
   font-weight: 500;
   -webkit-text-decoration: underline transparent;
@@ -166,9 +160,9 @@ button,
   border-radius: 80px;
   -webkit-text-decoration: underline transparent;
   text-decoration: underline transparent;
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 0 1px #c5ec2a;
-  box-shadow: 0 0 0 1px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 0 1px $color-pear;
+  box-shadow: 0 0 0 1px $color-pear;
   opacity: 0;
   -webkit-transition: opacity 0.3s ease;
   -o-transition: opacity 0.3s ease;
@@ -176,7 +170,7 @@ button,
 }
 
 .btn-flat--light {
-  color: #ffffff;
+  color: $color-white;
 }
 
 .btn-flat:disabled,
@@ -196,7 +190,7 @@ button,
 .btn-flat--underlined {
   text-decoration: underline;
   /* stylelint-disable-next-line */
-  -webkit-text-decoration: underline #333333;
+  -webkit-text-decoration: underline $color-night-rider;
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
   /* stylelint-disable-next-line */
@@ -223,17 +217,13 @@ button,
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include justify-content-center;
+  @include align-items-center;
   padding: 8px 21px;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  color: #333333;
+  color: $color-night-rider;
   font-size: 16px;
   font-weight: 400;
   line-height: 18px;
@@ -242,7 +232,7 @@ button,
   -ms-user-select: none;
   user-select: none;
   background-color: transparent;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
   border-radius: 30px;
   cursor: pointer;
   -webkit-transition: color 0.3s ease, background-color 0.3s ease,
@@ -258,31 +248,23 @@ button,
 }
 
 input:checked + .btn-checkbox__btn {
-  color: #c5ec2a;
-  background-color: #333333;
-  border: 1px solid #333333;
+  color: $color-pear;
+  background-color: $color-night-rider;
+  border: 1px solid $color-night-rider;
 }
 
 .btn-checkbox input.focus-visible:focus + .btn-checkbox__btn {
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
 }
 
 .btn-icon {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include vertical-centered-block;
   width: 42px;
   height: 42px;
-  color: #333333;
-  background-color: #ffffff;
+  color: $color-night-rider;
+  background-color: $color-white;
   border: 1px solid transparent;
   border-radius: 50%;
   cursor: pointer;
@@ -307,8 +289,8 @@ input:checked + .btn-checkbox__btn {
 }
 
 .btn-icon.focus-visible:focus {
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
   outline: none;
 }
 
@@ -328,8 +310,8 @@ input:checked + .btn-checkbox__btn {
 
 .btn-icon--outlined.focus-visible:focus {
   border: 1px solid rgba(242, 242, 242, 0.4);
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
   outline: none;
 }
 
@@ -347,7 +329,7 @@ input:checked + .btn-checkbox__btn {
   background: rgba(255, 255, 255, 0);
   cursor: pointer;
   outline: 0;
-  stroke: #000000;
+  stroke: $color-black;
   -webkit-transition: stroke 0.3s ease;
   -o-transition: stroke 0.3s ease;
   transition: stroke 0.3s ease;
@@ -369,16 +351,12 @@ input:checked + .btn-checkbox__btn {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include justify-content-center;
+  @include align-items-center;
   width: 26px;
   height: 26px;
   color: #f2f2f2;
-  background-color: #333333;
+  background-color: $color-night-rider;
   border-radius: 50%;
   cursor: pointer;
   -webkit-transition: color 0.3s ease;
@@ -387,7 +365,7 @@ input:checked + .btn-checkbox__btn {
 }
 
 input:checked ~ .role-btn__icon {
-  color: #c5ec2a;
+  color: $color-pear;
 }
 
 input:disabled ~ .role-btn__icon,
@@ -402,16 +380,14 @@ input:disabled ~ .role-btn__icon,
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   padding: 20px 60px;
   width: 100%;
-  color: #333333;
+  color: $color-night-rider;
   font-size: 16px;
   font-weight: 400;
   background-color: transparent;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
   border-radius: 8px;
   cursor: pointer;
   -webkit-transition: background-color 0.3s ease, border 0.3s ease,
@@ -428,8 +404,8 @@ input:disabled ~ .role-btn__icon,
 
 input:checked ~ .role-btn__btn {
   font-weight: 500;
-  background-color: #ffffff;
-  border: 1px solid #c5ec2a;
+  background-color: $color-white;
+  border: 1px solid $color-pear;
 }
 
 input:disabled ~ .role-btn__btn,
@@ -442,15 +418,13 @@ input:disabled ~ .role-btn__btn,
 
 .role-btn input.focus-visible:focus ~ .role-btn__btn {
   outline: none;
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
 }
 
 .role-selector {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -460,22 +434,15 @@ input:disabled ~ .role-btn__btn,
 }
 
 .btn-show-more {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-horizontal-positioning-forms;
+  @include align-items-center;
   padding-bottom: 4px;
   padding-left: 0;
   padding-right: 0;
   background-color: rgba(255, 255, 255, 0);
   border: none;
-  border-bottom: 2px solid #c5ec2a;
+  border-bottom: 2px solid $color-pear;
   outline: none;
   cursor: pointer;
   -webkit-transition: 0.3s ease;
@@ -488,7 +455,7 @@ input:disabled ~ .role-btn__btn,
   font-weight: 500;
   font-size: 14px;
   line-height: 14px;
-  color: #333333;
+  color: $color-night-rider;
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
   transition: 0.3s ease;
@@ -497,12 +464,12 @@ input:disabled ~ .role-btn__btn,
 .btn-show-more svg {
   width: 15px;
   height: 8px;
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .btn-show-more.focus-visible:focus {
-  -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
-  box-shadow: 0 0 2px 2px #c5ec2a;
+  -webkit-box-shadow: 0 0 2px 2px $color-pear;
+  box-shadow: 0 0 2px 2px $color-pear;
 }
 
 .is-disabled {
@@ -512,13 +479,8 @@ input:disabled ~ .role-btn__btn,
 
 .btn-radio-sort {
   cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  @include default-positioning-desktop;
+  @include default-horizontal-positioning-forms;
   list-style: none;
 }
 
@@ -532,8 +494,7 @@ input:disabled ~ .role-btn__btn,
 }
 
 .btn-radio-sort input.focus-visible:focus + span {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
+  @include shadow-pear;
 }
 
 .btn-radio-sort label {
@@ -543,7 +504,7 @@ input:disabled ~ .role-btn__btn,
   height: 40px;
   margin-right: -1px;
   text-align: center;
-  color: #333333;
+  color: $color-night-rider;
   background-color: #f7f7f7;
   border: none;
   outline: none;
@@ -566,10 +527,10 @@ input:disabled ~ .role-btn__btn,
 }
 
 .btn-radio-sort input:checked + span {
-  background-color: #333333;
-  -webkit-box-shadow: 0 -7px 0 -5px #c5ec2a inset;
-  box-shadow: 0 -7px 0 -5px #c5ec2a inset;
-  color: #c5ec2a;
+  background-color: $color-night-rider;
+  -webkit-box-shadow: 0 -7px 0 -5px $color-pear inset;
+  box-shadow: 0 -7px 0 -5px $color-pear inset;
+  color: $color-pear;
   font-weight: 500;
 }
 
@@ -594,16 +555,13 @@ input:disabled ~ .role-btn__btn,
   font-weight: 500;
   font-size: 20px;
   line-height: 20px;
-  color: #333333;
+  color: $color-night-rider;
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
 .radiobuttons-block .custom-toggle-radio {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  @include default-horizontal-positioning-forms;
 }
 
 .radiobuttons-block .custom-toggle-radio__block {
@@ -618,13 +576,8 @@ input:disabled ~ .role-btn__btn,
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-horizontal-positioning-forms;
+  @include align-items-center;
   padding: 0;
   font-weight: 400;
   font-size: 16px;
@@ -640,7 +593,7 @@ input:disabled ~ .role-btn__btn,
 }
 
 .btn-filter-sort:focus {
-  color: #333333;
+  color: $color-night-rider;
   font-weight: 500;
   opacity: 1;
 }
@@ -650,18 +603,13 @@ input:disabled ~ .role-btn__btn,
 }
 
 .btn-filter-sort.focus-visible:focus {
-  color: #333333;
+  color: $color-night-rider;
   font-weight: 500;
 }
 
 .show-more {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   row-gap: 20px;
   width: 100%;
   max-width: 256px;

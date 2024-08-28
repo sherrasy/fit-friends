@@ -4,7 +4,7 @@
   }
 
   .btn:hover:not(.focus-visible) {
-    background-color: #d5ff2d;
+    background-color: $color-light-pear;
   }
 
   .btn:active:not(.focus-visible) {
@@ -15,11 +15,11 @@
 
   .btn--outlined:hover:not(.focus-visible) {
     background-color: transparent;
-    border: 1px solid #333333;
+    border: 1px solid $color-night-rider;
   }
 
   .btn--outlined:active:not(.focus-visible) {
-    border: 1px solid #333333;
+    border: 1px solid $color-night-rider;
     background-color: #f7f7f7;
     outline: none;
   }
@@ -32,13 +32,13 @@
   }
 
   .btn--dark-bg.btn--outlined:hover:not(.focus-visible) {
-    color: #cfcfcf;
-    border: 1px solid #cfcfcf;
+    color: $color-very-light-grey;
+    border: 1px solid $color-very-light-grey;
   }
 
   .btn--dark-bg.btn--outlined:active:not(.focus-visible) {
-    color: #181818;
-    border: 1px solid #333333;
+    color: $color-dark-nero;
+    border: 1px solid $color-night-rider;
     background-color: #f7f7f7;
   }
 
@@ -75,7 +75,7 @@
   }
 
   .btn-checkbox__btn:hover:not(.focus-visible) {
-    border: 1px solid #333333;
+    border: 1px solid $color-night-rider;
   }
 
   input:checked + .btn-checkbox__btn:hover:not(.focus-visible) {
@@ -84,8 +84,8 @@
   }
 
   .btn-icon:hover:not(.focus-visible) {
-    -webkit-box-shadow: 0 3px 20px rgba(51, 51, 51, 0.1);
-    box-shadow: 0 3px 20px rgba(51, 51, 51, 0.1);
+    -webkit-box-shadow: 0 3px 20px $color-night-rider-low;
+    box-shadow: 0 3px 20px $color-night-rider-low;
   }
 
   .btn-icon:active:not(.focus-visible) {
@@ -114,7 +114,7 @@
 
   .role-btn__btn:hover:not(.focus-visible) {
     border: 1px solid #c5ec2a;
-    background-color: #ffffff;
+    background-color: $color-white;
     -webkit-box-shadow: none;
     box-shadow: none;
   }
@@ -143,21 +143,21 @@
   .custom-toggle--checkbox:hover:not(.focus-visible)
     input:checked
     + .custom-toggle__icon::before {
-    background: #333333;
+    background: $color-night-rider;
   }
 
   .custom-toggle--switch:hover:not(.focus-visible)
     input
     + .custom-toggle__icon::after {
-    background-color: #ffffff;
+    background-color: $color-white;
     border: 1px solid #aeaeae;
   }
 
   .custom-toggle--switch:hover:not(.focus-visible)
     input:checked
     + .custom-toggle__icon::after {
-    background-color: #d5ff2d;
-    border: 1px solid #d5ff2d;
+    background-color: $color-light-pear;
+    border: 1px solid $color-light-pear;
   }
 
   .custom-toggle--switch:active:not(.focus-visible)
@@ -165,14 +165,14 @@
     + .custom-toggle__icon::before {
     -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
     box-shadow: 0 0 1px 1px #c5ec2a;
-    border-color: #333333;
+    border-color: $color-night-rider;
   }
 
   .custom-toggle--switch:active:not(.focus-visible)
     input:checked
     + .custom-toggle__icon::before {
-    -webkit-box-shadow: 0 0 1px 1px #333333;
-    box-shadow: 0 0 1px 1px #333333;
+    -webkit-box-shadow: 0 0 1px 1px $color-night-rider;
+    box-shadow: 0 0 1px 1px $color-night-rider;
     border-color: #c5ec2a;
   }
 
@@ -187,7 +187,7 @@
     label:hover:not(.focus-visible)
     input:checked
     + .custom-toggle-radio__icon::before {
-    background: #333333;
+    background: $color-night-rider;
   }
 
   .custom-toggle-radio
@@ -214,8 +214,8 @@
   }
 
   .user-info-edit__control-btn:hover:not(.focus-visible) {
-    -webkit-box-shadow: 0 3px 20px rgba(51, 51, 51, 0.1);
-    box-shadow: 0 3px 20px rgba(51, 51, 51, 0.1);
+    -webkit-box-shadow: 0 3px 20px $color-night-rider-low;
+    box-shadow: 0 3px 20px $color-night-rider-low;
     cursor: pointer;
   }
 
@@ -256,7 +256,7 @@
   }
 
   .training-video__play-button:active:not(.focus-visible) {
-    background-color: #181818;
+    background-color: $color-dark-nero;
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
@@ -282,11 +282,11 @@
     box-shadow: none;
     border: 1px solid #c5ec2a;
     background-color: #c5ec2a;
-    color: #181818;
+    color: $color-dark-nero;
   }
 
   .thumbnail-link:hover:not(.focus-visible) .thumbnail-link__icon {
-    border-color: #ffffff;
+    border-color: $color-white;
   }
 
   .thumbnail-preview:hover:not(.focus-visible) {
@@ -324,16 +324,16 @@
   }
 
   .filter-price input:hover:not(.focus-visible) {
-    border: 1px solid #333333;
+    border: 1px solid $color-night-rider;
   }
 
   .filter-calories input:hover:not(.focus-visible) {
-    border: 1px solid #333333;
+    border: 1px solid $color-night-rider;
   }
 
   .filter-range__min-toggle:hover:not(.focus-visible),
   .filter-range__max-toggle:hover:not(.focus-visible) {
-    background-color: #adadad;
+    background-color: $color-dark-grey;
   }
 
   .filter-range__min-toggle:active:not(.focus-visible),
@@ -344,7 +344,7 @@
 
   .filter-raiting__min-toggle:hover:not(.focus-visible),
   .filter-raiting__max-toggle:hover:not(.focus-visible) {
-    background-color: #adadad;
+    background-color: $color-dark-grey;
   }
 
   .filter-raiting__min-toggle:active:not(.focus-visible),
@@ -354,7 +354,7 @@
   }
 
   .btn-show-more:hover:not(.focus-visible) {
-    border-color: #adadad;
+    border-color: $color-dark-grey;
   }
 
   .btn-show-more:hover:not(.focus-visible) span,
@@ -372,11 +372,11 @@
 
   .popup__rate-item input:hover:not(.focus-visible) + .popup__rate-number {
     border: 1px solid #c5ec2a;
-    background-color: #ffffff;
+    background-color: $color-white;
   }
 
   .popup__rate-item input:active:not(.focus-visible) + .popup__rate-number {
-    background-color: #333333;
+    background-color: $color-night-rider;
     color: #c5ec2a;
     border: 1px solid #c5ec2a;
     outline: none;
@@ -387,7 +387,7 @@
   .popup__rate-item
     input:checked:hover:not(.focus-visible)
     + .popup__rate-number {
-    background-color: #333333;
+    background-color: $color-night-rider;
     color: #c5ec2a;
     border: 1px solid #c5ec2a;
     outline: none;
@@ -397,8 +397,8 @@
   .input-load-avatar
     input:hover:not(.focus-visible)
     + .input-load-avatar__avatar {
-    -webkit-box-shadow: 0 3px 20px rgba(51, 51, 51, 0.1);
-    box-shadow: 0 3px 20px rgba(51, 51, 51, 0.1);
+    -webkit-box-shadow: 0 3px 20px $color-night-rider-low;
+    box-shadow: 0 3px 20px $color-night-rider-low;
     cursor: pointer;
   }
 
@@ -412,7 +412,7 @@
   }
 
   .intro__link:hover:not(.focus-visible) {
-    color: #d5ff2d;
+    color: $color-light-pear;
   }
 
   .btn-filter-sort:hover:not(.focus-visible) {
@@ -420,11 +420,11 @@
   }
 
   .drag-and-drop:hover:not(.focus-visible) .drag-and-drop__label {
-    border: 1px solid #333333;
+    border: 1px solid $color-night-rider;
   }
 
   .drag-and-drop:active:not(.focus-visible) .drag-and-drop__label {
-    border: 1px solid #333333;
+    border: 1px solid $color-night-rider;
     background-color: #f7f7f7;
   }
 }

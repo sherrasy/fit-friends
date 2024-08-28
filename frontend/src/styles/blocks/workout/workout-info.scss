@@ -5,31 +5,23 @@
   border: 1px solid #c5ec2a;
   border-bottom: 0;
   border-radius: 19px 19px 0 0;
-  background-color: #333333;
+  background-color: $color-night-rider;
 }
 
 .training-info__header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   width: 100%;
   max-width: 893px;
   margin-bottom: 30px;
 }
 
 .training-info__coach {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
 }
 
 .training-info__photo {
@@ -48,13 +40,8 @@
 }
 
 .training-info__coach-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
 }
 
 .training-info__label {
@@ -73,16 +60,12 @@
   line-height: 18px;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: $color-white;
 }
 
 .training-info__edit {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
   cursor: pointer;
 }
 
@@ -132,12 +115,11 @@
 
 .training-info__input input {
   width: 100%;
-  margin: 0;
-  padding: 0;
+  @include zeroed-margin-padding;
   border: 1px solid rgba(149, 149, 149, 0.1);
   border-radius: 8px;
   background-color: rgba(247, 247, 247, 0.02);
-  color: #ffffff;
+  color: $color-white;
   outline: 0;
   -webkit-transition: border 0.3s ease, -webkit-box-shadow 0.3s ease;
   transition: border 0.3s ease, -webkit-box-shadow 0.3s ease;
@@ -149,11 +131,11 @@
 
 .training-info__input input:hover,
 .training-info__input input:active {
-  border: 1px solid #ffffff;
+  border: 1px solid $color-white;
 }
 
 .training-info__input input:focus {
-  border: 1px solid #ffffff;
+  border: 1px solid $color-white;
   -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
   box-shadow: 0 0 2px 2px #c5ec2a;
 }
@@ -275,7 +257,7 @@
   border: 1px solid rgba(149, 149, 149, 0.1);
   border-radius: 8px;
   background-color: rgba(247, 247, 247, 0.02);
-  color: #ffffff;
+  color: $color-white;
   outline: 0;
   -webkit-transition: border 0.3s ease, -webkit-box-shadow 0.3s ease;
   transition: border 0.3s ease, -webkit-box-shadow 0.3s ease;
@@ -287,11 +269,11 @@
 
 .training-info__textarea textarea:hover,
 .training-info__textarea textarea:active {
-  border: 1px solid #ffffff;
+  border: 1px solid $color-white;
 }
 
 .training-info__textarea textarea:focus {
-  border: 1px solid #ffffff;
+  border: 1px solid $color-white;
   -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
   box-shadow: 0 0 2px 2px #c5ec2a;
 }
@@ -308,9 +290,7 @@
 }
 
 .training-info__rating-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
@@ -336,9 +316,7 @@
 }
 
 .training-info__price-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-pack: justify;
@@ -363,9 +341,7 @@
 
 .training-info__discount {
   display: none;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   margin-bottom: 18px;
   margin-left: 20px;
   cursor: pointer;

@@ -8,9 +8,9 @@ textarea {
 }
 
 input:-webkit-autofill {
-  -webkit-box-shadow: inset 0 0 0 1000px #ffffff;
-  box-shadow: inset 0 0 0 1000px #ffffff;
-  -webkit-text-fill-color: #000000;
+  -webkit-box-shadow: inset 0 0 0 1000px $color-white;
+  box-shadow: inset 0 0 0 1000px $color-white;
+  -webkit-text-fill-color: $color-black;
 }
 
 input::-webkit-input-placeholder,
@@ -91,9 +91,7 @@ input:matches(
 }
 
 .specialization-checkbox {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
@@ -120,18 +118,10 @@ input:matches(
 
 .input-load-avatar__btn {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include vertical-centered-block;
   width: 100%;
   height: 100%;
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
   border-radius: 50%;
   -webkit-transition: -webkit-box-shadow 0.3s ease;
   transition: -webkit-box-shadow 0.3s ease;
@@ -142,34 +132,30 @@ input:matches(
 
 .input-load-avatar input.focus-visible:focus + .input-load-avatar__btn,
 .input-load-avatar input.focus-visible:focus + .input-load-avatar__avatar {
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
   outline: none;
 }
 
 .drag-and-drop {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   width: 100%;
   max-width: 688px;
 }
 
 .drag-and-drop.focus-visible:focus .drag-and-drop__label {
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 2px 2px #c5ec2a;
-  box-shadow: 0 0 2px 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 2px 2px $color-pear;
+  box-shadow: 0 0 2px 2px $color-pear;
 }
 
 .drag-and-drop.is-disabled .drag-and-drop__label {
-  border: 1px solid #181818;
+  border: 1px solid $color-dark-nero;
   background-color: rgba(174, 174, 174, 0.08);
 }
 
@@ -181,7 +167,7 @@ input:matches(
   width: 20px;
   height: 20px;
   margin-left: 20px;
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .drag-and-drop input {
@@ -193,15 +179,11 @@ input:matches(
 }
 
 .drag-and-drop__label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   width: 100%;
   padding: 16px 19px;
   font-weight: 400;
@@ -209,7 +191,7 @@ input:matches(
   line-height: 16px;
   color: #aeaeae;
   cursor: pointer;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
   border-radius: 8px;
   -webkit-transition: border 0.3s ease, background-color 0.3s ease,
     -webkit-box-shadow 0.3s ease;
@@ -228,16 +210,9 @@ input:matches(
 }
 
 .sort-for {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-horizontal-positioning-forms;
+  @include align-items-center;
 }
 
 .sort-for p {

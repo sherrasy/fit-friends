@@ -8,12 +8,8 @@
 }
 
 .popular-trainings__title-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
   margin-bottom: 30px;
 }
 
@@ -34,9 +30,7 @@
 }
 
 .popular-trainings__controls {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   margin-left: auto;
 }
 
@@ -49,11 +43,8 @@
 }
 
 .popular-trainings__list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0;
-  padding: 0;
+  @include default-positioning-desktop;
+  @include zeroed-margin-padding;
   list-style: none;
 }
 

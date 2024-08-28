@@ -1,21 +1,14 @@
 .custom-input,
 .custom-textarea {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   width: 100%;
 }
 
 .custom-input label,
 .custom-textarea label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   width: 100%;
 }
 
@@ -47,7 +40,7 @@
 .custom-textarea label input:-moz-placeholder-shown,
 .custom-textarea label textarea:-moz-placeholder-shown {
   background-color: transparent;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
 }
 
 .custom-input label input:-ms-input-placeholder,
@@ -55,7 +48,7 @@
 .custom-textarea label input:-ms-input-placeholder,
 .custom-textarea label textarea:-ms-input-placeholder {
   background-color: transparent;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
 }
 
 .custom-input label input:placeholder-shown,
@@ -63,7 +56,7 @@
 .custom-textarea label input:placeholder-shown,
 .custom-textarea label textarea:placeholder-shown {
   background-color: transparent;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
 }
 
 .custom-input label input:hover,
@@ -76,7 +69,7 @@
 .custom-textarea label textarea:active {
   outline: none;
   background-color: transparent;
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -87,9 +80,9 @@
 .custom-textarea label textarea:focus {
   outline: none;
   background-color: transparent;
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
 }
 
 .custom-input label input:disabled,
@@ -100,7 +93,7 @@
 .is-disabled .custom-textarea label input,
 .custom-textarea label textarea:disabled,
 .is-disabled .custom-textarea label textarea {
-  border: 1px solid #181818;
+  border: 1px solid $color-dark-nero;
   background-color: #aeaeae;
   opacity: 0.08;
 }
@@ -117,8 +110,8 @@
 .custom-input--readonly label textarea:disabled,
 .custom-textarea--readonly label input:disabled,
 .custom-textarea--readonly label textarea:disabled {
-  color: #333333;
-  -webkit-text-fill-color: #333333;
+  color: $color-night-rider;
+  -webkit-text-fill-color: $color-night-rider;
   border: none;
   background-color: transparent;
   opacity: 1;
@@ -186,5 +179,5 @@ input:active + .custom-input__text,
 input:hover + .custom-textarea__text,
 input:focus + .custom-textarea__text,
 input:active + .custom-textarea__text {
-  color: #333333;
+  color: $color-night-rider;
 }

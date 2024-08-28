@@ -1,36 +1,20 @@
 .sign-up {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
+  @include align-items-center;
 }
 
 .sign-up__load-photo {
   -ms-flex-item-align: start;
   align-self: flex-start;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
   margin-bottom: 30px;
 }
 
 .sign-up__description {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   margin-left: 20px;
 }
 
@@ -39,9 +23,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 20px;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: #181818;
+  @include font-params;
 }
 
 .sign-up__text {
@@ -67,10 +49,7 @@
 }
 
 .sign-up__radio .custom-toggle-radio {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  @include default-horizontal-positioning-forms;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
@@ -107,9 +86,7 @@
   -ms-flex-item-align: start;
   align-self: flex-start;
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   margin-bottom: 25px;
 }
 
@@ -126,16 +103,16 @@
 }
 
 .sign-up__checkbox input:checked + .sign-up__checkbox-icon::before {
-  background-color: #333333;
+  background-color: $color-night-rider;
 }
 
 .sign-up__checkbox input:checked + .sign-up__checkbox-icon svg {
   display: block;
   position: absolute;
-  content: "";
+  content: '';
   top: 50%;
   left: 50%;
-  color: #c5ec2a;
+  color: $color-pear;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -145,13 +122,11 @@
 }
 
 .sign-up__checkbox input:focus-visible + .sign-up__checkbox-icon {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
+  @include shadow-pear;
 }
 
 .sign-up__checkbox input:active + .sign-up__checkbox-icon {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
+  @include shadow-pear;
 }
 
 .sign-up__checkbox label {
@@ -171,7 +146,7 @@
   left: 0;
   width: 24px;
   height: 24px;
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
   border-radius: 2px;
   -webkit-transition: border 0.3s ease;
   -o-transition: border 0.3s ease;
@@ -183,7 +158,7 @@
 }
 
 .sign-up__checkbox-icon::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -204,15 +179,14 @@
 }
 
 .sign-up__checkbox-icon:active {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
+  @include shadow-pear;
 }
 
 .sign-up__checkbox-label {
   font-weight: 400;
   font-size: 12px;
   line-height: 12px;
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .sign-up__checkbox-label span {

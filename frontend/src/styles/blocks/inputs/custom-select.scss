@@ -1,12 +1,7 @@
 .custom-select {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
   width: 100%;
   /* &.is-valid {
     .custom-select__button {
@@ -34,7 +29,7 @@
   position: absolute;
   bottom: 17px;
   left: 20px;
-  color: #333333;
+  color: $color-night-rider;
   pointer-events: none;
 }
 
@@ -57,12 +52,8 @@
 }
 
 .custom-select__button {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include align-items-center;
   width: 100%;
   height: 50px;
   padding: 14px 20px;
@@ -87,7 +78,7 @@
 .custom-select__button:active {
   outline: none;
   background-color: transparent;
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -95,14 +86,14 @@
 .custom-select__button:focus {
   outline: none;
   background-color: transparent;
-  border: 1px solid #333333;
-  -webkit-box-shadow: 0 0 0 2px #c5ec2a;
-  box-shadow: 0 0 0 2px #c5ec2a;
+  border: 1px solid $color-night-rider;
+  -webkit-box-shadow: 0 0 0 2px $color-pear;
+  box-shadow: 0 0 0 2px $color-pear;
 }
 
 .custom-select--not-selected .custom-select__button {
   background-color: transparent;
-  border: 1px solid #cfcfcf;
+  border: 1px solid $color-very-light-grey;
 }
 
 .custom-select__button:disabled,
@@ -123,12 +114,11 @@
   z-index: 1;
   width: 100%;
   max-height: 100px;
-  margin: 0;
-  padding: 0;
+  @include zeroed-margin-padding;
   overflow-y: auto;
   list-style: none;
-  background-color: #ffffff;
-  border: 2px solid #000000;
+  background-color: $color-white;
+  border: 2px solid $color-black;
   -webkit-transform: translateY(100%);
   -ms-transform: translateY(100%);
   transform: translateY(100%);
@@ -194,7 +184,7 @@
 }
 
 .custom-select--not-selected .custom-select__icon {
-  color: #333333;
+  color: $color-night-rider;
 }
 
 .custom-select--readonly .custom-select__icon {
@@ -297,5 +287,5 @@
 }
 
 .custom-select .input-message--valid {
-  color: #c5ec2a;
+  color: $color-pear;
 }

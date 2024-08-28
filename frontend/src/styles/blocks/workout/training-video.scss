@@ -1,21 +1,14 @@
 .training-video {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
+  @include align-items-center;
   max-width: 1042px;
   height: 100%;
   padding: 59px;
   border: 1px solid #c5ec2a;
   border-top: none;
   border-radius: 0 0 20px 20px;
-  background-color: #ffffff;
+  background-color: $color-white;
 }
 
 .training-video--stop .training-video__button--start {
@@ -31,9 +24,7 @@
 }
 
 .training-video--load .training-video__drop-files {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
 }
 
 .training-video__title {
@@ -43,9 +34,7 @@
   font-weight: 700;
   font-size: 34px;
   line-height: 34px;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: #181818;
+  @include font-params;
 }
 
 .training-video__video {
@@ -65,7 +54,7 @@
 .training-video__thumbnail img {
   width: 100%;
   height: 100%;
-  border: 1px solid #ffffff;
+  border: 1px solid $color-white;
   border-radius: 20px;
   -o-object-fit: cover;
   object-fit: cover;
@@ -73,15 +62,7 @@
 
 .training-video__play-button {
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include vertical-centered-block;
   top: 250px;
   left: 50%;
   width: 80px;
@@ -89,7 +70,7 @@
   margin: -40px;
   padding: 25px 27px 25px 35px;
   border-radius: 50%;
-  background-color: #333333;
+  background-color: $color-night-rider;
   cursor: pointer;
   outline: none;
   -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease,
@@ -114,15 +95,7 @@
 }
 
 .training-video__play-button svg {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include vertical-centered-block;
   width: 18px;
   height: 30px;
   color: #c5ec2a;
@@ -139,16 +112,9 @@
 }
 
 .training-video__buttons-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
+  @include align-items-center;
   row-gap: 20px;
   width: 100%;
   margin-top: 45px;
@@ -164,12 +130,8 @@
 
 .training-video__drop-files {
   display: none;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include justify-content-center;
+  @include align-items-center;
   width: 100%;
   height: 100%;
   padding: 234px 0 348px;
@@ -184,12 +146,8 @@
   display: grid;
   -ms-grid-columns: minmax(542px, 688px);
   grid-template-columns: minmax(542px, 688px);
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include justify-content-center;
+  @include align-items-center;
   row-gap: 20px;
   width: 100%;
 }

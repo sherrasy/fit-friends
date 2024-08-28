@@ -1,174 +1,84 @@
-.questionnaire-user {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+.questionnaire-user,
+.questionnaire-coach {
+  @include default-positioning-desktop;
+  @include default-verical-positioning-forms;
+  @include align-items-center;
   width: 100%;
-}
 
-.questionnaire-user__wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 25px;
-}
+  &__wrapper {
+    @include default-positioning-desktop;
+    @include default-verical-positioning-forms;
+    width: 100%;
+    margin-bottom: 25px;
+  }
 
-.questionnaire-user__block {
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  border-bottom: 1px dashed #cfcfcf;
-}
+  &__block {
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px dashed $color-very-light-grey;
+  }
 
-.questionnaire-user__block:last-child {
-  padding-bottom: 0;
-  margin-bottom: 0;
-  border-bottom: none;
-}
+  &__block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
 
-.questionnaire-user__legend {
-  display: block;
-  margin-right: 20px;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 20px;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: #181818;
-}
+  &__legend {
+    display: block;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    @include font-params;
+  }
 
-.questionnaire-user__specializations {
-  max-width: 540px;
-  margin-top: 25px;
-}
+  &__specializations {
+    max-width: 540px;
+    margin-top: 25px;
+  }
 
-.questionnaire-user__radio {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-column-gap: 20px;
-  -moz-column-gap: 20px;
-  column-gap: 20px;
-  margin-top: 25px;
-  padding: 0;
-}
+  &__button {
+    max-width: 256px;
+    margin-top: 20px;
+  }
 
-.questionnaire-user__radio .custom-toggle-radio__block {
-  margin-bottom: 0;
+  &__radio {
+    @include default-horizontal-positioning-forms;
+    -webkit-column-gap: 20px;
+    -moz-column-gap: 20px;
+    column-gap: 20px;
+    margin-top: 25px;
+    padding: 0;
+  }
+
+  &__radio .custom-toggle-radio__block {
+    margin-bottom: 0;
+  }
 }
 
 .questionnaire-user__calories-lose {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
   margin-bottom: 15px;
 }
 
 .questionnaire-user__calories-waste {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  @include default-positioning-desktop;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  @include align-items-center;
 }
 
 .questionnaire-user__input {
   max-width: 216px;
 }
 
-.questionnaire-user__button {
-  max-width: 256px;
-  margin-top: 20px;
-}
-
-.questionnaire-coach {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-}
-
-.questionnaire-coach__wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 25px;
-}
-
-.questionnaire-coach__block {
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  border-bottom: 1px dashed #cfcfcf;
-}
-
-.questionnaire-coach__block:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.questionnaire-coach__legend {
-  display: block;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 20px;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: #181818;
-}
-
-.questionnaire-coach__specializations {
-  max-width: 540px;
-  margin-top: 25px;
-}
-
-.questionnaire-coach__radio {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-column-gap: 20px;
-  -moz-column-gap: 20px;
-  column-gap: 20px;
-  margin-top: 25px;
-  padding: 0;
-}
-
-.questionnaire-coach__radio .custom-toggle-radio__block {
-  margin-bottom: 0;
+.questionnaire-user__legend {
+  margin-right: 20px;
 }
 
 .questionnaire-coach__drag-and-drop {
@@ -184,75 +94,62 @@
   -ms-flex-item-align: start;
   align-self: flex-start;
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
+  @include default-positioning-desktop;
 
-.questionnaire-coach__checkbox input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  clip: rect(0 0 0 0);
-}
+  & input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    clip: rect(0 0 0 0);
+  }
 
-.questionnaire-coach__checkbox
-  input:checked
-  ~ .questionnaire-coach__checkbox-label {
-  font-weight: 500;
-}
+  & label {
+    position: relative;
+    padding: 2px 0 3px 32px;
+    cursor: pointer;
 
-.questionnaire-coach__checkbox
-  input:checked
-  + .questionnaire-coach__checkbox-icon::before {
-  background-color: #333333;
-  width: 24px;
-  height: 24px;
-  border-radius: 2px;
-}
+    & span {
+      margin-bottom: 0;
+      margin-left: 0;
+    }
+  }
 
-.questionnaire-coach__checkbox
-  input:checked
-  + .questionnaire-coach__checkbox-icon
-  svg {
-  display: block;
-  position: absolute;
-  content: '';
-  top: 50%;
-  left: 50%;
-  color: #c5ec2a;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-transition: background-color 0.3s ease;
-  -o-transition: background-color 0.3s ease;
-  transition: background-color 0.3s ease;
-}
+  & input:checked {
+    & ~ .questionnaire-coach__checkbox-label {
+      font-weight: 500;
+    }
 
-.questionnaire-coach__checkbox
-  input:focus-visible
-  + .questionnaire-coach__checkbox-icon {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
-}
+    & + .questionnaire-coach__checkbox-icon::before {
+      background-color: $color-night-rider;
+      width: 24px;
+      height: 24px;
+      border-radius: 2px;
+    }
 
-.questionnaire-coach__checkbox
-  input:active
-  + .questionnaire-coach__checkbox-icon {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
-}
+    & + .questionnaire-coach__checkbox-icon svg {
+      display: block;
+      position: absolute;
+      content: '';
+      top: 50%;
+      left: 50%;
+      color: $color-pear;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      -webkit-transition: background-color 0.3s ease;
+      -o-transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease;
+    }
+  }
 
-.questionnaire-coach__checkbox label {
-  position: relative;
-  padding: 2px 0 3px 32px;
-  cursor: pointer;
-}
+  & input:focus-visible + .questionnaire-coach__checkbox-icon {
+    @include shadow-pear;
+  }
 
-.questionnaire-coach__checkbox label span {
-  margin-bottom: 0;
-  margin-left: 0;
+  & input:active + .questionnaire-coach__checkbox-icon {
+    @include shadow-pear;
+  }
 }
 
 .questionnaire-coach__checkbox-icon {
@@ -261,55 +158,49 @@
   left: 0;
   width: 24px;
   height: 24px;
-  border: 1px solid #333333;
+  border: 1px solid $color-night-rider;
   border-radius: 2px;
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
   transition: 0.3s ease;
-}
 
-.questionnaire-coach__checkbox-icon svg {
-  display: none;
-}
+  & svg {
+    display: none;
+  }
 
-.questionnaire-coach__checkbox-icon::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 24px;
-  height: 24px;
-  background-color: rgba(255, 255, 255, 0);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-transition: 0.3s ease;
-  -o-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 255, 255, 0);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    transition: 0.3s ease;
+  }
 
-.questionnaire-coach__checkbox-icon:hover {
-  background-color: #f2f2f2;
-}
+  &:active {
+    @include shadow-pear;
+  }
 
-.questionnaire-coach__checkbox-icon:active {
-  -webkit-box-shadow: 0 0 1px 1px #c5ec2a;
-  box-shadow: 0 0 1px 1px #c5ec2a;
-}
+  &:hover {
+    background-color: $color-light-grey;
+  }
 
-.questionnaire-coach__checkbox-label {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 16px;
-  color: #333333;
-}
+  & .questionnaire-coach__checkbox-label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: $color-night-rider;
+  }
 
-.questionnaire-coach__checkbox-label span {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.questionnaire-coach__button {
-  max-width: 256px;
-  margin-top: 20px;
+  & span {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 }
